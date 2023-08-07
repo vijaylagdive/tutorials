@@ -1,0 +1,22 @@
+Q5. What are inline elements and block level elements in HTML? 
+Ans:
+inline: 
+- Inline elements do not start at new line. They takes only requred width.
+
+- for example 
+<span>Hello</span><span>vijay</span>
+Hello and vijay will be in a same line.
+
+- inline elements can not have height and width.
+
+block
+Block element starts at a new line and occupies all the available width..
+for example
+<span>Hello</span><p>Vijay</p>
+Vijay will be at new line.
+
+
+inline-block:
+Similar to inline elements but..
+Displays an element as an inline-level block container. You can set height and width values.
+----------------------------------------------------------------------------------------

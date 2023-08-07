@@ -1,0 +1,1 @@
+Debouncing is a technique used in JavaScript to control the frequency of a function's execution when it is triggered repeatedly within a short period. It's especially useful in scenarios like handling user input events (e.g., resize, scroll, typing) where the event fires rapidly and may lead to excessive function calls.

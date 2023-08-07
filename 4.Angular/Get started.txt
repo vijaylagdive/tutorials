@@ -1,0 +1,6 @@
+installtion
+after node installation in node command prompt
+npm install -g @angular/cli 
+
+check version
+ng version

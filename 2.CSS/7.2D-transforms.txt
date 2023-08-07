@@ -1,0 +1,23 @@
+
+Q7 CSS 2D Transforms?
+CSS transforms allow you to move, rotate, scale, and skew elements.
+
+With the CSS transform property you can use the following 2D transformation methods:
+
+translate()
+rotate()
+scaleX()
+scaleY()
+scale()
+skewX()
+skewY()
+skew()
+matrix()
+
+e.g. translate()
+The translate() method moves an element from its current position (according to the parameters given for the X-axis and the Y-axis).
+The following example moves the <div> element 50 pixels to the right, and 100 pixels down from its current position:
+div {
+  transform: translate(50px, 100px);
+}
+------------------------------------------------------------------------------------------------------------------------------

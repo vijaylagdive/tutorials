@@ -1,0 +1,75 @@
+Web Workers
+
+Web worker is simply a JS process that runs in the background of a webpage.
+
+JS by default is a single threaded. It runs on main thread.
+
+Some time some expensive calculation blocks the main thread and the UI.
+
+To avoid this we can use web workers and pass on that expensive task to the worker thread.
+
+Disadvantage of worker thread:
+Web worker cannot perform any DOM manupulation.
+
+example:
+index.html
+<body>
+    <button id="sumButton">Cal Sum</button>
+    <button id="bgButton">Change BG</button>
+    <script src="script.js"></script>
+</body>
+-------------------------------------------------
+script.js
+Before:
+const sumButton = document.querySelector("sumButton");
+const bgButton = document.querySelector("bgButton");
+
+sumButton.addEventListener("click",(event) => {
+    let sum = 0;
+    for (let i=0; i<1000000000; i++) { //This will block the UI and the other button will not perform anything while this calculaion is going on.
+        sum += i;        
+    }
+    alert(`The final sum is ${sum}`);
+});
+
+bgButton.addEventListener("click",(event) => { // This will not work until the above operation is completed.
+    if (document.body.style.background !== "green") {
+        document.body.style.background = "green";
+    } else {
+        document.body.style.background = "red";
+    }
+});
+
+After:
+const worker = new Worker('worker.js');
+const sumButton = document.querySelector("sumButton");
+const bgButton = document.querySelector("bgButton");
+
+sumButton.addEventListener("click",(event) => {
+    worker.postMessage('Hello Worker'); //Will call that worker by this method.
+});
+
+worker.onmessage = function(message) { //After completion of the task this will receive data from the worker thread.
+    console.log(message); //Till the worker thread receives data we can perform other functionality.
+};
+
+bgButton.addEventListener("click",(event) => { //This will work event when the bg process is running.
+    if (document.body.style.background !== "green") {
+        document.body.style.background = "green";
+    } else {
+        document.body.style.background = "red";
+    }
+});
+
+-------------------------------------------------
+worker.js
+onmessage = function(message) {
+    let sum = 0;
+    for (let i=0; i<100; i++) {
+        sum += i;        
+    }
+    this.postMessage(sum);
+}
+-------------------------------------------------
+
+

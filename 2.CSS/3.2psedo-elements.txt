@@ -1,0 +1,84 @@
+pseudo-element
+- A CSS pseudo element is used to style a specific part of an element.
+e.g. p::first-letter, h1::before after etc
+
+syntax:
+selector::pseudo-element {
+  property: value;
+}
+
+For example 
+It can be used to style the first letter or class of the p element.
+Insert content before or after the content of an element.
+e.g.
+p::first-letter {
+  color: #ff0000;
+  font-size: xx-large;
+}
+
+
+h1::before {
+  content: url(smiley.gif);
+}
+
+e.g.
+The ::first-line Pseudo-element
+The ::first-line pseudo-element is used to add a special style to the first line of a text.
+------------------------------------------------------------------------------------------
+3.
+Pseudo-elements can be combined with HTML classes: 
+p.intro::first-letter {
+  color: #ff0000;
+  font-size: 200%;
+}
+
+4.
+Multiple Pseudo-elements
+p::first-letter {
+  color: #ff0000;
+  font-size: xx-large;
+}
+
+p::first-line {
+  color: #0000ff;
+  font-variant: small-caps;
+}
+
+5.
+The ::before Pseudo-element
+The ::before pseudo-element can be used to insert some content before the content of an element.
+
+syntax
+h1::before {
+  content: url(smiley.gif);
+}
+
+6.
+The ::after Pseudo-element
+::after pseudo-element can be used to insert some content after the content of an element.
+
+h1::after {
+  content: url(smiley.gif);
+}
+
+
+7.
+The ::marker Pseudo-element 
+The ::marker pseudo-element selects the markers of list items.
+
+
+8.
+The ::selection Pseudo-element
+The ::selection pseudo-element matches the portion of an element that is selected by a user.
+
+The following CSS properties can be applied to ::selection: color, background, cursor, and outline.
+
+The following example makes the selected text red on a yellow background:
+
+::selection {
+  color: red;
+  background: yellow;
+}
+
+---------------------------------------------------------------------------------------------------
+

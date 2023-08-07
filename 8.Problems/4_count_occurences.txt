@@ -1,0 +1,12 @@
+    let arr = [22,22,22,22,44,55,66,44,33,66,11,11,55]
+
+    let occ = {};
+
+    arr.map((el) => {
+        if (occ[el]) {
+            occ[el] += 1
+        } else {
+            occ[el] = 1
+        }
+    })
+    console.log(occ);

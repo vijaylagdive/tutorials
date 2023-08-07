@@ -1,0 +1,114 @@
+Q1. What is the difference between null and undefined?
+Ans:
+Null: It is intentional absence of value.
+Undefined: It means value does not exists on compiler.
+---------------------------------------------------------------------------------------------------
+Q2. What is event bubbling and event capturing?
+Ans:
+Event bubbling:
+JS allows DOM elements to be nested inside each other.
+In such cases if the handler of the child is clicked the handler of the parent will also invoked as if it were clicked too.
+In event bubbling event bubbles up from innermost element to outermost element in DOM hierarchy.
+
+Event capturing:
+In event bubbling event bubbles up from innermost element to outermost element in DOM hierarchy. 
+With event capturing the opposite happens the event get captured from outermost element to innermost element.
+
+If you want to stop bubbling or capturing:
+function clickHandler(event){
+	event.stopPropogation();
+}
+---------------------------------------------------------------------------------------------------
+Q3. Difference between '==' and '==='?
+Ans:
+1.
+'==' checks value at both side while '===' checks both value and type.
+e.g. var a='abc' var b = new String('abc') then a==b is true but a===b is false.
+
+2. Type
+Null: object
+Undefined: undefined
+
+3.
+null == undefined => true
+null === undefined => identical
+
+4.
+When we define variable to undefined then we are trying to convey that the variable does not exists.
+When we define variable to null then we are trying to convey that variable is empty.
+---------------------------------------------------------------------------------------------------
+Q4. What is strict mode?
+Ans:
+Strict mode makes it easier to write "secure" JavaScript.
+Strict mode execution is done using 'use strict' keyword at top of scope - local or global.
+
+e.g.
+"use strict";
+myFunction();
+function myFunction() {
+ "use strict";
+  y = 3.14;   // This will also cause an error because y is not declared
+}
+
+"use strict";
+let x = 3.14;
+delete x;                // This will cause an error
+
+function x(p1, p2) {};
+delete x;                // This will cause an error
+
+function x(p1, p1) {};   // This will cause an error
+
+Octal numeric literals are not allowed:
+let x = 010;             // This will cause an error
+delete Object.prototype; // This will cause an error
+let eval = 3.14;         // This will cause an error
+let arguments = 3.14;    // This will cause an error
+---------------------------------------------------------------------------------------------------
+Q5. stopPropagation() stopImmediatePropagation() preventDefault()?
+Ans:
+stopPropagation()
+Prevent further propogation of the bubbling and capturing phase.
+function div3(e) {
+	e.stopPropogation();
+}
+
+------------------------
+stopImmediatePropagation() 
+prevent other listeners and of same event from executed.
+e.g.
+var x = doc.getElementById("myBtn");
+x.addEventListener('click', functionOne);
+x.addEventListener('click', functionTwo);
+
+function functionOne(e) {
+   console.log('Hello');	
+   e.stopImmidietePropoation();
+}
+
+function functionTwo(e) {
+  console.log('Hello Vijay'); 	
+}
+------------------------
+preventDefault()
+The preventDefault() method cancels the event if it is cancellable meaning that the default action that belongs to the event will not occur.
+function stopLink(e) {
+	e.preventDefault();
+}
+
+e.g. hyperlinks default action is to open new tab. We can cancel its default action.
+---------------------------------------------------------------------------------------------------
+Q6. Data types in JS?
+Ans:
+Boolean
+Null type
+Undefined
+Number type
+BigInt type
+String type
+Symbol type
+---------------------------------------------------------------------------------------------------
+Q7. Debouncing in js? 
+
+
+---------------------------------------------------------------------------------------------------

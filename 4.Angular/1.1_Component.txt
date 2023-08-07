@@ -1,0 +1,76 @@
+Q1. What is angular component.
+1)A component controls one or more views. Each view is some specific section of the screen.
+2)Every angular application has at least one component that connects a component hierarchy with the page DOM.
+3)Each component defines a class that contains application logic and is associated with an HTML template that
+ defines views to be displayed in target environment.
+4)The @component decorator identifies the class defined immidietly below it as a component, and provides the template and 
+ related component-specific meta-data.
+*********************************************************************************************************
+Q2. Structure of component?
+Component is created by command "ng g c login"
+
+Example
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+
+export class AppComponent {
+  title = 'autumn';
+  constructor(private sharingService: SharingserviceService){}
+}
+
+---------------------------------------------------------------------------------------------------------
+Q3. Data binding:
+Data biniding means communication between your Typescript(business logic) and HTML template.
+
+Below 4 types of data binding in angular:
+a. String Interpolation
+b. Property Binding,
+c. Event Binding,
+d. Two Way Data Binding.
+
+a. String Interpolation:  
+Interpolation allows you to incorporate calculated strings into the text between HTML element tags and within attribute assignments.
+e.g. {{title}},  {{2+3}} will show 5
+
+b. Property Binding(Component to DOM)
+In Angular, property binding is a way to bind a component property to an element property or attribute in the template. It allows you to set the value of an element property dynamically based on the value of a component property.
+The syntax for property binding in Angular uses square brackets ([]) within the element's
+
+public allowServer : boolean = true;
+
+<button [disabled]="!allowServer">
+  Click Me
+</button>
+
+<p [innerText="allowServer"]></p>
+
+c) Event Binding(DOM to component) – Enables the application to respond to user input in the target environment 
+e.g. <button (click) = getData()>Click Me!</button`>
+
+d) Two-way Binding(Both way) – Changes made in the application state gets gautomatically reflected in the view and vice-versa. 
+The ngModel directive is used for achieving this type of data binding.
+<input [(ngModel)]="userName"/>
+--------------------------------------------------------------------------------------------------
+Note: 
+When you want to output something in your template, print some text to it, use string interpolation.
+If you want to change some property, be that of HTML element or directive or component use property binding.
+--------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------
+Q5 Explain the Annotation and a Decorator in Angular?
+Ans: 
+In Angular, annotations refer to a set of decorators used to provide metadata to classes and their members (such as properties and methods). 
+Decorators are a design pattern introduced in ECMAScript 2016 (ES7) and are widely used in Angular for various purposes.
+
+There are four kind of decorators they are:
+a) Property decorator: @Input @Output
+b) Method decorator: @HostListener
+c) Class decorator: @Component @NgModule @Directive @Pipe
+d) Parameter decorator: @Inject
+
+********************************************************************************************************

@@ -1,0 +1,63 @@
+P1. Ways to arrange divs side by side.
+Ans:
+Here are 3 ways you can use CSS to place HTML div elements side by side.
+
+Float method
+CSS grid method
+Flexbox method
+
+1) Float method
+
+.leftbox {
+  float: left;
+  background: Red;
+}
+
+.middlebox {
+  float: left;
+  background: Green;
+}
+
+<body>
+    <div class="leftbox">
+        <h2>Learn:</h2>
+    </div>
+    <div class="middlebox">
+        <h2>GeeksforGeeks:</h2>
+    </div>
+</body>
+
+-------------------------------------------------
+
+2) CSS grid method
+
+.grid-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-gap: 20px;
+ }
+
+<div class="grid-container">
+  <div class="grid-child purple">
+	  Grid Column 1
+</div>    
+<div class="grid-child green">
+            Grid Column 2
+        </div>      
+    </div>
+-------------------------------------------------
+3) flexbox
+.container {
+            display: flex;
+        }
+
+
+    <div class="container">
+        <div>
+            Grid Column 1
+        </div>    
+        <div>
+            Grid Column 2
+        </div>    
+    </div>
+---------------------------------------------------------------------------------------------------

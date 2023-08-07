@@ -1,0 +1,46 @@
+ng-template, ng-container, ng-content
+Ans:
+ng-template
+Like the name indicates, the ng-template directive represents an Angular template: 
+It contains part of a template, that can be then be composed together with other templates in order to form the final component template.
+Generally we use it for conditional rendering like [ngIfElse] etc.
+
+<ng-template [ngIf]="lessons" [ngIfElse]="loading">
+   <div class="lessons-list">
+     ... 
+   </div>
+</ng-template>
+
+<ng-template #loading>
+    <div>Loading...</div>
+</ng-template>
+
+
+ng-container
+In one div we can not add more than one structural directives.
+- So that we have to create one extra div and with that we have to add another structural directives.
+- If the logic is complex we have to add multiple unnecessary divs.
+- To avoid that we can use ng container.
+e.g.
+<ng-container *ngIf="lessons">
+    <div class="lesson" *ngFor="let lesson of lessons">
+        <div class="lesson-detail">
+            {{lesson | json}}
+        </div>
+    </div>
+</ng-container>
+
+
+ng-content
+It is used as placeholder in child component for content provided from parent component.
+
+In parent component:
+<app-child-comp>
+  <div>
+    Name: Vijay
+  </div>
+</app-child-comp>
+
+In child component
+<ng-content>
+</ng-content>

@@ -1,0 +1,80 @@
+Q. What are the dynamic components?
+Components that are created dynamically at runtime.
+
+Aprroaches for creating
+1. *ngIf
+2. Dynamic component loader
+
+
+Implementation
+
+1.
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import { DynamicComponent } from './dynamic.component';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  @ViewChild('dynamic', { read: ViewContainerRef })
+  private viewRef: ViewContainerRef;
+
+  showDynamicComponent(): void {
+    this.viewRef.clear();
+    this.viewRef.createComponent(DynamicComponent);
+  }
+
+  removeDynamicComponent(): void {
+    this.viewRef.clear();
+  }
+}
+---------------
+2.
+<div class="buttons-container">
+  <button class="show-btn" (click)="showDynamicComponent()">Show component</button>
+  <button class="remove-btn" (click)="removeDynamicComponent()">
+    Remove component
+  </button>
+</div>
+<ng-template #dynamic></ng-template>
+---------------
+3.
+.buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.show-btn,
+.remove-btn {
+  font-size: 14px;
+  margin: 20px;
+}
+------------------------
+4.
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dynamic',
+  template: `
+   <div><img src='https://images.pexels.com/photos/7294069/pexels-photo-7294069.jpeg?auto=compress&cs=tinysrgb&h=750&w=350' alt='image'></div>
+  `,
+  styles: [
+    `
+  :host {
+    text-align: center;
+  }
+`,
+  ],
+})
+export class DynamicComponent {
+}
+
+
+
+
+
+
+
+

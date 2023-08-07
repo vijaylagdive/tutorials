@@ -1,0 +1,80 @@
+1. Object
+Q1. What is JS object? and how to create it?
+Q2. How to access and delete property in JS object?
+Q3. Which are Object's important methods? assign(),create(),freeze(),seal(),isFrozen(), isSealed()
+Q3a. Which are Object's important methods? keys(), getOwnPropertyNames(), hasOwnPropertyNames(), values()
+Q3b. Creating read only property for any object?
+Q4. What is prototype?
+Q5. Prototype inheritance?
+Q6. Class based inheritance in JS?
+Q7. How to clone object? 
+-------------------------------------------------
+2. Array
+Q1. What is array in JS?
+Q2. How to recognize array in JS?
+Q3. Array methods map(), filter(), find(), some(), every(), reduce();
+Q4. Array methods slice(), splice(), push(), pop(), shift(), unshift()
+Q5. toString(), join(), concat(arr), sort(),reverse();
+Q6. Array methods Math.max(), and Math.min(), indexOf(), findIndex()
+-------------------------------------------------
+3. String 
+Q1. What is String in JS?
+Q2. Which are string method? 1.slice(), 2.substring(), 3.substr().
+Q3. Which are string method? 1.replace(), 2.indexOf(), 3.lastIndexOf(), 4.search(), 5.match(), 6.include() 7.startsWith() 8.endsWith()
+-------------------------------------------------
+4. Function and scope
+Q1. let var const?
+Q2. what is closure?
+Q3. this in JS?
+Q4. Hoisting in JS?
+Q5. IIFE?
+Q6. What is callback function?
+Q7. What is Higher Order Fucntion? HOF?
+Q8. What is Pure function?
+Q9. Function declaration vs function expression?
+Q10. What is call stack?
+Q11. Method currying?
+Q12. Uses of method currying?
+Q13. what is method chaining?
+Q14. What is Arrow functions? Regular function vs Arrow function?
+Q15. what is call(), apply(), bind()?
+Q15a. When to use call apply bind?
+Q16. What is recursive function?
+Q17. What is event Eventloop?
+-------------------------------------------------
+5. Async and Promise
+Q0. What is asynchronous js?
+Q1. What is promise?
+Q2. Promises states?
+Q3. Promise Consumers.
+Q4. What is async await?
+Q5. Explain promise method.
+-------------------------------------------------
+6. ES6
+Q1. What is ES6(ECMAScript 2015) and its new features?
+Q2. What is arrow function?
+Q3. Default parameter in JS function?
+Q4. Template literal in JS?
+Q5. Spread operator? Where we can use spread operator?
+-------------------------------------------------
+7. Storage
+Q1. What is HTML5 web storage?
+Q2. What is local storage?
+Q3. What is session storage?
+Q4 What is difference between Local and session storage?
+Q5 What are the cookies?
+-------------------------------------------------
+8. Other
+Q1. What is the difference between null and undefined?
+Q2. What is event bubbling and event capturing?
+Q3. Difference between '==' and '==='?
+Q4. What is strict mode?
+Q5. stopPropagation() stopImmediatePropagation() preventDefault()?
+Q6. Data types in JS?
+Q7 Debouncing in js? 
+-------------------------------------------------
+Problems
+P1. Finidng min max of array?
+P2. Sorting array of objects?
+P3. 
+--------------------------------------------------------------------------------------------------

@@ -1,0 +1,109 @@
+CSS positions.
+
+The position property specifies the type of positioning method used for an element (static, relative, fixed, absolute or sticky).
+There are five different position values:
+
+static
+relative
+fixed
+absolute
+sticky
+
+Elements are then positioned using the top, bottom, left, and right properties.
+However, these properties will not work unless the position property is set first. 
+
+----------------------------------------------------------------------------------------------------
+position: static;
+HTML elements are positioned static by default.
+Static positioned elements are not affected by the top, bottom, left, and right properties.
+An element with position: static; is not positioned in any special way; it is always positioned according to the normal flow of the page:
+
+e.g.
+div.static {
+  position: static;
+  border: 3px solid #73AD21;
+}
+
+----------------------------------------------------------------------------------------------------
+position: relative;
+An element with position: relative; is positioned relative to its normal position.
+
+Setting the top, right, bottom, and left properties of a relatively-positioned element will cause it to be adjusted 
+away from its normal position. 
+Other content will not be adjusted to fit into any gap left by the element.
+
+e.g. 
+div.relative {
+  position: relative;
+  left: 30px;
+  border: 3px solid #73AD21;
+}
+
+----------------------------------------------------------------------------------------------------
+position: absolute;
+
+This type of positioning allows you to place your element precisely where you want it.
+The positioning is done relative to the first relatively (or absolutely) positioned parent element. 
+In the case when there is no positioned parent element, it will be positioned related directly to the HTML element (the page itself).
+An element with position: absolute; is positioned relative to the nearest positioned parent (instead of positioned relative to the viewport, like fixed).
+
+Absolute positioning is done relative to the first relatively (or absolutely) positioned parent element. In the case when there is no positioned parent element, the element that has position set to absolute will be positioned related directly to the HTML element (the page itself).
+
+In the example, the parent element has the position set to relative. Now, when you set the position of the child element to absolute, any additional positioning will be done relative to the parent element. The child element moves relatively to the top of the parent element by 100px and right of the parent element by 40px.
+
+e.g.
+div.relative {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  border: 3px solid #73AD21;
+}
+
+div.absolute {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 200px;
+  height: 100px;
+  border: 3px solid #73AD21;
+}
+
+
+<div class="relative">This div element has position: relative;
+  <div class="absolute">This div element has position: absolute;</div>
+</div>
+
+Relative vs Absolute position: 
+Relative places an element relative to its current position without changing the layout around it. 
+absolute places an element relative to its parent’s position and changing the layout around it.
+----------------------------------------------------------------------------------------------------
+
+position: fixed;
+By this position an element is fixed to some position within its scrolling container or the viewport.
+No matter how you scroll its container, it will remain in the exact same position and not affect the flow of other elements within the container.
+
+Example
+div.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  border: 3px solid #73AD21;
+}
+----------------------------------------------------------------------------------------------------
+
+position: sticky;
+Basically acts like relative position until an element is scrolled beyond a specific offset.
+After that it turns into fixed position causing the element to "stick" to its position instead of being scrolled out of view. 
+When the view is scrolled back it gets unstuck as it gets scrolled back toward its original position. 
+A sticky element toggles between relative and fixed, depending on the scroll position. 
+It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place like fixed position.
+
+div.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: green;
+  border: 2px solid #4CAF50;
+}
+------------------------------------------------------------------------------------------------------------------------------

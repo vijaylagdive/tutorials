@@ -1,0 +1,197 @@
+Q11. What are different types of route guards?
+Types of routes in angular
+
+1) canActivate
+This route guard is used to prevent access to the specific route.
+
+Implementation:
+{ path: 'p/:id', component: HomeComponent, canActivate : [AuthGuard] }
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+    
+    constructor(private authService : AuthService, private router : Router){}
+    
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) :Observable<boolean> | Promise<boolean> | boolean{
+        return this.authService.isAuthenticated()
+        .then((authenticated : boolean) => {
+            if (authenticated) {
+                return true;
+            } else {
+                this.router.navigate(['/']);
+            }
+        });
+    }
+    
+}
+---------------------------------------------------------------------------------------------------
+2) canActivateChild
+CanActivateChild is almost similar to CanActivate interface.
+
+The only difference is CanActivateChild is used to control the accessibility of the current route as well as the 
+child routes of a given route.
+
+So by using this you don’t need to add canActive on each child route.
+In other words, you just need to add canActiveChild to parent route and it will work for child routes as well.
+
+ 
+{ path: 'greetings', canActivateChild: [AuthGuard], children: [
+    { path: '', component: HelloComponent },
+    { path: 'hola', component: HolaComponent } 
+  ]}
+
+---------------------------------------------------------------------------------------------------
+3) canDeactivate
+This route guard is used to prevent the user from navigating away from a specific route.
+This guard can be useful when you want to prevent a user from accidentally navigating away without saving or some other undone tasks.
+
+Its implemenation involves defining a method in the component class itself, which gets called whenever the user tries to navigate away from the route.
+
+@Injectable({
+  providedIn: 'root'
+})
+export class YourGuardGuard implements CanDeactivate<ReactFormComponent> {
+
+  canDeactivate(component: ReactFormComponent) {
+    let can = component.canDeactivate();
+    console.log('DeactivateGuard#canDeactivate called, can: ', can);
+    if (!can) {
+      alert('Deactivation blocked');
+      return false;
+    }
+    return true;
+  }
+}
+
+
+In ReactForm component
+  private checked:boolean;
+
+  canDeactivate():boolean {
+    return this.checked;
+  }
+
+  onSubmit(): void {
+    console.log(this.signupForm);
+    this.checked = true;
+    this.signupForm.reset();
+  }
+
+{ path: 'react', canActivate : [AuthGuard] , canDeactivate : [YourGuardGuard],component: ReactFormComponent }
+---------------------------------------------------------------------------------------------------
+4. CanLoad  
+Modules in angular can be loaded all at once or be lazy loaded. By default angular load all modules eagerly. 
+To implement lazy loading we use loadChildren in route definition. 
+The main advantage of lazy loading is that it reduces the loading time of application by downloading only the required modules.
+
+Now here if we want to prevent navigation of an unauthorized user we can use CanActivate Guard, 
+that will do the job but also download the module. 
+
+Now to control the navigation as well as prevent downloading of that module we can use CanLoad Guard.
+
+  {
+    path: '',
+    component: DashboardLayoutComponent,
+    children: [
+      {
+        path: 'address',
+        loadChildren: 'app/address/address.module#AddressModule'
+      },
+      {
+        path: 'admin',
+        loadChildren: 'app/admin/admin.module#AdminModule',
+        canLoad: [ AuthGuardService ]
+      },
+      {
+        path: 'welcome',
+        component: WelcomeComponent 
+      },	      	      
+      {
+        path: '**',
+        component: PageNotFoundComponent 
+      }	
+    ]
+  }
+
+
+@Injectable()
+export class AuthGuardService implements CanLoad, CanActivate {
+  constructor(private authService: AuthService, private router: Router) {
+  }
+  canLoad(route: Route): boolean {
+    let url: string = route.path;
+    console.log('Url:' + url);
+    if (this.authService.isUserLoggedIn()) {
+      return true;
+    }
+    this.authService.setRedirectUrl(url);
+    this.router.navigate([this.authService.getLoginUrl()]);
+    return false;
+  }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    let url: string = state.url;
+    console.log('Url:' + url);
+    if (this.authService.isUserLoggedIn()) {
+      return true;
+    }
+    this.authService.setRedirectUrl(url);
+    this.router.navigate([this.authService.getLoginUrl()]);
+    return false;
+  }
+}
+
+
+url: https://stackblitz.com/edit/ang-canload-auth?file=src%2Fapp%2Fapp.component.ts
+---------------------------------------------------------------------------------------------------
+5. Resolve Guard
+Complex angular applications involve data communication between components.
+Sometimes data is so heavy that it is not possible to pass data through query params. 
+To handle this situation angular has provided Resolve Guard.
+
+Implementation:
+
+  {
+    path: "resolver",
+    component: WithResolverComponent,
+    outlet: "with",
+    resolve: { users: UserResolver }
+  }
+
+
+@Injectable()
+export class UserResolver implements Resolve<Observable<any>> {
+  constructor(private userService: GithubUserService) {}
+
+  resolve(): Observable<any> {
+    return this.userService.getUsers();
+  }
+}
+
+@Injectable()
+export class GithubUserService {
+  private url = 'https://api.github.com/users';
+
+  constructor(private http: HttpClient) {}
+
+  getUsers(): Observable<any> {
+    return this.http.get(this.url).pipe(delay(2000));
+  }
+}
+
+
+export class WithResolverComponent implements OnInit {
+  public users: any[] = [];
+  public pokemon: any[] = [];
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    debugger;
+    this.users = this.route.snapshot.data.users;
+    this.pokemon = this.route.snapshot.data.pokemon;
+  }
+}
+
+---------------------------------------------------------------------------------------------------
+
+

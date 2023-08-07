@@ -1,0 +1,40 @@
+Q11. Method currying
+Ans:
+- It is a technique in functional programming in which transformation of the function of multiple 
+arguments into several functions of a single argument in sequence.
+- The translation of function happens something like this,
+
+Method currying means a function instead of taking all arguments at once, 
+takes first one and return a new function, 
+which takes second one and return a function,
+which again takes third one and so on until all arguments are completed.
+
+Example:
+
+function add(a, b, c) {
+  return a + b + c;
+}
+
+// Currying function for add
+function curryAdd(a) {
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    };
+  };
+}
+
+// Using the curried function
+const curriedAdd = curryAdd(1);
+const result = curriedAdd(2)(3); // Equivalent to add(1, 2, 3)
+console.log(result); // Output: 6
+
+
+------------------------------------------------------------------------------------------------------------
+
+Uses of currying 
+
+
+
+
+

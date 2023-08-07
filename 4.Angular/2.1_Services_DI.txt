@@ -1,0 +1,89 @@
+Q1. What is Services in angular?
+
+A Service in angular generally used when you need to reuse data or logic across multiple component or modules in an application.
+Without service you have to repeat your code in each component.
+
+e.g.
+import { Injectable } from '@angular/core';
+import { Observable, Subject} from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'//specifies that Angular should provide the service in the root injector.
+})
+
+export class SharingserviceService {
+  constructor() { }  
+
+   fetchAll(){
+    return this.http.get('https://api.github.com/repositories');
+  }
+
+}
+
+
+---------------------------------------------------------------------------------------------------
+
+Q2. What is DI in angular?
+Dependency injection (DI), is an important application design pattern. 
+In This a class asks for dependencies from external sources rather than creating them itself. 
+Angular comes with its own dependency injection framework for resolving dependencies( services or objects that a class needs to perform its function).
+So you can have your services depend on other services throughout your application.
+
+- For example in a component we do not create any instance of the service. 
+
+- Whenever the component is created and angular sees that this component needs instance of service it creates one and provide to the component.
+
+- That means angular injects the service dependency into it.
+
+- Angular knows about our service when we register our service with the angular injector. 
+
+- To register it we have to declare it into the providers array of the module or the component.
+
+- To use it in component we need to specify dependency in our constructor.
+---------------------------------------------------------------------------------------------------
+Q3. How to provide dependency at various level?
+Ans:
+e.g.
+
+Providing at component level:
+@Component({
+  selector: 'app-loginchild',
+  templateUrl: './loginchild.component.html',
+  styleUrls: ['./loginchild.component.css'],
+  providers: [EmployeeService]
+})
+
+Providing at module level:
+@NgModule({
+  providers: [EmployeeService]//Register our service with the angular dependency injector.
+})
+
+constructor(private configService:ConfigService){ //Let angular know that the component needs the dependency.
+}
+---------------------------------------------------------------------------------------------------
+
+Q4. How do you restrict provider scope to a module?
+It is possible to restrict service provider scope to a specific module instead making available to entire application. 
+There are two possible ways to do it.
+
+i)Using providedIn in service:
+import { Injectable } from '@angular/core';
+import { SomeModule } from './some.module';
+
+@Injectable({
+  providedIn: SomeModule,
+})
+export class SomeService {
+}
+
+
+ii) Declare provider for the service in module:
+import { NgModule } from '@angular/core';
+import { SomeService } from './some.service';
+
+@NgModule({
+  providers: [SomeService],
+})
+export class SomeModule {
+}
+---------------------------------------------------------------------------------------------------

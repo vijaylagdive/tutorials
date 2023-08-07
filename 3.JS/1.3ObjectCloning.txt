@@ -1,0 +1,118 @@
+Q7. How to clone js Object?
+Cloning a JavaScript object is a task that is used mostly because we do not want to create the same object if the same object already exists.
+There are few ways.
+Note: please refer cloning.js file and try to edit.
+
+1. By iterating: shallow copy.
+2. By using Object.assign(): shallow cloning
+3. By using spread operator: Shallow cloning
+4. By using Json parsing: deep copy
+
+
+1. By iterating: shallow copy
+- Through each property and copy them to new object.
+
+2. By using Object.assign(): shallow cloning 
+- object.assign() method does only a shallow copy.
+- It means that nested properties are still copied by reference.
+
+3. By using spread operator: shallow copy
+
+4. By using Json parsing: deep cloning
+- For using JSON method the source object MUST be JSON safe. 
+- So it needs exception handling to keep it safe in case in which source object can not be convertible to JSON.
+---------------------------------------------------------------------------------------------------
+1. By iterating
+The one is to iterate through source object’s properties and copy all of them one by one to the target object. 
+It is quite simple but not used very often.
+function fun() {
+    const sourceObject = { a: 1, b: 2, c: 3 };
+    let tO = {};
+    for (let prop in sourceObject) {
+        if (sourceObject.hasOwnProperty(prop)) {
+            tO[prop] = sourceObject[prop];
+        }
+    }
+    console.log(sourceObject);//{a:1,b:2,c:3}
+    console.log(tO);//{a:1,b:2,c:3}
+}
+fun();
+
+if we do tO.a = 5;
+still sourceObj.a will remain 3 only because reference of tO.a and source.a is diferent.
+
+
+Note:
+1. Its a shallow copy method.
+---------------------------------------------------------------------------------------------------
+
+2. By using Object.assign()
+const food = { beef: 'MyBeef',
+	       bacon: 'MyBacon',
+    	       pizza: {
+      		lowCalory: "Small Pizza",
+      		highCalory:"Large Pizza"
+    		}
+ 	     };
+const cloneFood = Object.assign({},food);
+
+cloneFood.pizza.lowCalory = "smallest pizza";
+
+console.log("Old Object low calory pizza: ",food.pizza.lowCalory);//Smallest Pizza
+console.log("Clone food low cal pizza: ",cloneFood.pizza.lowCalory);//Smallest Pizza 
+
+Note:
+It means for the pizza property it has copied only reference.
+1. Its a shallow copy method.
+---------------------------------------------------------------------------------------------------
+3. Using spread Operator:
+const food = { 
+	beef: 'MyBeef',
+	bacon: 'MyBacon',
+        pizza: {
+         lowCalory: "Small Pizza",
+         highCalory:"Large Pizza"
+      }
+  };
+const cloneFood = {...food};
+cloneFood.pizza.lowCalory = "smallest pizza";
+console.log("Old Object: ",food.pizza.lowCalory); //smallest pizza
+console.log("Clone food: ",cloneFood.pizza.lowCalory)//smallest pizza
+
+Note: Shallow copy method
+-------------------------------------------------
+4. By using json method
+This example uses JSON. For using this, source object MUST be JSON safe.
+
+Example 1:
+function fun() {
+    const sourceObject = { a: 1, b: 2, c: 3 };
+    let tO = {};
+    tO = JSON.parse(JSON.stringify(sourceObject));
+    console.log(sourceObject);
+    console.log(tO);
+
+}
+fun();
+
+Example 2:
+Using Json.stringify
+const food = { beef: 'MyBeef',
+bacon: 'MyBacon',
+    pizza: {
+      lowCalory: "Small Pizza",
+      highCalory:"Large Pizza"
+    }
+ };
+const cloneFood = JSON.parse(JSON.stringify(food));
+
+cloneFood.pizza.lowCalory = "smallest pizza";
+console.log("Old Object: ",food.pizza.lowCalory);// Small Pizza
+console.log("Clone food: ",cloneFood.pizza.lowCalory);// Small pizza  
+
+Note:
+1. Its a deep copy method.
+---------------------------------------------------------------------------------------------------
+TODO:
+Copying object method from one obj to another.
+---------------------------------------------------------------------------------------------------

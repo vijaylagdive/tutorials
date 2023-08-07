@@ -1,0 +1,56 @@
+Q13. What is method chaining?
+Ans:
+Chaining method or also called as cascading means repeatedly calling one method on another method of the same object.
+class Car {
+   constructor() {
+   }
+   setWheels(w) {
+      this.wheels = w
+   }
+   setDoors(d) {
+      this.doors = d
+   }
+   setTopSpeed(t) {
+      this.topSpeed = t
+   }
+   displayCarProps() {
+      console.log(`Your car has ${this.wheels} wheels,\n
+      ${this.doors} doors with a top speed of ${this.topSpeed}`)
+   }
+}
+let sportsCar = new Car();
+sportsCar.setWheels(4);
+sportsCar.setDoors(5);
+sportsCar.setTopSpeed(200);
+sportsCar.displayCarProps();
+
+- In the above example while calling method we have used "sportsCar" unncecessarily for 4 times.
+- We can get rid of it by using method chaining. 
+To do so, instead of letting the setters just setting the value, 
+'return this' at the end. 
+This will allow us to perform operations on the object. 
+After making this change, our code looks like − 
+
+class Car {
+   constructor() {
+   }
+   setWheels(w) {
+      this.wheels = w
+      return this;
+   }
+   setDoors(d) {
+      this.doors = d
+      return this;
+   }
+   setTopSpeed(t) {
+      this.topSpeed = t
+      return this;
+   }
+ 
+   displayCarProps() {
+      console.log(`Your car has ${this.wheels} wheels,\n
+      ${this.doors} doors with a top speed of ${this.topSpeed}`)
+   }
+}
+let sportsCar = new Car();
+sportsCar.setDoors(5).setWheels(4).setTopSpeed(200).displayCarProps()

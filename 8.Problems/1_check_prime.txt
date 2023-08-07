@@ -1,0 +1,16 @@
+function checkPrime(num) {
+    console.log(num);
+    var isPrime = true;
+    if (num === 1) {
+        var isPrime = false;
+    } else {
+        for (let i=2; i<num; i++) {
+            if(num % 2 === 0) {
+                isPrime = false
+            }
+        }
+    }
+    return isPrime;
+}
+
+checkPrime(23);

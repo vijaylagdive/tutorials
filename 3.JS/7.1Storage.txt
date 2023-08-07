@@ -1,0 +1,80 @@
+Q1. What is HTML5 web storage?
+
+- With the web storage web application can store data locally within the user's browser.
+- Web storage is secure and large amount of data can be stored locally without affecting the application performance.
+
+HTML web storage provide two objects for storing data on the client.
+a) window.localStorage - stores data with no expiration date.
+b) window.sessionStorage - stores data for one session. (data is lost when user closes or refreshes the tab)
+
+Before using storage we have to check browser storage available or not.
+if(typeOf(Storage) !== undefined){
+	//code for storage
+}else {
+	//Sorry no web storage available
+}
+
+sessionStorage
+- The sessionStorage exists only within the current browser tab.
+- Another tab with the same page will have a different storage.
+- But it is shared between iframes in the same tab (assuming they come from the same origin).
+- The data survives page refresh, but not closing/opening the tab.
+- opening duplicate tab copies the session to that tab.
+------------------------------------------------------------------------------------------------
+
+Q2. What is local storage in js?
+1. The localStorage object stores the data with no expiration date. 
+The data will not be deleted when the browser is closed, and will be available the next day, week, or year.
+
+2. The stored data is saved across browser sessions.
+
+3. localStorage data for a document loaded in a "private browsing" or "incognito" session is cleared when the last "private" tab is closed.)
+
+
+- Storing data
+localStorage.setItem("lastname", "Smith");
+
+- Retrieving data
+localStorage.getItem("lastname");
+
+- Removing data
+localStorage.removeItem("lastname");
+
+Clearing all data
+- localStorage.clear()
+Clear all local storage items.
+------------------------------------------------------------------------------------------------
+Q3. What is session storage?
+Ans:
+1. sessionStorage is similar to localStorage; the difference is that while data in localStorage doesn't expire, 
+data in sessionStorage is cleared when the page session ends.
+
+e.g.1
+      sessionStorage.setItem("city","Pune");
+      console.log(sessionStorage.getItem("city")); //o/p -> Pune
+      sessionStorage.removeItem("city");
+      console.log(sessionStorage.getItem("city")); // o/p -> null
+
+
+1. Whenever a document is loaded in a particular tab in the browser, a unique page session gets created and assigned to that particular tab.
+That page session is valid only for that particular tab.
+
+2. The page session exists till the tab or the browser is open and survives over the page reloads and restores.
+
+3. Opening multiple tabs/windows with the same URL creates sessionStorage for each tab/window.
+
+4. Duplicating a tab copies the tab's sessionStorage into the new tab.
+
+5. Closing a tab/window ends the session and clears objects in sessionStorage.
+------------------------------------------------------------------------------------------------
+Q4. What is difference between Local and session storage?
+Ans:
+
+
+------------------------------------------------------------------------------------------------
+Q5. What are the coookies?
+Ans:
+
+------------------------------------------------------------------------------------------------
+
+

@@ -1,0 +1,112 @@
+Q8. Validation of reactive forms with builtin validators?
+Ans: 
+public profileFormGroup: FormGroup;
+  ngOnInit(): void {
+
+    this.profileFormGroup = this.formBuilder.group({
+      empName: ['', Validators.required],
+      empAge: ['', [Validators.required, age]] //age is the custom validator.
+    });
+  }
+
+---------------------------------------------------------------------------------------------------
+Q9. Custom validation in Reactive form?
+Ans:
+created new file custom.validator.ts and added code as below.
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+this.profileFormGroup = this.formBuilder.group({
+   empName: ['', Validators.required],
+   empAge: ['', [Validators.required, age]] //age is the custom validator.
+});
+
+export function age(control: AbstractControl): ValidationErrors | null {
+  const v = +control.value;
+
+  if (isNaN(v)) {
+    return { gte: true, requiredValue: 10 };
+  }
+
+  if (v <= 10) {
+    return { gte: true, requiredValue: 10 };
+  }
+  return null;
+}
+---------------------------------------------------------------------------------------------------
+Q10. Validating template driven form with built in validators?
+Ans: 
+- To add validation to a template-driven form, you add the same validation attributes as you would with native HTML form validation.
+- Angular uses directives to match these attributes with validator functions in the framework.
+- Every time the value of a form control changes, Angular runs validation and generates either a list of 
+ validation errors that results in an INVALID status, or null, which results in a VALID status.
+
+You can then inspect the control's state by exporting ngModel to a local template variable. 
+The following example exports NgModel into a variable called 'name:
+
+<input type="text" 
+       id="name" 
+       name="name" 
+       class="form-control"
+       required 
+       minlength="4" 
+       [(ngModel)]="hero.name" 
+       #name="ngModel">
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+  <div *ngIf="name.errors?.['required']">
+    Name is required.
+  </div>
+  <div *ngIf="name.errors?.['minlength']">
+    Name must be at least 4 characters long.
+  </div>
+</div>
+
+---------------------------------------------------------------------------------------------------
+Q11. Custom validators for Template driven form?
+import { Directive, Input } from '@angular/core';
+import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
+
+export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? {forbiddenName: {value: control.value}} : null;
+  };
+}
+
+@Directive({
+  selector: '[appForbiddenName]',
+  providers: [{provide: NG_VALIDATORS, useExisting: ForbiddenValidatorDirective, multi: true}]
+})
+
+export class ForbiddenValidatorDirective implements Validator {
+  @Input('appForbiddenName') forbiddenName = '';
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.forbiddenName ? forbiddenNameValidator(new RegExp(this.forbiddenName, 'i'))(control) : null;
+  }
+}
+
+
+Template will be:
+<input type="text" 
+       id="name" 
+       name="name" 
+       class="form-control"
+       required 
+       minlength="4" 
+       appForbiddenName="bob"
+       [(ngModel)]="hero.name" 
+       #name="ngModel">
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+  <div *ngIf="name.errors?.['required']">
+    Name is required.
+  </div>
+  <div *ngIf="name.errors?.['minlength']">
+    Name must be at least 4 characters long.
+  </div>
+  <div *ngIf="name.errors?.['forbiddenName']">
+    Name cannot be Bob.
+  </div>
+</div>
+---------------------------------------------------------------------------------------------------

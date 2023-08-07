@@ -1,0 +1,2 @@
+1. media queries in detail
+2. flex in details

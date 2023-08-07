@@ -1,0 +1,17 @@
+a. One simple way which should not be used in interview.
+function checkPalindrom (str) {
+  return str == str.split('').reverse().join('');
+}
+
+b. 
+var isPalindrome = function(y) {
+    let x = y.toString();
+    for(var i=0; i<x.length/2; i++) {;  
+        if(x[i] !== x[x.length-1-i]) {
+            return false;
+        }        
+    }
+
+    return true;
+};
+console.log(isPalindrome(121));

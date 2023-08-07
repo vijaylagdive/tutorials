@@ -1,0 +1,46 @@
+Q2 What is closure?
+Ans:
+- Closure is an inner function that has access to the outer function's variable in addition to it's own variable and global variables.
+- You create a closure by adding function inside another function.
+
+- Closure gives function an access to all the variables of its parent function, even after that parent function has returned or executed.
+- The function keeps reference to its outer scope, which preserves the scope chain throughout time.
+- A closure makes sure that a function doesn't loose connection to variable that existed at the function's birth place. 
+- It remembers the variables even after the birthplace is not existing now.
+- We do not have to manually create closure, this is a js feature that happens automatically.
+- We cant even access closed over variables explicitly.
+- Closure is not a tangible js object. 
+
+example:
+  let f;
+  const g = function() {
+  let a = 23;
+  f = function () {
+   a++;
+   console.log('a',a);
+   console.log('a*2',a*2);
+  };
+}
+
+g();
+f();
+f();
+
+
+a 24
+a*2 48
+a 25
+a*2 50
+
+ex2:
+    const secureBooking = function () {
+      let passengerCount = 0;
+      return function () {
+        passengerCount++;
+        console.log(`passengerCount: ${passengerCount}`);
+      };
+    };
+    const booker = secureBooking();
+    booker();
+    booker();
+    booker();

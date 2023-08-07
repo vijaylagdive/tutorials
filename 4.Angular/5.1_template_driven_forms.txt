@@ -1,0 +1,42 @@
+Q1. Template driven form: 
+- Template-driven form is a way of creating forms using Angular's template syntax with minimal code in the component class. 
+- It allows you to define the form structure and validation rules directly in the template, 
+  making it easier and quicker to set up simple forms. 
+- Template-driven forms rely heavily on directives like ngForm, ngModel, and ngSubmit.
+- In template driven form we write the logic, validations, controls etc, in the template part of the code using directives. 
+- They are suitable for simple scenarios and uses two-way binding with [(ngModel)] syntax. 
+- Template-driven forms are suitable for simpler forms with basic validation requirements. 
+- For more complex forms, you might want to consider using Reactive Forms.
+
+
+Q2. Example:
+Implementations:
+i) Import the FormsModule into the Application module's imports array
+import {FormsModule} from '@angular/forms'
+.
+.
+imports: [
+       BrowserModule,
+       FormsModule
+     ],
+
+
+ii) Bind the form from template to the component using ngModel syntax
+<div class="container">
+    <h1>Registration Form</h1>
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        
+	<input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel">
+        
+	<div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Please enter your name
+        </div>
+
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">Submit</button>
+    </form>
+
+</div>

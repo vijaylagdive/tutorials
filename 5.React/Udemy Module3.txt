@@ -1,0 +1,151 @@
+Udemy Module 3
+What we have learned till now
+1. Installation, Creating react project.
+2. components, why components, how to create them.
+3. JSX, Complex jsx alternate to jsx is using react.createElement.
+4. How react works
+5. Building first react component.
+6. Add basic CSS styling.
+7. Outputting dynamic data.
+8. passing data via props to child components.
+9. Add normal JS logic inn component
+10. Splitting component into multiple components.
+11. concept of compositing. Wrapper component e.g. card. props.children.
+---------------------------------------------------------
+
+What is React?
+React is a client side JS library.
+It is all about building modern reactive UI for the web.
+Declarative, component focused approach.
+React allows you to create re-usable and reactive components consisting of HTML and JS and css.
+
+-----------------------------------------
+Installation
+
+install node
+in node.js command prompt npx create-react-app myapp
+cd my-app
+npx start
+
+If you have previously installed create-react-app globally via npm install -g create-react-app you can
+uninstall the package usign npm install -g create-react-app or yarn global remove create-react-app to ensure that npx 
+always uses the latest version.
+
+
+Download any code from git repo
+
+extract it and run npm install in it.
+
+run npm start to run the server.
+----------------------------------------------------------------------------
+What are the components?
+Components: 
+Component in React is just a JS function.
+Components are independent and reusable bits of code. 
+They serve the same purpose as JavaScript functions, 
+but work in isolation and returns HTML via a render function.
+
+Why components?
+1. Reusability
+Dont repeat yourself
+
+2. Seperation of concerns.
+Dont do too many things in one and the same place(function)
+
+3. Split big chunk of code into smaller functions.
+************************************************
+
+2 ways to create components:
+Class components, Function components
+1. Class:
+
+a)Creating class component
+class Car extends React.Component { //extends React.Component statement, 
+  render() {//this statement creates an inheritance to React.Component, 
+    return <h2>Hi, I am a Car!</h2>; //and gives your component access to React.Component's functions.
+  }
+}
+
+Displaying class component:
+ReactDOM.render(<Car />, document.getElementById('root'));
+
+2. Function
+a)Creating function component
+function Car() {
+  return <h2>Hi, I am also a Car!</h2>;
+}
+
+b)Displaying component
+ReactDOM.render(<Car />, document.getElementById('root'));
+***************************************************
+
+Component constructor
+- A constructor() function in a component, is called when the component gets initiated.
+- The constructor function is where you initiate the component's properties.
+- In React, component properties should be kept in an object called state.
+example:
+class Car extends React.Component {
+    constructor() {
+      super();
+      this.state = {color: "red"};
+    }
+    render() {
+      return <h2>I am {this.state.color} a Car!</h2>;
+    }
+  }
+ReactDOM.render(<Car />, document.getElementById('root'));
+O/P: I am red a Car!
+
+//SUPER executes the parent component's constructor and your component gets access
+to all the function of parent component.
+*****************************************************
+
+
+Components in component
+eg.
+class Car extends React.Component {
+  render() {
+    return <h2>I am a Car!</h2>;
+  }
+}
+
+class Garage extends React.Component {
+  render() {
+    return (
+      <div>
+      <h1>Who lives in my Garage?</h1>
+      <Car />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Garage />, document.getElementById('root'));
+****************************************************************
+
+An Approach of building a UI using small blocks is known as compositions.
+
+-----------------------------------------------------------------------------------------------------
+
+Props:
+- Another way of handling component properties is by using props.
+- Props are like function arguments and you send them into component as attribute.
+eg.
+class Car extends React.Component {
+  render() {
+    return <h2>I am a {this.props.color} Car!</h2>;
+  }
+}
+
+ReactDOM.render(<Car color="red"/>, document.getElementById('root'));
+-----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+

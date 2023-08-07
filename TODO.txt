@@ -1,0 +1,9 @@
+1. ng-template 
+2. dynamic component
+3. host binding
+4. host listener
+5. Routerlink
+6. What is async pipe?
+7. Rxjs operator
+8. Interceptor
+9. latest compilers or versions

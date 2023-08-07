@@ -1,0 +1,122 @@
+Pseudo-classes
+- A CSS pseudo-class is used to define a special state of a selected element.
+- A CSS pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s). 
+For example, it can be used to:
+- Style an element when a user mouses hover it
+- Style visited and unvisited links differently
+- Style an element when it gets focus
+syntax:
+selector:pseudo-class {
+  property: value;
+}
+example:
+hover can be used to change a button's color when the user's pointer hovers over it.
+a:visited {
+  color: #00FF00;
+}
+
+other examples:
+Links:
+/* unvisited link */
+a:link {
+  color: #FF0000;
+}
+
+/* visited link */
+a:visited {
+  color: #00FF00;
+}
+
+/* mouse over link */
+a:hover {
+  color: #FF00FF;
+}
+
+/* selected link */
+a:active {
+  color: #0000FF;
+}
+
+---------------------------------------------------------------------------------------------------
+Pseudo-classes and HTML Classes
+Pseudo-classes can be combined with HTML classes:
+
+When you hover over the link in the example, it will change color:
+a.highlight:hover {
+  color: #ff0000;
+}
+
+a.highlight:hover {
+  color: #ff0000;
+  font-size: 22px;
+}
+
+<p><a class="highlight" href="css_syntax.asp">CSS Syntax</a></p>
+
+---------------------------------------------------------------------------------------
+
+styling nth Element
+div:nth-child(4n+1) {
+  background: red;
+}
+
+div:nth-child(4n+4) {
+  background: green;
+}
+
+this 4n+1 is:
+It starts from last element in group.
+so 4n+1 will be last element of group.
+If want 1st element of group have to write 4n+2
+----------------------------------------------------------------------------------------------------
+Simple Tooltip Hover
+Hover over a <div> element to show a <p> element (like a tooltip):
+p {
+  display: none;
+  background-color: yellow;
+  padding: 20px;
+}
+
+div:hover p {
+  display: block;
+}
+
+<div>Hover over this div element to show the p element
+  <p>Tada! Here I am!</p>
+</div>
+
+-------------------------
+
+The :first-child Pseudo-class
+The :first-child pseudo-class matches a specified element that is the first child of parent element.
+
+Match the first <p> element
+In the following example, the selector matches any <p> element that is the first child of any element:
+
+p:first-child {
+  color: blue;
+}
+
+<p>This is some text.</p> //color will be blue
+<p>This is some text.</p>
+
+<div>
+  <p>This is some text1.</p> //color will be blue
+  <p>This is some text2.</p>
+</div>
+----------------------------------------------
+
+Match the first <i> element in all <p> elements
+In the following example, the selector matches the first <i> element in all <p> elements:
+p i:first-child {
+  color: blue;
+}
+
+<p>I am a <i>strong</i> person. I am a <i>strong</i> person.</p>
+<p>I am a <i>strong</i> person. I am a <i>strong</i> person.</p>
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+
+

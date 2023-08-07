@@ -1,0 +1,69 @@
+Q1. Explain react in simple terms? features of React?
+Q2. Whats is react JSX?
+Q3. Can browser read JSX?
+Q4. Compare real DOM and virtual DOM?
+Q5. Why was virtual DOM introduced? 
+Q6. What is an event in React?
+Q7. Component?
+Q8. What is hooks in React js
+Q9. Stateful vs stateless component?
+
+
+
+Q13. Controlled vs Uncontrolled components?
+Q7. Differentiate between React and angular?
+Q8. "Everything in react is component." do you agree?
+Q9. What is the purpose render() in React?
+Q10. What are the states and props in react?
+Q11. What are the phases in the lifecycle of React component?
+Q12. How are refs used in react?
+Q14. Expain Events in React?
+Q15. What is redux? What are its components?
+Q16. What are the significance of Reducers?
+Q17. What is React router?
+Q6. Explain the working of virtual DOM?
+Why react over vanilla js
+
+
+Linked In
+● What is React js
+● What is difference between virtual dom and shallow
+dom, dom in React js
+● What is controlled and uncontrolled component in
+React js
+● What is hooks in React js
+● What is jsx, babel, webpack
+● What is Redux
+● What is reducer, action, store in Redux
+● What is middleware in Redux
+● Explain data flow in Redux
+● What is Redux-Thunk
+● What is Redux-Saga, Difference between
+Redux-thunk and Redux-saga
+● Difference between class component and function
+component
+● How can we implement componentWillUnmount in
+function component
+● useEffect,UseState, useMemo.useCallback hooks in
+Details
+● Explain lifecycle method in React js
+● What is difference between export default and export
+in React js
+● What is portal in React js
+● What is reconciliation in React js
+● What is useRef in React js
+● What is server side render in React js
+● What is useStrict in React js
+● What is fragment in React js
+● What is react router in React js
+● What is node module in React js
+● What is the default localhost server port in react js.
+how can we change the local server port
+● What is high order component in React js
+● What is pure component in React js
+● What is difference state and props in React js
+● How to optimize React js app
+● What is difference between React js and Angular js
+● What is prop drilling in React js how to overcome it
+● What is context api in React js
+● What is super, constructor, render function in React js

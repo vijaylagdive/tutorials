@@ -1,0 +1,50 @@
+Q1.Can you differentiate between let and var?
+Answer: 
+Scope
+var: 'var' declared variable can be accessible outside the block within the function or class in which it is declared.(not outside the function or class)
+let: 'let' declared variable's scope is only within the block in which it has been declared. Block is {}
+Example:
+if(true) 
+{
+  var varVariable = 'Var Variable is true';
+  let letVariable = 'Let Variable is true';
+}
+console.log(varVariable);//Var Variable is true.
+console.log(letVariable);//Will produce reference error.
+--------------------------------------------------------------------------
+
+Redeclaring
+var: 'var' declared variable can be reassigned and can be redeclared within the same block as well as outside the block.
+let: 'let' declared variable can be reassigned but cannot be redeclared within the same block. It can be redeclared outside block.
+function mapDemo() {
+ if(true) {
+	var varVariable = 'var variable1';
+	var varVariable = 'var variable2';
+                
+        let letVariable = 'let variable1';
+	let letVariable = 'let variable2';
+     	}
+ var varVariable = 'var variable2';
+ let letVariable = 'let variable1';
+}
+--------------------------------------------------------------------------
+
+Hoisting
+Hoisting of var declared variable is possible. Initialized as undefined.
+Hoisting of let declared variable is not possible.
+console.log(x);//undefined
+var x;
+
+console.log(y);//ReferenceError: Cannot access 'x' before initialization
+let y;
+
+Window
+var: variable declared with var becomes window property
+let: variable declared with let does not become window property.
+
+Const
+const is similar to let except that it cannot be reassigned the variable.
+const declarations are block scoped.
+const cannot be updated or re-declared
+
+-----------------------------------------------------------------------------

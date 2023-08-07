@@ -1,0 +1,335 @@
+Q1. What is Array in JS
+Ans:
+- In JavaScript, an array is an ordered list of values. Each value is called an element specified by an index.
+- The typeof operator in JavaScript returns "object" for arrays.
+- The Difference Between Arrays and Objects
+In JavaScript, arrays use numbered indexes.  
+In JavaScript, objects use named indexes.
+
+---------------------------------------------------------------------------------------------------
+8:08 Have you used reduce function in JS?
+- A higher order function thats based on pattern on Reduction aka it'll work through given data resulting into a single value.
+
+8:19 What is the difference between map and reduce?
+- Both are higher order Array methods available via Array.prototype. Map returns an array but Reduce can return any data types based on it's callback function operation. 
+
+---------------------------------------------------------------------------------------------------
+
+Q2. How to recognize array in JS?
+Ans:
+a) Reccognize an Array??
+The problem is that the JavaScript operator typeof returns "object".
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+typeof fruits;    // returns object
+
+Solution1:
+ECMAScript 5 defines a new method Array.isArray()
+Array.isArray(fruits);   // returns true
+ES5 not suported by older browser.
+
+Solution2: 
+console.log(fruits.constructor === Array);   // returns true
+
+Solution3:
+The instanceof operator returns true if an object is created by a given constructor.
+console.log(fruits instanceof Array); // returns true
+
+Solution4:
+To solve this problem you can create your own isArray() function:
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+isArray(fruits);
+function isArray(myArray) {
+  return myArray.constructor.toString().indexOf("Array") > -1;
+}
+
+---------------------------------------------------------------------------------------------------
+
+Q3. Array methods map(), filter(), find(), some(), every(), reduce();
+Ans:
+1. map()
+- The map() method creates a new array by performing a function on each array element.
+- The map() method does not change the original array.
+The function takes 3 arguments:
+- The item value
+- The item index
+- The array itself
+When a callback function uses only the value parameter, the index and array parameters can be omitted:
+
+e.g.
+let firstArr = [2,3,4];
+var secondArr = firstArr.map(myFunc);
+
+function myFunc(num,ind,arr){
+  var s = "Power of "+ind+"'th Element "+num+": "+Math.pow(arr[ind],2);
+  return s;
+}
+console.log(secondArr);
+
+-------------------------------------------------
+
+2. filter()
+The filter() method creates a new array with array elements that passes a test applied on given array.
+eg:
+var numbers = [45, 4, 9, 16, 25];
+var over18 = numbers.filter(myFunction);
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+
+The function takes 3 arguments
+The item value
+The item index
+The array itself
+In the example above, the callback function does not use the index and array parameters, so they can be omitted:
+
+-------------------------------------------------
+
+3.find()
+Array.find()
+The find() method returns the value of the first array element that passes a test function.
+Note that the function takes 3 arguments:
+- The item value
+- The item index
+- The array itself
+
+
+This example finds (returns the value of) the first element that is larger than 18:
+var numbers = [4, 9, 16, 25, 29];
+var first = numbers.find(myFunction); //o/p 25
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+
+-------------------------------------------------
+
+4. some()
+Array.some()
+The some() method check if some array values pass a test.
+This example check if some array values are larger than 18:
+Note that the function takes 3 arguments:
+- The item value
+- The item index
+- The array itself
+
+This example check if some array values are larger than 18:
+e.g.
+var numbers = [45, 4, 9, 16, 25];
+var someOver18 = numbers.some(myFunction);// will get true
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+
+-------------------------------------------------
+
+5. every()
+Array.every()
+The every() method check if all array values pass a test.
+
+Note that the function takes 3 arguments:
+- The item value
+- The item index
+- The array itself
+
+This example check if all array values are larger than 18:
+var numbers = [45, 4, 9, 16, 25];
+var allOver18 = numbers.every(myFunction); //Will get false
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+
+------------------------------------------------------------------------------------------------
+
+15. reduce()
+Array.reduce()
+The reduce() method runs a function on each array element to produce (reduce it to) a single value.
+The reduce() method works from left-to-right in the array.
+The reduce() method does not reduce the original array.
+
+Note that the function takes 4 arguments:
+- The total (the initial value / previously returned value)
+- The item value
+- The item index
+- The array itself
+
+Example to find the sum of all numbers in an array:
+var numbers1 = [45, 4, 9, 16, 25];
+var sum = numbers1.reduce(myFunction); o/p 99
+
+function myFunction(total, value, index, array) {
+  return total + value;
+}
+
+e.g.2
+const numbers = [15, 2, 1, 4];
+
+let x = numbers.reduce(getSum, 0);// x will be 22
+
+function getSum(total, num) {
+  return (total + num);
+}
+
+---------------------------------------------------------------------------------------------------
+
+Q4. Array methods slice(), splice(), push(), pop(), shift(), unshift()
+2. slice();
+- slices out piece of array into new array.
+- The slice() method returns the selected elements in an array, as a new array object.
+- The slice() method selects the elements starting at the given start argument, and ends at given end point, but does not include, the given end argument.
+Note: The original array will not be changed.
+e.g.
+var fruits = ["Banana","Orange","Lemon","Apple","Kiwi"];
+var citrus = fruits.slice(1,3); //return from 1 to 3 excluding 3
+o/p -> ["Orange","Lemon"]
+e.g
+ slice(1);
+ slices out all elements from given position ie first position.
+
+1. splice();
+- Used to add new items to an array.
+e.g.
+var fruits = ["Banana","Orange","Apple","Kiwi"];
+fruits.splice(2,0,"Lemon","Mango");
+Resulting array would be:
+["Banana","Orange","Lemon","Mango","Apple","Kiwi"]
+
+4 params in details :
+fruits.splice(2,0,"Lemon","Mango");
+first:- decides at which positions new elements to be added.
+second:- decides number of elements to be removed starting from given position.
+third and onwards:- elements to be inserted.
+
+We can use splice to remove elements from array.
+e.g. fruits.splice(0,1);// Removes first element from array.
+
+------------------------
+3. push();
+The push() method adds new items to the end of an array, and returns the new length.
+e.g.
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+var count = fruits.push("Kiwi"); //Count will be new length.
+new array will be: ["Banana", "Orange", "Apple", "Mango","Kiwi"]
+------------------------
+4. pop();
+The pop() method removes the last element of an array, and returns that element.
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+var poppedElement = fruits.pop(); //poppedElement = Mango
+new array will be:
+["Banana", "Orange", "Apple"]
+------------------------
+5. shift()
+Remove the first item of an array and returns removed item.
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.shift(); // return "Banana"
+new Array will be:
+["Orange", "Apple", "Mango"]
+------------------------
+6. unshift()
+Add new items to the beginning of an array and returns new length.
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.unshift("Lemon","Pineapple");//returns new length.
+new array will be like:
+ ["Lemon","Pineapple","Banana","Orange","Apple","Mango"]
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Q5. toString(), join(), concat(arr), sort(),reverse();
+1. toString()
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+converts an array to a string of (comma separated) array values.
+Result:
+Banana,Orange,Apple,Mango
+------------------------
+2. join()
+The join() method also joins all array elements into a string. It behaves just like toString(), 
+but in addition you can specify the separator:
+e.g.
+fruits.join(" * ");
+Result
+Banana * Orange * Apple * Mango
+------------------------
+3. concat(arr)
+For merging (Concatenating) Arrays
+The concat() method creates a new array by merging (concatenating) existing arrays.
+
+e.g.
+var myGirls = ["Cecilie", "Lone"];
+var myBoys = ["Emil", "Tobias", "Linus"];
+
+var myChildren = myGirls.concat(myBoys);   // Concatenates (joins) myGirls and myBoys
+myChilder: Cecilie,Lone,Emil,Tobias,Linus
+
+Can concatenate multiple array
+var myChildren = arr1.concat(arr2, arr3);
+
+Merging array with values:
+var myChildren = arr1.concat(["Emil", "Tobias", "Linus"]);
+------------------------
+4. sort()
+The sort() method sorts an array alphabetically.
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();        // Sorts the elements of fruits
+o/p: Apple,Banana,Mango,Orange
+------------------------
+5. reverse()
+The reverse() method reverses the elements in an array.
+You can use it to sort an array in descending order:
+e.g.
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();        // First sort the elements of fruits
+fruits.reverse();     // Then reverse the order of the elements
+
+---------------------------------------------------------------------------------------------------
+
+Q6. Array methods Math.max(), and Math.min(), indexOf(), findIndex(), 
+Ans:
+1. 
+You can use Math.max.apply to find the highest number in an array and Math.min.apply to find the lowest number in an array.
+e.g.
+var points = [40, 100, 1, 5, 25, 10];
+function myArrayMax(arr) {
+  return Math.max.apply(null, arr);
+}
+------------------------
+2. 
+function myArrayMin(arr) {
+  return Math.min.apply(null, arr);
+}
+myArrayMax(points);  o/p:100 
+myArrayMin(points);  o/p:1
+------------------------
+3. 
+indexOf()
+Array.indexOf()
+The indexOf() method searches an array for an element value and returns its position.
+Note: The first item has position 0, the second item has position 1, and so on.
+------------------------
+4.
+findIndex()
+Array.findIndex()
+The findIndex() method returns the index of the first array element that passes a test function.
+Note that the function takes 3 arguments:
+- The item value
+- The item index
+- The array itself
+
+
+var numbers = [4, 9, 16, 25, 29];
+var first = numbers.findIndex(myFunction); o/p: 3
+
+function myFunction(value, index, array) {
+  return value > 18;
+}
+This example finds the index of the first element that is larger than 18:
+------------------------------------------------------------------------
+Q7 Array destructuring
+Ans: Destructuring means dividing an array into multiple variables.
+Its an ES6 syntax that allows us to unzip or unpack an array of elements into multiple variables.
+
+let arr = ['Ajayrr','Vijay','dsa'];
+[user1,user2,user3] = arr;            
+console.log(user1,user2,user3);
+
+***************************************************************************************************

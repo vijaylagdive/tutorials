@@ -1,0 +1,14 @@
+
+
+
+
+1: Undeclare/global variables
+
+
+2: Forgotten timers or callbacks
+
+
+Out of DOM references
+
+
+Closure

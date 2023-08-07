@@ -1,0 +1,183 @@
+
+
+
+There are certain features or mechanisms which makes a Language Object Oriented like:
+Object
+Classes
+Encapsulation
+Inheritance
+Polymorphism
+
+
+1. Object
+Object created using 
+a)Object Literal
+b)Constructor function or using new keyword 
+c)Using Object.create() method
+************************************************************
+
+2. Class
+// Defining class using es6 
+class Vehicle { 
+constructor(name, maker, engine) { 
+	this.name = name; 
+	this.maker = maker; 
+	this.engine = engine; 
+} 
+getDetails(){ 
+	return (`The name of the bike is ${this.name}.`) 
+} 
+} 
+// Making object with the help of the constructor 
+let bike1 = new Vehicle('Hayabusa', 'Suzuki', '1340cc'); 
+let bike2 = new Vehicle('Ninja', 'Kawasaki', '998cc'); 
+
+console.log(bike1.name); // Hayabusa 
+console.log(bike2.maker); // Kawasaki 
+console.log(bike1.getDetails()); 
+************************************************************
+
+
+3. Encapsulation:
+The process of wrapping property and function within a single unit is known as encapsulation.
+//encapsulation example 
+class person{ 
+    constructor(name,id){ 
+        this.name = name; 
+        this.id = id; 
+    } 
+    add_Address(add){ 
+        this.add = add; 
+    } 
+    getDetails(){ 
+        console.log(`Name is ${this.name},Address is: ${this.add}`); 
+    } 
+} 
+  
+let person1 = new person('Mukul',21); 
+person1.add_Address('Delhi'); 
+person1.getDetails(); 
+
+In the above example we simply create an person Object using the constructor and
+Initialize it property and use it functions we are not bother about the implementation details.
+ We are working with an Objects interface without considering the implementation details.
+Sometimes encapsulation refers to hiding of data or data Abstraction which means representing 
+essential features hiding the background detail. 
+Most of the OOP languages provide access modifiers to restrict the scope of a variable, 
+but their are no such access modifiers in JavaScript but their are certain way by which 
+we can restrict the scope of variable within the Class/Object.
+
+// Abstraction example 
+function person(fname,lname){ 
+    let firstname = fname; 
+    let lastname = lname; 
+  
+    let getDetails_noaccess = function(){ 
+        return (`First name is: ${firstname} Last  
+            name is: ${lastname}`); 
+    } 
+  
+    this.getDetails_access = function(){ 
+        return (`First name is: ${firstname}, Last  
+            name is: ${lastname}`); 
+    } 
+} 
+let person1 = new person('Mukul','Latiyan'); 
+console.log(person1.firstname); 
+console.log(person1.getDetails_noaccess); 
+console.log(person1.getDetails_access());
+************************************************************
+
+
+4. Inheritance
+It is a concept in which some property and methods of an Object is being used by another Object. 
+Unlike most of the OOP languages where classes inherit classes, JavaScript Object inherits Object 
+i.e. certain features (property and methods)of one object can be reused by other Objects.
+
+//Inhertiance example 
+class person{ 
+	constructor(name){ 
+		this.name = name; 
+	} 
+	//method to return the string 
+	toString(){ 
+		return (`Name of person: ${this.name}`); 
+	} 
+} 
+class student extends person{ 
+	constructor(name,id){ 
+		//super keyword to for calling above class constructor 
+		super(name); 
+		this.id = id; 
+	} 
+	toString(){ 
+		return (`${super.toString()},Student ID: ${this.id}`); 
+	} 
+} 
+let student1 = new student('Mukul',22); 
+console.log(student1.toString()); 
+
+In the above example we define an Person Object with certain property and method and then we inherit the Person Object in the Student Object and use all the property and method of person Object as well define certain property and methods for Student.
+Note: The Person and Student object both have same method i.e toString(), this is called as Method Overriding. Method Overriding allows method in a child class to have the same name and method signature as that of a parent class.
+In the above code, super keyword is used to refer immediate parent class instance variable.
+************************************************************
+
+
+5. Polymorphism(Overloading and Overriding)
+a) Overloading
+
+b)Overriding 
+class A  
+  {  
+     display()  
+    {  
+      document.writeln("A is invoked");  
+    }  
+  }  
+class B extends A  
+  {  
+  }  
+var b=new B();  
+b.display();  
+
+************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

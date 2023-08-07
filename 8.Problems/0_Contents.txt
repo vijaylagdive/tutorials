@@ -1,0 +1,12 @@
+1. Check prime number
+2. Fibonacci series 
+3. bubble sort
+4. count occuerence
+5. Remove duplicate from array
+6. Palindrome check
+7. reverse string
+8. swap numbers
+9. min_max_of_array
+
+ Swap 2 numbers without using temp.
+

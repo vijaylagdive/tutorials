@@ -1,0 +1,164 @@
+Reactive Forms: 
+- Reactive Forms are created programmatically in the component class using FormBuilder, FormGroup, and FormControl objects. 
+- You have full control over the form structure and validation rules through TypeScript code.
+- They are more suitable for complex forms with dynamic validation requirements. 
+  As the form logic resides in the component class, it allows for more complex validation rules and custom form handling.
+- Validation: In Reactive Forms, validation is done explicitly using validators provided by Angular's Validators class. 
+  You can create custom validators to handle complex validation scenarios.
+
+Implementation:
+Implementation:
+i) Register the reactive forms module in module.
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [
+    // other imports ...
+    ReactiveFormsModule
+  ],
+})
+export class AppModule { }
+
+
+ii)Create a new FormControl instance in a component.
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+@Component({
+  selector: 'user-profile',
+  styleUrls: ['./user-profile.component.css']
+})
+export class UserProfileComponent {
+  userName = new FormControl('');
+}
+
+
+iii) Register the FormControl in the template.
+<label>
+  User name:
+  <input type="text" [formControl]="userName">
+</label>
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Q2. What are the different ways to to group form controls?
+Reactive forms provide two ways of grouping multiple related controls.
+
+i) FormGroup: 
+It combines various controls those can be managed together in an one object.
+It has same properties and methods similar to a FormControl instance. 
+This FormGroup can be nested to create complex forms as below.
+e.g.
+  userProfile = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    address: new FormGroup({
+          street: new FormControl(''),
+          city: new FormControl(''),
+          state: new FormControl(''),
+          zip: new FormControl('')
+        })
+  });
+
+<form [formGroup]="userProfile" (ngSubmit)="onSubmit()">
+
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName">
+  </label>
+
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName">
+  </label>
+
+  <div formGroupName="address">
+    <h3>Address</h3>
+
+    <label>
+      Street:
+      <input type="text" formControlName="street">
+    </label>
+
+    <label>
+      City:
+      <input type="text" formControlName="city">
+    </label>
+
+    <label>
+      State:
+      <input type="text" formControlName="state">
+    </label>
+
+    <label>
+      Zip Code:
+      <input type="text" formControlName="zip">
+    </label>
+   </div>
+    <button type="submit" [disabled]="!userProfile.valid">Submit</button>
+
+</form>
+-------------------------------------------------
+ii) FormArray:
+It defines a dynamic form in an array format, where you can add and remove controls at run time. 
+This is useful for dynamic forms when you don’t know how many controls will be present within the group.
+
+     this.orderForm = new FormGroup({
+       firstName: new FormControl('John', Validators.minLength(3)),
+       lastName: new FormControl('Rodson'),
+       items: new FormArray([
+         new FormControl(null)
+       ])
+     });
+
+
+<form [formControlName]="orderForm" (ngSubmit)="onSubmit()">
+
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName">
+  </label>
+
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName">
+  </label>
+
+  <div>
+
+  <p>Add items</p>
+  <ul formArrayName="items">
+    <li *ngFor="let item of orderForm.controls.items.controls; let i = index">
+      <input type="text" formControlName="{{i}}">
+      <button type="button" title="Remove Item" (click)="onRemoveItem(i)">Remove</button>
+    </li>
+  </ul>
+
+  <button type="button" (click)="onAddItem">
+    Add an item
+  </button>
+ </div>
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Q5. What is the purpose of FormBuilder?
+Ans: FormBuilder is used for easily creating instances of a FormControl, FormGroup, or FormArray. 
+This is helpful to reduce the amount of boilerplate needed to build complex reactive forms. 
+It is available as an injectable helper class of the @angular/forms package.
+
+For example, the user profile component creation becomes easier as shown here.
+
+  profileForm = this.formBuilder.group({
+    firstName: [''],
+    lastName: [''],
+    address: this.formBuilder.group({
+      street: [''],
+      city: [''],
+      state: [''],
+      zip: ['']
+    }),
+  });
+  constructor(private formBuilder: FormBuilder) { }
+
+------------------------------------------------------------------------------------------------------------------------------
+

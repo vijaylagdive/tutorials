@@ -1,0 +1,237 @@
+Design Patterns
+
+What are the design patterns:
+- Design patterns are evolved as reusable solutions to the problems that we encounter 
+  every day of programming.
+- They are generally targetted at solving the problems of object generations and 
+  integration.
+- These generalized patterns act as template that can be applied to the real world 
+  problems.
+
+*********************************************************************
+
+Three types of design patterns
+1. Creational
+This type deals with object creation and initialization.
+e.g. singleton, factory, Abstract Factory, Prototype etc.
+*********************************************************************
+
+2. Structural
+- This type deals with class and object composition.
+- This pattern focuses on decoupling interface and implementation of classes and 
+its objects.
+e.g. Facades, Adapter, Bridge etc.
+*********************************************************************
+
+3. Behavioural
+This type deals with the communication between Classes and Objects.
+e.g. Observer 
+*********************************************************************
+Creational:
+
+1. Singleton pattern
+- Singleton pattern belongs to creational type pattern.
+- This pattern is used when we need to ensure that only one object of a particular 
+  class need to be created.
+- All further references to the objects are referred to the same underlying instances 
+  created.
+Implementation is done as below:
+ a) Ensure that only one instance of the class exists.
+ b) Provide global access to that instance by
+  - Declaring all constructors of the class to be private.
+  - Providing static method that returns a reference to the instances.
+  - The instance is stored as private static variable.
+
+  Singleton example:
+
+class Singleton {
+  constructor (name) {
+    this.firstName = name;//assigned name while creating first instance
+    if (!Singleton.instance) {// Checking instnace is there.
+      Singleton.instance = this //If no instance is there creating one.
+    }
+    return Singleton.instance //returning instance
+  }
+  getDetails(){
+      return this.firstName;
+  }
+}
+
+const instance = new Singleton("Jon")//will create one instance with name 'jon'.
+const inst = new Singleton("Mac")//Will get already created instance with name 'jon'
+console.log(instance.firstName); //Jon
+console.log(inst.firstName);//Jon
+console.log(inst.getDetails());//Jon
+---------------------------------------------------------------------
+2. Prototype:
+- This comes under creational pattern
+- This pattern is used when creation of object directly is costly. For example, an object is to be 
+created after a costly database operation.
+
+
+
+
+*******************************************************************************************
+	
+Facade (Structural)
+- A single class that represent an entire subsystem.
+- The Facade pattern provides an interface which complex functionality from clients in one or more subsystems.
+- The intent of the Facade is to provide a high-level interface (properties and methods) that 
+  makes a subsystem or toolkit easy to use for the client.
+- 
+Facade -- In sample code: Mortgage
+	  knows which subsystems are responsible for a request
+	  delegates client requests to appropriate subsystem objects
+Sub Systems -- In sample code: Bank, Credit, Background
+	       implements and performs specialized subsystem functionality
+	       have no knowledge of or reference to the facade
+
+var Mortgage = function(name) {
+    this.name = name;
+}
+ 
+Mortgage.prototype = {
+ 
+    applyFor: function(amount) {
+        // access multiple subsystems...
+        var result = "approved";
+        if (!new Bank().verify(this.name, amount)) {
+            result = "denied";
+        } else if (!new Credit().get(this.name)) {
+            result = "denied";
+        } else if (!new Background().check(this.name)) {
+            result = "denied";
+        }
+        return this.name + " has been " + result +
+               " for a " + amount + " mortgage";
+    }
+}
+ 
+var Bank = function() {
+    this.verify = function(name, amount) {
+        // complex logic ...
+        return true;
+    }
+}
+ 
+var Credit = function() {
+    this.get = function(name) {
+        // complex logic ...
+        return true;
+    }
+}
+ 
+var Background = function() {
+    this.check = function(name) {
+        // complex logic ...
+        return true;
+    }
+}
+ 
+function run() {
+    var mortgage = new Mortgage("Joan Templeton");
+    var result = mortgage.applyFor("$100,000");
+ 
+    alert(result);
+}
+
+****************************************************************************
+
+Observer: (Behavioural pattern)
+The Observer pattern offers a subscription model in which objects subscribe to an event and get notified when the event occurs.
+Defination:
+Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+
+Participants
+The objects participating in this pattern are:
+
+Subject -- In sample code: Click
+	   maintains list of observers. Any number of Observer objects may observe a Subject
+	   implements an interface that lets observer objects subscribe or unsubscribe
+	  sends a notification to its observers when its state changes
+Observers -- In sample code: clickHandler
+          has a function signature that can be invoked when Subject changes (i.e. event occurs)
+
+
+function Click() {
+    this.handlers = [];  // observers
+}
+ 
+Click.prototype = {
+ 
+    subscribe: function(fn) {
+        this.handlers.push(fn);
+    },
+ 
+    unsubscribe: function(fn) {
+        this.handlers = this.handlers.filter(
+            function(item) {
+                if (item !== fn) {
+                    return item;
+
+                }
+            }
+        );
+    },
+ 
+    fire: function(o, thisObj) {
+        var scope = thisObj || window;
+        this.handlers.forEach(function(item) {
+            item.call(scope, o);
+        });
+    }
+}
+ 
+// log helper
+ 
+var log = (function() {
+    var log = "";
+ 
+    return {
+        add: function(msg) { log += msg + "\n"; },
+        show: function() { alert(log); log = ""; }
+    }
+})();
+ 
+function run() {
+ 
+    var clickHandler = function(item) { 
+        log.add("fired: " + item); 
+    };
+ 
+    var click = new Click();
+ 
+    click.subscribe(clickHandler);
+    click.fire('event #1');
+    click.unsubscribe(clickHandler);
+    click.fire('event #2');
+    click.subscribe(clickHandler);
+    click.fire('event #3');
+ 
+    log.show();
+}
+
+********************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

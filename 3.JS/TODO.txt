@@ -1,0 +1,11 @@
+Recursive function
+Eventloop
+Creating and running JS file in VS code.
+Temporal dead zone
+use strict: Simple function call: this : undefined(in strict mode otherwise global or window in the browser)
+Actual use of closure.
+optional chaining
+foreach vs map
+this keyword
+debouncing
+DOM BOM

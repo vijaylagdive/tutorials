@@ -1,0 +1,32 @@
+Q2. Semantic elements in HTML?
+What are the semantic elements in HTML?
+
+1. A semantic element clearly describes its meaning to both the browser and the developer.
+   Examples of non-semantic elements: <div> and <span> - Tells nothing about its content.
+   Examples of semantic elements: <form>, <table>, and <article> - Clearly defines its content.
+
+2. Why to use semantic elements?
+The semantic HTML tags help the search engines and other user devices to determine the importance and context of web pages.
+The pages made with semantic elements are much easier to read.
+It has greater accessibility. It offers a better user experience.
+For example: We want to show header and footer part. Why we should use header footer than normal div?
+To let the browser know about the element based on its tags.
+
+3. Examles of semantic tags
+In HTML there are some semantic elements that can be used to define different parts of web page:
+<article>
+<aside>
+<details>
+<figcaption>
+<figure>
+<footer>
+<header>
+<main>
+<mark>
+<nav>
+<section>
+<summary>
+<time>
+
+
+

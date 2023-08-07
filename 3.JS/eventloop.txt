@@ -1,0 +1,31 @@
+Eventloop:
+In JavaScript, the event loop is responsible for handling events, callbacks and executing asynchrnous code in non-blocking manner, allowing for efficient concurrency and responsiveness.
+Eventloop works based on an event driven single threaded model. 
+This means that the js code executed in single thread and async tasks are managed through event loop.
+
+
+When JavaScript code is executed, it follows a single-threaded model, 
+meaning it can only do one thing at a time. 
+However, certain tasks, like reading files, making network requests, or executing long-running functions, can take time to complete. 
+To avoid blocking the entire application, JavaScript utilizes the event loop to handle such asynchronous operations.
+
+Here's a simplified overview of how the event loop works in JavaScript:
+
+Call Stack: 
+Whenever a function is called, it gets added to the call stack, which is a data structure that tracks the execution context of functions. 
+It works in a Last-In-First-Out (LIFO) manner, meaning the last function that goes in is the first one to come out.
+
+Web APIs: 
+JavaScript interacts with Web APIs provided by the browser or the environment. 
+These APIs handle asynchronous tasks such as timers (setTimeout, setInterval), DOM events, fetch requests, etc. When you call an asynchronous function, it is moved out of the call stack and into the Web APIs.
+
+Callback Queue: Once a Web API task is completed, it is put into the callback queue (also known as the message queue). 
+The queue holds callbacks and events, waiting for their turn to be processed.
+
+Event Loop: The event loop continuously checks the call stack and the callback queue. If the call stack is empty, it takes the first item from the callback queue and pushes it onto the call stack for execution.
+
+Execution: The function on top of the call stack is executed, and this process continues as long as there are items in the callback queue.
+
+Rendering: Between event loop iterations, the browser might update the UI to reflect changes made by JavaScript.
+
+It's important to note that the event loop in modern JavaScript also integrates with Promises, async/await, and other asynchronous constructs to make handling asynchronous code more manageable and readable.

@@ -1,0 +1,81 @@
+With Ajax you can 
+- Read data from a web server - after the page has loaded
+- Update a web page without reloading the page
+- Send data to a web server - in the background
+***************
+
+XMLHttpRequest Object Properties
+1) onreadystatechange: Defines a function to be called when the readyState property changes
+2) readystate: Holds the status of the XMLHttpRequest.
+		0: request not initialized
+		1: server connection established
+		2: request received
+		3: processing request
+		4: request finished and response is ready
+3) responseText: Returns the response data as a string
+4) responseXML:	Returns the response data as XML data
+5) status: 	Returns the status-number of a request
+		200: "OK"
+		403: "Forbidden"
+		404: "Not Found"
+6) statusText: 	Returns the status-text (e.g. "OK" or "Not Found")
+********************************
+XMLHttpRequest using callback function
+
+<button type="button" onclick="loadDoc('ajax_info.txt', myFunction)">Change Content
+</button>
+
+function loadDoc(url, cFunction) {
+  var xhttp;
+  xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      cFunction(this);
+    }
+  };
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+function myFunction(xhttp) {
+  document.getElementById("demo").innerHTML =
+  xhttp.responseText;
+}
+
+**********************************************
+
+Server response properties
+responseText	get the response data as a string
+responseXML	get the response data as XML data
+
+
+***********************************
+
+jQuery Ajax get method
+
+Syntax:  $.get(URL,callback);
+
+$("button").click(function(){
+  $.get("demo_test.asp", function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
+});
+****************************************
+jQuery Ajax post method
+$.post(URL,data,callback);
+
+$("button").click(function(){
+  $.post("demo_test_post.asp",
+  {
+    name: "Donald Duck",
+    city: "Duckburg"
+  },
+  function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
+});
+***********************************************
+
+
+
+

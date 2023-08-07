@@ -1,0 +1,48 @@
+Angular offers two ways to compile your application,
+Just-in-Time (JIT)
+Ahead-of-Time (AOT)
+------------------
+What is JIT?
+1. Just-in-Time (JIT) is a type of compilation that compiles your app in the browser at runtime. 
+2. Just in time compiler provides compilation during the execution of the program at a run time before execution. 
+3. In simple words, code get compiled when it’s needed, not at the build time.
+4. JIT compilation is the default when you run the ng build (build only) or ng serve (build and serve locally) CLI commands. 
+i.e, the below commands used for JIT compilation,
+ng build
+ng serve
+
+Why and When Should you use Just In Time Compiler ?
+1. Just in time compiler compiles each file separately and it’s mostly compiled in the browser.
+2. You don’t have to build your project again after changing your code.
+3. Most compiling is done on the browser side, so it will take less compiling time.
+4. If you have a big project or a situation where some of your components don’t come in use most of 
+  the time then you should use the Just in time compiler.
+5. Just in Time compiler is best when your application is in local development.
+
+A few important points:
+- Then if the functionality is need in your project and it’s not in compiled code, that function or component will be compiled.
+- This process will help to reduce the burden on the CPU and make your app render fast.
+- One more interesting thing is, you can see and link to your source code in inspect mode because Just in Time, 
+compiles your code with JIT mode and a map file.
+--------------------------------------------------------------------------------------------------------------------------------
+jit
+1. compile at runtime in the browser
+2. larger angular bundle size
+3. detect template error later at runtime.
+4. slower rendering 
+5. more asynchronous request
+6. less security
+7. less performance
+8. good for development
+9. ng serve
+
+aot
+1. compile at build time
+2. smaller angular bundle files size.
+3. detect template errors earlier at compile time.
+4. faster rendering 
+5. les asynchronous request
+6. better security
+7. better performance
+8. good for production
+9. ng build --aot

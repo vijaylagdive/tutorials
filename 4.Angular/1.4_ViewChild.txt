@@ -1,0 +1,77 @@
+Q9 What is ViewChild and ViewChildren?
+
+What is @ViewChild?
+- The @viewChild() decorator configures a view query.
+- The @viewChild() decorator can be used to get the first element or the directive matching the selector from the view DOM.
+- With @viewChild we can access the element from the template with ElementRef
+- To use @ViewChild() we need to pass child component name or directive name or template variable as an argument.
+
+Example
+In parent component ts
+  @ViewChild('box') box! : ElementRef;
+  @ViewChild(ChildCompComponent) childComponent!: ChildCompComponent;
+
+
+  ngAfterViewInit(): void {
+    if (this.box?.nativeElement) {
+      this.box.nativeElement.style.backgroundColor = 'red';
+    }    
+
+    if (this.childComponent) {
+      this.childComponent.displayLog();
+    }
+  }
+
+Parent component template
+<app-child-comp>
+</app-child-comp>
+
+<div #box>
+  VIJAY KUMAR LAGDIVE
+</div>
+
+In child component
+  displayLog() {
+    console.log('Display log');
+  }
+
+
+------------------------------------------------------------------------------------------------
+Implementation:
+1) In child component
+a)in template:
+<h4>{{message}}</h4>
+
+b)in .ts file
+counter: number = 0;
+message: string;
+increaseCounter(): void{
+      this.counter++;
+      this.message = "Counter: "+this.counter;
+}
+
+decreaseCounter(): void{
+  this.counter--;
+  this.message = "Counter: "+this.counter;
+}  
+------------------------------------------------------------------------------------------------
+2)In parent component:
+a)In template
+  <button (click)= increase()>Increase</button>
+  <button (click)= decrease()>Decrease</button>
+  <app-child></app-child>//nesting child component as an element.
+
+b)In .ts file
+import { Component, OnInit, ViewChild } from '@angular/core';
+@ViewChild(ChildComponent,{static:false}) childComponent: ChildComponent;
+
+ increase(){
+    this.childComponent.increaseCounter();
+    this.counterCount = this.childComponent.message; //Accessing child component property.  
+}
+
+decrease(){
+    this.childComponent.decreaseCounter();
+    this.counterCount = this.childComponent.message;//Accessing child component property.  
+}
+-----------------------------------------------------------------------------

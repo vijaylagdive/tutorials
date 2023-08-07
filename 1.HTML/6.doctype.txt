@@ -1,0 +1,9 @@
+Q4. What is <!DOCTYPE html> elements
+Ans:
+1. Document type declaration is an instruction that tells the web browser about the markup language in which the current page is written. 
+2. Lets the browser know about the version or standard of HTML or any other markup language that is being used in the document.
+
+What happens if Doctype is not given?
+The absence of the DOCTYPE or its incorrect usage will force the browser to switch to quirks mode. 
+It means that the browser will do its best to layout the page that is considered to be old or created against web standards
+For example: new features & tags in HTML5 such as <article>,< footer >, <header>,<nav>, <section> may not be supported if the <!DOCTYPE> is not declared.

@@ -1,0 +1,141 @@
+Q1. What is react and its features?
+Ans:
+React is a front-end and open-source JavaScript library which is useful in developing user interfaces 
+specifically for applications with a single page. 
+It is helpful in building complex and reusable user interface(UI) components of mobile and web 
+applications as it follows the component-based approach.
+
+Features of React:
+1. JSX
+2. Component
+3. Virtual DOM
+4. One-way data-binding
+5. High performance
+
+-------------------------------------------------
+Q2.What is JSX?
+Ans: JSX stands for Java script xml.
+It allows us to write HTML inside JavaScript and place them in the DOM without using functions like appendChild() or createElement().
+As stated in the official docs of React, JSX provides syntactic sugar for React.createElement( ) function.
+
+We can create react applications without using JSX aswell.
+
+Without using JSX:
+const text = React.createElement('p', {}, 'This is a text');
+const container = React.createElement('div','{}',text );
+ReactDOM.render(container,rootElement);
+
+Using JSX:
+const container = (
+<div>
+  <p>This is a text</p>
+</div>
+);
+ReactDOM.render(container,rootElement);
+As one can see in the code above, we are directly using HTML inside JavaScript.
+-------------------------------------------------
+Q3. Can web browsers read JSX directly? 
+Web browsers cannot read JSX directly. This is because they are built to only read regular JS objects and JSX is not a regular JavaScript object 
+For a web browser to read a JSX file, the file needs to be transformed into a regular JavaScript object. For this, we use Babel
+
+Modern JS => BABEL => Browser compatible js
+-------------------------------------------------
+
+Q4. What is the virtual DOM? Real vs Virtual.
+Ans:
+DOM:
+DOM stands for Document Object Model. 
+The DOM represents an HTML document with a logical tree structure. 
+Each branch of the tree ends in a node, and each node contains objects.
+
+Virtual DOM:
+React keeps a lightweight representation of the real DOM in the memory, and that is known as the virtual DOM. 
+When the state of an object changes, the virtual DOM changes only that object in the real DOM, rather than updating all the objects. 
+-------------------------------------------------
+Q5. Why was virtual DOM introduced? 
+
+DOM manipulation is an integral part of any web application, but DOM manipulation is quite slow when compared to other operations in JavaScript. The efficiency of the application gets affected when several DOM manipulations are being done. Most JavaScript frameworks update the entire DOM even when a small part of the DOM changes.
+
+For example, consider a list that is being rendered inside the DOM. If one of the items in the list changes, the entire list gets rendered again instead of just rendering the item that was changed/updated. This is called inefficient updating.
+
+To address the problem of inefficient updating, the react team introduced the concept of virtual DOM.
+-------------------------------------------------
+
+Q6. What is an event in React?
+An event is an action that a user or system may trigger, such as pressing a key, a mouse click, etc.
+With JSX, you pass a function as the event handler, rather than a string in HTML.
+<Button onPress={lightItUp} />
+
+Creating an event:
+const filterChangeHandler = (selectedYear) => {
+   setFilteredYear(selectedYear);
+};
+
+<button onClick={shoot}>Take the shot!</button>
+-------------------------------------------------
+
+Q7. Component?
+React is all about components because all user interfaces in the end are made up of components.
+Reusable building blocks in your user interface.
+Components are just combination of HTML code, css code and js if necessary.
+Why components
+Reusability: Dont repeat
+Seperation of concerns: Dont do too many things in the same place.
+
+props:
+props are the attribute of your 'custom HTML elements' (component).
+-------------------------------------------------
+
+Q8. What are react hooks?
+React Hooks are simple JavaScript functions that we can use to isolate the reusable part from a functional component. 
+Hooks can be stateful and can manage side-effects.
+
+With React Hooks, we can isolate stateful logic and side-effects from a functional component. Hooks are JavaScript functions that manage the state's behaviour and side effects by isolating them from a component.
+
+So, we can now isolate all the stateful logic in hooks and use (compose them, as hooks are functions, too) into the components.
+
+Stateful logic:
+It can be anything that needs to declare and manage a state variable locally.
+
+For example, the logic to fetch data and manage the data in a local variable is stateful. We may also want to reuse the fetching logic in multiple components.
+
+https://www.freecodecamp.org/news/react-hooks-fundamentals/
+https://react.dev/reference/react/useState
+-------------------------------------------------
+
+Q9. Stateful vs stateless component?
+Ans:
+Components in React can be stateful or stateless.
+A stateful component declares and manages local state in it.
+A stateless component is a pure function that doesn't have a local state and side-effects to manage.
+
+React component with internal state is called Stateful component 
+and React component without any internal state management is called Stateless component. 
+React recommends to create and use as many stateless component as possible and create stateful component only when it is absolutely necessary.
+
+Stateful component:
+
+A component that manages the state in class-based with state or functional with useState.
+In some component, the data keeps changing, for example, watching the cricket score etc.
+In most of the cases, the class-based components extend react component.
+Stateful components can use react life cycle hooks
+In stateful components it good to use the this instance
+Stateless component:
+
+A component that has no internal state management in it.
+In some component, the data remains the same, for example, showing the static data.
+Function components are simply functions that receive the props and return the JSX code.
+Stateless components can not use the react life cycle hooks
+Here need not to use this instance, they just receive the props as an argument
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+

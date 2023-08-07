@@ -1,0 +1,42 @@
+Q14. What is Arrow functions? Regular function vs Arrow function?
+Ans:
+A. Syntax differences
+
+- Its ES6 feature that provides a more concise syntax for writing function expressions by removing out the "function" and "return" keywords.
+- Arrow functions are defined using the fat arrow (=>) notation.
+
+e.g.
+let sumOfTwoNumbers = (a, b) => a + b;
+console.log(sum(10, 20));  // Output 30
+
+- We can also skip the parenthesis in the case when there is exactly one parameter, 
+  but will always need to use it when you have zero or more than one parameter.
+- If there are multiple expressions in the function body, then we need to wrap it with curly braces ("{}"). 
+We also need to use the "return" statement to return the required value.
+
+B. difference in this.
+1. this difference
+- In a regular function, the "this" keyword represents different objects depending on how the function was called.
+e.g. the document, a button or whatever.
+- In Arrow Functions, the "this" keyword represents the object that owns the function, no matter who calls the function.
+
+2. example
+example:
+    <button id="press1">Try it</button>
+         <button id="press2">Try it</button>
+
+        var button1 = document.getElementById('press1');
+        var button2 = document.getElementById('press2');
+        button1.addEventListener('click', () => {
+            console.log('This',this);// This Window {window: Window, self: Window, d ....etc
+        });
+
+        button2.addEventListener('click', function() {
+            console.log('This',this);// <button id="press2">Try it</button>
+        });
+3. limitation
+Limitations:
+- Does not have its own bindings to this or super, and should not be used as methods.
+- Not suitable for call, apply and bind methods, which generally rely on establishing a scope.
+- Can not be used as constructors.
+- Can not use yield, within its body.

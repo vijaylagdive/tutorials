@@ -1,0 +1,36 @@
+1.
+    let arr = [22,22,22,22,44,55,66,44,33,66,11,11,55]
+    function removeDuplicate() {
+        return arr.filter((ele, index) =>  {
+            return arr.indexOf(ele) === index;
+        })
+    }
+    console.log(removeDuplicate());
+
+
+2.
+function getUniqArray(originalArray){
+  var newArray = [];
+  var i = 0;
+  while(i < originalArray.length){
+    if(!newArray.includes(originalArray[i])){
+      newArray.push(originalArray[i]);
+    }
+    i++;
+  }
+  console.log(newArray);
+}
+
+var originalArray = [1,2,5,2,2,3,4,1];
+getUniqArray(originalArray);
+
+o/p: [1,2,5,3,4]
+
+P4 Remove duplicate from array.
+Ans:
+1. using set
+let chars = ['A', 'B', 'A', 'C', 'B'];
+let uniqueChars = [...new Set(chars)];
+
+console.log(uniqueChars);
+------------------------

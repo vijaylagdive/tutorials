@@ -1,0 +1,121 @@
+Q1. Explain pipes in angular?
+Ans: A pipe takes in data as input and transforms it to a desired output. 
+Used in components templates to transform data before displaying it.
+Angular built in pipes includes lowercase, uppercase, decimal etc.
+- To apply pipe we can use pipe character.(|)
+e.g.
+For example, let us take a pipe to transform a component's birthday property into a human-friendly date using date pipe.
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-birthday',
+  template: `<p>Birthday is {{ birthday | date }}</p>`
+})
+export class BirthdayComponent {
+  birthday = new Date(1987, 6, 18); // June 18, 1987
+}
+
+
+other examples:
+<h1>{{empName | uppercase}}</h1>
+<h1>{{emp.dob | date | uppercase}}</h1>
+<h1>{{empSalary | currency:'USD':true}}</h1>
+<h1>{{empDob | date:"dd/MM/y"}}</h1>
+---------------------------------------------------------------------------------------------------
+Q2. Built in pipes in angular?
+Ans: date, uppercase, lowercase, slice
+
+---------------------------------------------------------------------------------------------------
+Q3. How to write custom pipe?
+Ans:
+Custom pipes.
+We can create custom pipes as per our requirement.
+And use them in our html file.
+a)Create pipe file using "ng g p myPipe" command.
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'mypipe'
+})
+export class MypipePipe implements PipeTransform {
+  transform(value: string): string {
+    let cy: number = new Date().getFullYear();
+    let by: number = new Date(value).getFullYear();
+    let age = cy-by;
+    return age.toString();
+  }
+}
+
+add in the ng Module declaration
+@NgModule({
+  declarations: [
+    .
+    MyPipePipe
+  ],
+})
+
+Use this in html file as below
+<h1>Age: {{dob | mypipe}}</h1>
+
+where dob is "10/05/1991" //has to declared in class file of the component.
+---------------------------------------------------------------------------------------------------
+Q4. What is a parameterized pipe?
+A pipe can accept any number of optional parameters to fine-tune its output. 
+The parameterized pipe can be created by declaring the pipe name with a colon ( : ) and then the parameter value. 
+If the pipe accepts multiple parameters, separate the values with colons. 
+
+<p>{{ 'Hello' | mypipe: 'Angular' }}</p>
+//text to append is the parameter and value is default string passed by pipe from template.
+transform(value: string, textToAppend: string): string {
+  console.log(value+ ':' +textToAppend);
+  return value + ' ' + textToAppend;
+}
+---------------------------------------------------------------------------------------------------
+Q5. How do you chain pipes?
+
+You can chain pipes together in potentially useful combinations as per the needs. 
+Let's take a birthday property which uses date pipe(along with parameter) and uppercase pipes as below
+
+import { Component } from '@angular/core';
+
+        @Component({
+          selector: 'app-birthday',
+          template: `<p>Birthday is {{  birthday | date:'fullDate' | uppercase}} </p>` // THURSDAY, JUNE 18, 1987
+        })
+        export class BirthdayComponent {
+          birthday = new Date(1987, 6, 18);
+        }
+
+---------------------------------------------------------------------------------------------------
+Q6. Pure and impure pipes?
+Pure pipe detect only pure changes. (pure change means change in primitive data value or the change in reference)
+A pure pipe is only called when Angular detects a change in the value of the parameters passed to a pipe. 
+For example, any changes to a primitive input value (String, Number, Boolean, Symbol) or a changed object reference (Date, Array, Function, Object). 
+
+An impure pipe is called for every change detection cycle no matter whether the value or parameters changes. 
+i.e, An impure pipe is called often, as often as every keystroke or mouse-move.
+---------------------------------------------------------------------------------------------------
+Q7. What is async pipe?
+Ans: 
+The async pipe subscribes to an Observable or Promise that returns the latest values and displays on screen. 
+When a new value is emitted, the async pipe marks the component to be checked for changes. 
+When the component gets destroyed, the async pipe unsubscribes automatically to avoid potential memory leaks. 
+When the reference of the expression changes, the async pipe automatically unsubscribes from the old Observable or Promise and subscribes to the new one.
+
+e.g. 
+Let's take a time observable which continuously updates the view for every 2 seconds with the current time.
+
+@Component({
+  selector: 'async-observable-pipe',
+  template: `<div>
+		<code>observable|async</code>:
+       		Time: {{ time | async }}
+	    </div>`
+})
+
+export class AsyncObservablePipeComponent {
+  time = new Observable(observer =>
+    setInterval(() => observer.next(new Date().toString()), 2000)
+  );
+}
+---------------------------------------------------------------------------------------------------

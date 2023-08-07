@@ -1,0 +1,172 @@
+Q1. What is Routing?
+Routing helps to define navigation for your angular app.
+So if you want to move from one component to another routing is needed.
+---------------------------------------------------------------------------------------------------
+Q2. What is router outlet?
+The RouterOutlet is a directive it acts as a placeholder.
+This placeholder marks the spot in the template where the router should display the components for that outlet.
+Router outlet is used like a component.
+
+<router-outlet></router-outlet>
+---------------------------------------------------------------------------------------------------
+Q3. What are router links?
+Ans:
+The RouterLink is a directive on the anchor tags give the router control over those elements.
+Since the navigation paths are fixed, you can assign string values to router-link directive as below,
+
+<h1>Angular Router</h1>
+<nav>
+  <a routerLink="/todosList" >List of todos</a>
+  <a routerLink="/completed" >Completed todos</a>
+</nav>
+<router-outlet></router-outlet>
+---------------------------------------------------------------------------------------------------
+Q4. What is activated route? or how to access params and queryparams?
+Ans:
+ActivatedRoute contains information about a route associated with a component loaded in an outlet.
+The ActivatedRoute can be injected as a router service to access the information.
+
+Uses:
+- It can also be used to traverse the router state tree.
+- In the below example we can access route path and parameters.
+
+e.g. Accessing params:
+  this.user.id = this.activatedRoute.snapshot.params['id'],
+  this.user.id = this.activatedRoute.snapshot.params['name']
+
+  this.activatedRoute.params.subscribe((param : Params) => {
+    this.user.id = param['id'];
+    this.user.name = param['name'];
+  })
+
+console.log("routes");
+console.log(activatedRoute.snapshot.url); // array of states
+console.log(activatedRoute.snapshot.url[0].path); 
+
+e.g. Accessing queryparams
+this.activatedRoute.queryParams.subscribe();
+---------------------------------------------------------------------------------------------------
+Q5. How to implement routes and routing?
+
+You can create one seperate router module.
+
+//Defining routes 
+const routes: Routes = [
+  { path: 'temp', component: TempFormComponent },
+  { path: 'react', canActivate : [AuthGuard] , canDeactivate : [YourGuardGuard],component: ReactFormComponent },
+  { path: 'share', component: ShareComponent }
+];
+
+@NgModule({
+  declarations: [],
+  imports: [RouterModule.forRoot(routes)],
+  exports : [RouterModule]
+})
+
+export class AppRoutingModule {}
+
+Import in app.module.ts
+import { AppRoutingModule } from './app-routing/app-routing.module';
+
+imports: [
+    BrowserModule,
+    AppRoutingModule
+ ]
+---------------------------------------------------------------------------------------------------
+Q6. What is the purpose of Wildcard route?
+
+If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. 
+In this case, you can use wildcard route. 
+A wildcard route has a path consisting of two asterisks to match every URL.
+
+For example, you can define PageNotFoundComponent for wildcard route as below
+{ path: '**', component: PageNotFoundComponent }
+---------------------------------------------------------------------------------------------------
+Q7. Passing and accessing parameters to routes?
+Ans:
+Parameter passed to routerlink
+In routes defination
+{ path: 'product/:id/:name', component: ProductDetailComponent }
+
+In template
+<a [routerLink]="['/Product', ‘2’]">{{product.name}} </a>
+or
+<a [routerLink]="['/Product', product.productID]">{{product.name}} </a>
+
+
+Retrieve parameter from routerlink:
+In the component
+import { ActivatedRoute } from '@angular/router';
+
+ user : {
+   id: number, name: string
+ }
+
+
+constructor(private activatedRoute : ActivatedRoute) {}
+
+ ngOnInit(): void {
+  this.user.id = this.activatedRoute.snapshot.params['id'],
+  this.user.id = this.activatedRoute.snapshot.params['name'],
+ }
+---------------------------------------------------------------------------------------------------
+Q8. What are the router imports?
+Ans:
+- The angular router represents a particular component view for a given URL.
+- And it is not part of Angular Core.
+- It is available in library named @angular/router to import required router 
+e.g.
+import { RouterModule, Routes }from '@angular/router';
+---------------------------------------------------------------------------------------------------
+Q9. RouterLinkActive:
+The directive for adding/removing classes from an HTML element when an associated routerLink contained on or inside the element becomes active/inactive.
+e.g. <a routerLinkActive="active">
+This applies active class to the link if that link is active
+---------------------------------------------------------------------------------------------------
+Q10. Accessing or printing current url? 
+Ans:
+ constructor(private router: Router) {}
+
+ this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
+    let x  = event;
+    console.log(event['url']);
+  });
+
+---------------------------------------------------------------------------------------------------
+Q11. How do you detect route change in Angular?
+Ans:
+In Angular7, you can subscribe to router to detect the changes. The subscription for router events would be as below,
+
+this.router.events.subscribe((event: Event) => {})
+
+e.g.
+
+import { Component } from '@angular/core';
+import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+
+@Component({
+    selector: 'app-root',
+    template: `<router-outlet></router-outlet>`
+})
+export class AppComponent {
+
+    constructor(private router: Router) {
+
+        this.router.events.subscribe((event: Event) => {
+            if (event instanceof NavigationStart) {
+                // Show loading indicator and perform an action
+            }
+
+            if (event instanceof NavigationEnd) {
+                // Hide loading indicator and perform an action
+            }
+
+            if (event instanceof NavigationError) {
+                // Hide loading indicator and perform an action
+                console.log(event.error); // It logs an error for debugging
+            }
+        });
+   }
+}
+
+---------------------------------------------------------------------------------------------------

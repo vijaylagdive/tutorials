@@ -1,0 +1,201 @@
+Q1. What is JS object? and how to create it?
+Ans:
+A JavaScript object is a collection of named values.
+
+Creating a JS Object
+1. Using an object literal or Object initializer:
+var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+const Person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+
+2. Using JS keyword new
+var person = new Object();
+person.firstName = "John";
+person.lastName = "Doe";
+
+3. Using function constructor
+var student = function(name){
+	this.name = name;
+}
+var c = new student(Hello);
+
+4. Using ES6 Class syntax
+class myObject{
+	constructor(name){
+		this.name = name;
+	}
+
+}
+var e = new myObject("Hello");
+
+5. Creating Object.create();
+var a = Object.create(null);
+a.name = "Vijay"
+
+---------------------------------------------------------------------------------------------------
+Q2. How to access and delete property in JS object?
+Ans:
+Accessing an Object
+1. objectName.property         // person.age
+
+2. objectName["property"]      // person["age"]
+
+3. JS for in loop
+for (variable in object) {
+  // code to be executed
+}
+The block of code inside of the for...in loop will be executed once for each property.
+let person = {
+  name : 'vijay',
+  age : 25
+}
+
+for (let x in person) {
+  console.log(person[x]);
+}
+
+o/p: 
+vijay
+25
+------------------------
+Deleting property in object.
+Deleting property
+var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+delete person.age;   // or delete person["age"];
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Q3. Which are Object's important methods
+Ans:
+1)Object.assign()
+2)Object.create()
+3)Object.freeze() Cannot be added deleted modified its properties.
+4)Object.seal() Cannot added or deleted but can be updated
+5)Object.isFrozen() 
+6)Object.isSealed()
+-------------------------------------------------
+1)Object.assign()
+Copies the values of all enumerable own properties from one or more source objects to a target object.
+Example:
+var a = {
+  name: "Vijay",
+  city: "Latur"
+}
+var b = {};
+syntax:  Object.assign(target,source);
+Object.assign(b,a);
+
+-------------------------------------------------
+2)Object.create()
+Creates a new object with the specified prototype object and properties.
+Example:
+var x = Object.create(null);
+x.name = "Vijay"
+x.city = "Pune"
+
+var student = {
+ name : 'vijay',
+ class : 'Eigth'
+}
+
+This will create prototype inheritance.
+var newStudent = Object.create(student);
+-------------------------------------------------
+3)Object.freeze()
+Freezes an object.  Other code cannot add delete or update its properties.
+var a = {
+  name: "Vijay",
+  city: "Pune"
+}
+Object.freeze(a);
+a.name = "Ajay"; //invalid
+-------------------------------------------------
+4)Object.seal()
+Prevents other code from adding or deleting properties of an sealed object.
+But the properties can be updated.
+var a = {
+  name: "Vijay",
+  city: "Pune"
+}
+Object.seal(a);
+a.name = "Ajay"; //valid
+-------------------------------------------------
+5)Object.isFrozen()
+Determines if an object was frozen.
+-------------------------------------------------
+6)Object.isSealed()
+Determines if an object is sealed.
+-------------------------------------------------
+Q3a Which are Object's important methods? keys(), getOwnPropertyNames(), hasOwnPropertyNames(), values()
+Ans: 
+1)Object.keys()
+2)Object.getOwnPropertyNames()
+3)Object.hasOwnProperty()
+4)Object.values()
+
+1)Object.keys()
+Returns an array containing the names of all of the given object's own enumerable string properties.
+Example:
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+console.log(Object.keys(object1));
+// expected output: Array ["a", "b", "c"]
+-------------------------------------------------
+2)Object.getOwnPropertyNames()
+Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
+
+let person = {
+  name : 'vijay',
+  age : 25
+}
+console.log(Object.getOwnPropertyNames(person));
+
+["name","age"]
+
+
+Object.keys() vs Object.getOwnPropertyNames() 
+var a = {};
+Object.defineProperties(a, {
+    one: {enumerable: true, value: 1},
+    two: {enumerable: false, value: 2},
+});
+Object.keys(a); // ["one"]
+Object.getOwnPropertyNames(a); // ["one", "two"]
+-------------------------------------------------
+3)Object.values()
+Returns an array containing the values that correspond to all of a given object's own enumerable string properties.
+
+let person = {
+  name : 'vijay',
+  age : 25
+}
+console.log(Object.values(person));
+o/p
+[
+"vijay",
+25
+]
+
+-------------------------------------------------
+4)hasOwnProperty()
+console.log(Object.hasOwnProperty('name'));
+o/p True
+---------------------------------------------------------------------------------------------------
+Q3b  Creating readonly properties for object?
+Ans:
+var movieTicket = {
+  movie: 'Mad Max',
+  hall: 1
+};
+
+Object.defineProperty(movieTicket, 'movie', {
+  value: 'Mad Max',
+  writable: false
+});
+
+movieTicket.movie = 'Star Wars';
+
+console.log(movieTicket);
+
+---------------------------------------------------------------------------------------------------

@@ -1,0 +1,133 @@
+Q4. What is Prototype in JS
+ref: https://www.tutorialsteacher.com/javascript/prototype-in-javascript
+
+- JavaScript is a prototype based language, that means when you create any object using a 
+constructor function or class keyword the prototyoe object is automatically assigned to 
+prototype property of the constructor function or class.
+
+- Prototype property is basically an Object to which additional methods and properties can be attached to it 
+  which will be shared across all the instances of its constructor functions.	
+
+Advantage of using prototype object to add method or function:
+- No matter how many objects you create, functions are loaded only once into memory.
+- Allows you to override functions if required.
+
+function overriding using prototype as below:
+
+function Employee(name){
+  this.name = name;
+} 
+Employee.prototype.getName = function(){
+  return this.name;
+}
+
+function getEmployeeDetails(){
+  Employee.prototype.getName = function(){
+    return this.name.toUpperCase();
+  }
+
+  var e1 = new Employee("John");
+  var e2 = new Employee("Doe");
+  console.log(e1.getName());
+  console.log(e2.getName());
+}
+getEmployeeDetails();
+-----------------------------------------------------------------------------------------------------
+Q5. What is prototype inheritance?
+Ans:
+Inheritance:
+In JS, inheritance is protyotype-based, means an object is inherited from another object.
+
+When we read a property from object, and it’s missing, JavaScript automatically takes it from the prototype. 
+In programming, this is called “prototypal inheritance”.
+
+Example 1:
+var Employee = function(name){
+  this.name = name;
+}
+
+var PermananentEmployee = function(salary){
+  this.salary = salary;
+}
+
+var emp = new Employee("Mark"); //Create object of base class.
+PermananentEmployee.prototype = emp; //Prototype inheritance as we inherited object from object.
+                                     //Now all the properties from Employee inherited to Permanent employee.
+
+var pe = new PermananentEmployee(5000); //Now the pe object is eligible to access all properties and
+					//methods of Employee class that is base class.
+
+Employee.prototype.getName = function(){
+  return this.name;
+}
+PermananentEmployee.prototype.getSalary = function(){
+  return this.salary
+}
+
+console.log(pe.getName());//child can call parent method
+console.log(pe.name);//child can call parent property.
+
+console.log("emp name:",emp.hasOwnProperty("name"));//true
+console.log("emp salary:",emp.hasOwnProperty("salary"));//false
+//Use hasOwnProperty() method to determine if a property is defined on the 
+//actual object or its prototype.
+
+console.log("emp instance of Employee:",emp instanceof Employee);//True
+console.log("emp instance of PermanentEmployee:",emp instanceof PermananentEmployee);//false
+
+console.log("pe instance of Employee:",pe instanceof Employee);//True
+console.log("pe instance of PermanentEmployee:",pe instanceof PermananentEmployee);//True
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Example 2: 
+
+var o = {
+  a: 2,
+  m: function() {
+    return this.a + 1;
+  }
+};
+
+console.log(o.m()); // 3
+// When calling o.m in this case, 'this' refers to o
+
+var p = Object.create(o);
+// p is an object that inherits from o
+
+p.a = 4; // creates a property 'a' on p
+console.log(p.m()); // 5
+// when p.m is called, 'this' refers to p.
+// So when p inherits the function m of o,
+// 'this.a' means p.a, the property 'a' of p
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Q6. ES6 class based inheritance?
+ES6 class based inheritance example:
+
+'use strict';
+
+class Polygon {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+
+class Square extends Polygon {
+  constructor(sideLength) {
+    super(sideLength, sideLength);
+  }
+  get area() {
+    return this.height * this.width;
+  }
+  set sideLength(newLength) {
+    this.height = newLength;
+    this.width = newLength;
+  }
+}
+var square = new Square(2);
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ 

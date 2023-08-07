@@ -1,0 +1,15 @@
+1. Which are positions in CSS?
+2. What is Flexbox?
+3. What are pseudo class psedo elements?
+4. responsive design. RWD mediaquery etc
+5. Sass scss
+6. box-sizing-box-model
+7. CSS 2D Transforms?
+
+
+Q4. What is the Z-index in CSS?
+Q5 different units in css em, rem, px, vw? 
+Q6 What are the major versions of CSS?
+
+
+inline css is faster

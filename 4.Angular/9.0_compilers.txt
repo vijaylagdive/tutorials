@@ -1,0 +1,115 @@
+Q1. Why do we need compilation process?
+The Angular components and templates cannot be understood by the browser directly. 
+Due to that Angular applications require a compilation process before they can run in a browser. 
+For example, In AOT compilation, 
+both Angular HTML and TypeScript code converted into efficient JavaScript code during the build phase before browser runs it.
+----------------------------------------------------------------------------------------------------
+Q5. What are the advantages with AOT? OR Why should you use the Ahead of Time compiler?
+Below are the list of AOT benefits,
+
+i. Faster rendering: The browser downloads a pre-compiled version of the application. So it can render the application immediately without compiling the app.
+ii. Fewer asynchronous requests: It inlines external HTML templates and CSS style sheets within the application javascript which eliminates separate ajax requests.
+iii. Smaller Angular framework download size: Doesn't require downloading the Angular compiler. Hence it dramatically reduces the application payload.
+iV. Detect template errors earlier: Detects and reports template binding errors during the build step itself
+v. Better security: It compiles HTML templates and components into JavaScript. So there won't be any injection attacks.
+
+
+When you are using Ahead of Time Compiler, compilation only happens once, while you build your project.
+We don’t have to ship the HTML templates and the Angular compiler whenever we enter a new component.
+It can minimize the size of your application.
+The browser does not need to compile the code in run time, it can directly render the application immediately, without waiting to compile the app first so, it provides quicker component rendering.
+The Ahead of time compiler detects template error earlier. It detects and reports template binding errors during the build steps before users can see them.
+AOT provides better security. It compiles HTML components and templates into JavaScript files long before they are served into the client display. 
+So, there are no templates to read and no risky client-side HTML or JavaScript evaluation. 
+This will reduce the chances of injections attacks.
+----------------------------------------------------------------------------------------------------
+
+Q6. What are the three phases of AOT?
+The AOT compiler works in three phases,
+Code Analysis: The compiler records a representation of the source
+Code generation: It handles the interpretation as well as places restrictions on what it interprets.
+Validation: In this phase, the Angular template compiler uses the TypeScript compiler to validate the binding expressions in templates.
+----------------------------------------------------------------------------------------------------
+
+Q7. What is Angular Ivy?
+Ans: 
+Angular Ivy is a new rendering engine for Angular. You can choose to opt in a preview version of Ivy from Angular version 8.
+
+i) You can enable ivy in a new project by using the --enable-ivy flag with the ng new command
+ng new ivy-demo-app --enable-ivy
+
+ii) You can add it to an existing project by adding enableIvy option in the angularCompilerOptions in your project's tsconfig.app.json.
+{
+  "compilerOptions": { ... },
+  "angularCompilerOptions": {
+    "enableIvy": true
+  }
+}
+----------------------------------------------------------------------------------------------------
+
+Q8. What are the features included in ivy preview?
+You can expect below features with Ivy preview,
+
+Generated code that is easier to read and debug at runtime
+Faster re-build time
+Improved payload size
+Improved template type checking
+
+----------------------------------------------------------------------------------------------------
+Q9. Can I use AOT compilation with Ivy?
+Ans: 
+Yes, it is a recommended configuration. Also, AOT compilation with Ivy is faster. So you need set the default build options(with in angular.json) for your project to always use AOT compilation.
+{
+  "projects": {
+    "my-project": {
+      "architect": {
+        "build": {
+          "options": {
+            ...
+            "aot": true,
+          }
+        }
+      }
+    }
+  }
+}
+
+----------------------------------------------------------------------------------------------------
+Q Angular compiler and runtime?
+compiler: build time utility
+- down leveling your TS code to JS
+- parses angular decorator and your templates and it generates some code that runtime can understand.
+- compiler generates instructions and rutime implements the instructions.
+
+runtime: Framework code that ships with your application and actually runs in the browser.
+----------------------------------------------------------------------------------------------------
+Application bootstrapping
+
+Module bootstrap
+i Module setup
+Here framework is instatiating your module.
+Its setting up module injector.
+
+Component bootstrap: More related to component tree.
+ii. View creation: Dom is created and directives are instatiated.
+Creating DOM for your entire application nstatiating directive etc.
+
+
+iii. Change detection
+Wehere angular checks the binding values and updating them if necessary
+----------------------------------------------------------------------------------------------------
+
+Root setup:
+Locate root setup
+bootstrap: [AppComponent]
+
+Instantiate root component 
+
+
+Render root component.
+
+----------------------------------------------------------------------------------------------------
+Conclusion: You can compile your angular application in two ways: JIT and AOT. Both are suitable for a different scenario like you can use JIT for development mode and AOT is better in production mode.  Implementing features and debugging is easy in JIT mode since you have to map files while AOT does not have it. However, that AOT provides a big benefit to angular developers for production mode by reducing bundle size and making your app render faster.
+
+
+

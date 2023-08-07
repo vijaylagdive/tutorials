@@ -1,0 +1,32 @@
+Q1. New features in HTML5?
+Ans:
+New features in HTML5
+
+1. Semantic Elements:
+These are like <header>, <footer>, and <section>.
+
+2. Drag and drop:
+Drag and drop the items from one location to another location on the same webpage.
+
+3. Multimedia support
+You can embed audio or video on your webpages without resorting to third-party plugins.
+
+4. Persistent Local Storage:
+- To achieve without resorting to third-party plugins.
+- In previous HTML: Browser cache could be used as temporary storage.
+
+5. Canvas:
+This supports a two-dimensional drawing surface that you can program with JavaScript.
+e.g. HTML5 allows users to draw various shapes like rectangles, circles, triangles, etc.
+
+6. Email attribute:
+When in a form we write the type as email, then browser by itself gets the instruction from the code to write
+an email with the proper as well as valid format of writing an email. This was not possible in the earlier browsers.
+
+7. Geolocation:
+Now visitors can choose to share their physical location with your web application.
+
+
+
+
+
