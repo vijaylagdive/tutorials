@@ -4,7 +4,7 @@ Types of scopes in js?
 3.Global scope
 ------
 
-
+- variable without var or let becomes global.
 
 
 ----------------------------------------------------------------

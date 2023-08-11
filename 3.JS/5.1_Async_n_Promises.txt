@@ -10,6 +10,7 @@ Q1. What is promise? Defination?
 Ans: 
 Promise is an object that represent eventual completion or failure of async operation and its result.
 Promise object constructor takes a callback function as a parameter in which operations are done.
+That function again takes 2 callbacks resolve and reject.
 If desired result achieved resolve is called with value.
 If desired result is not achived then reject is called with error.
 

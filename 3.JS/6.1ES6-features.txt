@@ -1,14 +1,14 @@
 Q1. What are the ES6 Features:
 1. let and const variables
 2. Arrow functions
-3. Promise
-4. Classes
+3. Classes
+4. Promise
 5. Spread operator 
 6. Destructuring Assignment
 7. Multi-line Strings 
 8. Template Literals
-9. Modules
-10. Default Parameters
+9. Default Parameters
+10.Modules 
 **************************************************
 Q2. What is arrow function?
 1. Arrow Function
@@ -60,6 +60,8 @@ Q5. What is spread operator? Uses?
 Object, Array destructuring
 Rest parameters
 Shallow copying of object.
+
+Note: see seperate file for details
 ---------------------------------------------------------------------------------------------------
 Q6. Rest parameter
 With the help of a rest parameter a function can be called with any number of arguments, no matter how it was defined. 

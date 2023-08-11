@@ -7,13 +7,6 @@ In JavaScript, arrays use numbered indexes.
 In JavaScript, objects use named indexes.
 
 ---------------------------------------------------------------------------------------------------
-8:08 Have you used reduce function in JS?
-- A higher order function thats based on pattern on Reduction aka it'll work through given data resulting into a single value.
-
-8:19 What is the difference between map and reduce?
-- Both are higher order Array methods available via Array.prototype. Map returns an array but Reduce can return any data types based on it's callback function operation. 
-
----------------------------------------------------------------------------------------------------
 
 Q2. How to recognize array in JS?
 Ans:
