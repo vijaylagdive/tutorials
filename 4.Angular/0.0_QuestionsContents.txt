@@ -36,14 +36,14 @@ Q9. RouterLinkActive?
 Q10. Accessing or printing current url? 
 Q11. How do you detect route change in Angular?
 
-Q.What is AuthGuard service
-Q.What are different types of route guards?
+Q12.What is AuthGuard service
+Q13.What are different types of route guards?
 ------------------------------------------------------------------------------------------
 5. Forms:
 Q1. What is reactive form?
 Q2. What are template driven forms?
 Q3. Difference between Reactive and Template driven forms.
-Q4. What are the different ways to to group form controls?
+Q4. What are the different ways to group form controls?
 Q5. What is the purpose of FormBuilder?
 Q6. Why check dirty and touched?
 Q7. Show hide password on click of button?
@@ -110,12 +110,8 @@ Q6. Explain Angular Authentication and Authorization.
 Q7. 
 Q8. Ways to trigger change detections.
 Q9 Increase performance of angular application?
-
-
-10.1 versions
-10.2 ng performance
-
-13. How angular app is loaded?
+Q10. How angular app is loaded?
+Q13. Angular universal
 -------------------------------------------------------------
 11. change detection
 Q1. What is change detection in angular?

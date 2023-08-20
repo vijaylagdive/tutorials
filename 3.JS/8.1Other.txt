@@ -100,10 +100,18 @@ e.g. hyperlinks default action is to open new tab. We can cancel its default act
 ---------------------------------------------------------------------------------------------------
 Q6. Data types in JS?
 Ans:
+Primitive
+String 
+Number
 Boolean
-Null type
 Undefined
-Number type
+Null
+
+Non-Primitive
+Object
+Array
+Function
+Date
 BigInt type
 String type
 Symbol type
