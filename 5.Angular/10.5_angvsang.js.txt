@@ -1,0 +1,26 @@
+Difference between angular js and angular
+
+1. Architecture:
+AngJS: It supports MVC architecture
+Ang: It uses components and directives. Components are the directives with a template.
+
+2. CLI:
+AngJs: Does not come with CLI
+Ang: It comes with CLI tool.
+
+3. DI:
+AngJs: Does not support Dependency Injection.
+AngJS: Fully supports DI.
+
+4. Language: 
+AngJs: Angular JS was based on java script.
+Ang: Angular is based on Typescript.
+
+5. Mobile support:
+AngJS: Does not support mobile.
+Ang: Support mobile.
+
+6. Structure:
+AngJs: Less manageble
+Ang: Better structure, easier to maintain.
+----------------------------------------------------

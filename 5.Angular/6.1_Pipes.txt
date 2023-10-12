@@ -1,0 +1,27 @@
+Q1. Explain pipes in angular?
+Ans: A pipe takes in data as input and transforms it to a desired output. 
+It is used in components templates to transform data before displaying it.
+Angular built in pipes includes lowercase, uppercase, decimal etc.
+- To apply pipe we can use pipe character.(|)
+
+Examples of built in pipes as below:
+<h1>{{empName | uppercase}}</h1>
+<h1>{{emp.dob | date | uppercase}}</h1>
+<h1>{{empSalary | currency:'USD':true}}</h1>
+<h1>{{empDob | date:"dd/MM/y"}}</h1>
+---------------------------------------------------------------------------------------------------
+Q5. How do you chain pipes?
+You can chain pipes together in potentially useful combinations as per the needs. 
+Let's take a birthday property which uses date pipe(along with parameter) and uppercase pipes as below
+
+import { Component } from '@angular/core';
+
+        @Component({
+          selector: 'app-birthday',
+          template: `<p>Birthday is {{  birthday | date:'fullDate' | uppercase}} </p>` // THURSDAY, JUNE 18, 1987
+        })
+        export class BirthdayComponent {
+          birthday = new Date(1987, 6, 18);
+        }
+
+---------------------------------------------------------------------------------------------------

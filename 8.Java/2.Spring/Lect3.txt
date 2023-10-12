@@ -1,0 +1,24 @@
+Spring Modules:
+1. Core
+2. Beans
+3. Context: inherit module from bean, internationalization
+4. spEL: Query manipulation
+
+
+AOP: Allows to decouple code
+Aspect:
+Instrumentation
+
+
+Data interation
+JDBC ORM: We can integrate hibernate using ORM
+JMS OXM
+
+
+Web Servlet
+Portlet WebSocket
+
+Test Module:
+Supports unit testing 
+JUnit etc
+

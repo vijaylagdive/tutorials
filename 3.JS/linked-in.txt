@@ -1,0 +1,8 @@
+7. **What is event delegation in JavaScript?**
+  Event delegation is a technique where you attach an event listener to a parent element to handle events for its child elements.
+
+8. **What is the purpose of the "use strict" directive in JavaScript?**
+  "use strict" enables strict mode in JavaScript, which helps identify and fix common coding mistakes, and makes the code more secure.
+
+9. **Explain the concept of closures in JavaScript.**
+  Closures allow functions to remember the variables from the scope where they were created, even if the function is executed in a different scope.

@@ -1,0 +1,12 @@
+Q1. What is RxJS?
+Ans 1. Full form is Reactive Extension for Java Script.
+2. It is a library used for composing asynchronous and callback-based code in a functional, reactive style using Observables. 
+Many APIs such as HttpClient produce and consume RxJS Observables and also uses operators for processing observables.
+
+For example, you can import observables and operators for using HttpClient as below,
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+
+installing rxJS?
+npm install --save rxjs@6
+-------------------------------------------------

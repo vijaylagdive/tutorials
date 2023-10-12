@@ -1,0 +1,24 @@
+Q4. What is activated route? or how to access params and queryparams?
+Ans:
+ActivatedRoute contains information about a route associated with a component loaded in an outlet.
+The ActivatedRoute can be injected as a router service to access the information.
+
+Uses:
+- It can also be used to traverse the router state tree.
+- In the below example we can access route path and parameters.
+
+e.g. Accessing params:
+  this.user.id = this.activatedRoute.snapshot.params['id'],
+  this.user.id = this.activatedRoute.snapshot.params['name']
+
+  this.activatedRoute.params.subscribe((param : Params) => {
+    this.user.id = param['id'];
+    this.user.name = param['name'];
+  })
+
+console.log("routes");
+console.log(activatedRoute.snapshot.url); // array of states
+console.log(activatedRoute.snapshot.url[0].path); 
+
+e.g. Accessing queryparams
+this.activatedRoute.queryParams.subscribe();

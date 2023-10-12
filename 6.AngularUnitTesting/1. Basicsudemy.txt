@@ -1,0 +1,166 @@
+What is Jasmine?
+Jasmine is a javascript testing framework that supports a software development practice called Behaviour Driven Development, or BDD for short. 
+It’s a specific flavour of Test Driven Development (TDD).
+Jasmine, and BDD in general, attempts to describe tests in a human readable format so that non-technical people can understand what is being tested.
+
+
+------------------------------------------------------------------------
+
+What is describe, it and matcher in angular testing?
+Ans:
+- The describe(string, function) function defines what we call a Test Suite, a collection of individual Test Specs.
+e.g.
+describe('Hello world', () => { 
+  it('says hello', () => { 
+    expect(message()).toEqual('Hello world!'); 
+  });
+});
+------------------------------------------------------------------------
+it(), expect() and matcher
+it(string, function) function: 
+- Defines an individual Test Spec, this contains one or more Test Expectations.
+
+The expect(actual) expression:
+This is what we call an Expectation. 
+- In conjunction with a Matcher it describes an expected piece of behaviour in the application.
+- The matcher(expected) expression is what we call a Matcher. 
+- It does a boolean comparison with the expected value passed in vs the actual value passed to the expect function, if they are false the spec fails.
+example:
+    it('should add two numbers', () => {
+        const result = calculator.add(2, 2);
+        expect(result).toBe(4);
+    });
+------------------------------------------------------------------------
+
+Built-in matchers:
+expect(instance).toBe(instance);
+
+expect(mixed).toBeTruthy();
+expect(mixed).toBeFalsy();
+expect(mixed).toEqual(mixed);
+expect(mixed).toMatch(pattern);
+expect(mixed).toBeNull();
+expect(mixed).toBeUndefined();
+expect(mixed).toBeDefined();
+
+expect(array).toContain(member);
+
+expect(fn).toThrow(string);
+expect(fn).toThrowError(string);
+
+expect(number).toBeCloseTo(number, decimalPlaces);
+expect(number).toBeNaN();
+expect(number).toBeGreaterThan(number);
+expect(number).toBeLessThan(number);
+
+//spy
+expect(spy).toHaveBeenCalled();
+expect(spy).toHaveBeenCalledTimes(number);
+expect(spy).toHaveBeenCalledWith(...arguments);
+------------------------------------------------------------------------
+
+Setup while writing test specifications:
+beforeAll: This function is called once, before all the specs in describe test suite are run.
+afterAll: This function is called once after all the specs in a test suite are finished.
+beforeEach: This function is called before each test specification, it function, has been run.
+afterEach: This function is called after each test specification has been run.
+We might use these functions like so:
+
+describe('Hello world', () => {
+
+  let expected = "";
+
+  beforeEach(() => {
+    expected = "Hello World";
+  });
+
+  afterEach(() => {
+    expected = "";
+  });
+
+  it('says hello', () => {
+    expect(message())
+        .toEqual(expected);
+  });
+});
+--------------------------------------------------------
+
+Spying on any method of service:
+Spying is done in a testing to check 
+Methods in service or component is called or 
+called for how many times or 
+called with particular arguments.
+.
+jasmine.createSpyObj(): Used to create spy obj. With this we also can provide a fake implementation of a function and define what values it should return.
+.
+jasmine.createSpyObj() method allows you to create a spy object with multiple methods which you want to spy on. 
+Useful when you want to create a mock of an object with several methods without having to manually create each spy.
+Example:
+const loggerSpy = jasmine.createSpyObj('LoggerService',['log']);
+expect(logger.log).toHaveBeenCalled(); 
+expect(logger.log).toHaveBeenCalledTimes(1);
+--------------------------------------------------------------------------
+
+What is TestBed in angular and its uses?
+1. Configuring a Testing Module:
+    TestBed.configureTestingModule({
+      declarations: [MyComponent], // Declare the component you want to test
+      providers: [MyService],      // Provide any required services
+    });
+
+2. Creating Component Instances:
+it('should create the component', () => {
+  const fixture = TestBed.createComponent(MyComponent);
+  const component = fixture.componentInstance;
+  expect(component).toBeTruthy();
+});
+
+3. Injecting and accessing services:
+const myService = TestBed.inject(MyService); // Inject the service
+expect(myService.someMethod()).toBe('expectedValue');
+
+
+4. Fixture and DebugElement:
+The TestBed.createComponent method returns a ComponentFixture object that provides access to the component's instance and its associated DOM element. 
+You can also use TestBed.createComponent to get a DebugElement for the component, which is useful for interacting with the component's HTML template in your tests.
+it('should change the view', () => {
+  const fixture = TestBed.createComponent(MyComponent);
+  const component = fixture.componentInstance;
+  const debugElement = fixture.debugElement;
+  // Perform DOM interactions and assertions
+});
+
+
+5. Cleaning Up:
+afterEach(() => {
+  TestBed.resetTestingModule();
+});
+
+--------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TestBed
+Mocking service instance

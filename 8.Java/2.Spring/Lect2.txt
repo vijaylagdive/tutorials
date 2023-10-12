@@ -1,0 +1,29 @@
+What is spring?
+Spring is a dependency Injection framework to make java application loosely coupled.
+
+Spring framework makes the easy development of JavaEE application.
+
+
+DI:
+It is design pattern.
+Using dependency injection instead of creating with new keyword.
+
+Spring creates object of any class and inject into required class.
+
+Inversion of control:
+Means control of object creation is handed over to spring.
+
+
+Spring and JEE
+(Strut/JSF or Spring MVC)  UI Layer -> Product controller
+(Business/Services Layer) -> Product Services
+(Spring JDBC or ORM) Data Access Layer -> ProductDao
+DB
+
+
+
+
+
+
+
+

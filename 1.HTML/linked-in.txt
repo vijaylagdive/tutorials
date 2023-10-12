@@ -1,0 +1,14 @@
+1. **What is the difference between HTML and HTML5?**
+  HTML5 is the latest version of HTML and includes new elements, attributes, and APIs compared to the older HTML versions.
+
+
+
+
+10. **What is the Virtual DOM in React?**
+  The Virtual DOM is a virtual representation of the actual DOM in React, which is used for efficient updates and rendering.
+
+11. **What are the differences between class components and functional components in React?**
+  Class components use a class-based syntax and have access to lifecycle methods, while functional components are written as functions and are generally more lightweight.
+
+12. **What is the purpose of the "key" prop in React lists?**
+  The "key" prop is used to help React identify which items have changed, been added, or been removed from a list, improving performance and avoiding potential rendering issues.

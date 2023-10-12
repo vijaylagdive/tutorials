@@ -1,0 +1,20 @@
+let arr = ['a','a','a','a','v','c','d','e','f','g','k','k','l'];
+Output =  a3v1c1d1e1f1g1k2l1
+
+
+let arr = ['a','a','a','a','v','c','d','e','f','g','k','k','l'];
+let sourceObject = {};
+arr.map((el) => {
+    if (sourceObject[el]) {
+        sourceObject[el] += 1
+        } else {
+            sourceObject[el] = 1
+        }
+    })
+
+arr = [];
+for(let prop in sourceObject) {
+ arr.push(prop)
+ arr.push(sourceObject[prop])
+}
+console.log(arr.join(""));

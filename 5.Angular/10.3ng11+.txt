@@ -1,0 +1,127 @@
+Angular 11: Nov 2020
+Updated HMR(Hot module replacement) support.
+Moving to ESLint 
+Typescript 4.0, Webpack 5
+---------------------------------------------------------------------------------------------------
+Angular 12: May 2021 
+- Ivy everywhere:
+Angular 12 is finally deprecating its old legacy compilation and rendering pipeline called the View Engine. 
+The next release will eliminate the rendering pipeline. 
+Libraries previously working with View Engine will then function with Ivy.
+With the help of a compatibility compiler and a smooth update path, the entire ecosystem will shift to Ivy. 
+And thus, Ivy everywhere will make Angular 12 much more efficient.
+
+Default strict mode: 
+A Strict mode is a compiler option that enforces strict type checking and helps catch common errors during development. 
+In Angular 12, strict mode is enabled by default, making it easier for developers to write more reliable and maintainable code.
+
+Typescript 4.2: 
+Support to typescript 4.2
+
+Styling improvements:
+Finally, angular 12 now also supports Tailwind CSS. 
+
+
+- Performance improvments with new compiler.
+- Improved Testing Support: Angular 12 comes with improved testing support, including better mocking of dependencies, improved testing performance, and better error messages.
+- Strict Mode by Default: - 
+---------------------------------------------------------------------------------------------------
+Angular 13: Nov 2021
+Ivy improvment
+Strict Mode: Angular 13 introduces a new strict mode that enforces strict type checking, improves error messages, and helps catch common mistakes. 
+This can help developers write more reliable and maintainable code.
+Dynamic Components creation: Finally, Angular v13 includes new features for creating and managing dynamic components. Developers can now create and load components dynamically at runtime, giving them more flexibility in building complex UIs.
+---------------------------------------------------------------------------------------------------
+Angular 14: June 2022
+1. Standalone components, directives, and pipes
+------------------------
+2. Typed Angular forms
+Typed forms ensure that the values inside form controls, groups, and arrays are type-safe
+This enables safer forms, especially for deeply nested complex cases.
+export class SampleComponent {
+    var contactForm = new FormGroup({
+     name: new FormControl<string>('', { nonNullable: true }),
+     email: new FormControl<string>('', { nonNullable: true }),
+     contactNumber: new FormControl<number>(0, { nonNullable: false })
+    });
+}
+------------------------
+3. Page title accessibility in router
+In Angular 14, we can add the router title without any additional import on the page. Refer to the following code example.
+const routes: Routes = [{
+    path: 'home',
+    component: HomeComponent
+    title: 'Home page'  // <-- Page title
+}, {
+    path: 'about',
+    component: AboutComponent,
+    title: 'About page'  // <-- Page title
+}];
+------------------------
+4. Extended developer diagnostics
+The extendable developer diagnostics feature provides extendable frameworks that help developers better understand the templates and display suggestions for potential enhancements. 
+It helps improve caching before runtime, provide actionable suggestions for a template, and helps diagnose warnings at compile time.
+------------------------
+5. Typescript 4.7
+Angular 14 also includes support for the latest TypeScript 4.7
+---------------------------------------------------------------------------------------------------
+Angular 16: May 2023
+SSR support.
+1. Server side rendering support improved:
+------------------------
+2. Route params mapping
+previously we need to inject ActivatedRoutes now that can be directly binded to component inputs.
+
+Before:
+private route = inject(ActivatedRoute);
+private id: string | null = null;
+
+ngOnInit(): void {
+	this.id = this.route.snapshot.paramMap.get('id');
+}
+
+Now:
+@Input() id = '';
+ngOnInit() : void {
+	console.log(this.id);
+}
+
+with routes:
+bindToComponentInputs : true;
+
+------------------------
+3. Required Input
+Provided ability to make certain inputs required.
+From version 16, making an input required will be a simple configuration object to be passed to the metadata of the input annotation.
+
+@Input({ required: true })
+
+export class App {
+  @Input({ required: true }) name: string = '';
+}
+
+// or
+@Component({
+  ...
+  inputs: [
+    {name: 'name', required: true}
+  ]
+})
+
+-----------------------------------------------------------------------
+4. Standalone Project Support
+
+Angular 14 started supporting standalone components, which are independent of modules. Angular 16 takes this to the next level by supporting standalone project creation.
+
+Angular 16 has a flag to create a standalone project through the Angular CLI. You have to execute ng new command with the –standalone flag. Then, it will generate a project without NgModules.
+
+ng new --standalone
+
+-----------------------------------------------------------------------
+
+
+
+
+
+
+

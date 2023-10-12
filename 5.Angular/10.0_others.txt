@@ -1,0 +1,114 @@
+Q1. What are the building blocks of angular?
+Ans: 
+1. Components: 
+2. Data Binding:
+3. Dependency Injection:
+4. Directives: 
+5. Metadata: 
+6. Modules: 
+7. Routing: 
+8. Services: 
+9. Template:
+
+---------------------------------------------------------------------------------------------------
+
+Q3. What are the design goals of service workers?
+Below are the list of design goals of Angular's service workers,
+i. It caches an application just like installing a native application.
+ii. A running application continues to run with the same version of all files without any incompatible files.
+iii. When you refresh the application, it loads the latest fully cached version.
+iv. When changes are published then it immediately updates in the background.
+v. Service workers saves the bandwidth by downloading the resources only when they changed.
+---------------------------------------------------------------------------------------------------
+
+Q4. Installation
+1. Install angular cli globally using npm
+npm install -g @angular/cli
+2. Create any folder where you want to create your angular project, move to that folder and run below command.
+ng new my-app
+3.Accept default feature by pressing enter key.
+4. Run app by moving to app folder and running below command
+ng serve --open 
+---------------------------------------------------------------------------------------------------
+
+Q5. Some important commands:
+1. Creating component ==> ng g c componentName
+2. Creating directive ==> ng g directive directiveName
+3. creating service ==> ng g s serviceName
+4. creating module ==> ng g m moduleName
+5. creating pipe ==> ng g p pipe 
+
+---------------------------------------------------------------------------------------------------
+Q6. Explain Angular Authentication and Authorization.
+Ans:
+Authentication: 
+The user login credentials are passed to an authenticate API, which is present on the server. 
+Post server-side validation of the credentials, a JWT (JSON Web Token) is returned. 
+The JWT has information or attributes regarding the current user. 
+The user is then identified with the given JWT. 
+This is called authentication.
+
+Authorization:
+Post logging-in successfully, different users have a different level of access.
+While some may access everything, access for others might be restricted to only some resources. 
+The level of access is authorization.
+---------------------------------------------------------------------------------------------------
+Q11. package.json?
+Ans:
+
+A. - Package.json contains various packages to to build and run our application.
+   - It contains two sets of packages a)dependencies b)devDependencies.
+   - Dependencies required for running the application.
+   - devDependencies are only required to develope the application.
+   - These packages are installed into node modules folder by the npm.
+
+-----------------------------------
+This file contains details of the NPM packages required by the application
+Contains 3 categories
+1. dependencies:
+Packages required by your application in production.
+It list the packages that the application will require to run.
+e.g. animations, common, compiler, core, forms, router,bootstrap, rxjs, bootstrap etc,
+
+dependencies": {
+ "@angular/animations": "~9.0.0",
+ .
+ .
+ .
+ "zone.js": "~0.10.2"
+},
+
+2. dev-dependencies
+Packages that are only needed for local development and testing.
+e.g. devkit, cli, jasmine, typescript etc.
+
+3. script
+Includes scripts supported by application.
+
+---------------------------------------------------------------------------------------------------
+Q12. angular.json?
+Ans:
+This file contains the configuration for the Angular development tools
+It contains:
+1. projectType: the type of the project. The value “application” indicates that the project will represent an application that can be launched in a browser.
+2. root: points to the project files folder relative to the working environment. An empty value corresponds to the root folder of the project.
+3. sourceRoot: Specifies the root folder of the source files. The place where all application files are actually defined.
+4. schematics section of settings is used for generating new files with CLI. 
+   For example, if I use the command ‘ng generate’ component by default component will use an SCSS file for styles.
+5. architect: Inside the architect section, we can find settings for “serve” and “build” commands. etc
+---------------------------------------------------------------------------------------------------
+Q12. Angular universal?
+Ans:
+What is Angular universal?
+- Angular Universal, a technology that renders Angular applications on the server.
+- A normal Angular application executes in the browser, rendering pages in the DOM in response to user actions. 
+- Angular Universal executes on the server, generating static application pages that later get bootstrapped on the client. 
+
+Advantages:
+
+---------------------------------------------------------------------------------------------------
+
+
+
+
+

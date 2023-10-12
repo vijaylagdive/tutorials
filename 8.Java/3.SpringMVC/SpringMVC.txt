@@ -1,0 +1,41 @@
+Downloaded Java8 set path.
+Created Hello world file.
+In cmd go to directory hwhere file is located.
+write command: javac test.java
+then 
+write command: java Test.//class name in file.
+---------------------------------------------
+Then installed eclipse.
+---------------------------------------------
+Then installed apache tomcat9 from the Apache site.
+Then configure apache server with Eclipse.
+Windows-> preferences-> server-> Runtime Environment-> Add -> Apache -> Apache Tomcat 9.0
+Browse and select path of bin folder. Parent of bin folder.
+
+Check it: Windows -> show View -> servers.
+---------------------------------------------
+Create spring mvc project.
+File-> new -> Maven Project -> maven-archtype-webapp
+Next Finish
+---------------------------------------------
+
+Right click on project-> Build Path -> Configure build path.
+Libraries -> Add library -> Server Rutime-> Apache tomcat -> Apply -> Apply and close.
+---------------------------------------------
+
+Add spring mvc dependency into pom.xml file.
+Search spring maven in google and go to below url
+https://mvnrepository.com/artifact/org.springframework/spring-webmvc/5.2.4.RELEASE
+
+copy the dependecy and paste in into pom.xml
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>5.2.4.RELEASE</version>
+</dependency>
+
+
+Right click on project name -> maven -> update project.
+
+Right click on project-> Run as Server -> Run on server.
+---------------------------------------------

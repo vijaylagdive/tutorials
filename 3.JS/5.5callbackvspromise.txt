@@ -1,0 +1,68 @@
+
+
+Callback Hell (Callback Pyramid): 
+Callbacks are functions that are passed as arguments to another function and are executed when that function completes its task. 
+Callbacks can lead to a phenomenon known as "callback hell" or "callback pyramid" when you have multiple nested callbacks, making the code hard to read and maintain.
+
+asyncFunction1((result1) => {
+  asyncFunction2(result1, (result2) => {
+    asyncFunction3(result2, (result3) => {
+      // ... and so on
+    });
+  });
+});
+
+
+Error Handling: 
+Error handling in callbacks can be challenging because you need to check for errors in each callback, which can lead to repetitive error-handling code.
+
+Limited Composition: 
+Composing multiple asynchronous operations can be tricky with callbacks, as you have to manage the flow manually.
+
+-------------------------------------------------
+Promise:
+Chaining: Promises provide a more structured way to handle asynchronous operations by allowing you to chain .then() and .catch() methods. 
+This leads to cleaner and more readable code.
+
+Chaining: Promises provide a more structured way to handle asynchronous operations by allowing you to chain .then() and .catch() methods. 
+This leads to cleaner and more readable code.
+
+asyncFunction1()
+  .then(result1 => asyncFunction2(result1))
+  .then(result2 => asyncFunction3(result2))
+  .then(result3 => {
+    // ...
+  })
+  .catch(error => {
+    // Handle errors
+  });
+
+Error Handling: Promises make error handling more straightforward by allowing you to handle errors using the .catch() method at the end of the chain.
+
+Composition: Promises are composable, meaning you can combine multiple promises using functions like Promise.all() and Promise.race() to coordinate and manage complex asynchronous flows.
+
+Async/Await: Promises are often used with the async/await syntax, which provides a more synchronous-looking code structure while still being asynchronous under the hood.
+
+async function doSomething() {
+  try {
+    const result1 = await asyncFunction1();
+    const result2 = await asyncFunction2(result1);
+    const result3 = await asyncFunction3(result2);
+    // ...
+  } catch (error) {
+    // Handle errors
+  }
+}
+
+In modern JavaScript, promises are generally preferred over callbacks due to their cleaner syntax, better error handling, and improved composability. 
+However, callbacks are still used in some situations, especially in older codebases or when dealing with APIs that rely on callbacks.
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,70 @@
+Q1. What is Routing?
+Routing helps to define navigation for your angular app.
+So if you want to move from one component to another routing is needed.
+---------------------------------------------------------------------------------------------------
+Q3. What are router links?
+Ans:
+The RouterLink is a directive on the anchor tags give the router control over those elements.
+Since the navigation paths are fixed, you can assign string values to router-link directive as below,
+
+<h1>Angular Router</h1>
+<nav>
+  <a routerLink="/todosList" >List of todos</a>
+  <a routerLink="/completed" >Completed todos</a>
+</nav>
+<router-outlet></router-outlet>
+---------------------------------------------------------------------------------------------------
+Q5. How to implement routes and routing?
+
+You can create one seperate router module.
+
+//Defining routes 
+const routes: Routes = [
+  { path: 'temp', component: TempFormComponent },
+  { path: 'react', canActivate : [AuthGuard] , canDeactivate : [YourGuardGuard],component: ReactFormComponent },
+  { path: 'share', component: ShareComponent }
+];
+
+@NgModule({
+  declarations: [],
+  imports: [RouterModule.forRoot(routes)],
+  exports : [RouterModule]
+})
+
+export class AppRoutingModule {}
+
+Import in app.module.ts
+import { AppRoutingModule } from './app-routing/app-routing.module';
+
+imports: [
+    BrowserModule,
+    AppRoutingModule
+ ]
+---------------------------------------------------------------------------------------------------
+Q6. What is the purpose of Wildcard route?
+
+If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. 
+In this case, you can use wildcard route. 
+A wildcard route has a path consisting of two asterisks to match every URL.
+
+For example, you can define PageNotFoundComponent for wildcard route as below
+{ path: '**', component: PageNotFoundComponent }
+---------------------------------------------------------------------------------------------------
+Q8. What are the router imports?
+Ans:
+- The angular router represents a particular component view for a given URL.
+- And it is not part of Angular Core.
+- It is available in library named @angular/router to import required router 
+e.g.
+import { RouterModule, Routes }from '@angular/router';
+---------------------------------------------------------------------------------------------------
+Q9. RouterLinkActive:
+The directive for adding/removing classes from an HTML element when an associated routerLink contained on or inside the element becomes active/inactive.
+e.g. <a routerLinkActive="active">
+This applies active class to the link if that link is active
+---------------------------------------------------------------------------------------------------
+
+
+
+
+---------------------------------------------------------------------------------------------------

@@ -1,0 +1,115 @@
+Q1. Is it possible to change the port of the embeded tomcat server in spring boot?
+Ans:
+It is possible. By using server.port in application.properties.
+
+In application.properties:
+server.port=9090
+-----------------------------------------------
+Q2. Can we override or replace the Embeded tomcat server in spring boot?
+Ans: Yes we can replace the embeded tomcat server with any server by using starter dependency in the pom.xml file.
+
+In pom.xml file:
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+	<exclusions>
+		<exclusion>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-tomcat</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-jetty</artifactId>
+</dependency>
+-----------------------------------------------
+Q3. What is auto-configuration in spring boot? how does it help? Why spring boot is called opinionated?
+Ans: 
+-----------------------------------------------
+
+Q4. What is diiference between @SpringBootApplication and @EnableAutoConfiguration annotation?
+Ans:
+@EnableAutoConfiguration is used to enable auto-configuration but @SpringBootAppplication does a lot more than that.
+
+It also combines @Configuration and @ComponentScan annotations to enable Java-based configuration and component scanning in your project.
+
+@SpringBootApplication = @Configuration + @EnableAutoConfiguration+ @ComponentScanm
+
+
+Opinionated is a software design pattern that decides or guides you into their way of doing things. Spring Boot is opinionated because it follows the opinionated default configuration that reduces developer efforts to configure the application. 
+-----------------------------------------------
+Q5 How to disable a specific auto-configuration class?
+Ans:
+We can use exclude attribute of @EnableAutoConfiguration annotation to exclude specific class.
+
+//use of exclude
+@EnableAutoConfiguration(exclude={className})
+-----------------------------------------------
+Q6 What is difference between @RestController and @Controller in Spring Boot?
+Ans:
+@Controller: Map the model object to view or template and make it human readable.
+Returns view.
+
+@RestController: Simply returns the object and object dat is directly written in HTTP response as JSON or XML.
+Returns json or xml.
+
+@RestController = @Controller + @ResponseBody
+-----------------------------------------------
+Q7 Describe the flow of the HTTPS request through the spring boot application?
+Ans: 
+When client sends Request it is handled or received by controller.
+Then required business logic is in service layer
+Model used keep date model or entity.
+Database 
+
+-----------------------------------------------
+Q8. What is difference between @RequestMapping and @GetMapping?
+Ans:
+@RequestMapping can be used with GET, POST, PUT and many other request methods 
+using the method attribute on the annotation.
+
+Whereas @GetMapping is only an extension of @RequestMapping with GET method which helps you to improve on clarity on request.
+
+Example:
+@RequestMapping(value="/user/{userId}", method = RequestMethod.GET)
+
+GetMapping(value="/user/{userId}")
+-----------------------------------------------
+Q9. What is difference between an embeded container and WAR?
+Ans:
+
+-----------------------------------------------
+Q10. What is the use of Profiles in spring boot?
+Ans: We use multiple environment while developing spring boot application such as 
+dev, test, qa.
+
+Spring has the provision of Profiles to keep the separate configuration of environments.
+
+-----------------------------------------------
+Q11. What is Spring Actuator? What are its advantages?
+Ans: Provides special feature to monitor and manage your application when you 
+push it to production.
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+-----------------------------------------------
+Q12. How to get the list of all the beans in your spring boot application?
+Ans:
+
+- Spring boot actuator "/Beans" is used to get the list of all the spring beans in your application.
+- "/env" return the list of all the environment properties of running the spring boot application.
+-----------------------------------------------
+
+
+
+
+
+
+
+
+

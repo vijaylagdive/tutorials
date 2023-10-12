@@ -1,0 +1,26 @@
+Q16. What is recursive function?
+Ans:
+Recursion is a process of calling itself. A function that calls itself is called a recursive function.
+e.g.
+// program to count down numbers to 1
+function countDown(number) {
+    console.log(number);
+    const newNumber = number - 1;
+    if (newNumber > 0) {
+        countDown(newNumber);
+    }
+}
+countDown(4);
+
+e.g.2
+
+  var count = 5;
+      function print() {   
+        if(count > 0) {
+          console.log(count);
+          count --;
+          print();
+        }     
+      }
+      print();
+---------------------------------------------------------------------------------------------------

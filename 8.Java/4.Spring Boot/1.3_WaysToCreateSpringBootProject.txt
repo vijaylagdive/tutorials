@@ -1,0 +1,82 @@
+Q1. How to create spring boot project?
+Ans:
+1. Creating maven project using Using eclipse and adding starter dependencies.
+Donload and install eclipse.
+In eclipse help -> eclipse marketplace -> search spring tool -> install Spring Tool Suit 4
+Keep checked all dependencies. Let them installed.
+Click in I accept and continue.. Trust all and finish.
+Let the things get downloaded properly.
+Eclipse will prompt for restart. Restart it.
+Then for creating project:
+File -> new -> other -> on a select wizard select 'Spring Boot Starter' project.
+Next -> on a dialog confirm the configuration then on a next window you have to select Required Dependencies like JPA, Spring Web, Web Services etc.
+---------------------------------------------------------------------------------------------------
+2. Use spring initializr by using a website.
+Step-by-step instructions for making a spring boot project.
+
+Step 1: Go to https://start.spring.io and launch Spring Initializr.
+
+Step 2: Specify Project Details - 
+Once all of the details are entered, select the Generate Project button to generate and download a Spring Boot project. 
+Following that, unzip the downloaded zip file and transfer it into your preferred IDE.
+
+Step 3: Next open Eclipse and import the file.
+
+Select File -> Import -> Existing Maven Project in Eclipse. 
+On the next page, navigate to or type in the path to the folder where you extracted the zip file. 
+Maven will take some time to download all the dependencies and initialize the project after you select Finish.
+---------------------------------------------------------------------------------------------------
+3. Use IDE like STS
+Go to spring.io/tools
+Find there Spring Tools 4 for eclipse and download 'WINDOWS 64-BIT'
+It will download a jar file.
+Run that jar file It will create a folder in which we will have a executable file.
+On double clicking it there will be folder created named like sts-4.7.1RELESE.
+Then in that folder there will be SpringToolSuit4.exe file. Open that exe file.
+It will ask for workspace.. Launch it. STS will be opened.
+File -> new -> spring starter project
+Then in dialog titled as New Spring Starter Project:
+In a dialog keep Service URL as it is.
+Name: firststsproject
+Type: Maven
+Packaging: Jar
+Java Version: 11
+Language: Java
+Group: com.sts
+Artifact: firststsproject
+Description: first project using sts
+Package: com.example.demo
+Click on next
+
+Now in next dialog we have to add dependencies:
+search and select:
+- Spring Web
+- MySql
+- Sprig Data JPA
+- Spring Web Services
+.
+In next dialog keep as it everything.
+.
+Then let the installation finished.. keep the internet connected.
+.
+Project will be opened with 
+@SpringBootApplication
+public class FirststsProjectApplication {
+	public static void main(String args[]) {
+
+	}
+}
+
+You can create resources, controller in the same package.
+
+---------------------------------------------------------------------------------------------------
+4. Spring boot command line interface.
+
+Setting up the CLI: By using SDKMAN, the Spring Boot CLI (Command-Line Interface) can be directly installed!
+
+Employing the CLI: Once the CLI has been installed, you can launch it by typing spring and hitting Enter.
+
+Launch a New project: By using start.spring.io and the init command, you can initiate a new project without leaving the shell.
+
+Using the Embedded Shell: For the BASH and zsh shells, Spring Boot provides command-line completion routines.
+---------------------------------------------------------------------------------------------------

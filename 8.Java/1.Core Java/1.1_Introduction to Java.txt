@@ -1,0 +1,20 @@
+What are the features of Java that make it a popular programming language?
+Ans:
+Java offers several features that make it a popular programming language:
+
+1. Platform Independence: 
+Java code is compiled into platform-independent bytecode, which can run on any system with a compatible JVM.
+
+2. Object-Oriented: 
+Java follows an object-oriented paradigm, allowing the use of classes and objects to structure code.
+
+3. Garbage Collection: 
+Java automatically manages memory through garbage collection, freeing developers from manual memory management.
+
+4. Multi-threading: 
+Java supports multi-threading, allowing developers to create concurrent applications.
+
+5.Security: 
+Java provides a secure runtime environment with features like class
+loaders and a security manager.
+-------------------------------------------------

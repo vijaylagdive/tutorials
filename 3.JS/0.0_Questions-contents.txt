@@ -1,13 +1,14 @@
 1. Object
 Q1. What is JS object? and how to create it?
-Q2. How to access and delete property in JS object?
-Q3. Which are Object's important methods? assign(),create(),freeze(),seal(),isFrozen(), isSealed()
-Q3a. Which are Object's important methods? keys(), getOwnPropertyNames(), hasOwnPropertyNames(), values()
-Q3b. Creating read only property for any object?
-Q4. What is prototype?
-Q5. Prototype inheritance?
-Q6. Class based inheritance in JS?
-Q7. How to clone object? 
+Q2. What is prototype?
+Q3. Prototype inheritance?
+Q4. Creating read only property for any object?
+Q5. How to clone object? 
+Q6. prototype vs __proto__
+Q7.How to access and delete property in JS object?
+Q8. Which are Object's important methods? assign(),create(),freeze(),seal(),isFrozen(), isSealed()
+Q9. Which are Object's important methods? keys(), getOwnPropertyNames(), hasOwnPropertyNames(), values()
+Q10. Class based inheritance in JS?
 -------------------------------------------------
 2. Array
 Q1. What is array in JS?
@@ -72,6 +73,7 @@ Q4. What is strict mode?
 Q5. stopPropagation() stopImmediatePropagation() preventDefault()?
 Q6. Data types in JS?
 Q7 Debouncing in js? 
+Q8. Memoization
 -------------------------------------------------
 Problems
 P1. Finidng min max of array?

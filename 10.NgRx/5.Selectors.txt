@@ -1,0 +1,30 @@
+Q: What is NgRx Selectors?
+Ans:
+- Selectors are pure functions that receive state slices as input parameters and return state data slices for components to consume. 
+- The Selectors are the ngrx/store module's query tools, similar to how databases have their own SQL query language.
+
+
+Below example uses a query and return the array of Employees from the state using a selector:
+
+  constructor(private store: Store<{ counter: number }>) {
+    this.count$ = store.select('counter');
+  }
+
+
+export const getAllEmployees = createSelector(getState, (state): Employees[] => {
+        return state && state.employees;
+    }
+);
+
+....
+....
+
+this.store.select<Employees[]>(getAllEmployees).subscribe(
+    employees=> console.log(developers)
+);
+
+
+---------------------------------------------------------------------------------------------------
+Every Feature module in an Angular application is responsible for injecting its own state into the root application state. 
+As a result, the state is a tree of properties with sub-properties, and so on. 
+To avoid manually traversing the state tree every time the Store composes a new state and informs components, you define selectors at different levels of the state tree.

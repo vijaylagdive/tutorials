@@ -1,0 +1,51 @@
+Angular5: 1 Nov 2017
+Angular6: 4 May 2018
+Angular7: 18 Oct 2018
+Angular8: 28 May 2019
+Angular9: 6 Feb 2020
+Angular10:24 June 2020
+Angular12:May 2021
+---------------------------------------------------------------------------------------------------
+2-5
+ng1: MVC architecture with java script.
+ng2: Component based architecture in angular2 with typescript. introduced for mobile browser support. CLI, Dependency Injection
+ng4: AOT compilation imroved. Http deprecated and HttpClient module provided.
+ng5: Service worker improvment. Enhanced support for progressive web apps.
+--------------
+6-10
+ng6: Ivy on experimental. Treeshakable. Angular elements.
+ng7: Improved CLI with prompt capability allows developer to make decisions.
+ng8: Ivy made default. Lazy loading.
+ng9: Ivy fully released. Improved bundle size.
+ng10: IE support deprecated. Strict mode introduced.
+--------------
+11-16:
+ng11: HMR support.
+ng12: Ivy everywhere. View engine deprecated.
+ng13: Dynamic component creation
+ng14: Standalone components, directives, and pipes. Strictly typed form
+ng15: Standalone component improved.
+ng16: SSR support, Route params without injecting Activated Route, Required inputs.
+---------------------------------------------------------------------
+
+Overview:
+AngJS: MVC with JS. No mobile support.
+Ang2: Complete rewrite. Moble support. CLI support, DI support.
+Ang4: Http module removed and HttpClient module introduced.
+Ang5: Service workers improved for Progressive Web Apps. AOT improved.
+Ang6: Angular elements
+Ang7: Ivy. Lazy loading.
+Ang8: IVY
+
+
+From version 8 angular started Ivy rendering.
+With each update angular tried to minimize aot build bundle size.
+Strict mode made by default for compilers
+Supports to new versions of Typescripts(4.5 and above) and RxJs(7 and above)
+Standalone component in angular 14
+
+
+
+
+
+

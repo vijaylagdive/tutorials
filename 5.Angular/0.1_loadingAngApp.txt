@@ -1,0 +1,41 @@
+---------------------------------------------------------------------
+Starts from angular.json
+Angular.json
+When the application first starts Angular looks for this file.
+Once Angular found the file it starts looking for the 'main' node which is under architect -> build -> options.
+"main":"src/main.ts"
+The value of the main node is a file path that Angular is looking for - the main.ts under src folder.
+------------------------
+main.ts
+In this file the function 
+
+platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err));
+
+creates the platform.
+This function is also used to bootstrap the Angular Application. 
+Here we specify the first module that should be loaded when the application starts for the first time - the root module. 
+In other words the bootstrapping module.
+------------------------
+app.module.ts
+Once angular finds the starting module the app.module.ts (where all the components/ directives/ pipes associated to this module is present and dependency to other module is also present) 
+it looks for the bootstrap option - bootstrap: [AppComponent]
+
+Where the starting component name has been specified - in this case the AppComponent.
+By now Angular compiler has all the required information it needs to work.
+------------------------
+index.html
+
+Now the index.html is loaded and starts parsing. 
+Now all the componets are already ready.
+Once it finds the selector it exactly knows which component to load and the AppComponent is displayed in the screen.
+And that's it. This is how the application starts.
+------------------------
+
+Sources:
+https://medium.com/siam-vit/how-an-angular-app-work-behind-the-scenes-angular-flow-dcc4d1df27bd
+https://dev.to/this-is-angular/how-angular-application-works-behind-the-cene-story-1i21
+
+
+
+
+

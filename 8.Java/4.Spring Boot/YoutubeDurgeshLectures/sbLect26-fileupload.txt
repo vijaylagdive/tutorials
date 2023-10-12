@@ -1,0 +1,53 @@
+File upload to java application.
+
+Applcation.properties:
+spring.servlet.multipart.enabled=true
+spring.servlet.multipart.max-file-size=300MB
+spring.servlet.multipart.file-size-threshold=1KB
+
+Created static/images under resources
+Created helper class an there mentioned this path.
+@Component
+public class FileUploadHelper {
+	public final String UPLOAD_DIR = "C:\\Users\\Admin\\Documents\\workspace-spring-tool-suite-4-4.20.0.RELEASE\\bootjpaexample\\src\\main\\resources\\static\\image";
+
+	public boolean uploadFile(MultipartFile multipartFile) {
+		boolean f = false;
+		try {
+			Files.copy(multipartFile.getInputStream(),  Paths.get(UPLOAD_DIR+File.separator+multipartFile.getOriginalFilename()) ,StandardCopyOption.REPLACE_EXISTING) ;
+            f=true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+}
+
+
+then in FileUploadController class:
+@RestController
+public class FileUploadController {
+	
+	@Autowired
+	private FileUploadHelper fileuploadHelper;
+	
+	@PostMapping("/upload-file")
+	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+		try {
+	         if (file.isEmpty()) {
+	             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request must contain file");
+	         }
+//	         if (!file.getContentType().equals("image/jpeg")) {
+//	             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Only JPEG content type are allowed");
+//	         }
+	         
+	         boolean f = fileuploadHelper.uploadFile(file);
+	         if (f) {
+	        	 return ResponseEntity.ok("File uploaded successfully");
+	         }
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong, try again.");
+	}
+}

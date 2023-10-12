@@ -1,0 +1,91 @@
+Q6. Lifecycle hooks in angular?
+
+1.ngOnChange()
+2.ngOnInit()
+3.ngDoCheck()
+4.ngAfterContentInit()
+5.ngAfterContentChecked()
+6.ngAfterViewInit()
+7.ngAfterViewCheck()
+8.ngOnDestroy()
+
+
+****************************************************************************************
+
+1.ngOnChanges()
+- Executed first when the component is created. Before ngOnInit.
+- Executed only if there is any input bound property.
+- Later on always executed whenever the value of an input bound properties changes.
+- The hook method receives a SimpleChanges object containing current and 
+  previous property values.
+****************************************************************************************
+
+2. ngOnInit()
+- Get executed once the component has been initialized.
+- Executed just after the first time ngOnChanges is executed.
+- This method is called after Angular has set the initial value for all the input properties that the directive has declared.
+****************************************************************************************
+
+3. ngDoChecks()
+- Called during every change detection run, immediately after ngOnChanges() and ngOnInit().
+- Called immediately after ngOnChanges() on every change detection run, and immediately after ngOnInit() on the first run
+- This method executed a lot because this will run whenever change detection runs.
+- This is for the detection and to act on changes that Angular can't or won't detect on its own.
+
+Change detections:
+It is simply the system by which angular determines whether something changed inside the component. 
+so whether it need to change something in the template.
+So whether some property value changed from 1 to 2 lets say and that property is output in the template that time angular needs to rerender 
+that part of template and ngDoCheck is executed on every check angular makes.
+
+It also run when you click something. May be there is no change but but its an event and angular need to check something changed because how else would it know.
+- Also on on any obsrvable resolved.
+
+Use:
+to inform angular about some change it would not be able to detect.
+****************************************************************************************
+4. ngAfterContentInit()
+- This is called in response after Angular projects external content into the component's view.
+- Called once after the first ngDoCheck().
+- It is called by Angular after the component's content, projected content, or child components' content have been initialized. 
+- This hook is often used when you need to perform certain actions or setup tasks after the content of a component has been projected or initialized.
+****************************************************************************************
+5. ngAfterContentChecked()
+- This is called in response after Angular checks the content projected into the component.
+- Called after the ngAfterContentInit() and every subsequent ngDoCheck().
+- It is called by Angular after the component's content, projected content, or child components' content has been checked for changes. 
+- This hook is called every time Angular checks for changes in the content of the component, which can happen frequently in response to various events in your application.
+
+****************************************************************************************
+
+6. ngAfterViewInit()
+- This method is called when the component’s view and the childs views has been initialized. 
+- The results of the view queries are set before this method is invoked.
+- A lifecycle hook that is called after Angular has fully initialized a component's view and child view.
+- Called once after the first ngAfterContentChecked().
+- Define an ngAfterViewInit() method to handle any additional initialization tasks.
+****************************************************************************************
+
+7. ngAfterViewChecked()	
+- This method is called after the component’s view has been checked as part of the change detection process.
+- Respond after Angular checks the component's views and child views / the view that a directive is in.
+- Called after the ngAfterViewInit() and every subsequent ngAfterContentChecked().
+- This is called in response after Angular checks the component's views and child views.
+
+****************************************************************************************
+
+8. ngOnDestroy()
+Executes just before angular destroys the component and generally used for performing cleanup.
+****************************************************************************************
+Q7 What is difference between ngOnInit and constructor?
+Ans: 
+Constructor:
+Constructor is a default method of the class that is executed when the class is instantiated.
+- It ensures proper initialization of fields in the class and its subclasses. 
+NgOnint: 
+- ngOnInit is a life cycle hook called by Angular2 to indicate that Angular is done creating the component.
+- We have to import OnInit in order to use ngOnInit.
+- Aactually implementing OnInit is not mandatory but considered good
+
+--------------------------------------------------------------------------------------------------------------------
+

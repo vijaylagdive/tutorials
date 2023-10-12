@@ -1,0 +1,39 @@
+find source folder
+create webapp then views folder under source folder.
+create jsp file under views and update file with <p> element.
+
+We need to provide prefix and suffix so for the mapping of the jsp file.
+In application.properties file add the prefix and suffix as below:
+server.port = 9090
+
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+
+
+Create a controller for it as below under same package in which your main file is located.
+package com.springboot.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class MainController {
+
+	@RequestMapping("/")
+	public String home() {
+		System.out.println("This is our home paged");
+		return "home";
+	}
+	
+}
+
+
+Sometimes it downloads the file when we enter url:
+To avoid that need to add tomcat jasper dependency in a pom.xml file from 
+https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper/10.1.13
+<dependency>
+ <groupId>org.apache.tomcat.embed</groupId>
+ <artifactId>tomcat-embed-jasper</artifactId>
+ <version>10.1.13</version>
+</dependency>
+

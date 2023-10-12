@@ -1,0 +1,50 @@
+Q4. What is hostbinding?
+Hostbinding
+Host binding allows you to set or bind properties of the host element from within the component class. 
+It is often used to dynamically control how the component behaves and appears in the DOM.
+.
+Host element: the element that represents the component.
+
+Example1: 
+<p showred (eventEmitter)="handleEvent($event)">Hello World</p>
+@Directive({
+    selector: '[showred]'
+})
+export class ShowRed {
+    @HostBinding('style.backgroundColor') bgColor: string = '';
+    constructor() {
+        this.bgColor = 'black';
+    }
+}
+---------------------------------------------------------------------------------------------------------------------
+Q5. What is hostlistener?
+HostListener:
+In Angular, HostListener is a decorator that allows you to listen to the events on the host element 
+and respond to those events with custom functionality defined in the component class.
+.
+HostElement: The element to which we apply our directive is the host element to that particular directive.
+
+Example:
+Contains both host binding and listeners
+
+<p appMycolor>I am from directive</p> //appMyColor is the directive we are using.
+
+import { Directive, HostBinding, HostListener } from '@angular/core';
+@Directive({
+  selector: '[appMycolor]'
+})
+export class MycolorDirective {
+ 
+ constructor() { }
+ @HostBinding('style.color') myColor = "red";
+ 
+ @HostListener('click') myClick(){
+     console.log("Clicked from Hostlistener");
+  };
+ 
+ @HostListener('mouseover') myHover(){
+    console.log("Clicked from Hostlistener Hover");
+ };
+}
+}
+---------------------------------------------------------------------------------------------------------------------

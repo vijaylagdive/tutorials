@@ -1,0 +1,13 @@
+Spring core: DI, IOC, Property Injection, Constructor Injection.
+Spring Data Integration, Access: Spring JDBC, Spring ORM
+Spring WEB: Spring MVC
+Other imp module : AOP
+Rest API.
+Spring Boot.
+
+Pre requisite
+Core Java
+JDBC
+Hibernate
+Servlet and JSP
+HTML CSS JS Bootstrap

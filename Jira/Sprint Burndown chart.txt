@@ -1,0 +1,17 @@
+
+
+What is sprint burndown chart?
+Burndown chart provide a graphical view of the remaining work vs time frame left in the sprint 
+to complete it.
+It compares between actual work remaining vs Ideal work remaining.
+
+X-axes shows timeline of the sprint.
+Y-axes shows the remaining work in story points
+
+This chart tells only about the sprint.
+It includes effort of the main task or story.
+It does not include efforts of subtask.
+
+Can burndown chart be negative? how?
+Yes, it can be negative.
+When we started story and then if changed in estimation then it can be go into negative.

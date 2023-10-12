@@ -1,0 +1,196 @@
+Q1. What is promise? Defination?
+Ans: 
+Promise is an object that represent eventual completion or failure of async operation and its result.
+Promise object constructor takes a callback function as a parameter in which operations are done.
+That function again takes 2 callbacks as parameter resolve and reject.
+If desired result achieved resolve is called with value.
+If desired result is not achived then reject is called with error.
+
+ex:
+Example with function:
+function loadPromise(){
+  return new Promise(function(resolve, reject){
+        var error = false;
+        if(error){
+            resolve("Resolved");
+        }else{
+            reject("Rejected");
+        }
+  });
+}
+
+loadPromise().then(function(successMessage){
+    console.log("Then Success: "+successMessage);
+}).catch(function(catchMessage){
+  console.log("Catch: "+catchMessage);
+})
+
+ex2:
+        function loadDoc() {
+            console.log("B");
+            return new Promise(function (resolve, reject) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    var readyState = this.readyState;
+                    console.log(readyState);
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            resolve(this.responseText);
+                        } else {
+                            reject("Error");
+                        }
+                    }
+                };
+                xhttp.open("GET", "https://ghibliapi.herokuapp.com/people", true);
+                xhttp.send();
+            });
+        } 
+---------------------------------------------------------------------------------------------------
+Q2. Promise states:
+Ans:
+Promise object is in one of these states: 
+a) pending:  initial state, neither fulfilled nor rejected.
+b) fulfilled: meaning that the operation was completed successfully.
+c) rejected: Action related to the promise failed
+---------------------------------------------------------------------------------------------------
+Q3. Promise Consumers.
+Ans:
+Promise can be consumed by registering function using '.then' and '.catch' methods.
+-1. then()
+	then() is invoked when a promise is either resolved or rejected.
+	Parametere: then() methods takes 2 functions as parameters.
+   	a)First function is executed if promise is resolved and result is received.
+   	b)Second function is executed if promise is rejected and an error is received.(It is optional but there is better way to handle error using .catch() method.)
+	syntax:
+	.then(function(result){
+        	//handle success
+	    }, function(error){
+        	//handle error
+    	    })
+	 
+
+-2. catch()
+	catch() is invoked when a promise is either rejected or some error has occured in execution.
+	Parameters: catch() method takes one function as parameter.
+	Function to handle errors or promise rejections.(.catch() method internally
+	calls .then(null, errorHandler), i.e. .catch() is just a shorthand for .then(null,errorHandler) )
+	Syntax:
+	.catch(function(error){
+        	//handle error
+    	}) 
+
+
+
+
+Q4. Explain promise methods.
+1) Promise.all(iterable) 
+2) Promise.allSettled(iterable) 
+3) Promise.race(iterable);
+4) Promise.resolve(value) 
+5) Promise.reject(reason)
+
+Ans: 
+1) Promise.all(iterable)	
+- Promise.all() rejects as a whole if any promise rejects. 
+- That’s good for “all or nothing” cases, when we need all results successful to proceed:
+- For instance, download several URLs in parallel and process the content once they are all done.
+- That’s what Promise.all is for.
+The syntax is:
+let promise = Promise.all([...promises...]);
+Example:
+let p1 = Promise.resolve("One");
+let p2 = Promise.resolve("Two");
+let p3 = Promise.resolve("Three");
+let p4 = new Promise((resolve, reject) => {
+  reject("Errror occured");
+});
+
+Promise.all([p1,p2,p3,p4]).then((resultArr)=>{
+  console.log(resultArr);
+}).catch((errArr)=>{
+  console.log(errArr);
+})
+
+o/p:
+If all promises fulfilled
+["One","Two","Three"]
+
+If any of them rejected:
+Errror occured
+-------------------------------------------------
+2)Promise.allSettled(iterable)
+Promise.allSettled just waits for all promises to settle, regardless of the result. 
+.
+The resulting array has:
+{status:"fulfilled", value:result} for successful responses,
+{status:"rejected", reason:error} for errors.
+.
+For example, we’d like to fetch the information about multiple users. Even if one request fails, we’re still interested in the others.
+we can use: Promise.allSettled:
+
+Example:
+let p1 = Promise.resolve("One");
+let p2 = Promise.resolve("Two");
+let p3 = Promise.resolve("Three");
+let p4 = new Promise((resolve, reject) => {
+  reject("foo");
+});
+
+Promise.allSettled([p4,p2,p3,p1]).then((resultArr)=>{
+  console.log(resultArr);
+}).catch((errArr)=>{
+  console.log(errArr);
+})
+
+o/p:
+(4) [{status:"rejected",reason:"foo"},{status:"fulfilled",value:"Two"},{status:"fulfilled",value:"Three"},
+{
+status:"fulfilled",
+value:"One"
+}
+]
+-------------------------------------------------
+c) Promise.race(iterable);
+   - Wait until any of the promises is resolved or rejected.
+   - If the returned promise resolves, it is resolved with the value of the first promise in the iterable that resolved.
+   - If it rejects, it is rejected with the reason from the first promise that was rejected.	
+   e.g.
+var promise1 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 500, 'one');
+});
+
+var promise2 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 100, 'two');
+});
+
+Promise.race([promise1, promise2]).then(function(value) {
+  console.log(value);
+  // Both resolve, but promise2 is faster
+});
+
+e.g.2
+let p1 = Promise.resolve("One");
+let p2 = Promise.resolve("Two");
+let p3 = Promise.resolve("Three");
+let p4 = new Promise((resolve, reject) => {
+  reject("foo");
+});
+
+function loadPromises(promises){
+  return Promise.race(promises); 
+}
+
+loadPromises([p2,p3,p1]).then((resultArr)=>{
+  console.log(resultArr);
+}).catch((errArr)=>{
+  console.log(errArr);
+})
+
+//o/p 
+foo // Because p4 is executed at first in sequence.
+
+-------------------------------------------------
+d) Promise.resolve(value)
+-------------------------------------------------
+e) b) Promise.reject(reason)
+-------------------------------------------------

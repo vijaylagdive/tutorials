@@ -1,0 +1,11 @@
+
+Use in style.css
+.mat-mdc-tab-labels  {
+    background-color: yellow;
+ }
+
+or in component:
+
+::ng-deep .mat-mdc-tab-labels {
+    background-color: yellow;
+}

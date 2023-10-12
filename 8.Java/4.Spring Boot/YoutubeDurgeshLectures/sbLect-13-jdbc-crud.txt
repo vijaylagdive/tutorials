@@ -1,0 +1,71 @@
+CRUD
+public static void main(String[] args) {
+		ApplicationContext context =  SpringApplication.run(BootjpaexampleApplication.class, args);
+		UserRepository userRepository = context.getBean(UserRepository.class);
+		
+		User user1=new User();
+		user1.setName("Uttam");
+		user1.setCity("City1");
+		user1.setStatus("Python Programmer");
+		
+		User user2=new User();
+		user2.setName("Ankit");
+		user2.setCity("City2");
+		user2.setStatus("Java Programmer");
+				
+		List<User> users = List.of(user1,user2);
+		Iterable<User> result = userRepository.saveAll(users);
+		result.forEach(user->{
+			System.out.println(user);
+		});
+		
+ 		System.out.println("done");
+		
+	}
+
+
+
+Create user:
+		User user = new User();
+		user.setName("Vijay Kumar");
+		user.setCity("Pune");
+		user.setStatus("Fullstack developer");
+		User user1 = userRepository.save(user);
+		System.out.println(user1);
+
+
+Create multiple users:
+		User user1=new User();
+		user1.setName("Uttam");
+		user1.setCity("City1");
+		user1.setStatus("Python Programmer");
+		
+		User user2=new User();
+		user2.setName("Ankit");
+		user2.setCity("City2");
+		user2.setStatus("Java Programmer");
+
+		List<User> users = List.of(user1,user2);
+		Iterable<User> result = userRepository.saveAll(users);
+		result.forEach(user->{
+			System.out.println(user);
+		});
+
+
+
+Read and Update user:
+		update the user of id 11
+		Optional<User> optional = userRepository.findById(11);		
+		User user = optional.get();		
+		user.setName("Ankit Tiwari");		
+		User result = userRepository.save(user);
+
+
+Delete
+		userRepository.deleteById(202);
+
+
+
+
+
+

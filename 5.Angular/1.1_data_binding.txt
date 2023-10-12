@@ -1,0 +1,36 @@
+Q3. Data binding:
+Data biniding means communication between your Typescript(business logic) and HTML template.
+
+Below 4 types of data binding in angular:
+a. String Interpolation
+b. Property Binding,
+c. Event Binding,
+d. Two Way Data Binding.
+
+a. String Interpolation:  
+Interpolation allows you to incorporate calculated strings into the text between HTML element tags and within attribute assignments.
+e.g. {{title}},  {{2+3}} will show 5
+
+b. Property Binding(Component to DOM)
+In Angular, property binding is a way to bind a component property to an element property or attribute in the template. It allows you to set the value of an element property dynamically based on the value of a component property.
+The syntax for property binding in Angular uses square brackets ([]) within the element's
+
+public allowServer : boolean = true;
+
+<button [disabled]="!allowServer">
+  Click Me
+</button>
+
+<p [innerText="allowServer"]></p>
+
+c) Event Binding(DOM to component) – Enables the application to respond to user input in the target environment 
+e.g. <button (click) = getData()>Click Me!</button`>
+
+d) Two-way Binding(Both way) – Changes made in the application state gets gautomatically reflected in the view and vice-versa. 
+The ngModel directive is used for achieving this type of data binding.
+<input [(ngModel)]="userName"/>
+--------------------------------------------------------------------------------------------------
+Note: 
+When you want to output something in your template, print some text to it, use string interpolation.
+If you want to change some property, be that of HTML element or directive or component use property binding.
+--------------------------------------------------------------------------------------------------

@@ -1,0 +1,120 @@
+1. What are CSS media queries and why are they useful?
+
+Media queries allow you to apply CSS styling based on certain conditions like screen size, device orientation etc. This enables responsive web design that adapts across devices. 
+
+For example:
+
+@media (max-width: 600px) {
+ .container {
+  width: 100%; 
+ }
+}
+
+----------------------------------
+2. How do you specify media types in media queries? 
+
+Use the media type keyword like 'screen', 'print' etc. 
+
+For example: 
+
+@media screen {
+ // CSS for screens
+}
+
+----------------------------------
+3. What are some common media features you can target?
+
+For example:
+
+@media (max-width: 600px) {
+ // CSS for screens below 600px wide  
+}
+
+@media (orientation: landscape) {
+ // CSS for landscape oriented screens
+}
+
+----------------------------------
+4. How do you combine multiple media features?
+
+Use the 'and' keyword to combine media features:
+
+@media (max-width: 600px) and (orientation: landscape) {
+ // CSS 
+}
+
+----------------------------------
+
+5. What are the logical operators for media queries?
+
+and - groups queries that must all be true
+not/only - negates a query
+or - joins queries where one must be true
+
+For example: 
+
+@media (max-width: 600px) and (min-width: 300px) {
+  // CSS
+} 
+
+----------------------------------
+6. What are breakpoints in responsive design?
+Major screen widths where layout changes occur. 
+
+For example:
+
+/* Small screens */
+@media (max-width: 767px) {
+ // CSS
+}
+
+/* Medium screens */  
+@media (min-width: 768px) {
+ // CSS
+}
+
+----------------------------------
+
+7. How do you apply a media query to part of a stylesheet?
+
+Nest the media query within the selector:
+
+.container {
+ // Default CSS
+}
+
+@media (max-width: 600px) {
+ .container {
+  // CSS for screens below 600px
+ }
+}
+
+8. What are some good practices for media queries?
+
+- Use max-width
+- Avoid fixed breakpoints  
+- Test on real devices
+- Mobile-first approach
+- Overlapping breakpoints
+
+9. Differences between media queries and responsive images?
+
+Media queries - Change CSS styling based on conditions
+Responsive images - Load optimized image assets based on conditions
+
+10. How are media queries different from Bootstrap?
+
+Bootstrap uses predefined responsive classes. Media queries allow for more fine-grained responsive control.
+
+
+
+
+
+
+
+
+
+
+
+
+

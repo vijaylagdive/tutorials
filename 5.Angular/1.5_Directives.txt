@@ -1,0 +1,30 @@
+Q1. Directives in angular?
+- Used to change behaviour of the component or element
+- Directives modifies DOM elements
+
+---------------------------------------------------------------------------------------------------
+Q2. Types of directives in angular?
+Ans:
+There are three Types of directives:-
+1.Component  2.Structural  3.Attribute
+
+1. Component:
+Component are directive with template.
+The other two types of directive dont have templates.
+Instead they are specifically used for DOM manupulation.
+
+2. Structural Directives:
+- Structural directives changes DOM layout by addding and removing DOM elements.
+syntax *directive-name = expression
+
+e.g.
+Angular has few built in structural directives.
+*ngIf, *ngFor, *ngSwitch
+
+3. Attribute directives
+- Changes appearance/behaviour of a component/element
+Built in attributes:
+ngStyle, ngClass
+
+---------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,40 @@
+1. What is NgRx?
+NgRx stands for Angular Reactive Extensions.
+Its a state management solution aims to help with the management of more complex state.
+Used instead of managing complex state in component or in service.
+
+2. What is State?
+State is simply data that is used in one or more components in your applications that typically changes over time.
+For example when user clicked button.
+And where those data changes should then lead to a change in the applcation typically to a UI update.
+
+3. Working of NgrX?
+- Component dispatches action.
+- Action: Action is standardized message(event) to which reducers can listen.
+- Reducer: Contains state changing logic and passes data to store.
+- Store:  This is where your data is stored and managed.                            
+- Then this state or data is used by the component via selectors.        
+
+7. What is NgRx Selectors?
+Selectors are pure functions that receive state slices as input parameters components to consume. 
+The Selectors are the ngrx/store module's query tools, similar to how databases have their own SQL query language.
+
+8. What are the effects in ngrx?
+Effects:
+Side effects that should be triggered for certain actions.(e.g. send HTTP request)
+
+9. What is the difference between NgRX and RxJS?
+A: Ngrx is a redux implementation using rxjs. 
+Rxjs is for handling complex asynchronous work like handling communication between client and server. 
+Ngrx is for optimally storing data in the client and recalling them from all over the application, usually.
+
+
+
+
+
+
+
+
+ 
+
+

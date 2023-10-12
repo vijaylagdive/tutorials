@@ -1,0 +1,13 @@
+Action:
+Action is standardized message(event) to which reducers can listen.
+The application must dispatch an action in order to update the state of a Store. 
+A reducer, also known as a pure function, identifies this action, updates the state, and returns a new, immutable state object. 
+As an example of an action, consider the following:
+
+const action = {
+    type: 'ADD_EMPLOYEES',
+    payload: {
+        name: 'John',
+        competency: ['ASP.NET', 'Angular']
+    }
+};

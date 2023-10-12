@@ -1,0 +1,77 @@
+Creating project 
+
+start.spring.io
+
+
+Project: Maven
+
+Lanuage: Java
+
+Spring Boot verion 2.3.2
+
+
+Project metadata
+
+Group: com.onlyjavatech
+Artifact: springbootproject
+name: Springbootproject
+Description: Learning purpose
+package name: com.onlyjavatech.durgesh
+packaging: jar
+Java: 11
+
+ADD Dependencies: 
+Spring WEB
+Spring Data JPA
+MySQL Driver
+
+Then click on generate, it will start downloading.
+Copy folder to required folder and extract.
+
+open eclipse 
+File -> import -> existing maven project -> next ->
+Root directory -> spring boot project.(parent of src) 
+
+Then in pom.xml only keep web dependency. Comment rest.
+
+Create test controller as below:
+package com.example.demo;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+@ResponseBody
+public class TestController {
+	@RequestMapping("/test")
+	public String firstHandler() {
+		return "Just for testing";
+	}
+}
+
+then in main file where main method is located: right click -> run as -> Java application.
+
+If any issue you can change port number in application.properties file server.port=9192.
+
+open web browser and localhost:9192/test
+
+you will be able to see Just for testing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

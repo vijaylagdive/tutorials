@@ -1,0 +1,31 @@
+Q1. There are different versions of Angular framework. Let's see the features of all the various versions,
+Ans: 
+Angular 1: Oct 2010
+Based on MVC architecture.
+AngularJS is not built for mobile devices.
+-------------------------------------------------
+Angular 2: Sep 2016
+Angular 2 is a complete rewrite of Angular1 version.
+The performance issues of AngJs fixed in Ang2.
+Angular 2 is built from scratch for mobile devices unlike Angular 1 version.
+Angular 2 is components based unlike MVC architecture of Ang Js.
+Made for mobile support.
+-------------------------------------------------
+Angular 3:
+The following are the different package versions in Angular 2:
+@angular/core v2.3.0
+@angular/compiler v2.3.0
+@angular/http v2.3.0
+@angular/router v3.3.0
+The router package is already versioned 3 so to avoid confusion switched to Angular 4 version and skipped 3 version.
+-------------------------------------------------
+Angular 4: March 2017
+- AOT compilation improved: AOT compilation improved, resulting in smaller bundle size and faster application loading time.
+- HttpClient: 'Http' module deprecated and 'HttpClient' module provided for modern and easier-to-use API for making http request.
+-------------------------------------------------
+Angular 5: November 2017
+- Build Optimizer: To make the generated JavaScript bundles smaller and improve the application's runtime performance. 
+- AOT build Bundle size made smaller.
+- Service worker improvment: Enhanced support for Progressive web apps.
+-------------------------------------------------
+

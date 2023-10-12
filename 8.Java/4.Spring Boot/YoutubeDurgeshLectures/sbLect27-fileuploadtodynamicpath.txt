@@ -1,0 +1,6 @@
+
+Instead usign static path we can use 
+public final String UPLOAD_DIR = new ClassPathResource("static/image").getFile().getAbsolutePath();
+
+in controller we can pass final path as response to the user.
+return ResponseEntity.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/image/").path(file.getOriginalFilename()).toUriString());

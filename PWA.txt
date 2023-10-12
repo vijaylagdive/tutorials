@@ -1,2 +1,0 @@
-PWA
-make our website offline

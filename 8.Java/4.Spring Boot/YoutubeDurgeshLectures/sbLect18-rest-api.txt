@@ -1,0 +1,24 @@
+
+changes for rest api writing
+
+Example 
+BooksController.class
+
+
+@Controller
+public class BookController {
+	@RequestMapping(value = "/books", method = RequestMethod.GET)// With GetMapping() instead of Requestmapping no need to add method.
+	@ResponseBody //If you mention class annotation RestController instead of Controller then no need to write @ResponseBody
+	public String getBooks() {
+		return "This is testing book first";
+	}
+}
+.
+We can change above to below:
+.
+public class BookController {
+	@GetMapping("/books")
+	public String getBooks() {
+		return "This is testing book first";
+	}
+}

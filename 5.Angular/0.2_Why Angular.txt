@@ -1,0 +1,69 @@
+
+Why should we use angular?
+
+Angular is a popular JavaScript framework for building web applications. 
+There are several reasons why you might choose to use Angular for your web development projects:
+
+1. TypeScript: 
+Angular is built using TypeScript, a statically-typed superset of JavaScript. 
+TypeScript helps catch errors at compile-time, provides better tooling support, and enhances code quality.
+------------------------
+
+2. Modularity: 
+Angular promotes a modular approach to building applications. 
+You can break your application into smaller, reusable components. 
+This makes it easier to develop, test, and maintain your codebase, especially in larger and more complex projects.
+------------------------
+
+3. Two-way Data Binding: 
+Angular provides two-way data binding.
+Two way data binding means changes in the user interface are automatically reflected in the underlying data model and vice versa. 
+This simplifies handling user input and updating the UI in real-time.
+------------------------
+
+4. Dependency Injection: 
+Angular has a built-in dependency injection system that makes it easy to manage dependencies and services in your application. 
+This promotes code reusability and maintainability.
+------------------------
+
+5. SSR and SEO-Friendly: 
+Angular offers server-side rendering (Angular Universal) and pre-rendering capabilities
+This making it easier for search engines to index your content. 
+This is crucial for improving the SEO of your web applications.
+------------------------
+
+6. Cross-platform: 
+Angular can be used to build not only web applications but also native mobile applications using frameworks like NativeScript or Ionic. 
+This allows for code reuse across different platforms.
+------------------------
+
+7. Security: 
+Angular has built-in security features like Cross-Site Scripting (XSS) protection, which helps safeguard your application from common web vulnerabilities.
+------------------------
+
+8. Rich Ecosystem of tools library: 
+Angular has a rich ecosystem of tools, libraries, and extensions, including the Angular CLI for project scaffolding and management, 
+RxJS for reactive programming, and a wide range of third-party libraries and components.
+------------------------
+
+9. Community and Support: 
+Angular has a large and active community of developers, which means you can find extensive documentation, tutorials, and community support to help you with your projects. 
+Google maintains Angular, providing long-term stability and updates.
+------------------------
+
+10. Testing: 
+Angular is designed with testability in mind. 
+It provides tools like TestBed for unit testing and Protractor for end-to-end testing, making it easier to write and maintain tests for your application.
+------------------------
+
+11. Enterprise Ready: 
+Angular is a good choice for building enterprise-level applications. 
+It offers features like lazy loading, internationalization (i18n), and robust state management through libraries like NgRx.
+------------------------
+
+12. Long-term Support: 
+Angular follows a predictable release cycle and offers long-term support (LTS) versions, ensuring that your applications can receive updates and security patches for an extended period.
+------------------------
+
+
+

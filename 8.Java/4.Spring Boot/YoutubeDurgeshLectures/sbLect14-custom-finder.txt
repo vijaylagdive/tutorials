@@ -1,0 +1,35 @@
+findByName: 
+find: Introducer
+ByName: Criteria
+
+You can create customized method in userRepository as below:
+public List<User> findByName(String name);
+
+Can see documentation for customized Query creation:
+https://docs.spring.io/spring-data/jpa/docs/current-SNAPSHOT/reference/html/#reference
+
+in user repository
+public interface UserRepository extends CrudRepository<User, Integer>{
+	
+	public List<User> findByName(String name);
+	
+	public List<User> findByNameAndCity(String name, String city);
+	
+}
+
+
+in main method:
+List<User> users = userRepository.findByName("Ankit");
+		users.forEach(user -> System.out.println(user));
+				
+		List<User> users = userRepository.findByNameAndCity("Ankit", "City2");
+		users.forEach(e->System.out.println(e));
+
+
+
+
+
+
+
+
+

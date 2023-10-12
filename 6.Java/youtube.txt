@@ -1,6 +1,0 @@
-Turorial started.
-https://www.youtube.com/watch?v=tRBVD8UE2cQ
-
-
-00:30:00 Shortest way to create spring boot application.
-01:53:05 Registration form project

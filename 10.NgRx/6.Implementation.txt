@@ -1,0 +1,69 @@
+
+Add ngrx into your project using this command.
+npm install @ngrx/store
+
+in app module imports
+
+imports: [
+  StoreModule.forRoot({ counter: counterReducer })
+],
+---------------------------------------------------------------------------------------------------
+create a folder named store and files ie counter.action.ts and counter.reducers.ts
+
+In counter.actions.ts:
+import { createAction, props } from '@ngrx/store';
+
+export const increment = createAction(
+    '[Counter] Increment', props<{value: number}>()
+    );
+
+export const decrement = createAction(
+    '[Counter] Decrement', props<{value: number}>()
+    );
+    
+export const reset = createAction('[Counter Component] Reset');
+
+--------------------------------------------
+In counter.reducers.ts:
+import { createReducer, on } from '@ngrx/store';
+import { increment, decrement, reset } from './counter.actions';
+
+export const initialState = 0;
+
+export const counterReducer = createReducer(
+  initialState,
+  on(increment, (state, action) => state + action.value),
+  on(decrement, (state, action) => state - action.value),
+  on(reset, (state) => 0)
+);
+
+---------------------------------------------------------------------------------------------------
+Create a component named CounterComponent
+
+add a variable
+  count$: Observable<number>;
+
+
+In constructor inject store
+  constructor(private store: Store<{ counter: number }>) {
+	//this select will get data from store.
+	this.count$ = store.select('counter');
+  }
+
+
+//Dispatching the action
+  increment() {
+    this.store.dispatch(increment({value: 8}));
+  } // {value: 8} is the action actually. action is message in a format that the reducer can understand.
+
+//Dispatching the action
+  decrement() {
+    this.store.dispatch(decrement({value:4}));
+  }
+
+//Dispatching the action 
+  reset() {
+    this.store.dispatch(reset());
+  }
+---------------------------------------------------------------------------------------------------
+

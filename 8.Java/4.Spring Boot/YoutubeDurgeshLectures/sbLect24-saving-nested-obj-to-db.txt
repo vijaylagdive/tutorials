@@ -1,0 +1,12 @@
+   {
+        "id": 1,
+        "title": "Black books",
+        "author": {
+            "authorId": 656,
+            "firstName":"Durgesh",
+            "lastName":"Tiwari",
+            "language":"Hindi"
+        }
+    }
+
+Will save book with author in another Author table

@@ -1,0 +1,19 @@
+Devtool
+
+Devtool stands for Developer Tool.
+The aim of the module is to try and improve the development time while working with the spring boot application. 
+Spring boot devtools pick up the changes and restart the application. 
+
+Features
+1. Property default
+2. Automatic restart
+3. Live reload
+4. Remote application
+
+Need to add dependency
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-devtools</artifactId>
+<scope>runtime</scope>
+<optional>true</optional>
+</dependency>

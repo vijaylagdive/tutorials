@@ -1,0 +1,37 @@
+Q1. What is starter dependencies in springboot?
+In spring boot A starter dependency is:
+- A convenient, efficient and opinionated way to include a specific set of dependencies and configurations for a particular functionality.
+- These a chosen collections of dependencies that provide set of libraries and configurations for a specific use case.
+- These are a set of pre-configured, ready-to-use dependencies.
+- These dependencies you can include in your Spring Boot project to quickly set up and bootstrap specific functionality or features. 
+- Starters are named using a spring-boot-starter-* convention, where the *represents the specific functionality or technology. 
+- For example, spring-boot-starter-web includes the necessary dependencies and configurations for building web applications.
+
+Here are some key points about Spring Boot starter dependencies:
+1. Pre-configured Dependencies: 
+Each starter dependency includes a carefully curated set of libraries and configuration settings related to a particular use case or feature. 
+These dependencies are designed to work seamlessly together, so you don't need to manually select and configure individual libraries.
+
+2. Opinionated Defaults: 
+Spring Boot follows the principle of "opinionated defaults," meaning it provides sensible default configurations and settings for common use cases. 
+Starter dependencies embody these opinions by configuring the libraries they include in a way that aligns with best practices and common patterns.
+
+3. Simplified Dependency Management: 
+Instead of searching for and adding individual dependencies one by one, you can simply include a starter dependency in your project's build file (e.g., Maven or Gradle). 
+Spring Boot's dependency management will automatically manage the versioning and compatibility of these libraries, reducing the potential for version conflicts.
+
+4. Naming Convention: 
+Starter dependencies follow a naming convention, typically in the format of spring-boot-starter-*, 
+where * is the name of the feature or functionality. 
+e.g. spring-boot-starter-web includes dependencies for building web applications.
+
+5. Customization: 
+While starter dependencies provide pre-configured defaults, you can still customize and override the configurations according to your specific requirements. 
+Spring Boot allows you to fine-tune the behavior by providing properties and additional configuration options.
+
+Example Starters: Some commonly used starter dependencies include:
+spring-boot-starter-web: For building web applications with Spring MVC.
+spring-boot-starter-data-jpa: For working with JPA-based data access.
+spring-boot-starter-security: For adding security features to your application.
+spring-boot-starter-test: For testing your Spring Boot application.
+------------------------------------------------------------------------------------------------------------------

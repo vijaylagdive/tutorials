@@ -1,0 +1,75 @@
+super keyword
+The 'super' keyword is used to call the superclass constructor or refer to the
+superclass's members (methods or variables) from the subclass.
+
+class Animal {
+    String type;
+    Animal(String type) {
+        this.type = type;
+        System.out.println("type: "+type+" ");
+    }
+}
+
+class Dog extends Animal {
+    String breed;
+
+    Dog(String type, String breed) {
+        super(type); // Calling the superclass constructor
+        System.out.println("Type from super class: "super.type);
+        this.breed = breed;
+        System.out.println("breed: "+breed);
+    }
+    
+    public static void main(String args[]){
+        Dog d = new Dog("Dog","Lab");
+    }
+
+type: Dog
+Type from super class: Dog
+breed: Lab
+-------------------------------------------------
+What is the purpose of the 'this' keyword?
+The 'this' keyword is a reference to the current object. It is used to distinguish
+between instance variables and parameters with the same name.
+
+class Person {
+	String name;
+	Person(String name) {
+	this.name = name; // 'this' is used to refer to the instance variable
+	}
+}
+-------------------------------------------------
+
+What is the 'instanceof' operator used for?
+The 'instanceof' operator is used to check if an object is an instance of a particular
+class or implements a particular interface.
+
+class Animal { }
+class Dog extends Animal { }
+public class Main {
+public static void main(String[] args) {
+
+Animal animal = new Dog();
+
+ System.out.println(animal instanceof Dog); // Output: true
+ System.out.println(animal instanceof Animal); // Output: true
+
+}
+}
+-------------------------------------------------
+
+What is the 'final' keyword used for in Java?
+The 'final' keyword is used to define entities that cannot be modified. 
+It can be used with classes, methods, and variables.
+
+-------------------------------------------------
+What is the 'static' keyword used for in Java?
+The 'static' keyword is used to define class-level entities (methods and variables)
+that belong to the class rather than any specific instance.
+
+-------------------------------------------------
+
+
+
+
+

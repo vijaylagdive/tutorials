@@ -1,0 +1,57 @@
+Q1. What is DI in angular?
+- Dependency injection (DI), is an important application design pattern.
+- Dependency is something our class(component, service etc) depends on. 
+- For example a component class depends on service.
+- In this a Component class asks for dependencies from external sources rather than creating them itself. 
+- Angular comes with its own dependency injection framework for resolving dependencies(services or objects that a class needs to perform its function).
+- So you can have your services depend on other services throughout your application.
+- For example in a component we do not create any instance of the service. 
+- With this below sentence we let angular know that the component need an instance of this logging service. 
+  constructor(private loggingService: LoggingService){} or 
+  constructor() {this.loggingService = inject(LoggingService);}
+- Whenever the component is created and angular sees that this component needs instance of service it creates one and provide to the component but for this 
+  we need to provide or declare service into the providers array of the module or component.
+- When angular sees the providers array it creates a instance of service.
+---------------------------------------------------------------------------------------------------
+Dependency Injection Hierarchy:
+AppModule:
+Same instance of service is available Application-wide.
+
+AppComponent:
+Same instance of service provide for all components but not the services.
+
+Any other component:
+Same instance of service is available for the component and all its child components.
+---------------------------------------------------------------------------------------------------
+If you provide service using Injectable as below: 
+@Injectable({
+    providedIn: 'root'
+})
+There is no need to provide it into providers array of module.ts file.
+---------------------------------------------------------------------------------------------------
+Tree Shaking Providers
+If angular looks import of service in app module then include service into the build bundle.
+So if we add service into provider array of module it will be added into bundle irrespective of it is used or not in application.
+
+
+With this..
+@Injectable({
+    providedIn: 'root'
+})
+there is no need to import service into module file. So the tree shaking will skip that service from the final bundle.
+---------------------------------------------------------------------------------------------------
+Alternate way of injecting service
+
+  private dataSendingService = inject(DataSendingService);
+
+
+
+
+
+
+
+
+
+
+
+

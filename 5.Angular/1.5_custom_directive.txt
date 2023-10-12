@@ -1,0 +1,73 @@
+Q3. What are the custom directive in angular?
+
+Custom directive. These are the attribute directives.
+- Can be attached to DOM elements (and components since they are DOM elements) to modify the appearance or behaviour 
+  of an element.
+- Attribute directive also called custom directives are used when no additional template is needed. 
+- The directive can execute logic and apply visual changes to the element it is applied to. 
+- This is useful if you want to alter the behavior or style of existing HTML-elements, 
+  without wrapping them into a new component.
+
+1. Creating custom directive using cli. 
+It should be looking as below.
+ng g directive nameofdirective
+e.g.
+ng g directive changeText
+
+change-text.directive
+import { Directive, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appChangeText]',
+})
+export class ChangeTextDirective {
+  constructor(private el: ElementRef) {
+    console.log(Element);
+    el.nativeElement.innerText = 'Changed by directives';
+  }
+}
+
+
+Import that in modules declaration array.
+2. app.module.ts
+import { ChangeTextDirective } from './change-text.directive';
+.
+.
+declarations: [
+      AppComponent,
+      NewCmpComponent,
+      ChangeTextDirective
+   ]
+.
+export class AppModule { }
+---------------------------
+Use in template for any element
+4. in app.component.html
+ <span appChangeText> Welcome to {{title}}.</span>
+
+//can send multiple inputs to directive
+//<span appChangeText [name]="'lightcyan'" [value]="'CYAN'"></span>
+---------------------------------------------------------------------------------------------------------------------
+
+Sending data to directive:
+<p highlighter color="blue" name="high" >Hello World</p>
+or
+<p highlighter [color]=colorName name="high" >Hello World</p>// where colorName is property in AppComponent.ts
+
+
+In directive
+@Input()
+color : string = '';
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

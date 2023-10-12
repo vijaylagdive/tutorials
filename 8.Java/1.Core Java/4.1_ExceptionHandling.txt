@@ -1,0 +1,120 @@
+
+Introduction to Exceptions:
+What is exception?
+.
+.
+Exception is runtime error.e.g. divide by zero. will throw runtime error.
+Exceptions are events that occur during the execution of a program that disrupt the normal flow of code.
+They represent errors, exceptional conditions, or unexpected situations that need to be handled.
+Exceptions can occur due to various reasons, such as invalid input, resource unavailability, or programming errors.
+.
+.
+Handling Exceptions (using try-catch, finally):
+Exception handling allows us to gracefully handle exceptions and provide alternative flows in case of errors.
+The try-catch block is used to catch and handle exceptions.
+The code that may throw an exception is placed inside the try block.
+If an exception occurs within the try block, it is caught and handled in the catch block.
+The finally block is optional and is executed regardless of whether an exception occurs or not.
+.
+Example of exception handling:
+try {
+	// Code that may throw an exception
+	int result = divide(10, 0);
+	System.out.println("Result: " + result);
+} catch (ArithmeticException ex) {
+	// Exception handling for ArithmeticException
+	System.out.println("Error: " + ex.getMessage());
+} finally {
+	// Code that will always execute
+	System.out.println("Finally block executed.");
+}
+
+.
+Checked vs UnChecked Exceptions:
+Checked Exceptions: 
+Checked exceptions are called compile-time exceptions because these exceptions are checked at compile-time by the compiler.
+. 
+Unchecked Exceptions: 
+The unchecked exceptions are just opposite to the checked exceptions. 
+The compiler will not check these exceptions at compile time. 
+In simple words, if a program throws an unchecked exception, and even if we didn’t handle or declare it, the program would not give a compilation error.
+
+-------------------------------------------------
+Custom Exception Classes:
+- In addition to built-in exceptions, you can create your own exception classes by extending the Exception class or its subclasses.
+- Custom exceptions allow you to represent specific application-specific errors or exceptional conditions.
+
+Example:
+class AgeInvalidException extends Exception 
+{
+    AgeInvalidException() 
+    {
+        super("Age is invalid");
+    }
+
+    AgeInvalidException(String message) 
+    {
+        super(message);
+    }
+}
+
+class Example {
+    public static void main(String[] args) {
+        try {
+		int n = 3;
+                if(n2<10) {
+                    throw new AgeInvalidException("My age is invalid!!");
+                }
+        } catch (AgeInvalidException ae) {
+            System.out.println("Age Invalid Exception!!");
+        }
+}
+-------------------------------------------------
+Example:
+Below example elaborates Exception handling with built in and custom Exception handler.
+
+class AgeInvalidException extends Exception 
+{
+    AgeInvalidException() 
+    {
+        super("Age is invalid");
+    }
+
+    AgeInvalidException(String message) 
+    {
+        super(message);
+    }
+}
+
+class Example {
+    public static void main(String[] args) {
+        System.out.println("Hello example");
+        try {
+                int n1=Integer.parseInt(args[0]);
+                int n2=Integer.parseInt(args[1]);
+                System.out.println("We have got two numbers");
+                int result = n1/n2;
+                System.out.println("Division is "+result);
+                if(n2<10) {
+                    throw new AgeInvalidException("My age is invalid!!");
+                }
+        } catch (ArithmeticException e) {
+            System.out.println("n2 Cannot be zero !!");
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid numbers");
+            System.out.println(e.getMessage());
+        } catch (AgeInvalidException ae) {
+            System.out.println("Age Invalid Exception!!");
+        } catch (Exception exception) {
+            System.out.println("Error ");
+            System.out.println(exception.getMessage());
+        } finally {
+            System.out.println("Finally this will be called!!");
+        }
+
+	}
+}
+-------------------------------------------------
+
+

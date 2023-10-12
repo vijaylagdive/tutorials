@@ -1,0 +1,12 @@
+Configure dispatcher servlet in web.xml
+Create Spring Configuration file.
+Configure View Resolver
+Create Controller
+Create a view to show Page
+
+
+
+Spring MVC
+client will request to Server.. there will be  Front controller or Dispatcher servlet.
+That FC will delegate request to controller. Controller handles the request.
+Controller send back request to Front controller 

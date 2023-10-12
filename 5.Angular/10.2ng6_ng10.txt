@@ -1,0 +1,31 @@
+Angular 6: May 2018
+- Angular Elements: Allows to use angular component in non-angular application or framework.
+- Tree shakable providers: Unused service can be removed fro final bundle.
+- ngUpdate command: added in angular cli.
+-------------------------------------------------
+Angular 7: Oct 2018.
+TypeScript 3.1
+RxJS 6.3
+New Angular CLI
+CLI Prompts capability provide an ability to ask questions to the user before they run. It is like interactive dialog between the user and the CLI
+With the improved CLI Prompts capability, it helps developers to make the decision. New ng commands ask users for routing and CSS styles types(SCSS) and ng add @angular/material asks for themes and gestures or animations.
+-------------------------------------------------
+Angular 8: May 2019
+- Ivy Renderer(Default): Introduced Ivy renderer as default rendering engine.
+- Lazy loading with dynamic imports
+- Improved support for web workers.
+- Differential loading: It allows browser to choose between modern or legacy JS bundles based on its capabilities. 
+This helps in optimizing performance for different browsers.
+-------------------------------------------------
+Angular 9: Feb 2020
+- Ivy as Default Rendering Engine (Fully Released):
+While Ivy was introduced as an experimental rendering engine in Angular 8, Angular 9 made Ivy the default rendering engine. 
+Ivy offers improved bundle sizes, faster compilation, and better debugging capabilities.
+Improved performance and bundle size reduction.
+-------------------------------------------------
+Angular 10: June 2020
+- Deprecation of Internet explorer support
+- Webpack 5 Support: Angular 10 added support for Webpack 5, which brought performance improvements, better tree-shaking, and other optimizations.
+- Strict Mode: Angular introduced "strict mode" to help developers write more maintainable and predictable code by enabling stricter TypeScript checks and enforcing best practices.
+---------------------------------------------------------------------------------------------------
+

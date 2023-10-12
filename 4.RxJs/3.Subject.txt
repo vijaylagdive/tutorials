@@ -1,0 +1,44 @@
+Subject:
+Subjects are typically used for multicasting, where you want to share a single source of values among multiple subscribers. 
+When you call next on a subject, it emits the value to all its subscribers.
+Subjects are hot, meaning they produce values regardless of whether there are subscribers or not. 
+Values are broadcasted to all subscribers.
+Subjects are often used when you need to coordinate and communicate between different parts of your application.
+
+const subject = new Subject();
+
+subject.next(1); // Emits 1 to all subscribers
+
+subject.subscribe(value => console.log('Subscriber A:', value));
+
+subject.next(2); // Emits 2 to all subscribers
+
+subject.subscribe(value => console.log('Subscriber B:', value));
+
+subject.next(3); // Emits 3 to all subscribers
+
+can be used for communication between components
+
+step1: In a common service
+  private subject = new Subject<any>();
+  sendMessage(message: String){
+    this.subject.next({text:message});
+  }
+  getMessage(): Observable<any>{
+    return this.subject.asObservable();
+  }
+
+step2: Sending component
+sendMessage(){
+    this.sharingService.sendMessage("Message from Vijay");
+}
+
+step3: Receiving component
+subscription: Subscription;
+this.subscription = this.sharingService.getMessage().subscribe(
+     message => {console.log(message)} //Service method is subscribed here.
+);
+-----------------------------
+Extra for subject:
+A Subject is a special type of observable that allows both producing (emitting) values and subscribing to them. 
+It acts as both an observer and an observable.

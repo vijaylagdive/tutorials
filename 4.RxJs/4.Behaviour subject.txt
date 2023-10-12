@@ -1,0 +1,81 @@
+Behaviour Subject:
+BehaviorSubject is a type of Observable in the RxJS library. 
+It is one of the Subject types provided by RxJS, and it has some unique characteristics compared to other Observables.
+
+Features:
+Initial Value: 
+A BehaviorSubject requires an initial value when you create it. 
+This initial value is emitted to any subscribers as soon as they subscribe to the BehaviorSubject.
+
+Holds Current Value: 
+A BehaviorSubject holds onto the most recent value that was emitted. 
+Subscribers will always receive the latest value emitted by the BehaviorSubject.
+
+Stateful: 
+Unlike regular Observables that don't have any concept of "state" and just emit values when they produce them, 
+BehaviorSubject maintains state and emits the current or most recent value immediately to new subscribers.
+
+
+Example in angular:
+In service:
+// data.service.ts
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+  // Create a BehaviorSubject with an initial value
+  private messageSubject = new BehaviorSubject<string>('Hello from DataService');
+
+  // Expose an Observable that other components can subscribe to
+  message$ = this.messageSubject.asObservable();
+
+  // Update the message
+  updateMessage(newMessage: string) {
+    this.messageSubject.next(newMessage);
+  }
+}
+
+
+In component:
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+
+@Component({
+  selector: 'app-message',
+  templateUrl: './message.component.html',
+  styleUrls: ['./message.component.css']
+})
+export class MessageComponent implements OnInit {
+  message: string;
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    // Subscribe to the message Observable
+    this.dataService.message$.subscribe(newMessage => {
+      this.message = newMessage;
+    });
+  }
+
+  updateMessage(newMessage: string) {
+    // Update the message using the DataService
+    this.dataService.updateMessage(newMessage);
+  }
+}
+
+
+
+<div>
+  <p>{{ message }}</p>
+  <button (click)="updateMessage('Updated Message')">Update Message</button>
+</div>
+
+<div>
+  <h1>Angular BehaviorSubject Example</h1>
+  <app-message></app-message>
+</div>
+
+---------------------------------------------------------------------------------------------------

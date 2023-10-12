@@ -1,0 +1,24 @@
+Generics used to typesafe an object.
+
+Example
+public class Box<T> {
+		T container;
+		public Box(T container) {
+			this.container = container;
+		}
+		public Object getValue() {
+			return this.container;
+		}
+}
+
+
+public class Example {
+	public static void main(String args[]) {
+		Box<String> b = new Box<String>("This is typesafe string");
+		System.out.println(b.getValue());
+
+		Box<Integer> intB = new Box<Integer>(78);
+		System.out.println(intB.getValue());
+	}
+}
+

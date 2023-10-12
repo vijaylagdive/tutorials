@@ -1,0 +1,87 @@
+Google MySql 
+Got to mysql.com/downloads 
+go below and check for MySql Community downloads
+Select the version:
+Then from 2 choices select the second one.. my-installer-community-8.0.34 with 331.3M. Download.
+.
+Click on No thanks Just start my download.
+
+There is msi file.. double click start installation.
+.
+Custom 
+.
+select product: 
+MySQL Server
+ MySQL Server 
+  MySQL Server 9.0.34: Drag it to right panel
+
+Applications:
+MySQL WorkBench
+ MySQL WorkBench 8.0: Drag it to right panel
+
+MySQL Shell
+ MySQL Shell 8.0.34
+  MySQL Shell 8.0.34: Drag it to right panel
+
+Next
+.
+Installation started just wait for it.
+.
+Now Product Configuration:
+.
+KeepConfig type, TCP/IP, Port: 3306, X Protocol Port, as it.. click Next.
+.
+Authentication: Keep strong password
+.
+Account and Roles: Set password
+.
+Window Services: MySQL80, 
+Run Window Service as..
+> Standard System Account
+Click next
+.
+Server file Permissions:
+Check on: Yes grant full access.. click next.
+.
+Apply configuration dialog is there.. Configuration will be completed..
+.
+Installation complete dialog:
+.
+click on Finish
+.
+Need to setup path:
+.
+Copy path: C:\Program Files\MySQL\MySQL Server 8.0\bin
+.
+start -> environmnet variables -> under system variables: Path double click -> new
+paste the above path -> Ok and finish.
+.
+Shell and workbench will be started:
+In a shell:
+.
+>mysql --version
+>mysql -u root -p //u=user, p=password
+Enter password: *****
+
+>show databases
+
+>create dabase vijaydb;
+Query OK
+
+>show databases;
+Yo will see a newly created database.
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+

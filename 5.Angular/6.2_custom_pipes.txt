@@ -1,0 +1,54 @@
+Q3. How to write custom pipe?
+Ans:
+Custom pipes.
+We can create custom pipes as per our requirement.
+And use them in our html file.
+
+a)Create pipe file using "ng g p myPipe" command.
+
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({
+  name: 'mypipe'
+})
+export class MypipePipe implements PipeTransform {
+  transform(value: string): string {
+    let cy: number = new Date().getFullYear();
+    let by: number = new Date(value).getFullYear();
+    let age = cy-by;
+    return age.toString();
+  }
+}
+
+add in the ng Module declaration
+@NgModule({
+  declarations: [
+    .
+    MyPipePipe
+  ],
+})
+
+Use this in html file as below
+<h1>Age: {{dob | mypipe}}</h1>
+
+In component.ts
+public dob = "10/05/1991";
+------------------------------------------------------------------------------------
+Passing parameters to pipe.
+Q4. What is a parameterized pipe?
+A pipe can accept any number of optional parameters to fine-tune its output. 
+The parameterized pipe can be created by declaring the pipe name with a colon ( : ) and then the parameter value. 
+If the pipe accepts multiple parameters, separate the values with colons. 
+
+<p>{{ 'Hello' | mypipe: 'Angular' : 'version3' : 'part one' }}</p>
+
+export class MyPipe implements PipeTransform {
+    transform(value: any, ...args: any[]) {
+        console.log('value', value);
+        console.log('args', args[0]);
+        console.log('args', args[1]);
+        console.log('args', args[2]);
+        return value.toUpperCase();
+    }
+}
+
+------------------------------------------------------------------------------------

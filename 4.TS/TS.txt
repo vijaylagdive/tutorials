@@ -1,0 +1,105 @@
+Questions:
+Q1. JS vs TS?
+Q2. Advantages of using TypeScript over JavaScript.
+Q3. Enum vs Interface in typescript?
+Q4. Return type never void?
+
+generic type in ts
+----------------------------------------------------------------------------------------------------
+Q1. JS vs TS
+1. TypeScript can be strongly typed, while JavaScript is dynamically typed only.
+2. TypeScript is more readable and maintainable than JavaScript.
+3. TypeScript supports abstraction through interfaces, while JavaScript does not.
+4. TypeScript allows developers to annotate code with decorators, while JavaScript does not.
+5. TypeScript supports the ability to modularize and organize components through the use of namespaces, which is not supported in JavaScript.
+6. TypeScript is more expressive than JavaScript, through the use of syntax elements such as optional and named parameters.
+7. TypeScript supports generics and a type inference feature that is not available in JavaScript.
+8. TypeScript IDEs have more features, as it is easier to build plugins and tools for a statically typed language.
+9. TypeScript code is easier to debug as the codebase expands, because type errors can be discovered at compilation time rather than runtime.
+10.TypeScript implements additional features beyond the limited ECMAScript specification to which JavaScript complies.
+-------------------------------------------------
+
+Q2. Advantages of using TypeScript over JavaScript.
+TypeScript always points out the compilation errors at the time of development (pre-compilation). 
+Because of this getting runtime errors is less likely.
+
+TypeScript supports static/strong typing. This means that type correctness can be checked at compile time. 
+This feature is not available in JavaScript.
+-------------------------------------------------
+
+Q3. Enum vs Interface in typescript?
+Enum:
+Enum in TypeScript provides a way to define a set of named constant typically representing a group of related values.
+Enums provide a way to give meaningful names to numeric values or strings, making your code more readable and maintainable.
+In this example, Color is an enum with three members: Red, Green, and Blue. Each member is assigned a numeric value starting from 0 (unless specified otherwise).
+Enums are useful when you have a finite set of constant values that are closely related. 
+They're often used to improve code readability and prevent magic numbers.
+
+enum Color {
+  Red,
+  Green,
+  Blue,
+}
+
+Accessgin this: 
+Color[0]
+
+enum Direction {
+  Up = "UP",
+  Down = "DOWN",
+  Left = "LEFT",
+  Right = "RIGHT",
+}
+
+Direction.Up
+--------------------
+
+Interface:
+In TypeScript, an interface is a way to define the shape or structure of an object. It's a contract that defines the properties and methods an object must have to be considered of that interface type. This allows you to enforce a certain structure on objects and ensure type safety when working with them.
+
+Here's the basic syntax for defining an interface in TypeScript:
+
+interface Person {
+  firstName: string;
+  lastName: string;
+  age: number;
+}
+
+const person: Person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 30
+};
+
+
+example:
+interface Car {
+  make: string;
+  model: string;
+  year: number;
+  readonly vin: string;
+  optionalProperty?: number;
+}
+
+const myCar: Car = {
+  make: "Toyota",
+  model: "Camry",
+  year: 2023,
+  vin: "123456789" // 'vin' is read-only
+};
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

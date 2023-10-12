@@ -1,0 +1,27 @@
+Q4. What is async await?
+Ans:
+async and awaits makes promises easier to write.
+async: makes a function return a promise.
+await: makes a function wait for promise.
+
+The await keyword is used inside the async function to wait for the async operation.
+Await pauses the Async function until the promise returns the result.
+
+async function myDisplay() {
+  let myPromise = new Promise(function(resolve, reject) {
+	setTimeout(function() {
+		resolve("I love you);
+	},1000);
+	});
+	let message = await myPromise;
+	console.log(message);
+}
+
+myDisplay()
+
+Benefits:
+1. code is more readable than using a callback or promise.
+2. Error handling is simpler.
+3. debugging is easier.
+
+----------------------------------------------------------------------------------------------------------------------------------------

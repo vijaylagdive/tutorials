@@ -1,0 +1,161 @@
+Q8. Data sharing between components using 
+1. @Input @Output decorators
+2. EventEmmiter in service
+3. Subject or Behaviour subject in service
+4. Ngrx
+
+1.@Input: 
+- It is used to send data from parent to child.
+In child component class file
+
+a)In child component
+import { Component, OnInit, Input,Output ,EventEmitter } from '@angular/core'; //import input from angular core
+@Input()
+all: number; //Variable declared in child class file with @Input decorator
+
+we are using this in html file of child component to show the value as below.
+<p>{{all}}</p>
+
+b)In parent component
+getCount(): number{
+    return 5;
+}//Method defined which will return count.
+
+in html file of parent component we are adding child as an element.
+<app-child [all]="getCount()"></app-child>// here all is the var declared in child component's class file.
+					//'all' will be assigned with whatever return by getCount() method in parent comp.
+
+------------------------------------------------------------------------------------------------------
+2.@Output
+Used to send date from child to parent.
+
+a)In child component
+import { Component, OnInit, Input,Output ,EventEmitter } from '@angular/core'; //import input from angular core
+@Output()
+studEmmitter: EventEmitter<Object> = new EventEmitter<Object>();
+
+studObj: object = {name: "Sumit"}; //Object to be sent to parent component.
+
+sendVal(){ //Method that will be triggered on any event.
+	this.studEmmitter.emit(this.studObj);
+}
+
+A button on click of which it will create an event to send data to the parent component.
+<button (click)="sendVal()">ClickMe</button.
+
+b)In parent component
+in html file.
+<app-child (studEmmitter)="studentObjectReceiver($event)"></app-child>
+//studEmmitter is the emmitter created in child file.
+//studentObjectReceiver is the method in parent file that will handle input received from child.
+
+in class file.
+studentObjectReceiver(student:Object): void{
+      console.log(student);
+  }
+*****************************************************************
+2. EventEmmiter in service
+
+-----------------------------------------------------------
+Step1: Create EventEmitterService
+---------------EventEmitter Service------------------------------
+import { Injectable, EventEmitter } from '@angular/core';
+import { Subscription} from 'rxjs/internal/Subscription';
+@Injectable({  
+  providedIn: 'root'
+})
+export class EventemmitterService {
+  eventEmitter = new EventEmitter();    
+  constructor() { }    
+
+  sendMessageToSecondComponnent(message:string) {    
+    this.eventEmitter.emit(message);    
+  }   
+
+}
+
+-----------------------------------------------------------
+step2: Create message sending component
+
+<input type="button" value="Call First Component Function" (click)="firstComponentFunction()">    
+
+second component .ts file
+  import { EventemmitterService } from '../eventemmitter.service';
+
+  constructor(private eventEmitterService: EventemmitterService){}
+
+  firstComponentFunction() {    
+    this.eventEmitterService.sendMessageToSecondComponnent("From register eventemitter");    
+  }
+-----------------message receiving component-----------------
+step3: Create message receiving component
+
+import { EventemmitterService } from '../eventemmitter.service';
+
+subscription: Subscription;
+
+constructor(private eventEmitterService: EventemmitterService) {
+      console.log("This is login comp");
+}
+
+ngOnInit() {
+      this.eventEmitterService.eventEmitter.subscribe((message: string) => {
+          this.firstFunction(message);
+      });
+}
+
+firstFunction() {    
+    alert( 'First component called by EventEmmitter');    
+ }
+
+-----------------------------------------------------------
+Data sharing by service using subject.next.
+Data can be shared between parent child or between siblings components.
+
+3. Subject in service
+
+Service used to share data between components.
+export class SharingserviceService {
+  constructor() { }
+  
+  private subject = new Subject<any>();
+  
+  sendMessage(message: String){
+    this.subject.next({text:message});
+  }
+
+  clearMessage(){
+    this.subject.next();
+  }
+
+  getMessage(): Observable<any>{
+    return this.subject.asObservable();
+  }
+}
+---------------------------------------------------------------------------------------------------
+First component which is sending data.
+constructor(private sharingService: SharingserviceService) { }//Import service which is interface between components.
+sendMessage(){
+    this.sharingService.sendMessage("Message from Vijay");
+}
+
+clearMessage(){
+    this.sharingService.clearMessage();
+}
+---------------------------------------------------------------------------------------------------
+Second component receiving data
+
+import { SharingserviceService } from '../interaction.service';
+
+subscription: Subscription;
+
+constructor(private sharingService: SharingserviceService){
+    this.subscription = this.sharingService.getMessage().subscribe(
+      message => {console.log(message)} //Service method is subscribed here.
+    );
+  }
+---------------------------------------------------------------------------------------------------
+subject.next() used to send data to an observable which are then send to all angular components who has subscribed to the service.
+***************************************************************************************************
+
+

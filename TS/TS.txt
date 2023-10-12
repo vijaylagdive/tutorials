@@ -1,7 +1,0 @@
-Resource:
-https://www.typescriptlang.org/
-
-Primitive: number, string, boolean
-More complex: arrays, objects
-Function types, parameters.
-

@@ -1,0 +1,89 @@
+Actual use of closure?
+1. Encapsulation
+2. Data Hiding
+3. Function factories
+4. Partial Application and Currying: 
+5. Event Handling: 
+
+-------------------------------------------------
+1.Encapsulation: 
+Closures allow you to encapsulate variables and functions, keeping them private within a specific scope. 
+This is often used in design patterns like the Module Pattern to create private variables and expose a public API.
+function createCounter() {
+  let count = 0;
+
+  return function () {
+    count++;
+    return count;
+  };
+}
+
+const increment = createCounter();
+console.log(increment()); // 1
+console.log(increment()); // 2
+-------------------------------------------------
+
+2.Data Hiding: 
+Closures enable data hiding by keeping certain variables or data inaccessible from outside the closure. 
+This is essential for maintaining data integrity and preventing unintended modifications.
+function createPerson(name) {
+  let privateName = name;
+
+  return {
+    getName: function () {
+      return privateName;
+    },
+  };
+}
+
+const person = createPerson("Alice");
+console.log(person.getName()); // "Alice"
+console.log(person.privateName); // undefined (private)
+-------------------------------------------------
+
+3. Function factories
+Closures can be used to create multiple functions with shared behavior but different data. 
+This is often referred to as a function factory.
+
+function greet(prefix) {
+  return function (name) {
+    console.log(`${prefix}, ${name}`);
+  };
+}
+
+const sayHello = greet("Hello");
+const sayHi = greet("Hi");
+
+sayHello("Alice"); // "Hello, Alice"
+sayHi("Bob"); // "Hi, Bob"
+
+-------------------------------------------------
+4. Partial Application and Currying: 
+Closures can be used to implement partial application or currying.
+This is a technique for breaking down functions with multiple arguments into a series of functions with one argument each.
+function add(x) {
+  return function (y) {
+    return x + y;
+  };
+}
+
+const add5 = add(5);
+console.log(add5(3)); // 8
+-------------------------------------------------
+5. Event Handling: 
+Closures are commonly used in event handling to maintain access to variables and data even after the event handler function has finished execution.
+
+
+function setupClickListener() {
+  let count = 0;
+  const button = document.getElementById("myButton");
+
+  button.addEventListener("click", function () {
+    count++;
+    console.log(`Button clicked ${count} times.`);
+  });
+}
+
+setupClickListener();
+
+---------------------------------------------------------------------------------------------------

@@ -3,16 +3,16 @@ Q1. What are the ES6 Features:
 2. Arrow functions
 3. Classes
 4. Promise
-5. Spread operator 
-6. Destructuring Assignment
-7. Multi-line Strings 
-8. Template Literals
-9. Default Parameters
-10.Modules 
+5. Template Literals
+6. Spread operator and Rest operators.
+7. Default Parameters
+8. Destructuring Assignment
+9. Modules 
+10. Map and Set
 **************************************************
-Q2. What is arrow function?
-1. Arrow Function
-
+1. let const
+---------------------------------------------------------------------------------------------------
+2. Arrow Function
 - Its ES6 feature that provides a more concise syntax for writing function expressions by removing out the "function" and "return" keywords.
 - Arrow functions are defined using the fat arrow (=>) notation.
 
@@ -33,36 +33,34 @@ Differences and limitations:
 - Does not have new.target keyword.
 
 ---------------------------------------------------------------------------------------------------
-Q3.Default paramater
-
-In ES6, users can provide the default values right in the signature of the functions. But, in ES5, OR operator had to be used.
-
-//ES6
-let calculateArea = function(height = 100, width = 50) {  
-    // logic
-}
-
-//ES5
-var calculateArea = function(height, width) {  
-   height =  height || 50;
-   width = width || 80;
-   // logic
-}
+3. Classes
 ---------------------------------------------------------------------------------------------------
-Q4. What is Template Literals in JS?
-
-ES6 introduces very simple string templates along with placeholders for the variables. 
-The syntax for using the string template is ${PARAMETER} and is used inside of the back-ticked string.
-
-let name = `My name is ${firstName} ${lastName}`
+4. Promises
+Note: Refer Promises file
 ---------------------------------------------------------------------------------------------------
-Q5. What is spread operator? Uses?
+5. Template Literals in JS?
+
+Template literals in ES6) allows you to create strings with embedded expressions. 
+They are enclosed in backticks (`) instead of single or double quotes, and you can embed variables or expressions directly within them using ${}. 
+Here's how template literals work in JavaScript:
+
+Example:
+const firstName = 'John';
+const age = 30;
+// Using template literals
+const greeting = `Hello, my name is ${firstName} and I am ${age} years old.`;
+console.log(greeting);
+Hello, my name is John and I am 30 years old.
+---------------------------------------------------------------------------------------------------
+6. Spread operator and Rest operators.
+a. Spread operators:
 Object, Array destructuring
 Rest parameters
 Shallow copying of object.
 
 Note: see seperate file for details
----------------------------------------------------------------------------------------------------
+
+b. Rest operators:
 Q6. Rest parameter
 With the help of a rest parameter a function can be called with any number of arguments, no matter how it was defined. 
 function fun(...input){
@@ -76,12 +74,57 @@ console.log(fun(1,2)); // 3
 console.log(fun(1,2,3)); // 6 
 console.log(fun(1,2,3,4,5)); // 15
 ---------------------------------------------------------------------------------------------------
-Q8. Destructuring
-Destructuring extract arrray elements and object properties and store them in a variable.
-Array destructuring
+7. Destructuring Assignment
+Destructuring assignment enables you to extract values from arrays and objects in a more concise and intuitive way.
+
+1. Array destructuring:
+Array destructuring allows you to extract values from an array and assign them to individual variables.
+
 [a,b] = ['john','max'];
 console.log(a); // john
 console.log(b);  // max
+.
+2. Object destructuring:
+Object destructuring allows you to extract properties from objects and assign them to individual variables.
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 30,
+};
+
+const { firstName, lastName, age } = person;
+
+console.log(firstName); // "John"
+console.log(lastName);  // "Doe"
+console.log(age);       // 30
+---------------------------------------------------------------------------------------------------
+8. Default paramater
+In JavaScript, you can define default parameters for functions. 
+Default parameters were introduced in ECMAScript 6 (ES6).
+Here's how you can use default parameters:
+
+function greet(name = 'Guest', greeting = 'Hello') {
+  console.log(`${greeting}, ${name}!`);
+}
+
+greet(); // Output: Hello, Guest!
+greet('John'); // Output: Hello, John!
+greet('Alice', 'Hi'); // Output: Hi, Alice!
+---------------------------------------------------------------------------------------------------
+9. Modules
+ES6 introduced a module system that allows you to import and export code between different files, improving code organization and reusability.
+// In module.js
+export const myVar = 42;
+
+// In another file
+import { myVar } from './module.js';
+---------------------------------------------------------------------------------------------------
+10. Map and Set.
+The Map and Set data structures provide more flexible ways to work with collections of data.
+const myMap = new Map();
+myMap.set('key', 'value');
+
+const mySet = new Set([1, 2, 3, 2, 1]);
 ---------------------------------------------------------------------------------------------------
 
 

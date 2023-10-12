@@ -1,9 +1,0 @@
-    afterEach(() => {
-
-        httpTestingController.verify();
-    });
-
-this is to preventing unintended http request
-
-HttpTestingController
-Controller to be injected into tests, that allows for mocking and flushing of requests.

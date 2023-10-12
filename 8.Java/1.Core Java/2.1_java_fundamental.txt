@@ -1,0 +1,84 @@
+1. Variable
+2. Identifier
+2. Data types
+3. Operators
+4. Arrays
+5. String 
+
+1. Variables and Data Types:
+Variables are used to store data in memory during program execution. 
+In Java, you need to declare a variable before using it.
+------------------------
+2. Data types:
+Primitive Data Type: int, char, boolean, float,long, double, short, byte
+Non-Primitive Data Type or Object Data type: String, Array
+------------------------
+3. Operators:
+Arithmetic operators: +, -, *, /, % (modulus)
+Assignment operators: =, +=, -=, *=, /=
+Comparison operators: ==, !=, >, <, >=, <=
+Logical operators: && (AND), || (OR), ! (NOT)
+Bitwise Operators: & (bitwise AND), | (bitwise OR), ^ (bitwise XOR), ~ (bitwise
+NOT).
+------------------------
+2. Identifier:
+A name in java program is called identifier.
+Which can be used for identification purpose.
+It can be method name, class name, variable name or label name.
+class Test {
+public static void main(String args[]) {
+	int x = 10;
+	}
+}
+5 identifiers in above code.
+Test, main, String,x,args
+------------------------
+3. literal:
+Any constant value which can be assigned to variable is literal.
+ex: int x = 10;
+int is data type 
+x is identifier
+10 is constant/literal
+
+------------------------
+4. Arrays:
+Durga sir: https://www.youtube.com/watch?v=HSp0UX9Z8Zw&list=RDCMUCbjozK_PYCTLEluFlrJ8UZg&index=6
+Arrays are used to store multiple values of the same data type in a single variable.
+Arrays have a fixed size, determined at the time of declaration.
+.
+Example of array declaration and initialization.
+int[] numbers = new int[5]; // declaration with size
+numbers[0] = 1; // assigning values to array elements
+numbers[1] = 2;
+numbers[2] = 3;
+numbers[3] = 4;
+numbers[4] = 5;
+
+String[] names = {"John", "Alice", "Bob"}; // declaration with initialization
+int length = numbers.length; // accessing the length of the array
+------------------------
+5. Strings:
+Strings in Java are objects that represent a sequence of characters.
+Strings are immutable, meaning they cannot be modified once created.
+String manipulation and operations are performed using various methods provided by the String class.
+.
+Example string operations:
+String name = "John";
+int length = name.length(); // gets the length of the string
+.
+char firstChar = name.charAt(0); // gets the first character of the string
+.
+String upperCaseName = name.toUpperCase(); // converts the string to uppercase
+.
+boolean containsA = name.contains("a"); // checks if the string contains a specific substring.
+.
+String concatenated = name + " Doe"; // concatenates two strings
+.
+String formatted = String.format("Hello, %s!", name); // formats a string using placeholders
+------------------------
+
+
+
+
+
+

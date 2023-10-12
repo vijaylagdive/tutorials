@@ -1,0 +1,105 @@
+Q9. Angular performance?
+How to increase angular performance?
+
+1. AOT
+2. Lazy Loading
+3. Tree Shaking
+4. Server-Side Rendering (SSR):
+5. Optimize Third-Party Libraries:
+6. Avoid Excessive DOM Manipulation:
+7. Optimize Angular Templates:
+8. Optimize Change Detection:
+9. RxJS Optimization:
+10. Minimize HTTP Requests:
+11. Using pure pipes than impure.
+12. Avoid computation in template files
+13. Using pipes intstead of functions in the templates.
+
+----------------------------------------------------------------------
+5. Using pipes intstead of functions in the templates.
+a) Template
+{{ methodTransformation('some_value') }}
+{{ 'some_value' | pipeTransformation }}
+<button (click)="value = value + 1">Useless button</button>
+
+b) Component
+export class AppComponent  {
+  value = 0;
+  count = 0;
+  methodTransformation(value) {
+    console.log('🤕 function call number : ', ++this.count);
+    return value + '_Transformed'
+  }
+}
+
+c) Pipe
+export class PipeTransformationPipe implements PipeTransform {
+  count = 0;
+  transform(value: any, args?: any): any {
+    console.log('😀 pipe call number : ', ++this.count);
+    return value + '_Transformed'
+  }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+Improving the performance of Angular applications is crucial for delivering a better user experience. Here are several ways to optimize the performance of your Angular apps:
+
+Enable Ahead-of-Time (AOT) Compilation:
+Angular applications can be compiled using Just-In-Time (JIT) or Ahead-of-Time (AOT) compilation. AOT compilation reduces the application's size and improves load times. To enable AOT compilation, use the --aot flag when building your app.
+
+Lazy Loading Modules:
+Divide your application into feature modules and lazy load them. This means that modules are loaded only when they are needed, reducing the initial bundle size and speeding up the initial load time.
+
+Tree Shaking:
+Ensure that your application's code is tree-shakable. Tree shaking eliminates unused code during the build process, reducing the bundle size. Avoid importing the entire modules when you only need specific components or functions.
+
+Code Splitting:
+Implement code splitting to break your application into smaller, more manageable chunks. This allows for faster initial load times, especially when users only access specific parts of the application.
+
+Optimize Angular Templates:
+Optimize your Angular templates by minimizing the use of ngIf, ngFor, and other structural directives. Be cautious with long template loops and nested components, as these can cause performance issues.
+
+Use TrackBy with ngFor:
+When using ngFor to iterate over lists, use the trackBy function to provide a unique identifier for each item. This helps Angular efficiently update the DOM when the list changes.
+
+Minimize HTTP Requests:
+Reduce the number of HTTP requests by bundling and compressing your assets, using HTTP caching, and making use of Angular's HttpClient to optimize API requests.
+
+Optimize Change Detection:
+Be mindful of how change detection works in Angular. Use OnPush change detection strategy for components when possible, and avoid triggering change detection unnecessarily.
+
+Use Lazy Loading Images:
+Lazy load images by using the Intersection Observer API or Angular libraries like ngx-lazyload-image. This ensures that images are only loaded when they come into the viewport.
+
+Avoid Excessive DOM Manipulation:
+Minimize direct DOM manipulation and use Angular's data-binding and reactive forms to update the UI. Excessive DOM manipulation can lead to performance bottlenecks.
+
+Production Builds:
+Always build your application in production mode for deployment. This enables various optimizations like minification, dead code elimination, and ahead-of-time compilation.
+
+Optimize Third-Party Libraries:
+Be cautious when including third-party libraries in your application. Some libraries may be poorly optimized and could negatively impact performance. Choose libraries that are actively maintained and optimized.
+
+Performance Testing and Profiling:
+Regularly perform performance testing using tools like Lighthouse, WebPageTest, or Angular's built-in performance profiler. Identify bottlenecks and address them.
+
+Service Workers and Progressive Web App (PWA) Features:
+Implement service workers to enable caching and offline capabilities. PWAs can provide a smoother user experience, especially on slower networks.
+
+Server-Side Rendering (SSR):
+Consider using Angular Universal for server-side rendering. SSR can improve the initial load time and SEO of your application.
+
+Bundle Analysis:
+Use tools like Webpack Bundle Analyzer to analyze your application's bundle size. This can help identify large dependencies that can be optimized or removed.
+
+Remember that performance optimization is an ongoing process. Continuously monitor and profile your application to identify and address performance issues as they arise.
+
+
+
+9. RxJS Optimization:
+
+Optimize your use of RxJS observables by unsubscribing when they are no longer needed to prevent memory leaks.

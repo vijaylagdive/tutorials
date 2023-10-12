@@ -1,0 +1,8 @@
+
+
+
+open cmd 
+>mysql --version
+>mysql -u root -p
+mysql> show databases;
+mysql> create database vijaydb;

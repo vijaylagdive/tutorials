@@ -1,0 +1,5 @@
+Running springboot with VS code
+
+Got sts download site and download sts for vs code.
+
+in vs code add extension Spring Boot Extension Pack

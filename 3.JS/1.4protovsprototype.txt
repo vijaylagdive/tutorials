@@ -1,0 +1,18 @@
+Prototype:
+The prototype property is set to function when it is declared. 
+All the functions have a prototype property.
+The prototype gives access to the prototype of function using function.
+Syntax: (function.prototype)
+
+
+
+
+
+__proto__:
+proto property that is set to an object when it is created using a new keyword. 
+All objects created using new keyword have proto properties.
+All the object constructors (function) have prototype properties.
+proto gives access to the prototype of the function using the object.
+Syntax: (object.__proto__)
+
+

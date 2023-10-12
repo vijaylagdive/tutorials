@@ -1,0 +1,7 @@
+In Angular, a standalone component refers to a self-contained and reusable unit of code that encapsulates logic, data, and UI elements. Unlike regular components, standalone components are not dependent on Angular's NgModule system for their configuration and dependencies. By using standalone components, developers have more flexibility and control over their codebase. They can create small, focused components that are easier to understand, test, and maintain. Standalone components also promote better organisation of code, as they can be grouped based on their functionality or purpose.
+
+
+Standalone components are not mandatory and will never be, there is no rule when to use them. 
+However, Angular Architects recommend to always use Standalone components at least for new components you create. 
+They are simply more treeshakeable and less boiler. 
+You can mix standalone components and modules also.

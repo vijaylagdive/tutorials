@@ -1,0 +1,18 @@
+Constructor:
+Constructor used ton initialize object data.
+Automatically called when create object using new keyword
+Name of constructor is same as Class name.
+Constructor doesnot return any value. Not even void.
+Default constructor
+Parameterized constructor.
+If class does not have constructor java creates a default one.
+
+
+this keyword:
+Refers current invoking object.
+this() => for calling current class constructor from inside different constructor of same class.
+
+1. Classes: Blueprint
+2. Objects: Actual instance
+Class vs  Object
+Class is blueprint of building and Object is actual building.

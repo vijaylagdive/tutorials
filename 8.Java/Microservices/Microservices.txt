@@ -1,0 +1,38 @@
+
+Disadvantages of Monolithic Applications:
+1. As project scale, it becomes difficult to manage.
+2. For single change redeployment of whole application needed.
+3. Difficult to adapt new technology for single functionality.
+4. Single bug may down your whole application.
+
+
+Advantages of Monolithic Applications:
+1.Simple to develope.
+2.Simple to build and deploy.
+3.Problem of network latency are relatively less. network latency occurs when    microservices are on different servers.
+
+
+What are microservices.
+1.Microservices are the small services that work together.
+2.These are smaller services communicating with each other directly using light    weight protocols like HTTP.
+
+Advantages of microservices:
+- It is possible to change or upgrade each service individually rather than upgrading the entire application.
+- If any service is down will not impact another.
+- Can use easily different technologies for building different microservices.
+- Less dependency on other modules. Loosely coupled.
+
+How Microservices contact each other:
+M1 <---> HTTP/REST <----> M2
+
+
+
+
+
+
+
+
+
+
+
+

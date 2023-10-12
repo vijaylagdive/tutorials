@@ -1,0 +1,11 @@
+1. Question: What is the difference between synchronous and asynchronous JavaScript? 
+  Answer: Synchronous JavaScript executes code sequentially, blocking further execution until the task is completed, while asynchronous JavaScript allows tasks to be executed independently, without blocking other operations.
+---------------------------------------------------------------------------
+2. **What are the different ways to handle asynchronous operations in JavaScript?**
+Answer: 
+JavaScript provides several methods to handle asynchronous operations:
+1. Callbacks: Callback functions are passed as arguments to asynchronous functions and are executed once the operation completes.
+2. Promises: Promises provide a more structured way to handle asynchronous tasks, allowing chaining and error handling.
+3. Async/Await: Introduced in ES2017, async/await simplifies asynchronous code by allowing developers to write asynchronous logic in a synchronous style.
+
+

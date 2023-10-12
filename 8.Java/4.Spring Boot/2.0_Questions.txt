@@ -1,0 +1,22 @@
+Q1. What is spring boot?
+Q2. Advantages of spring boot?
+Q3. Spring boot starter dependencies?
+Q4. What are the various ways to create a Spring Boot application?
+Q5. Is it possible to change the port of the embeded tomcat server in spring boot?
+Q6. Can we override or replace the Embeded tomcat server in spring boot?
+Q7. What is auto-configuration in spring boot? how does it help? Why spring boot is called opinionated?
+Q8. What is diiference between @SpringBootApplication and @EnableAutoConfiguration annotation?
+Q9 How to disable a specific auto-configuration class?
+Q10 What is difference between @RestController and @Controller in Spring Boot?
+Q11 Describe the flow of the HTTPS request through the spring boot application?
+Q12. What is difference between @RequestMapping and @GetMapping?
+Q13. What is difference between an embeded container and WAR?
+Q14. What is the use of Profiles in spring boot?
+Q15. What is Spring Actuator? What are its advantages?
+Q16. How to get the list of all the beans in your spring boot application?
+Q17. Difference between spring and springboot?
+Q18. What differentiates Spring Data JPA and Hibernate?
+Q7. How to use a property defined in application.properties file into your java class?
+Ans: 
+@Value("${server.port}")
+private String serverPort;

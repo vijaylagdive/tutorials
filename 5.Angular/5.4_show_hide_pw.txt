@@ -1,0 +1,18 @@
+
+Q7. Show hide password on click of button?
+Ans:
+<input [type]="show ? 'text' : 'password'" />
+
+<button (click)="password()">{{show ? 'Show' : 'Hide'}}</button>
+
+// variable - default false
+show: boolean = false;
+
+constructor() {
+}
+
+// click event function toggle
+password() {
+    this.show = !this.show;
+}
+

@@ -8,7 +8,6 @@ Ans:
 - A closure makes sure that a function doesn't loose connection to variable that existed at the function's birth place. 
 - It remembers the variables even after the birthplace is not existing now.
 - We do not have to manually create closure, this is a js feature that happens automatically.
-- We cant even access closed over variables explicitly.
 - Closure is not a tangible js object. 
 
 example:
@@ -44,3 +43,6 @@ ex2:
     booker();
     booker();
     booker();
+
+
+---------------------------------------------------------------------------------------------------

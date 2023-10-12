@@ -1,0 +1,62 @@
+Q1. What is Component Fixture?
+In Angular testing, a ComponentFixture is a crucial part of the testing framework.
+It is used for testing Angular components, specifically for testing the component's behavior, rendering, and interactions in a controlled and isolated environment.
+
+Here's a brief overview of how ComponentFixture is used in Angular testing:
+
+1. Creating component fixture:
+You create a ComponentFixture by using the "TestBed.createComponent" method. 
+This method takes the Angular component you want to test as an argument and returns a ComponentFixture instance. 
+For example:
+-------------------------------------------------
+
+2. Accessing component instance and debug element from fixture 
+You can access the instance of the component you want to test using fixture.componentInstance. 
+This allows you to interact with the component and its properties or methods in your tests.
+beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [CoursesModule]
+        })
+        .compileComponents()
+        .then(() => {
+            fixture = TestBed.createComponent(CoursesCardListComponent);
+            component = fixture.componentInstance;
+            el = fixture.debugElement;
+        });
+    }));
+-------------------------------------------------
+
+3. Detecting Changes: 
+Angular's change detection is not triggered automatically in tests. 
+You need to manually trigger change detection using fixture.detectChanges(). 
+This is necessary when you want to test how the component responds to changes in its input properties or when you want to verify the rendered output.
+
+    it('should display the course list', () => {
+        component.courses = setupCourses();
+        fixture.detectChanges();
+        const cards = el.queryAll(By.css(".course-card"));
+        expect(cards).toBeTruthy("Could not find cards");
+        expect(cards.length).toBe(12, "Unexpected number of courses");
+    });
+
+-------------------------------------------------
+
+4. Testing Component Interactions: 
+You can simulate user interactions with the component by triggering events on elements within the component's template and then checking how the component responds.
+-------------------------------------------------
+
+5. Cleaning Up: 
+It's essential to clean up after each test to avoid memory leaks. 
+You can use fixture.destroy() to do this. Typically, this is done in an afterEach block.
+
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+
+component.html
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" required>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" required>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+-------------------------------------------------
+component.ts
+userForm: FormGroup;
+constructor(private formBuilder: FormBuilder){this.userForm = new FormGroup('');}
+ngOnInit() {
+    this.userForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
+
+  onSubmit() {
+    if (this.userForm?.valid) {
+      console.log('Form submitted:', this.userForm.value);
+    } else {
+      console.error('Form is invalid. Please fill in all required fields.');
+    }
+  }
+
+
+o/p:
+{
+    "name": "vijay",
+    "email": "vijay@gmail.com"
+}

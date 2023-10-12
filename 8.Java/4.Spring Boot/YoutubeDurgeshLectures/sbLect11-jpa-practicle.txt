@@ -1,0 +1,8 @@
+
+Created Entity named User class under package com.jpa.test.entities
+Created fields there.
+Entity from jakarta persistence Entity
+
+then created UserRepository under com.jpa.test.dao
+UserRepository extending Crud Repository
+

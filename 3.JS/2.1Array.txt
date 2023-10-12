@@ -58,10 +58,14 @@ function myFunc(num,ind,arr){
 }
 console.log(secondArr);
 
+or with arrow function
+firstArr.map((el) => {
+	return el*2
+})
 -------------------------------------------------
 
 2. filter()
-The filter() method creates a new array with array elements that passes a test applied on given array.
+The filter() method creates a new array with array elements that passes a test applied on given array element.
 eg:
 var numbers = [45, 4, 9, 16, 25];
 var over18 = numbers.filter(myFunction);
@@ -76,6 +80,12 @@ The item index
 The array itself
 In the example above, the callback function does not use the index and array parameters, so they can be omitted:
 
+or
+
+let arr = [2,6,4,3,145,21];
+let fArray = arr.filter((el) => {
+  return el > 100;
+})
 -------------------------------------------------
 
 3.find()
@@ -149,22 +159,19 @@ Note that the function takes 4 arguments:
 - The array itself
 
 Example to find the sum of all numbers in an array:
-var numbers1 = [45, 4, 9, 16, 25];
-var sum = numbers1.reduce(myFunction); o/p 99
-
-function myFunction(total, value, index, array) {
-  return total + value;
-}
-
-e.g.2
+e.g.1:
 const numbers = [15, 2, 1, 4];
-
-let x = numbers.reduce(getSum, 0);// x will be 22
-
+let x = numbers.reduce(getSum);// x will be 22
 function getSum(total, num) {
   return (total + num);
 }
 
+e.g.2:
+const numbers = [15, 2, 1, 4];
+let x = numbers.reduce((el, el1) => {
+  return (el + el1);
+});
+console.log(x);
 ---------------------------------------------------------------------------------------------------
 
 Q4. Array methods slice(), splice(), push(), pop(), shift(), unshift()
@@ -180,7 +187,7 @@ o/p -> ["Orange","Lemon"]
 e.g
  slice(1);
  slices out all elements from given position ie first position.
-
+-------------------------------------------------
 1. splice();
 - Used to add new items to an array.
 e.g.
@@ -198,7 +205,7 @@ third and onwards:- elements to be inserted.
 We can use splice to remove elements from array.
 e.g. fruits.splice(0,1);// Removes first element from array.
 
-------------------------
+-------------------------------------------------
 3. push();
 The push() method adds new items to the end of an array, and returns the new length.
 e.g.

@@ -1,0 +1,194 @@
+Q1. What and why bootstrap?
+Bootstrap is simple to use and anyone with a basic understanding of HTML and CSS can get started.
+Features that adapt to phones, tablets, and desktops: Bootstrap's responsive CSS adapts to phones, tablets, and desktops.
+A mobile-first strategy: Mobile-first styles are built into the Bootstrap framework.
+Bootstrap 4 is compatible with all modern browsers, including Chrome, Firefox, Internet Explorer 10+, Edge, Safari, and Opera.
+-------------------------------------------------
+
+Q2. What is a Bootstrap Container, and how does it work?
+A bootstrap container is a handy class that generates a central region on the page where we can put our site content. 
+The bootstrap .container has the advantage of being responsive and containing all of our other HTML code. 
+Containers are used to pad the content within them, and there are two types of containers:
+
+The .container class creates a fixed-width container that is responsive.
+The .container-fluid class creates a full-width container that spans the entire viewport width.
+
+.container class
+Extra small(<576px): 100%
+Small (≥576px): 540px
+Medium (≥768px): 720px
+Large (≥992px): 960px
+Extra large (≥1200px): 1140px
+
+
+.container-fluid class 
+to create a full width container, 
+that will always span the entire width of the screen (width is always 100%).
+
+Container padding:
+Default padding for containers:15px left and right padding with no top or bottom padding. 
+Therefore, we often use spacing utilities, such as extra padding and margins to make them look even better. 
+For example, .pt-3 means "add a top padding of 16px":
+e.g.
+<div class="container pt-3"></div>
+
+
+Container border and colors:
+Examples:
+<div class="container p-3 my-3 border"></div>
+<div class="container p-3 my-3 bg-dark text-white"></div>
+<div class="container p-3 my-3 bg-primary text-white"></div>
+-------------------------------------------------
+
+Q3. What do you know about the Bootstrap Grid System?
+Bootstrap's grid system is built with flexbox and allows up to 12 columns across the page.
+
+If you do not want to use all 12 columns individually, you can group the columns together to create wider columns:
+The grid system is responsive, and the columns will re-arrange automatically depending on the screen size.
+
+Make sure that the sum adds up to 12 or fewer (it is not required that you use all 12 available columns).
+
+Example:
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
+    <div class="col-sm-4" style="background-color:lavenderblush;">.col-sm-4</div>
+    <div class="col-sm-4" style="background-color:lavender;">.col-sm-4</div>
+  </div>
+</div>
+
+-------------------------------------------------
+Q4. Button Groups
+Bootstrap 4 allows you to group a series of buttons together (on a single line) in a button group.
+Use a <div> element with class .btn-group to create a button group.
+Ex1:
+<div class="btn-group">
+  <button type="button" class="btn btn-primary">Apple</button>
+  <button type="button" class="btn btn-primary">Samsung</button>
+  <button type="button" class="btn btn-primary">Sony</button>
+</div>
+
+Ex2:
+<div class="btn-group btn-group-lg">
+
+Ex3:
+<div class="btn-group-vertical">
+
+Nesting button group and dropdown:
+<div class="btn-group">
+  <button type="button" class="btn btn-primary">Apple</button>
+  <button type="button" class="btn btn-primary">Samsung</button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+       Sony
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Tablet</a>
+      <a class="dropdown-item" href="#">Smartphone</a>
+    </div>
+  </div>
+</div>
+
+-------------------------------------------------
+
+Q5. How can one create an alert in Bootstrap?
+Create a wrapper <div> and add a class of .alert and one of the contextual classes to create a basic alert (e.g., .alert-success, .alert-info, .alert-warning, .alert-danger, .alert-primary, .alert-secondary, .alert-light or .alert-dark).
+
+Examples:
+.alert	Creates an alert message box	
+.alert-danger	Red alert. Indicates a dangerous or potentially negative action	
+.alert-dark	Dark alert. Dark grey alert box	
+.alert-dismissible	Indicates a closable alert box. Together with the .close class, this class is used to close the alert (adds extra padding)	
+.alert-heading	Adds color:inherit to the specified element	
+.alert-info	Light-blue alert.Indicates a neutral informative change or action	
+.alert-light	Light alert. Light grey alert box	
+.alert-link	Used on links inside alerts to provide matching colored links	
+.alert-primary	Blue alert. Indicates an important action	
+.alert-secondary	Grey alert. Indicates a "less" important action	
+.alert-success	Green alert. Indicates a successful or positive action	
+.alert-warning	Yellow alert. Indicates caution should be taken with this action	
+.close Styles the close button for the alert message (floats right with a specified font-size, color, etc.)
+-------------------------------------------------
+
+Q6. What is a bootstrap card and how would you create one?
+In Bootstrap 4, a card is a bordered box with padding surrounding its content. 
+It has options for headers, footers, content, and colors, among other things.
+<div class="card">
+ <div class="card-header">Header</div>
+ <div class="card-body">Body</div>
+ <div class="card-footer">Footer</div>
+</div>
+
+Another Example:
+<div class="card" style="width:400px">
+ <img class="card-img-top" src="img_avatar.png" alt="Card image">
+ <div class="card-body">
+   <h4 class="card-title">Richard Taylor</h4>
+   <p class="card-text">Some example text.</p>
+   <a href="#" class="btn btn-primary">See Profile</a>
+ </div>
+</div>
+
+-------------------------------------------------
+Q7.Toast CSS Classes
+The Toast component is like an alert box that is only shown for a couple of seconds when something happens 
+(i.e. when the user clicks on a button, submits a form, etc.).
+
+Example:
+<button type="button" class="btn btn-primary" id="myBtn">Show Toast</button>
+  <div class="toast mt-3">
+    <div class="toast-header">
+      Toast Header
+    </div>
+    <div class="toast-body">
+      Some text inside the toast body
+    </div>
+  </div>
+</div>
+-------------------------------------------------
+Q8. Bootstrap 4 Carousel
+The Carousel is a slideshow for cycling through elements.
+
+Example:
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="la.jpg" alt="Los Angeles" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="ny.jpg" alt="New York" width="1100" height="500">
+    </div>
+  </div>
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

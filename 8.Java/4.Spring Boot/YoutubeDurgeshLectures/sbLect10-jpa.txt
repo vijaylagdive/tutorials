@@ -1,0 +1,17 @@
+JPA: Java persistence api.
+
+jpa is orm tool. Object relationship mapping.
+
+Hibernate is implementation of JPA
+
+JPA provides 2 imp interfaces
+
+EntityManagerFactory
+EntityManager: Create Update Read Delete
+
+
+Spring Boot makes easier to perform operation with JPA
+Need to add starter dependency
+spring-boot-starter-data-jpa
+
+User -> User Repository -> Crud Repository -> JPA Repository.

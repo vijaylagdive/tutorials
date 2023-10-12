@@ -1,0 +1,57 @@
+Create child component
+
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-child-component',
+  template: `
+    <button (click)="emitCustomEvent()">Emit Custom Event</button>
+  `,
+})
+export class ChildComponent {
+  @Output() customEvent = new EventEmitter<string>();
+
+  emitCustomEvent() {
+    this.customEvent.emit('Custom event data from child');
+  }
+}
+
+In the example above, we've declared an @Output property named customEvent of type EventEmitter. We use the emitCustomEvent method to emit the custom event with some data.
+
+--------------------------------------------------------------------------------
+In the parent component, you can use the child component and listen to the custom event emitted by it.
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-parent-component',
+  template: `
+    <app-child-component (customEvent)="handleCustomEvent($event)"></app-child-component>
+    <p>{{ eventData }}</p>
+  `,
+})
+export class ParentComponent {
+  eventData: string = '';
+
+  handleCustomEvent(data: string) {
+    this.eventData = data;
+  }
+}
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

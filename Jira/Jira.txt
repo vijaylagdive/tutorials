@@ -1,0 +1,14 @@
+
+Story points:
+Story points are the efforts from the development teams perspective to fully Implement the a particular piece of work.
+
+
+
+
+
+
+
+
+Sample print report
+
+Project -> report -> sprint report

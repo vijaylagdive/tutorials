@@ -1,0 +1,10 @@
+
+Q1. How to create spring boot project?
+Ans:
+1. Create a maven project and add starter dependencies.
+2*. Use spring initializr by using a website.
+Add requirement and click on create project button.
+It will create and allow a folder to be downloaded.
+You can open it in youre favorite IDE.
+3*. Use IDE like STS
+4. Spring boot command line interface.

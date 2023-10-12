@@ -1,0 +1,38 @@
+Q5. Difference between Observable and Promises?
+Ans:
+1. 
+Promise emits single value
+Observable emits multiple values.
+-------------------------------------------------
+2. 
+Promises are not lazy
+If we comment .then() of the promise, still the api call will be placed.
+
+Observable are Lazy. 
+Observables are not called until we subscribe to the Observable.
+If we comment code which is subscribing to the Promise then the api call will not be done.
+
+Example:
+    const observable = new Observable(observer => {
+      console.log('In Observable'); //Will not be printed if subscription commented.
+      observer.next(1);
+      observer.next(2);
+      observer.complete();
+    });
+    
+    // observable.subscribe({
+    //   next: value => console.log(value),
+    //   complete: () => console.log('Completed')
+    // });
+
+-------------------------------------------------
+3. 
+Promise cannot be cancelled
+Observable can be cancelled by using the unsubscribe method.
+-------------------------------------------------
+4. 
+Promise doesnt have any operator.
+Observable provides many operator like map, forEach, filter, reduce, retry etc
+-------------------------------------------------
+
+

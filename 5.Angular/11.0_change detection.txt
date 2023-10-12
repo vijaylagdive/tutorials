@@ -1,0 +1,107 @@
+Q1. What is change detection in angular?
+Ans:
+- Change detection is the process through which Angular checks to see whether your application state has changed, 
+  and if any DOM needs to be updated. 
+- At a high level, Angular walks your components from top to bottom, looking for changes.
+- Angular runs its change detection mechanism periodically so that changes to the data model are reflected in an app’s view.
+- Change detection can be triggered either manually or through an asynchronous event (for example, a user interaction or an XHR completion).
+- Change detection is a highly optimized performant, but it can still cause slowdowns if the application runs it too frequently.
+---------------------------------------------------------------------------------------------------
+Q2. Technics for change detection in angular?
+1. Default
+2. onPush
+
+---------------------------------------------------------------------------------------------------
+Q3. Default change detection technic?
+Ans:
+Default: ChangeDetectionStrategy.Default
+- Default change detection strategy is applied to the component while it is created.
+- If a component strategy is not configured, it is marked as default. 
+- In this strategy, the change detection cycle runs on each and every event that occur inside the Component.
+e.g.
+. Click event of elements
+. Receiving data via asynchronous call
+. Triggering setTimeout and setInterval
+. parent component event
+
+In order to know whether the view should be updated, Angular needs to access the new value and
+compare it with the old one, and make the decision on whether the view should be updated.
+
+By default, Angular makes no assumption on what the component depends upon. 
+
+So it has to be conservative and will checks every time something may have changed, 
+this is called dirty checking. 
+In a more concrete way, it will perform checks for each 
+1. browser events, 
+2. timers, 
+3. XHRs and 
+4. promises.
+
+Disadvantages:
+This can be problematic when you’re starting to have a big application with many components, 
+Specially if you’re focused on performance.
+By default, Angular has to be conservative and will checks every time something may have changed, this is called dirty checking.
+---------------------------------------------------------------------------------------------------
+Q4. On Push change detection method?
+Ans:
+2. onPush
+
+With onPush, Angular will only depend on the below things, to perform a change detection mechanism and update the view.
+1. component’s inputs, 
+2. events, 
+3. markForCheck method, componentRef.markForCheck()
+4. or the use of the async pipe in the template, 
+
+
+Benefits of onPush Change Detection
+- No Unnecessary Dirty Check in the Child Components
+- Faster Component Re-rendering
+
+---------------------------------------------------------------------------------------------------
+
+Demo:
+Parent
+@Component({
+  selector: "app-root",
+  template: `
+    <div>
+      <h1>Counter Value: {{this.counter}}</h1>
+      <input type="button" (click)="updateCounter()" value="Update Counter" />
+      <child-component></child-component>
+      </div>
+  `  
+})
+export class ParentComponent {
+  counter = 0;
+
+  updateCounter() {
+      this.counter += 1;
+  }
+}
+
+-------------------------------------------------
+
+Child
+@Component({
+  selector: "child-component",
+  template: `
+    <div>
+      <h2>{{ executeFunction() }}</h2>
+    </div>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ChildComponent {
+  executeFunction() {
+    console.log("App Rerendered");// This will be printed on each update counter of parent component if Change detection is Default.
+    return "This is Child Component";// As this is onPush it will print only once while loading.
+  }
+}
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+

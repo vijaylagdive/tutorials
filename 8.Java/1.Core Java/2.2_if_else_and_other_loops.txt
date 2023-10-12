@@ -1,0 +1,116 @@
+Contents:
+1. If Else
+2. Switch statement
+3. Java For Loop
+4. Java While Loop
+5. Java Do-While Loop
+6. Java Break statement
+7. Java Continue Statement
+-------------------------------------------------
+1. If Else:
+The if-else statement allows you to execute different code blocks based on a condition.
+It is used for decision-making in Java programs.
+
+Example:
+public static void main(String[] args) {
+int num = 10;
+if (num > 0) {
+System.out.println("The number is positive.");
+} else {
+System.out.println("The number is non-positive.");
+}
+}
+-------------------------------------------------
+
+2. Java Switch Statement:
+The switch statement allows you to select one of many code blocks to be executed
+based on the value of an expression.
+Example:
+public static void main(String[] args) {
+int dayOfWeek = 2;
+String dayName;
+switch (dayOfWeek) {
+case 1:
+dayName = "Sunday";
+break;
+case 2:
+dayName = "Monday";
+break;
+case 3:
+dayName = "Tuesday";
+break;
+// Add cases for other days
+default:
+dayName = "Invalid day";
+}
+System.out.println("Today is " + dayName);
+}
+-------------------------------------------------
+3. Java For Loop
+The for loop is used to execute a block of code repeatedly based on a specified
+condition.
+Example:
+public static void main(String[] args) {
+for (int i = 1; i <= 5; i++) {
+System.out.println("Iteration " + i);
+}
+}
+-------------------------------------------------
+4. Java While Loop
+The while loop is used to repeatedly execute a block of code as long as a given condition is true.
+public static void main(String[] args) {
+int count = 1;
+while (count <= 5) {
+System.out.println("Count: " + count);
+count++;
+}
+}
+-------------------------------------------------
+5. Java Do-While Loop
+public class DoWhileLoopExample {
+public static void main(String[] args) {
+ int count = 1;
+ do {
+     System.out.println("Count: " + count);
+     count++;
+  } while (count <= 5);
+ }
+}
+-------------------------------------------------
+6. Java Break Statement
+
+The break statement is used to exit from a loop or switch statement prematurely.
+public static void main(String[] args) {
+	for (int i = 1; i <= 10; i++) {
+		if (i == 5) {
+		break;
+	}
+	System.out.println("Iteration " + i);
+	}
+}
+
+-------------------------------------------------
+7. Java Continue Statement
+The continue statement is used to skip the current iteration of a loop and continue with
+the next iteration.
+.
+Example:
+public static void main(String[] args) {
+for (int i = 1; i <= 5; i++) {
+if (i == 3) {
+continue;
+}
+System.out.println("Iteration " + i);
+}
+}
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+Q2. What is Observable?
+
+Observable:
+An Observable represents a sequence of values that can be observed over time. 
+It can emit zero or more values and can also signal errors or completion.
+Observables are passive i.e lazy as they emit values when something subscribes to them. 
+Until someone subscribes, nothing happens.
+They are useful for modeling various asynchronous data sources such as HTTP requests, user input, and event streams.
+Observables are typically cold, meaning they start producing values when a subscriber subscribes to them.
+Multiple subscribers can subscribe to the same Observable, and each subscriber gets its independent stream of values.
+
+const observable = new Observable(observer => {
+  observer.next(1);
+  observer.next(2);
+  observer.complete();
+});
+
+observable.subscribe({
+  next: value => console.log(value),
+  complete: () => console.log('Completed')
+});
+
+---------------------------------------------------------------------------------------------------
+Example:
+ngOnInit(): void {
+  const customObs = new Observable(observer => {
+      let count = 0;
+      setInterval(() => {
+        count++;
+        if (count <= 3) {
+          observer.next(count);
+        } else if (count === 4) {
+          observer.complete();
+        } else {
+          observer.error('Error: count is greater than 3!');          
+        }
+      },1000);
+  });
+
+  customObs.subscribe(data => {
+    console.log(data);
+  }, error => {
+    console.log(error);
+  }, () => {
+    console.log('completed');
+  });
+}
+
+When error thrown observable is cancelled.
+
+---------------------------------------------------------------------------------------------------
