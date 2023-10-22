@@ -1,0 +1,114 @@
+Arrrays:
+1. Introduction
+2. Array Declaration
+3. Array creation
+4. Array initialization
+5. Array Declaration, creation and initialization in a single line.
+6. length vs lenght()
+7. Anonymous Arrays
+8. Array element Assignment
+9. Array Variable assignment
+
+What is Array
+Array is indexed collection of fix number of homogeneous data elements.
+
+Advantage:
+1. We can represent huge number of values by using single variable. 
+So that readability of code will be improved 
+
+Disadvantages
+1. Array are fixed in size. There is no chance of increasing or decreasing based on our requiremen. So while using array we should compulsary know size of array. Which is not always possible.
+2. Array can hold only homogeneous data type elements.
+
+-------------------------------------------------
+Array Declaration.
+One dimensinal array declaration.
+Recommended: int[] x; //Its name is clearly seperated from type.
+Allowed: int []x; or int x[]
+
+At the time of declaration we cant specify size otherwise we will get compile time error.
+so int[6]; is invalid
+int[] x; valid
+
+Two dimensional declaration:
+Everything below is valid.
+int[][] x;
+int [][]x;
+int x[][];
+int []  []x;
+int [] x[];
+int []x[]
+
+which of below are valid:
+int[] a,b a-1, b-1
+int[] a[],b a-2,b1
+int[] a[],b[] a-2,b2
+int[] []a,b; a-2,b-2
+int[] []a,b[]; a-2,b-3
+Not valid
+int[] []x, []b; CE //If we want specify dimension before variable facility is available only for first variable in declaration. If we try to apply remaining variable we will get compiletime error.
+
+int[] []a,[]b,[]x;// invalid
+
+Three dimensional array declaration
+int[][][] a;
+int [][][]a;
+int a[][][];
+int[] [][]a;
+int[] a[][];
+int[] []a[];
+int[][] []a;
+int[][] a[];
+int [][]a[];
+int []a[][];
+
+------------------------------------------------------
+Array Creation:
+Every array in java is object only. Hence we can create array using new operator.
+e.g. int[] a = new int[5];
+
+For every array type, corresponding classes are 
+available but these classes are part of 
+java language and not available at programmer level.
+e.g.
+int[] x = new int[5];
+System.out.println(x.getClass().getName()); //[I
+
+byte[] x = new byte[5];
+System.out.println(x.getClass().getName());//[B
+
+
+- At the time of creation we must provide size.
+e. 
+int[] x = new int[]; invalid
+int[] x = new int[6]; valid
+int[] x = new int[0]; valid
+
+- Its legal to have an array with size 0.
+
+
+int[] x = new int[-3]; invalid. java.lang.NegativeArraySizeException
+
+----
+int[] x=new int[10]; //valid
+int[] x = new int['a'];// valid 97
+
+byte->short->int
+char->int
+and
+int->long->float->double
+
+int b=20;
+int[] x = new int[b]//valid
+
+short s = 30;
+int[] x = new int[s] //valid
+
+int x = new int[10l]; Error ce found long required int
+
+To specify arraysize allowed data types are byte short char int.
+If we are trying specify any other type then we will get compile time error.
+
+
+
+------------------------------------------------------

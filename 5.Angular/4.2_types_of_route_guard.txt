@@ -38,7 +38,8 @@ In other words, you just need to add canActiveChild to parent route and it will 
 { path: 'greetings', canActivateChild: [AuthGuard], children: [
     { path: '', component: HelloComponent },
     { path: 'hola', component: HolaComponent } 
-  ]}
+  ]
+}
 
 ---------------------------------------------------------------------------------------------------
 3) canDeactivate
@@ -83,7 +84,8 @@ In ReactForm component
 
 ---------------------------------------------------------------------------------------------------
 4. CanLoad
-Modules in angular can be loaded all at once or be lazy loaded. By default angular load all modules eagerly. 
+Modules in angular can be loaded all at once or be lazy loaded. 
+By default angular load all modules eagerly. 
 To implement lazy loading we use loadChildren in route definition. 
 The main advantage of lazy loading is that it reduces the loading time of application by downloading only the required modules.
 
@@ -92,54 +94,30 @@ that will do the job but also download the module.
 
 Now to control the navigation as well as prevent downloading of that module we can use CanLoad Guard.
 
+const routes: Routes = [
+  // ... other routes
   {
-    path: '',
-    component: DashboardLayoutComponent,
-    children: [
-      {
-        path: 'address',
-        loadChildren: 'app/address/address.module#AddressModule'
-      },
-      {
-        path: 'admin',
-        loadChildren: 'app/admin/admin.module#AdminModule',
-        canLoad: [ AuthGuardService ]
-      },
-      {
-        path: 'welcome',
-        component: WelcomeComponent 
-      },	      	      
-      {
-        path: '**',
-        component: PageNotFoundComponent 
-      }	
-    ]
-  }
+    path: 'lazy',
+    canLoad: [AuthGuard],
+    loadChildren: () => import('./lazy-module/lazy.module').then((m) => m.LazyModule),
+  },
+];
 
 
 @Injectable()
 export class AuthGuardService implements CanLoad, CanActivate {
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
   canLoad(route: Route): boolean {
     let url: string = route.path;
     console.log('Url:' + url);
     if (this.authService.isUserLoggedIn()) {
       return true;
-    }
-    this.authService.setRedirectUrl(url);
-    this.router.navigate([this.authService.getLoginUrl()]);
-    return false;
-  }
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    let url: string = state.url;
-    console.log('Url:' + url);
-    if (this.authService.isUserLoggedIn()) {
-      return true;
-    }
-    this.authService.setRedirectUrl(url);
-    this.router.navigate([this.authService.getLoginUrl()]);
-    return false;
+    } else {
+      console.log("Not allowed to navigate");
+      this.router.navigate([this.authService.getLoginUrl()]);
+      return false;
+   }
+
   }
 }
 
@@ -150,6 +128,8 @@ url: https://stackblitz.com/edit/ang-canload-auth?file=src%2Fapp%2Fapp.component
 Complex angular applications involve data communication between components.
 Sometimes data is so heavy that it is not possible to pass data through query params. 
 To handle this situation angular has provided Resolve Guard.
+You can use a Resolve guard to pre-fetch data before a component is activated. 
+This is useful for ensuring that the required data is available before rendering a component.
 
 Implementation:
 
@@ -186,11 +166,11 @@ export class WithResolverComponent implements OnInit {
   public users: any[] = [];
   public pokemon: any[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.users = this.route.snapshot.data.users;
-    this.pokemon = this.route.snapshot.data.pokemon;
+    this.users = this.activatedRoute.snapshot.data.users;
+    this.pokemon = this.activatedRoute.snapshot.data.pokemon;
   }
 }
 

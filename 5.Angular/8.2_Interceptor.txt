@@ -1,5 +1,4 @@
 HTTP interceptors:
-
 What are the interceptors?
 A feature in angular that provides great way to intercept outgoing requests or incoming responses.
 Interceptors are useful when we need to 

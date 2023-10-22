@@ -1,0 +1,19 @@
+
+Q. If there are two API call how to getting call one after another
+Ans:
+We can use the MergeMap() when we need data information from first API request to second API request:
+
+this.http.get('https://reqres.in/api/unknown').pipe(
+     map((data:any) => {
+          console.log('todo: ',data);  
+             return data.data; 
+          }),
+          mergeMap((data:any) => this.http.get(`https://reqres.in/api/unknown/${data[0].id}`))
+     ).subscribe(response => {
+     console.log(response);
+})
+
+
+Q When we can use forkjoin
+Ans:
+We can use the ForkJoin() calling independent multiple API requests:

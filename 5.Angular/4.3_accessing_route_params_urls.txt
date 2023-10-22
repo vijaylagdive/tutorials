@@ -1,0 +1,71 @@
+Q10. Accessing or printing current url using router class? 
+Ans:
+ constructor(private router: Router) {}
+
+ this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
+    console.log(event['url']);
+  });
+
+ this.router.events.subscribe((event: Event) => {
+    if (event instanceof NavigationStart) {
+       // Show loading indicator and perform an action
+    }
+
+    if (event instanceof NavigationEnd) {
+       // Hide loading indicator and perform an action
+	console.log(event['url']);
+    }
+
+    if (event instanceof NavigationError) {
+        // Hide loading indicator and perform an action
+        console.log(event.error); // It logs an error for debugging
+     }
+ });
+
+----------------------------------------------------
+Q. How parameter are passed to routerlinks?
+Ans:
+Parameter passed to routerlink
+In routes defination
+{ path: 'product/:id/:name', component: ProductDetailComponent }
+
+In template
+<a [routerLink]="['/Product', ‘2’]">{{product.name}} </a>
+or
+<a [routerLink]="['/Product', product.productID]">{{product.name}} </a>
+---------------------------------------------------- 
+Q4. What is ActivatedRoute? or how to access params and queryparams?
+Ans:
+ActivatedRoute contains information about a route associated with a component loaded in an outlet.
+The ActivatedRoute can be injected as a router service to access the information.
+
+Uses:
+- It can also be used to traverse the router state tree.
+- In the below example we can access route path and parameters.
+
+1. Accessing params:
+  this.user.id = this.activatedRoute.snapshot.params['id'],
+
+2. Accessing or detecting changing params and query params:
+This helps in refreshing data on a page when route parameters are changed without reloading the whole page.
+To detect changing params we need to subsribe them.
+  this.activatedRoute.params.subscribe((param : Params) => {
+    this.user.id = param['id'];
+    this.user.name = param['name'];
+  })
+  
+  this.activeRoute.queryParams.subscribe(queryParams => {
+	// do something with the query params
+	this.loadUserDetail(queryParams.id);
+  });
+
+  this.activeRoute.params.subscribe(routeParams => {
+	this.loadUserDetail(routeParams.id);
+  });
+
+
+3 .Accessing Urls:
+console.log("routes");
+console.log(activatedRoute.snapshot.url); // array of states
+console.log(activatedRoute.snapshot.url[0].path); 
+---------------------------------------------------------------------

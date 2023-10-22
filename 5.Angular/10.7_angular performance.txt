@@ -5,14 +5,14 @@ How to increase angular performance?
 2. Lazy Loading
 3. Tree Shaking
 4. Server-Side Rendering (SSR):
-5. Optimize Third-Party Libraries:
-6. Avoid Excessive DOM Manipulation:
-7. Optimize Angular Templates:
-8. Optimize Change Detection:
-9. RxJS Optimization:
-10. Minimize HTTP Requests:
-11. Using pure pipes than impure.
-12. Avoid computation in template files
+5. Optimize Third-Party Libraries: 
+6. Optimize Angular Templates:
+7. Optimize Change Detection:
+8. Optimization of RxJS:
+9. Avoid Excessive DOM Manipulation:
+10. Avoid computation in template files
+11. Minimize HTTP Requests:
+12. Using pure pipes than impure.
 13. Using pipes intstead of functions in the templates.
 
 ----------------------------------------------------------------------

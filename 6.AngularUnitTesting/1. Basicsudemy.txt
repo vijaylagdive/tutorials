@@ -3,10 +3,9 @@ Jasmine is a javascript testing framework that supports a software development p
 It’s a specific flavour of Test Driven Development (TDD).
 Jasmine, and BDD in general, attempts to describe tests in a human readable format so that non-technical people can understand what is being tested.
 
-
 ------------------------------------------------------------------------
 
-What is describe, it and matcher in angular testing?
+What is 'describe', 'it', 'expect' and 'matcher' in angular testing?
 Ans:
 - The describe(string, function) function defines what we call a Test Suite, a collection of individual Test Specs.
 e.g.
@@ -16,11 +15,12 @@ describe('Hello world', () => {
   });
 });
 ------------------------------------------------------------------------
-it(), expect() and matcher
+it(), 
 it(string, function) function: 
 - Defines an individual Test Spec, this contains one or more Test Expectations.
-
-The expect(actual) expression:
+------------------------------------------------------------------------
+expect()
+The expect(actual) works with matcher
 This is what we call an Expectation. 
 - In conjunction with a Matcher it describes an expected piece of behaviour in the application.
 - The matcher(expected) expression is what we call a Matcher. 
@@ -86,19 +86,17 @@ describe('Hello world', () => {
 --------------------------------------------------------
 
 Spying on any method of service:
-Spying is done in a testing to check 
-Methods in service or component is called or 
-called for how many times or 
-called with particular arguments.
+Spying is done in a testing to check Methods in service or component is called or  called for how many times or called with particular arguments.
 .
-jasmine.createSpyObj(): Used to create spy obj. With this we also can provide a fake implementation of a function and define what values it should return.
+jasmine.createSpyObj(): Used to create spy obj. 
+With this we also can provide a fake implementation of a function and define what values it should return.
 .
 jasmine.createSpyObj() method allows you to create a spy object with multiple methods which you want to spy on. 
 Useful when you want to create a mock of an object with several methods without having to manually create each spy.
 Example:
 const loggerSpy = jasmine.createSpyObj('LoggerService',['log']);
-expect(logger.log).toHaveBeenCalled(); 
-expect(logger.log).toHaveBeenCalledTimes(1);
+expect(loggerSpy.log).toHaveBeenCalled(); 
+expect(loggerSpy.log).toHaveBeenCalledTimes(1);
 --------------------------------------------------------------------------
 
 What is TestBed in angular and its uses?

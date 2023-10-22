@@ -1,0 +1,105 @@
+Contents:
+1. 9 Interfaces
+2. Brief collection hierarchy.
+3.
+
+---------------------------------------------------------------------------------------------------
+Key interfaces in java collection framework:
+Ans:
+1. Collection: Root Interface. Represent a group of individual objects as a single entity
+2. List: Child of Collection. Duplicates allowed and insertion order is preserved.
+3. Set: Duplicates are not allowed and insertion order not preserved.
+4. SortedSet: Duplicates are not allowed, insertion order preserved.
+5. NavigableSet: 
+6. Queue: Group of individual prior to processing
+7. Map: Group of individual objects as key value pair.
+8. SortedMap: Group of key values pairs with some sorting order of keys.
+9. NavigableMap: Child interface of SortedMap. Defines several utility methods for navigation purpose.
+---------------------------------------------------------------------------------------------------
+Explain in brief collection hierarchy.
+Interface3: Queue(I):
+Dequeue(I): Child of Queue.
+ArrayDequeue(C): Implementation of Dequeue.
+Priority Queue(C): Implementation of Queue.
+
+---------------------------------------------------------------------------------------------------
+Interface1: Collection 
+- If we want to represent a group of individual objects as a single entity then we should go for collection.
+- Collection interface defines the most common methods which are applicable for any Collection object.
+- In general collection interface is considered as root interface of collection Framework.
+- There is no concrete class which implements collection interface directly.
+-------------------------------------------------
+Interface2: List(I)
+List is child interface of Collection.
+- Use cases: We can use List when we want to represent a group of individual objects as a single entity,
+In which duplicates are allowed and insertion order is preserved.
+- List is implemented by ArrayList, LinkedList, Vector, Stack
+.
+Implementation classes:
+1. ArrayList(C): 
+- Underlying data dtructure: Resizable or growable Array of Object class. 
+
+2. LinkedList(C):
+- Underlying data structure: Double Linked List. 
+
+3. Vector(C): 
+- Underlying data structure: Resizable array or growable array.
+- Stack(C): Extended from Vector 
+-------------------------------------------------
+Interface3: Set
+It is the Child interface of Collection interface.
+Use cases: We can use Set when we want to represent a group of individual objects as a single entity,
+in which duplicates are not allowed and insertion order not preserved.
+- Set is implemented by class Hashset,LinkedHashSet and TresSet which implements SortedSet. 
+.
+Implementation classes:
+1. HashSet(C): 
+- Direct Implementation of Set.
+- Underlying data structure: HashTable.
+
+2. LinkedHashSet(C): 
+- Direct Implementation of Set.
+- Underlying data structure: HashTable + LinkedList
+
+3. SortedSet(I): 
+- Extended from Set Interface.
+- NavigableSet(I): It is the child interface of SortedSet.
+- NavigableSet: Defines several methods for navigation purpose. 
+
+Implementation:
+TreeSet(C):
+- Implementation of SortedSet.
+- Underlying data structure: Balanced Tree.
+
+-------------------------------------------------
+Interface6: Queue
+It is child interface of Collection.
+If we want to represent a group of individual prior to processing then we should go for queue.
+Ex: Before sending a mail all mail id's we have to store somewhere and in which order we saved in the same order mails should be delivered
+(FIFO) for this requirement queue concept is the best choice.
+.
+Queue implemented by PriorityQueue and BlockingQueue classes.
+BlockingQueue has 2 child classes:
+1. LinkedBlocking
+2. PriorityBlockingQueue.
+-------------------------------------------------
+Interface7: Map
+Map is not the child interface of Collection.
+If we want to represent a group of individual objects as key value pair then we should go for Map.
+e.g.
+key    Value 
+rollNo Name
+-------------------------------------------------
+Interface8: SortedMap;
+Ans:
+It is the child interface of map.
+If we want to represent a group of key values pairs according to some sorting order of keys then we should go for SortedMap.
+Map -> SortedMap
+-------------------------------------------------
+Interface9: NavigableMap
+It is the child interface of SortedMap. 
+It defines several utility methods for navigation purpose.
+Map -> SortedMap -> NavigableMap -> TreeMap
+-------------------------------------------------
+
+

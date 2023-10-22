@@ -1,0 +1,324 @@
+Core Java
+Q1. What are the features of Java that make it a popular programming language?
+Q2.* Why does java not supports multiple inheritance? if supports how?
+Q3. interface vs abstract class?
+Q4. what is public static void main()? 
+Q5.  * Java8 features?
+Q6. Differentiate between JDK, JRE, and JVM?
+Q7. Access modifiers in java?
+Q8. String, StringBuffere?
+Q9. StringBuffer, StringBuilder?
+Q10. What is System.out.println?
+Q11. final, finally, finalize?
+Q12. overloading vs overriding?
+Q13. equals() vs ==?
+Q14. Parent p = new Child() vs Child c = new Child()?
+Q15. Exception vs Error?
+Q16. checked and unchecked exceptions?
+Q17. Difference betweenImplementing Runnable vs extending Thread class.
+------------------------------------------------
+Q1. What are the features of Java that make it a popular programming language?
+Ans: 
+Java offers several features that make it a popular programming language:
+
+1. Platform Independence: 
+Java code is compiled into platform-independent bytecode, which can run on any system with a compatible JVM.
+
+2. Object-Oriented: 
+Java follows an object-oriented paradigm, allowing the use of classes and objects to structure code.
+
+3. Garbage Collection: 
+Java automatically manages memory through garbage collection, freeing developers from manual memory management.
+
+4. Multi-threading: 
+Java supports multi-threading, allowing developers to create concurrent applications.
+
+5.Security: 
+Java provides a secure runtime environment with features like class
+loaders and a security manager.
+---------------------------------------------------------------------------------------------------
+Q2. Why does java not supports multiple inheritance? if supports how?
+Ans:
+---------------------------------------------------------------------------------------------------
+Q3. interface vs abstract class?
+Ans: Refer 1.4 interface vs abstract class.
+---------------------------------------------------------------------------------------------------
+Q4. what is public static void main()?
+Ans: Refer notepad file 1.11_psvm
+---------------------------------------------------------------------------------------------------
+Q5. Java8 features?
+Ans:
+---------------------------------------------------------------------------------------------------
+Q6. Differentiate between JDK, JRE, and JVM
+Ans: Refer notepad file 1.12
+---------------------------------------------------------------------------------------------------
+Q7. Access modifiers in java?
+Ans: 
+12 Access modifiers in java:
+1. public 
+2. private 
+3. protected 
+4. default 
+5. final 
+6. abstract 
+7. static 
+8. synchronized
+9. native 
+10. strictfp 
+11. transient, 
+12. volatile
+
+outerClass5 : public, default, abstract, final, strictfp
+innerClass8 : public, default, abstract, final, strictfp, private, protected, static
+method 10   : public, private, protected, default,final, abstract, static, synchronized, native, strictfp
+variable10  : public private protected default final static transient volatile.
+constructor4: public, private, protected, default.
+block2      : static, synchronized
+outer interfaces4: public, default, abstract, strictfp 
+inner interface7 : public, default, abstract, strictfp, private, static, protected
+outer enum: public default strictfp 
+inner enum: public default strictfp private protected static
+
+
+1. interface declared within class is always static.
+2. interface within interface is always public static.
+3. class declared inside interface is always public and static.
+---------------------------------------------------------------------------------------------------
+Q8. String, StringBuffere?
+Ans: 
+Basic difference is String is immutable and StringBuffer is mutable
+
+Immutablity of String:
+Once we create a string object we cant perform any chages in the existing object. 
+If we are trying to perform  any changes, with those changes new object will be created. 
+This non changeble nature is nothing but immutability of the string object.
+Example:
+    String s = new String("Durga");
+    s.concat("Software");
+    System.out.println(s); //Will print Durga only. Because its immutable. another orphan object will be created.
+
+
+Immutability of StringBufffer:
+Once we create a StringBuffer object we can perform any type of changes in the existing object. 
+This changeble behaviour is nothing but mutability of the StringBuffer object.
+Example:
+    StringBuffer sb = new StringBuffer("Durga");
+    sb.append("Software");
+    System.out.println(sb); //Will print Durga Software. Because its mutable.
+---------------------------------------------------------------------------------------------------
+Q9. StringBuffer vs StringBuilder?
+Ans:
+1.
+StringBuffer vs StringBuilder
+Similarity: Mutable
+
+2.
+StringBuffer: Every method present in StringBuffer is Synchronized
+String Builder: No method present in StringBuilder is synchronized
+
+3.
+StringBuffer: At a time only one thread is allowed to operate on StringBuffer object. Hence String Buffer object is Thread safe.
+String Builder: At a time multiple threads are allowed to operate on StringBuilder object and hence StringBuilder object is not Thread Safe.
+
+4.
+StringBuffer: It incereases waiting time of threads and hence relatively performance is low.
+String Builder: Threads are not required to wait to operate on StringBuilder objec and hence relatively performance is high.
+
+5.
+String Buffer: Introduced in 1.0 version 
+String Builder: Introduced in 1.5 version.
+
+So when to use String, StringBuffer and StringBuilder?
+1. If the content is fixed and wont change frequently then we should go for String.
+2. If the content is not fixed and keep on changing but Thread safety is required then we should go for StringBuffer.
+3. If the content is not fixed and keep on changing and Thread safety is not require then we should go for String Builder.
+---------------------------------------------------------------------------------------------------
+
+Q10. What is System.out.println?
+Ans:
+class System {
+	static PrintStream out;
+}
+
+System.out.println("Hello");
+
+System is class present in java.lang package.
+'out' is static variable present in system class of type PrintStream
+println() is a method present in PrintStream class.
+---------------------------------------------------------------------------------------------------
+Q11. final, finally, finalize?
+Ans: 
+1. final:
+1. final is modifier applicable for classes, methods and variables.
+2. If a class declared as final then we cant extend that class i.e. we cant create child class for that class.
+2. If a method declared as final then we cant override that method in the child class.
+3. If a variable declared as final then it will become constant and we cant perform re-assignment for that variable.
+------------------------
+
+2. finally:
+finally is a block always associated with try catch to maintain cleanup code.
+
+try 
+{
+ //risky code
+}
+catch
+{
+//Handling code
+}
+finally
+{
+//cleanup code.
+}
+------------------------
+3. finalize(): 
+finalize is a method which is always invoked by garbage collector just before destroying an oject to perform cleanup activities.
+.
+finally meant for cleanup activities realted to try block. 
+Where as finalize() meant for cleanup activities related to object. 
+---------------------------------------------------------------------------------------------------
+Q12. overloading vs overriding?
+Ans: 
+Overloading:
+Two methods are said to be oveloaded if and only if both methods having the same name but different argument type.
+Example:
+class Test {
+  public void m1(int i) {}
+  public void m1(String i) {}
+}
+
+--------------
+
+overriding:
+Parents method are available to child class through inheritance.
+Some time child may not satisfy with parent method implementation.
+Then child is allowed to redefine that method based on its requirement.
+This is called as overriding.
+class Animal {
+    void makeSound() {
+        System.out.println("The animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println(" The dog barks");
+    }
+    
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.makeSound();
+    }
+}
+---------------------------------------------------------------------------------------------------
+Q13. equals() vs ==?
+Ans: 
+In general we use == operator for reference comparison, whereas .equals() method for content comaprison.
+    public static void main(String[] args) {
+        String s1 = new String("durga");
+        String s2 = new String("durga");
+        System.out.println(s1==s2); //false
+        System.out.println(s1.equals(s2)); //true
+    }
+In above exampel s1 and s2 strings object are different so the reference so they are not same.
+And the content of s1 and s2 are same so they are equal.
+i.e.
+s1==s2 //false
+s1.equals(s2)//true
+---------------------------------------------------------------------------------------------------
+Q14. Parent p = new Child() vs Child c = new Child()?
+Ans: 
+C c = new C();
+1. If we know exact runtime type of object then we should use this approach.
+2. By using child reference we can call both parent and child class method.
+3. We can use child reference to hold only for that particlar child class object only.
+
+vs
+P p = new C();
+1. If we dont know exact runtime type of object then we should use this approach.
+2. By using parent reference we can call only methods available in parent class.
+Child specific methods we cant call.
+3. We can use parent reference to hold any child class object.
+---------------------------------------------------------------------------------------------------
+Q15  Exception and Error?
+Ans:
+- Throwable act as root for java exception hierarchy.
+- Throwable class contents two child classes Exception And Error
+
+Exceptions: 
+- Exception are caused by our program only and they are recoverable with try catch block.
+- For example 
+Exception: if our program requirement is to read data from a remote file at runtime and if that file is not availbale then we will get FileNotFoundException.
+Recovery:
+If fileNotFoundException occurs then we can provide a local file and rest of theprogram will be continued normally.
+Examples of exceptions: Arithmetic Exceptions, Nullpointer exception, Class, Array outof index exception, file not found etc.
+
+
+Errors:
+Errors are not caused not by programmer but these are due to lack of system resources and they are non recoverable.
+Example:
+For example if OutOfMemory eror occurs being a programmer we cant do anything and the program will be terminated abnormally.
+System admin or server admin is responsible to increase heap memory.
+e.g. Errors: VM Error, OutOf Memory error, StackOverflow error, Linkae error etc.
+---------------------------------------------------------------------------------------------------
+Q16. checked and unchecked exceptions?
+Ans: 
+Checked Exceptions:
+The exception which are checked by compiler for smooth execution of the program at runtime are called checked exception.
+Example: fileNotFound
+Note: Whether exception is checked or unchecked compulsory it will occur only at Runtime. 
+There is not chance of occuring any exception at compile time.
+
+.
+UnChecked Exceptions:
+Unchecked exceptions are those which are not checked by Compiler.
+Runtime exception and its child classes, error and its child classes are unchecked except this remaining are checked exception.
+e.g. 
+Runtime Exception: Arithmetic Exceptions, Nullpointer exception, Class, Array outof index exception
+Errors: VM Error, OutOf Memory error, StackOverflow error, Linkae error etc.
+---------------------------------------------------------------------------------------------------
+Q17. Difference betweenImplementing Runnable vs extending Thread class
+Ans:
+1. 
+Thread: Thread is a class that extends the java.lang.Thread class. 
+Runnable: Runnable is an interface, and you have to implement its run() method in your class. 
+-------------------------------------------------
+2. 
+Thread: When you create a thread using the Thread class, your class is a subclass of Thread. You cant inherit another class.
+Runnable: This promotes better object-oriented design, as you can have your class extend other classes or implement multiple interfaces as needed.
+-------------------------------------------------
+3.
+Resource Efficiency:
+Thread: Each thread is associated with a separate instance of the class. Consumes more system resources. 
+Runnable: Runnable interface allows you to share the same instance among multiple threads, which is more resource-efficient.
+-------------------------------------------------
+4.
+Thread vs. Task:
+Thread: Thread is typically used to represent a full-fledged, independent thread of execution.
+Runnable: Runnable is often used to represent a task or unit of work that can be executed by a thread.
+-------------------------------------------------
+5.
+Synchronization:
+When using Runnable, you can have multiple threads execute the same Runnable instance, which may require additional synchronization mechanisms to ensure data integrity.
+With the Thread class, each instance of the class has its own thread, potentially reducing the need for synchronization in certain cases.
+-------------------------------------------------
+6.
+Reusability:
+The Runnable interface promotes better code reuse because you can use the same Runnable instance with different thread objects. 
+This is not as straightforward with the Thread class, as it ties the thread to the behavior defined in the subclass.
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+

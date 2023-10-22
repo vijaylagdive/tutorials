@@ -1,0 +1,330 @@
+Operators in RxJs
+1. mergemap, 
+2. concatmap
+3. switchmap
+4. forkjoin, 
+5. combineLatest
+6. pipe
+
+1. mergeMap
+- mergeMap is used to merge the output of multiple observables into a single observable.
+- It subscribes to all inner observables simultaneously and emits their values as soon as they are available, without any specific order.
+- It does not guarantee the order in which the inner observables values are emitted in the resulting observable.
+- It can be useful when you want to process multiple observables concurrently and don't need to maintain a specific order of the emitted values.
+
+Example:
+  oneSecondSource = of('1 second http request').pipe(delay(1000))// of operator is used to create an observable that emits a sequence of values you provide as arguments.
+  twoSecondSource = of('2 second http request').pipe(delay(2000))
+  threeSecondSource = of('3 second http request').pipe(delay(3000))
+  fourSecondSource = of('4 second http request').pipe(delay(4000))
+  fiveSecondSource = of('5 second http request').pipe(delay(5000))
+
+    from([
+      this.fiveSecondSource,
+      this.oneSecondSource,
+      this.twoSecondSource,
+      this.threeSecondSource,
+      this.fourSecondSource
+    ]).pipe(mergeMap(x => x)).subscribe(x => console.log(x))
+
+op:
+1 second http request
+2 second http request
+3 second http request
+4 second http request
+5 second http request
+
+Example2:
+  ngOnInit(): void {
+    from([
+      this.http.get('https://reqres.in/api/unknown').pipe(delay(3000)),
+      this.http.get('https://reqres.in/api/users/2'),
+      this.http.get('https://reqres.in/api/unknown/3'),
+    ]).pipe(
+        mergeMap(x => x)
+      ).subscribe((x:any) => {
+        console.log(x['data'])
+      })
+  }
+
+It will produce 2nd and 3rd api result first. 
+It will go for 1st api because it has delay of 3 seconds.
+So this merge map subscribe all inner observable and emit value as soon as possible.
+-------------------------------------------------
+
+2. concatMap:
+- concatMap is used to concatenate the output of multiple observables into a single observable in a specific order.
+- It subscribes to the next inner observable only when the previous one completes, maintaining the order of emission.
+- It guarantee the order in which the inner observable values are emmitted in the resulting observable.
+- It is useful when you want to ensure that the inner observables are processed sequentially and in a specific order.
+
+  oneSecondSource = of('1 second http request').pipe(delay(1000))
+  twoSecondSource = of('2 second http request').pipe(delay(2000))
+  threeSecondSource = of('3 second http request').pipe(delay(3000))
+  fourSecondSource = of('4 second http request').pipe(delay(4000))
+  fiveSecondSource = of('5 second http request').pipe(delay(5000))
+
+    from([
+      this.fiveSecondSource,
+      this.oneSecondSource,
+      this.twoSecondSource,
+      this.threeSecondSource,
+      this.fourSecondSource
+    ]).pipe(
+        mergeMap(x => x)
+      ).subscribe(x => console.log(x))
+
+op:
+5 second http request
+1 second http request
+2 second http request
+3 second http request
+4 second http request
+
+Example2:
+  ngOnInit(): void {
+    from([
+      this.http.get('https://reqres.in/api/unknown').pipe(delay(3000)),
+      this.http.get('https://reqres.in/api/users/2'),
+      this.http.get('https://reqres.in/api/unknown/3'),
+    ]).pipe(
+        concatMap(x => x)
+      ).subscribe((x:any) => {
+        console.log(x['data'])
+      })
+  }
+
+In the above example concatMap folows order of provided inner observable. 
+It will wait for first api to be completed first.
+Though the first api has delay of 3 secondsit will not go for seconds and third api.
+So concatMap ensures guarantee of the sequence of the produced result.
+-------------------------------------------------
+
+3. switchMap
+- SwitchMap cancels the previous inner observable as soon as a new value is emitted from the source observable. 
+- This means that if the source observable emits values rapidly, 
+  it will switch to the latest inner observable and cancel any ongoing operations from the previous inner observable.
+- Switchmap can be used when there are multiple apis are called and user want to get result of the latest api and previous apis to be cancelled.
+
+Example 1: 
+Used to search list based on user input entered into the input field.
+When user enters one key first api will be called, when user enters another key second api will be called cancelling the first one.
+
+ userArr : Array<string> = ['1', '2', '3', '4', '5'];
+  from(this.userArr).pipe(
+    switchMap(u =>         
+        this.http.get(`https://reqres.in/api/users/${u}`)
+      )).subscribe(
+    data => {
+      console.log('data: ',data);
+    }
+  );
+
+Example 2:
+  ngOnInit(): void {
+    from([
+      this.http.get('https://reqres.in/api/unknown'),
+      this.http.get('https://reqres.in/api/users/2'),
+      this.http.get('https://reqres.in/api/unknown/3'),
+    ]).pipe(
+        switchMap(x => x)
+      ).subscribe((x:any) => {
+        console.log(x['data'])
+      })
+  }
+
+Note: It starts calling first api, then cancels first and switch to second then cancells seconds and switch to latest third.
+-------------------------------------------------
+
+4. forkJoin
+- ForkJoin operator is used for combining multiple observable sequences into a single observable.
+- It waits for all the inner observables to complete and emits the array of their combined last values,
+- This operator is best used when you have a group of observables and only care about the final emitted value of each. 
+- It means that forkJoin allows us to group multiple observables and execute them in parallel, then return only one observable.
+- We use it when API requests are independent. 
+- It means that they do not depend on each other to complete and can execute in parallel.
+- If any of the inner observables in a forkJoin fails, the entire forkJoin will also fail. This means that if one of the APIs you are calling within a forkJoin observable emits an error, the error - will be propagated to the final subscriber, and the combined result won't be emitted.
+
+Example:
+    forkJoin([this.http.get(`https://reqres.in/api/users/1`),this.http.get(`https://reqres.in/api/users/2`)])
+    .subscribe(data => {
+      console.log('Data: ',data);
+    });
+
+It will complete two apis and then provide combined response in an array format.
+
+[
+    {
+        "data": {
+            "id": 1,
+            "avatar": "https://reqres.in/img/faces/1-image.jpg"
+        },
+    },
+    {
+        "data": {
+            "id": 2,
+            "avatar": "https://reqres.in/img/faces/2-image.jpg"
+        },
+    }
+]
+
+-------------------------------------------------
+5. combineLatest:
+- It's used to combine the most recent values from multiple observables into a single observable, and it emits a new value whenever any of the source observables emit a new value. 
+- The resulting observable emits an array containing the most recent values from all the source observables.
+- You can use the combineLatest operator in RxJS to make multiple API calls and combine their results into a single observable.
+- 'combineLatest' continuously emits new values as long as any of the source observables emit values. 
+
+const combined = combineLatest(this.http.get('https://reqres.in/api/unknown/3'), 
+this.http.get('https://reqres.in/api/users/2'));
+
+combined.subscribe((data) => {
+     console.log('Combined: ',data);
+});
+
+Example2: 
+const observable1$ = of('A', 'J');
+const observable2$ = of('B','K');
+const observable3$ = of('C','L');
+
+combineLatest(observable1$, observable2$, observable3$).subscribe(
+  ([value1, value2, value3]) => {
+    console.log(value1, value2, value3);
+  }
+);
+
+o/p
+['J', 'K', 'C']
+['J', 'K', 'L']
+
+If we use fork join in place of combineLatest:
+then 
+    const observable1$ = of('A', 'J');
+    const observable2$ = of('B', 'K');
+    const observable3$ = of('C', 'L');
+
+    forkJoin(observable1$, observable2$, observable3$).subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
+
+o/p:
+[
+    "J",
+    "K",
+    "L"
+]
+
+-------------------------------------------------
+
+6. pipe operator.
+- The pipe operator allows you to chain multiple operations or transformations on an observable sequence.
+
+- The pipe operator provides a way to apply a series of operators to the observable, allowing you to transform, 
+filter, combine, and perform various other operations on the data emitted by the observable.
+
+- Unlike map, which is an operator, pipe is a method on Observable which is used for composing operators. 
+pipe was introduced to RxJS in v5.5 to take code that looked like this:
+
+of(1,2,3).map(x => x + 1).filter(x => x > 2);
+and turn it into this
+.
+to
+.
+of(1,2,3).pipe(
+  map(x => x + 1),
+  filter(x => x > 2)
+);
+
+---------------------------------------------------------------------------------------------------
+Q forkJoin vs combineLatest
+Ans:
+forkJoin:
+
+1. 
+forkJoin waits for all the source observables to complete and then emits an array containing the last value from each observable in the same order as they were passed as arguments.
+combineLatest combines the latest values from multiple source observables and emits a new value whenever any of the source observables emit a value.
+It's often used when you have a set of observables and want to perform an action only when all of them have completed.
+
+
+2. 
+If any of the source observables do not complete, forkJoin will not emit any values.
+It keeps emitting values as long as at least one source observable is active (has not completed).
+It's often used when you want to perform an action whenever any of the source observables emit a value and you need the combined values.
+
+In summary, 
+forkJoin is used to wait for all source observables to complete and emit their last values. 
+while combineLatest continuously emits new values as long as any of the source observables emit values. 
+
+
+source observable:
+const observable1$ = of('A', 'J');
+const observable2$ = of('B','K');
+const observable3$ = of('C','L');
+
+with combineLatest
+combineLatest(observable1$, observable2$, observable3$).subscribe(
+  ([value1, value2, value3]) => {
+    console.log(value1, value2, value3);
+  }
+);
+
+o/p
+['J', 'K', 'C']
+['J', 'K', 'L']
+
+with forkJoin:
+forkJoin(observable1$, observable2$, observable3$).subscribe(
+   (data) => {
+      console.log(data);
+   }
+);
+
+o/p:
+["J","K","L"]
+
+---------------------------------------------------------------------------------------------------
+takeUntil:
+It used when you want to control the lifecycle of an observable based on some other event or observable. 
+In an Angular application, you can use the takeUntil operator to safely manage the subscription to observables and prevent memory leaks.
+
+Suppose you have a component that interacts with an observable, and you want to ensure that the subscription is properly cleaned up when the component is destroyed. 
+You can use the Angular OnDestroy lifecycle hook and a Subject to manage this.
+
+Example:
+private trigger$ = new Subject<void>();
+ngOnInit(): void {
+		interval(1000).pipe(takeUntil(this.trigger$)).subscribe((value) => {
+      		console.log(value);
+});
+
+setTimeout(() => {
+	console.log('Stop counter');
+      	this.trigger$.next();
+      },5000);
+}
+
+ngOnDestroy() {
+      	this.trigger$.next();
+      	this.trigger$.complete();
+}
+
+---------------------------------------------------------------------------------------------------
+takeWhile
+You can use takeWhile with another observable to control that observable's flow as below.
+
+Example:
+private _continue = true;
+ngOnInit(): void {
+    interval(1000).pipe(takeWhile((value) => this._continue)).subscribe((value) => {
+      console.log(value);
+    });
+    setTimeout(() => {
+      console.log('Stop counter');
+      this._continue = false;
+    },5000);
+}
+---------------------------------------------------------------------------------------------------
+
+

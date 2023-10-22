@@ -1,0 +1,109 @@
+Default methods:
+This feature introduced in java to add new method to the interface without affecting existing implementation classes.
+Default method in given default interface you can override or not. 
+
+Example:
+interface Interf {
+    default void m1() {
+        System.out.println("Default Method");
+    }
+}
+
+class Test implements Interf {
+    // public void m1() {
+    //     System.out.println("Overriding version of default method");
+    // }
+    
+    public static void main(String[] args) {
+        Test t = new Test();
+        t.m1();
+    }
+------------------------
+Example2:
+interface Left{
+    default void m1() {
+        System.out.println("Left Interface");
+    }
+}
+
+interface Right{
+    default void m1() {
+        System.out.println("Right Interface");
+    }
+}
+
+class Test implements Left, Right {
+    public void m1() {
+        System.out.println("Overriding version of default method");
+        Left.super.m1();
+        Left.super.m1();
+    }
+    public static void main(String[] args) {
+        Test t = new Test();
+        t.m1();
+    }
+}
+------------------------
+Example3:
+interface Left{
+    default void m1() {
+        System.out.println("Left Interface");
+    }
+}
+
+interface Right{
+    default void m2() {
+        System.out.println("Right Interface");
+    }
+}
+
+class Test implements Left, Right {
+    public static void main(String[] args) {
+        Test t = new Test();
+        t.m1();
+        t.m2();
+    }
+}
+
+---------------------------------------------------------------------------------------------------
+Static methods:
+- In java between class and interfaces, classes are costly due to constructor, instances etc.
+- To use class methods we have to create class instances first.
+- To avoid this java 8 introduces static methods in interfaces.
+- If everything is static then there is no need to use classes. 
+- To define common utility fucntions we can use Interface static methods.
+
+interface Interf{
+    public static void m1() {
+        System.out.println("Static method.");
+    }
+}
+
+//class Test implements Interf {
+class Test {
+    public static void main(String[] args) {
+        Interf.m1();
+    }
+}
+
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

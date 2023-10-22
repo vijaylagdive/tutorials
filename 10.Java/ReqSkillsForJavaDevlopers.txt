@@ -1,0 +1,16 @@
+Core Java: Extensive proficiency in Core Java is a must.
+Spring Boot, 
+Spring MVC, 
+Microservices, 
+Restful services, 
+Tomcat
+Hibernate/Spring Data JPA/Spring JDBC, 
+Oracle PL/SQL and SQL.
+Spring Security 
+Cloud-based platforms and services (AWS/Azure/Google),Knowledge in Azure Pipeline Deployment.
+Microservices using Docker, Kubernetes Apache Kafka/ActiveMQ, Docker, Kubernetes.
+DevOps: Git, Jenkins, GitLab for creating and managing CI/CD pipelines, Azure DevOps (ADO)
+
+
+ 
+· Experience in building Microservices using Docker, Kubernetes

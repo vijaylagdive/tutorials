@@ -1,0 +1,31 @@
+Q. What is interface?
+
+-------------------------------------------------
+
+Q Implementing two interfaces with same method name in class?
+Ans:
+interface Left {
+    default void m1() {
+        System.out.println("Left Default method.");
+    }
+}
+
+interface Right {
+    default void m1() {
+        System.out.println("Left Default method.");
+    }
+}
+
+class Test implements Left, Right {
+    
+    public void m1() {
+        // System.out.println("This is my self implementations");
+        Left.super.m1();
+        Right.super.m1();
+    }    
+    public static void main(String[] args) {
+        Test t = new Test();
+        t.m1();
+    }
+}
+-------------------------------------------------

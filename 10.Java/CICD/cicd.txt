@@ -1,0 +1,55 @@
+Challenges in manual work?
+1. Dev write new code every day. Follow process every day.
+2. Multiple environment
+3. Time consuming
+4. Error prone.
+
+What is Dev ops:
+Development + Operations
+
+Tools to automate build and deployment
+Jenkins: Automate Build and Deployment process.
+It automates Commit -> Build -> Test -> Deploy proesses.
+
+
+Five main environments we generally use:
+Dev
+QA
+UAT
+Pilot(Pre production)
+Producion Live
+
+
+What is  CI/CD?
+Continuous integration: Build+Test+Deploy
+Is an automation to build and test application whenever new commits are pushed into the branch.
+
+Continuous Delivery/Deploy: Release + Build +deploy 
+Continuous integration + Deploy application to production by "clicking on button" (Release to customer is often but on demand)
+
+
+Process from Durgesh Lecture:
+In the eclipse created maven project and generated war file.
+Eclipse closed with tomcat servers.
+Copied the generated war file from target folder of java project.
+Pasted it into tomcats web app folder. 
+When refresh there the war file is extracted.
+.
+Now start tomcat server:
+Open cmd in bin directory and run command .\startup.bat command
+Tomcat will be opened at localhost:8080/javaapp //name of the war file.
+Your app will be opened there.
+
+
+Now Jenkins:
+Download jenkin.war file from jenkin website i.e. https://www.jenkins.io/download/
+Generic Java package .war
+.
+You can start that jenkin using cmd command in the directory where jenkin is placed.
+java -jar .\jenkins.war
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+Interview 1
+Why Collection introduced?
+HashMap vs HashSet?
+Create List of numbers and sort it.?
+Rest vs SOAP?
+Database table need to create primary key?
+Why we use functional interface?
+What is rest controller?
+What is spring actuator?
+Can we use 2 databases in same spring boot project?
+How can we communicate between two microservices?
+Have you used AWS?
+Web Services vs Rest Services?
+What is @Controller?
+http Request GET, PUT, POST, DELETE?
+What is REST service?
+SOP vs REST service?
+Java8 features? 
+Java 11 features?
+Java stream api
+
+
+Interface with Default methods and Abstract?
+Can we call interface is abstraction now due to 8?
+What is the use of constructor in abstract class?
+Object methods?
+What is @Bean?
+How to access application.properties in java file?
+Id generation strategy?
+Unique and primary key?
+Stream api?
+HashMap vs HashTree?
+ArrayList internal working?
+
+Bean scope?
+Auboxing?Autounboxing?
+Comparable vs Comparator?
+marker interface vs functional interface

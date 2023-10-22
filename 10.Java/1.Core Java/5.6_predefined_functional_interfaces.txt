@@ -1,0 +1,467 @@
+
+Important predefined functional interfaces:
+1. Predicate 
+2. Functions
+3. Consumer
+4. Supplier
+5. BiPredicate
+6. BiFunctions
+7. BiConsumers
+---------------------------------------------------------------------------------------------------
+Function1: Predicate:
+Signature:
+Predicate<T> ---boolean
+- Predicate functionality interface contains single abstract methods which is a bolean valued function.
+- It contains only one method i.e. test()
+- We can implement predicate interface wherever any boolean condition we have to check.
+- We can join the predicates.e.g. p1.and(p2).test(x1
+.
+Example:
+import java.util.function.*;
+import java.util.*;
+class Employee {
+	String name;
+	double salary;
+	Employee(String name, double salary) {
+		this.name = name;
+		this.salary = salary;
+	}	
+}
+
+class Test {    
+    public static void main(String[] args) {
+        //Just to check given number is even or not.
+		//We passed here int as input param for Predicate.
+		Predicate<Integer> p1 = i->i%2==0;
+        System.out.println(p1.test(7));
+        System.out.println(p1.test(10));
+		System.out.println("-------------------------------");
+		//We can filter elements from iterator as below
+		//We passed here String as input param for Predicate.
+		String[] s = {"vijay","chaitanya","nagarjuna","ram"};
+		Predicate<String> p2 = s1->s1.length()>5;
+		for(String s1 : s) {
+			if(p2.test(s1)) {
+				System.out.println(s1);
+			}
+	    }
+		System.out.println("-------------------------------");
+		//We can filter out Arraylist using predicate as below.
+		//We passed here User defined object as input param for Predicate.
+		ArrayList<Employee> l = new ArrayList<Employee>();
+		l.add(new Employee("Durga",1000));
+		l.add(new Employee("Ravi",2000));
+		l.add(new Employee("Mahesh",3000));
+		l.add(new Employee("Shiva",4000));
+		l.add(new Employee("Adarsh",5000));
+		l.add(new Employee("Ramesh Babu",6000));
+		
+		Predicate<Employee> p3 = e-> e.salary > 3000;
+				
+		for (Employee el : l) {
+			if(p3.test(el)) {
+				System.out.println(el.name+":"+el.salary);
+			}
+		}		
+		System.out.println("-------------------------------");		
+
+		//Predicate joining		
+		int[] x = {0,5,10,15,20,25,30,35};
+		Predicate<Integer> p4 = i -> i%2==0;
+		Predicate<Integer> p5 = i -> i>10;
+		
+		System.out.println("The numbers which are greatert than 10 and are even");
+		for(int x1 : x) {
+			//if(p1.or(p2).test(x1)) {
+			if(p4.and(p5).test(x1)) {
+				System.out.println(x1);
+			}
+		}
+		System.out.println("-------------------------------");
+	}
+}
+---------------------------------------------------------------------------------------------------
+
+Function2: Function functional interface
+- Function we can use to perform operation on input of any type and return output of any type.
+- Function contain apply method.
+Signature:
+Function<T,R> -- R type
+interface Function<T,R> {
+    public R apply(T t);
+}
+.
+Example1:
+import java.util.function.*;
+import java.util.*;
+
+
+class Student {
+	String name;
+	int marks;
+	
+	Student(String name, int marks) {
+		this.name = name;
+		this.marks = marks;
+	}
+}
+
+class Test {    
+    public static void main(String[] args) {
+		
+		//Receiving Integer Returnig Integer
+		//squaring the number
+		Function<Integer, Integer> f = i -> i*i;
+		System.out.println(f.apply(5)); 
+		System.out.println("--------------------------");
+		
+		//Receiving String Returnig Integer
+		//return string length.
+		Function<String, Integer> f1 = s -> s.length();
+		System.out.println(f1.apply("Durgasoftwaresolution"));
+		System.out.println("--------------------------");
+				
+		//Receiving String Returnig String
+		//return uppercase of given string.
+		Function<String, String> f2 = s -> s.toUpperCase();
+		System.out.println(f2.apply("Durgasoftwaresolution"));
+		System.out.println("--------------------------");		
+		
+		//Receiving object and returing String
+		Function<Student, String> f3 = s-> {
+			int marks = s.marks;
+			String grade = "";
+		
+			if(marks > 80) grade="A[Distinction]";
+			else if(marks > 60) grade="B[First Class]";
+			else if(marks > 50) grade="C[Second Class]";
+			else if(marks > 35) grade="D[Third Class]";
+			else grade="E[Failed]";			
+			return grade;
+		};
+		Predicate<Student> p = s -> s.marks >=60;
+		Student[] s = {
+					new Student("Durga", 100),
+					new Student("Sunny", 65),
+					new Student("Bunny", 55),
+					new Student("Chinny", 45),
+					new Student("Vinny", 25),
+					new Student("Dhimmi", 100),										
+		};
+		
+		for(Student s1 : s) {
+			if(p.test(s1)) {
+				System.out.println("Student Name: "+s1.name);
+				System.out.println("Student Marks: "+s1.marks);
+				System.out.println("Student Grade: "+f3.apply(s1));				
+			}
+		}
+		System.out.println("--------------------------");		
+		
+		//Function chaining:
+		Function<Integer, Integer> f4 = i -> 2*i;
+		Function<Integer, Integer> f5 = i -> i*i*i;
+		System.out.println(f4.andThen(f5).apply(2)); //64
+		System.out.println(f4.compose(f5).apply(2)); //16
+		System.out.println("--------------------------");
+		//f1.andThen(f2).andThen(f3).apply(10);
+		
+	}
+}
+
+---------------------------------------------------------------------------------------------------
+Function3: Consumer
+Consumer<T> --> void
+Predicate consume input, perform operationa and doesnt return anything.
+It has accept method.
+
+interface Consumer<T> 
+{
+	public void accept(T t);
+
+}
+
+Example:
+import java.util.function.*;
+class Test 
+{    
+    public static void main(String[] args) 
+	{
+		Consumer<String> c = s -> System.out.println(s);
+		c.accept("Durga");
+	}
+}
+
+Example2: With Predicate and function:
+import java.util.function.*;
+import java.util.*;
+
+class Student {
+	String name;
+	int marks;
+	
+	Student(String name, int marks) {
+		this.name = name;
+		this.marks = marks;
+	}
+}
+
+class Test {    
+    public static void main(String[] args) {
+		Consumer<String> c = s -> System.out.println(s);
+		c.accept("Durga");
+		
+		Function<Student, String> f = s-> {
+			int marks = s.marks;
+			String grade = "";
+			if(marks > 80) grade="A[Distinction]";
+			else if(marks > 60) grade="B[First Class]";
+			else if(marks > 50) grade="C[Second Class]";
+			else if(marks > 35) grade="D[Third Class]";
+			else grade="E[Failed]";			
+			return grade;
+		};
+		
+		Predicate<Student> p = s -> s.marks >=60;
+
+		Consumer<Student> c1 = s1 -> {
+			System.out.println("Student Name: "+s1.name);
+			System.out.println("Student Name: "+s1.marks);			
+			System.out.println("Student Name: "+f.apply(s1));
+		};
+		
+		Student[] s = {
+			new Student("Durga", 100),
+			new Student("Sunny", 65),
+			new Student("Bunny", 55),
+			new Student("Chinny", 45),
+			new Student("Vinny", 25),
+			new Student("Dhimmi", 100),										
+		};
+
+		for(Student s1: s) {
+			if(p.test(s1)) {
+				c1.accept(s1);				
+			}
+		}
+	}
+}
+--------------------------------------------------
+Function4: Supplier
+Predicate: Take some input and perform some conditional  
+Consumer: Accept some input and perform required operation and not required to anything.
+This is a functional interface whose functional method is get().
+
+Supplier: Just supply my required object and it wont take any input.
+interface Supplier<R>
+{
+	public R get();
+}
+
+Example:
+import java.util.function.*;
+import java.util.*;
+
+class Test {    
+		public static void main(String[] args) {
+		//Getting date using supplier
+		Supplier<Date> s = ()-> new Date();
+		System.out.println(s.get());
+		System.out.println(s.get());
+
+		//Getting OTP using supplier
+		Supplier<String> s1 = ()-> {
+			String otp = "";
+			for(int i=0; i<6; i++) {
+				otp = otp+(int)(Math.random()*10);
+			}
+			return otp;
+		};		
+		System.out.println(s1.get());
+	}
+}
+--------------------------------------------------
+Function5: BiPredicate
+- Represents a predicate (boolean-valued function) of two arguments. 
+- This is a functional interface whose functional method is test(Object, Object).
+- Normal predicate can take only one input argument and perform some conditional check.
+- Sometime our programming requirements is we have to take 2 input arguments and perform some conditioncheck.
+- For this requirement we should go for BiPredicate.
+- BiPredicate is exactly same as Predicate except that it will take 2 input arguments.
+
+interface BiPredicate<T1,T2>
+{
+	public boolean test(T1 t1, T2 t2)
+}
+
+Example:
+A program to check addition of two numbers is event or not.
+
+import java.util.function.*;
+class Test {
+	public static void main(String[] args) {
+		BiPredicate<Integer, Integer> bp = (a,b) -> (a+b) % 2 == 0;
+		System.out.println(bp.test(10,20));
+		System.out.println(bp.test(15,20));
+	}
+}
+
+--------------------------------------------------
+Function6: BiFunction: 
+- Represents a function that accepts two arguments and produces a result. 
+- This is a functional interface whose functional method is apply(Object, Object).
+- Same as function but just difference is it takes two arguments and return required result.
+
+interface BiFunction<T,U,R>
+{
+	public R apply(T t,U u);
+	//default method andThen()
+}
+
+
+Example:
+import java.util.function.*;
+import java.util.*;
+
+class Employee {
+	String ename;
+	int eno;
+	public Employee(int eno,String ename) {
+		this.ename = ename;
+		this.eno = eno;
+	}
+}
+
+class Test {
+	public static void main(String[] args) {
+		ArrayList<Employee> l = new ArrayList<Employee>();
+		BiFunction<Integer,String,Employee> f = (eno,ename) -> new Employee(eno,ename);
+
+		l.add(f.apply(100,"Durga"));
+		l.add(f.apply(200,"Ravi"));
+		l.add(f.apply(300,"Shiva"));		
+		l.add(f.apply(400,"Pavan"));
+		l.add(f.apply(500,"Babu"));
+		l.add(f.apply(600,"Hari"));		
+		
+		for(Employee e : l) {
+		System.out.println("Employee Number: "+e.eno);
+		System.out.println("Employee Name: "+e.ename);
+		System.out.println();
+	}
+	}
+}
+--------------------------------------------------
+Function7: BiConsumer: 
+public interface BiConsumer<T,U>
+
+interface BiConsumer<T,U> {
+	void	accept(T t, U u)
+}
+
+Represents an operation that accepts two input arguments and returns no result. 
+This is the two-arity specialization of Consumer. 
+Unlike most other functional interfaces, BiConsumer is expected to operate via side-effects.
+
+Example:
+import java.util.function.*;
+import java.util.*;
+
+class Employee {
+	String name;
+	double salary;
+	Employee(String name, double salary) {
+		this.name = name;
+		this.salary = salary;
+	}
+}
+
+class Test {
+		public static void main(String[] args) {
+			ArrayList<Employee> l = new ArrayList<Employee>();
+			l.add(new Employee("Durga",1000));
+			l.add(new Employee("Sunny",2000));
+			l.add(new Employee("Dummy",3000));
+			l.add(new Employee("Durga",4000));
+			l.add(new Employee("Durga",5000));
+
+			BiConsumer<Employee, Double> c = (e,d) -> e.salary=e.salary+d;
+
+			for (Employee e:l) {
+				c.accept(e,500.0);
+			}
+
+			for (Employee e : l) {
+				System.out.println("Employee Name: "+e.name);
+				System.out.println("Employee salary: "+e.salary);
+			}		
+		}
+	}
+
+--------------------------------------------------
+
+Function7: IntPredicate
+Represents a predicate (boolean-valued function) of one int-valued argument. 
+This is the int-consuming primitive type specialization of Predicate.
+This is a functional interface whose functional method is test(int).
+
+import java.util.function.*;
+import java.util.*;
+
+class Test {    
+    public static void main(String[] args) {
+        IntPredicate p1 = i->i%2==0;
+        System.out.println(p1.test(7));
+        System.out.println(p1.test(10));
+	}
+}
+
+
+------------------------------------------
+Function8: UnaryOperator: 
+If input type and return type are same then we should use unary operator.
+It is child of function.
+import java.util.function.*;
+import java.util.*;
+
+class Test {    
+    public static void main(String[] args) {
+        UnaryOperator<Integer> f = i-> i*i;
+        System.out.println(f.apply(10));
+	}
+}
+------------------------------------------
+BinaryOperator
+Child of BiFunction
+    public static void main(String[] args) {
+        BiFunction<String,String, String> f = (s1,s2) -> s1+s2;
+		System.out.println(f.apply("durga","software"));
+	}
+
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+------------------------------------------

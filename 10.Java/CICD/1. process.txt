@@ -1,0 +1,26 @@
+Downloaded tomcat 
+
+in eclipse:
+created maven project
+
+created build 
+
+build i.e .war file created in target folder
+
+closed tomcat closed eclipse.
+
+copied that war file and pasted in following path.
+on refresh that war file should be extracted.
+
+path: \apache-tomcat-9.0.80-windows-x64\apache-tomcat-9.0.80\webapps
+
+then opened cmd in bin of tomcat.
+apache-tomcat-9.0.80-windows-x64\apache-tomcat-9.0.80\bin
+
+run command .\startup.bat
+
+then tomcat started and you can see your application on below url
+localhost:8080/javaapp
+
+
+

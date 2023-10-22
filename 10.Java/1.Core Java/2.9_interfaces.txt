@@ -1,0 +1,19 @@
+interface Vehicle {
+	String NAME = "Vijay"
+	void displayName();
+}
+
+class Test implements Vehicle {
+    public void displayName() {
+        System.out.println("Implemented interface " );
+    }
+    static public void main(String[] args) {
+	   System.out.println("Iteration " );
+	   Test t = new Test();
+	   t.displayName();
+	   System.out.println(NAME);
+    }
+}
+
+
+variables in interface are always public static and final

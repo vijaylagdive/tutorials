@@ -1,0 +1,74 @@
+Part5 Important constructor of String class:
+
+1. String s = new String();
+- Creates empty string object in heap area.
+
+2. String s = new String(String literal);
+- For the given string literal object is created in heap area.
+
+3. String s = new String(StringBuffer sb);
+
+4. String s = new String(StringBuilder sb);
+
+5. String s = new String(char[] ch);
+char[] ch = {'j','a','v','a'}
+String s = new String(ch);
+
+6. String s = new String(byte[] b);
+byte[] b = {97,98,99,100}
+String s = new String(b);
+sop(s);// abcd
+---------------------------------------------------------------------------------------------------
+Part 6. Important method of String class
+
+5. public booleanisEmpty()
+String s = "";
+sop(s.isEmpty()); // true
+String s = "Durga";
+sop(s.isEmpty()); // false
+
+6. public int length()
+String s = "Durga";
+sop(s.length()); // 5
+
+length vs length()
+int[] x = {2,3,4,6}
+x.length = 4; //length is for array
+
+s.length(); lenght() is for String.
+-------------------
+
+7. public String replace(char old, char new);
+String s = "ababab";
+sop(s.replace('a','b')); bbbbbb
+
+-------------------
+
+8 substring()
+a) public String substring(int begin);
+returns from begin index to end of string.
+String s = "abcdefg";
+sop(s.substring(3));//defg
+AND
+b) public subString(int begin, int end);
+returns substring from begin to end-1
+String s = "abcdef";
+System.out.println(s.substring(3,6));//def
+-------------------
+9 public int indexOf(char a);
+String s = "durga";
+sop(s.indexOf('g'));//3
+if specified character is not available return -1.
+if character available multiple times it return first.
+-------------------
+10 public int lastIndexOf(char ch);
+String s = "abcdaf";
+System.out.println(s.lastIndexOf('a')); //4
+-------------------
+11  public String toLowerCase()
+-------------------
+12  public String toUpperCase()
+
+---------------------------------------------------------------------------------------------------
+
+

@@ -1,0 +1,27 @@
+Java 8 features roughly can be categorized into below
+Inteface, Functional Interface, 
+
+A) Interface Improvment
+1. Default methods in interface
+2. static methods in interface.
+-------------------------------------------------
+B) Functional Interface and Predefined Functions
+1. Functional interface and Lambda Expressions: Comparator, Comparable, Runnable
+2. Predefined functional Interfaces: Predicate, Functions, Consumers, Suppliers etc
+2. annotation: @FunctionalInterface
+4. Method and constructor reference(::)
+-------------------------------------------------
+C) Stream api: Bulk operation on collection 
+1. forEach() method & splIterator() methods added in Iterable interface.
+2. Stream API(java.util.stram): filtering mapping parellel processing 
+-------------------------------------------------
+D) Date time
+1. New Date and Time (joda api)
+-------------------------------------------------
+E) Other features:
+1. Multicore processor support 11. Base64 API to utilize multicore processor.
+2. Security API
+3. Annotation concepts enhanced: Repeatable annotatation Type annotatoin
+4. Improvment in Collection 
+5. Removed JDBC ODBC Bridge driver
+----------------------------------------------------

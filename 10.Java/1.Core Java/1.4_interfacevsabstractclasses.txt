@@ -1,0 +1,84 @@
+Abstract class vs Interface:
+1. About Requirement specification
+Interface: 
+When we just have requirement specifications but we dont know anything about implementation then we should go for interface.
+Abstract class:
+If we are talking about implementation but not completely or we just know partial implementation then we should go for abstract classes.
+-------------------------------------------------
+2. About methods 
+Interface:
+Every method present in interface is always public and abstract whether we are declaring or not. 
+Hence interface is considered as 100% pure abstract class.
+Abstract class:
+Every method present in abstract class neeed not to be public and Abstract. 
+In addition to abstract methods we can write some concrete methods too.
+-------------------------------------------------
+3. About methods
+Interface:
+We cant declare interface method with the following modifiers:
+As it is public  : always it cant be: private, protected, 
+As it is abstract: final, static, synchronized, native, strictfp
+Abstract class:
+There is no restriction on abstract class methods modifiers.
+-------------------------------------------------
+4. About constructor
+Interface:
+Inside interface we cant declare constructor.
+Abstract class:
+Inside abstract class we can decalre constructor which will be execued at the time of child object creation.
+-------------------------------------------------
+5. About varaibles
+Interface: 
+Every variable present inside interface is always public,static and final whether we are declaring or not. 
+We cannot declare instance variable.
+Abstract class:
+The variable present inside Abstract class need not to be public static and final.
+-------------------------------------------------
+6. About variables
+Interface:
+We cant declare interface variables with the following modifiers.
+e.g. private, protected, transient, volatile
+Abstract class:
+There are no restrictions on Abstract class variable modifiers.
+-------------------------------------------------
+7. About variables
+Interface:
+For interface variables, compulsory we should perform initialization at the time of declaration otherwise we will get compile time error.
+Abstract class:
+For abstract class variables it is not reauired to perform initialization at the time of declaration.
+-------------------------------------------------
+8. About instance and static block.
+Inside interface we cant declare instance and static blocks.
+Abstratc class
+Inside Abstract class we can declare instance and static blocks.
+
+---------------------------------------------------------------------------------------------------
+
+Q. Abstract class interface with default methods:
+Ans:
+Interface with default method vs Abstract class.
+1.
+Interface: Inside interface every variable is always public static and final. We cannot declare instance variable.
+Abstract class: Inside abstract class we can declare instance variable,which are required to the child.
+
+2.
+Interface: Interface never talks about state of object. Because it doesnt contain instancevariables.
+Abstract class: Abstract class can talk about state of object.
+
+3.
+Interface: Inside interface we cant declare declare constructor.
+Abstract class: Inside abstract class we can declare constructor.
+
+4.
+Interface: Inside interface we cant declare instance and static block.
+Abstract class: Inside abstract class we can declare instance and static block.
+
+5.
+Interface: Functional interface with default methods can refere lambda expression.
+Abstract class: Abstract can refer lambda expression.
+
+6.
+Interface: Inside interface we cant override Object method.
+Abstract class: Inside abstract class we can override object methods. e.g. toString() etc.
+
+--------------------------------------------------------------------------------------------------

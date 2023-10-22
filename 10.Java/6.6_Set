@@ -1,0 +1,260 @@
+Set
+1. Set is child interface of Collection.
+2. If we want to represent a group of individual objects as a single entity,
+where duplicates are not allowed and insertion order is not preserved then we should go for set.
+3. Set interface doesnt contain any new methods.
+So we have to use only Collection methods.
+
+Hashset:
+The underlying data structure is HashTable.
+Duplicates are not allowed. If we try to insert duplicates, we wont get any compile time or runtime errors.
+add() method simply returns false.
+
+Insertion order is not preserved and all objects will be inserted based on hashcode of objects.
+Heterpgeneous objects are allowed.
+'null' insertion is possible.
+Implements serializable and clonable interfaces but not RandomAccess.
+HashSet is the best choice, if our frequent operation is Search operation.
+
+Constructor of HashSet
+1. HashSet h = new HashSet();
+Will create empty hasSet object with default initial capacity of 16 and default fill ratio 0.75.
+In hashset after filling 75% ratio a new hashset object will be created.
+This is 75% is called as fill ratio.
+
+2. HashSet h = new HashSet(int initialCapacity);
+- Creates an empty HashSet object with specified initial capacity & default Fill ration 0.75.
+
+3. HashSet h = new HashSet(int initialCapacity, float loadFactor);
+- Creates an empty HashSet object with specified initial capacity and specified loadFactor or fill ratio.
+
+4. HashSet h = new HashSet(Collection c);
+For inter conversion between Collection object.
+
+
+Load Factor or Fill ratio:
+After loading the how much factor, a new HashSet object will be created, that factor is called as Load Factor or fill ratio.
+
+Example:
+	public static void main(String[] args) {
+		HashSet h = new HashSet();
+		h.add("B");
+		h.add("C");
+		h.add("D");		
+		h.add("Z");
+		h.add(null);
+		System.out.println(h.add("Z"));//false. Will not add duplicate. Return false.
+		System.out.println(h);//[null, B, C, D, Z]. Insertion order is not preserved.
+	}
+----------------------------------------------------------------------
+
+LinkedHashSet
+Child class of HashSet.
+If the requirement is that the duplicates are not allowed but insertion order must preserved in this case we can choose LinkedHashSet.
+
+HashSet vs LinkedHashSet
+
+Underlying data structure:
+HashSet: HashTable
+LinkedHashSet: HashTable + LinkedList
+
+Insertion order
+HashSet: Not preserved
+LinkedHashSet: Preserved
+
+Version
+HashSet: 1.2 version 
+LinkedHashSet: 1.4 version
+
+
+Example:
+	public static void main(String[] args) {
+		LinkedHashSet h = new LinkedHashSet();
+		h.add("B");
+		h.add("C");
+		h.add("D");		
+		h.add("Z");
+		h.add(null);
+		System.out.println(h.add("Z"));//false. Will not add duplicate. Return false.
+		System.out.println(h);//[B, C, D, Z, null]. Insertion order is preserved.
+	}
+
+
+Note:
+LinkedHashSet is the best choice to develop cache based applications, where duplicate are not allowed
+and insertion order must be preserved.
+
+
+-------------------------------------------------------------------------------
+
+SortedSet(I)
+It is the child interface of set.
+If we want ot represent a group of individual objects according to some sorting order and duplicates are 
+not allowed then we should go for SortedSet.
+
+SortedSet Specific methods:
+1. Object first(); //return first element of the sortedSet.
+2. Object last(); //returns last element of the SortedSet
+3. SortedSet headSet(Object obj); return the sortedSet whose element are < obj
+4. SortedSet tailSet(Object obj); //return sortedSet whose element are >=obj
+5. SortedSet subSet(Object obj1, Object obj2);
+ - returns the SortedSet whose element are >= obj1 and <obj2
+6. Comparator comparator();
+- return Comparator object that describes underlying sorting technique.
+If we are using default natural sorting order then we will ge null.
+
+Example: {100,101,103,104,107,110,115} 
+1. first();// 100
+2. last(); //115
+3. headSet(104);// 100,101,103
+4. tailSet(104);// 104,107,110,115
+5. subSet(103,110);// 103,104,107
+6. comparator() null
+
+note:
+1. Default natural sorting order for numners ascending order and for sorting alphabetical order.
+2. We can apply the aboce methods only on SortedSet implemented class object. That is on the TreeSet object.
+
+
+-------------------------------------------------------------------------------------------------------------------
+TreeSet:
+1. The underlying data structure for TreeSet is Balanced Tree.
+2. Duplicates objects are not allowed.
+3. Insertion order is not preserved, but all object will be inserted according to some sorting order.
+4. Heterogeneous object are not allowed. If we try to insert Heterogeneous object then we will get runtime 
+exception saying ClassCasteException.
+5. Null insertion is allowed but only onnce.
+
+
+TreeSet construtors: 4
+
+1. TreeSet t = new TreeSet();
+Creates an empty TreeSet object where elements will be instered 
+according to default natural sorting order.
+
+2. TreeSet t = new TreeSet(Comparator c);
+Creates an empty TreeSet object where elements will be inserted according to customizing sorting order.
+
+3. TreeSet t = new TreeSet(Collection c);
+4. TreeSet t = new TreeSet(SortedSet s);
+
+Example:
+	public static void main(String[] args) {
+		TreeSet t = new TreeSet();
+		t.add("A");
+		t.add("a");
+		t.add("B");		
+		t.add("Z");
+		t.add("L");
+		System.out.println(t);//[A, B, L, Z, a]. Insertion is according to natural 
+		// alphabetical sorting order.
+	}
+
+Null Acceptance:
+1. For empty TreeSet as the first element null insertion is possible.
+But after inserting that null if we are trying to insert any another element we will get 
+NullPoiniterException.
+
+2. For non empty TreeSet if we are trying to insert Null then we will get 
+NullPointerException.
+
+Example:
+	public static void main(String[] args) {
+		TreeSet t = new TreeSet();
+		t.add(new StringBuffer("A"));
+		t.add(new StringBuffer("Z"));
+		t.add(new StringBuffer("L"));
+		t.add(new StringBuffer("B"));
+		System.out.println(t); //Class Caste Exception
+	}
+
+Note:
+1. If we are depending on default natural sorting order then objects should be 
+homogeneous and comparable.
+Otherwise we will get runtime exception saying ClassCasteException.
+
+2. An object is said to be comparable if and only if the corresponding 
+class implements java.lang.comparable interface.
+
+3. String class and all wrapper classes already impplements comparable interface.
+But StringBuffer doesnt implements comparable interface.
+
+Hence in the above program we get ClassCasteException.
+
+Special note:
+Since from jdk-11 StringBuffer and StringBuilder also implements Comparable
+-----------------------------------------------------------------
+Diffrence between Set implemented classes.
+
+1. Underlying data structure.
+HashSet: HashTable
+LinkedHashSet: HashTable + LinkedList
+TreeSet: Balanced Tree
+
+2. Insertion order 
+HashSet: Not Preserved
+LinkedHashSet: Preserved
+TreeSet: Not applicable
+
+3. Sorting order 
+HashSet: Not Applicatble
+LinkedHashSet: Not Applicatble
+TreeSet: Applicable
+
+4. Heterogeneous Objects
+HashSet: Allowed
+LinkedHashSet: Allowed
+TreeSet: Not Allowed*
+
+5. Duplicates
+Not allowed
+Not allowed 
+Not allowed
+
+Null acceptance
+Allowed once
+Allowed once
+For empty treeset as first element Null is allowed and in all other cases we will get NPE. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

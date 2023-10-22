@@ -1,0 +1,175 @@
+Cursors of Java
+- If we want to retrieve Object one by one from the Collection,
+then we should go for cursors.
+- There are three types of cursors are available in Java
+1. Enumeration
+2. Iterator
+3. ListIterator
+
+1. Enumeration:
+Introduced in 1.0
+- We can use enumeration to get Object one by one from the old Collection Objects.(Legacy Collections).
+- We can create Enumeration object by using elements() method of Vector class.
+ public Enumeration elements();
+ 
+ Example:
+  Enumeration e = v.elements();
+
+Enumeration defines the following two methods
+public boolean hasMoreElements();
+public Object nextElement();
+
+Example:
+	public static void main(String[] args) {
+		Vector v = new Vector();
+		for (int i=1; i<=10; i++) {
+			v.addElement(i);
+		}
+		Enumeration e = v.elements();
+		while(e.hasMoreElements()) {
+			Integer I = (Integer)e.nextElement();
+			if(I%2 == 0) {
+				System.out.println(I);
+			}
+		}
+		System.out.println(v);
+	}
+	
+------------------------------------------------------------------
+2. Iterator
+Enumeration is available only for Legacy classes.
+With enumeration we can perform only read operation.
+With Iterator we can perform both read and remove operation.
+
+We can create Iterator object by using iterator() method of Collection interface.
+
+public Iterator iterator();
+
+Iterator itr = C.iterator(); //Where C is any Collection Object
+
+Methods:
+public boolean hasNext();
+public Object next();
+public void remove();
+
+	public static void main(String[] args) {
+		ArrayList I = new ArrayList();
+		for (int i=0; i< 10; i++) {
+			I.add(i);
+		}
+		System.out.println(I);
+		Iterator itr = I.iterator();
+		while(itr.hasNext()) {
+			Integer in = (Integer)itr.next();
+			if(in%2 == 0) {
+				System.out.println(in);
+			} else {
+				itr.remove();
+			}
+		}
+		System.out.println(I);
+	}
+------------------------------------------------------------------
+Limitations of Enumeration and Iterator:
+1. By using Enumeration and Iterator we can move only towards forward direction and
+we cant move to the backward direction, and hence these are sinle direction cursors.
+
+2. By using Iterator we can perform only read and remove operation and we cant perform replacement of new Object.
+
+Note: To overcome above limitations of iterator we should go for ListIterator.
+------------------------------------------------------------------
+ListIterator:
+1. By using ListIterator we can move either to the forward direction or to the backward
+direction, and hence ListIterator is bidirectional cursors.
+
+2. By using ListIterator we can perform replacement and addition of new objects in addition to read and remove operation.
+
+We can create ListIterator Object by using listIterator() method of List Interface.
+public ListIterator listIterator();
+ListIterator itr = l.listIterator(); where l is List Object.
+
+ListIterator methods:
+forward direction:
+1. public boolean hasNext();
+2. public void next();
+3. public int nextIndex()
+
+Backward direction
+4. public boolean hasPrevious();
+5. public void previous()
+6. public int previousIndex(); 
+
+Other capabilities methods:
+7. public void remove();
+8. public void set(Object new);
+9. public void add(Object new);
+
+Example:
+	public static void main(String[] args) {
+		LinkedList l = new LinkedList();
+		l.add("Balakrishna");
+		l.add("Venki");	
+		l.add("Chiru");	
+		l.add("Nag");		
+		System.out.println(l);
+		ListIterator ltr = l.listIterator();
+		while(ltr.hasNext()) {
+			String s = (String)ltr.next();
+			if(s.equals("Venki")) {
+				ltr.remove();
+			} else if(s.equals("Nag")) {
+				ltr.add("Chaitu");
+			} else if (s.equals("Chiru")) {
+				ltr.set("Charan");
+			}
+		}
+		System.out.println(l);		
+	}
+
+
+
+-------------------------------------------------------------------------------
+
+Comparison of the three iterators:
+1. Available for
+Enumeration: Only legacy classes.
+Iterator: Any collection classes.
+ListIterator Only List classes.
+
+2. Movment
+Enumeration: Only forward direction.(single direction)
+Iterator: Only forward direction(single direction).
+ListIterator: Both forward and backward direction.
+
+3. Accessibility
+Enumeration: Only read access.
+Iterator: Both read and remove.
+ListIterator: Read remove replace and addition of new object.
+
+4. How to get it?
+Enumeration: By using elements() method of Vector class.
+Iterator: By using iterator() method of collection interface.
+ListIterator: By using listIterator() method of list Interface.
+
+5. Methodss
+Enumeration: 2 methods. hasMoreElements(), nextElement().
+Iterator: 3 Methods. hasNext(), next(), remove()
+ListIterator: 9 methods. 
+
+
+Implementation Classes of the three Cursors
+import java.util.*;
+class Test {
+	public static void main(String[] args) {
+		Vector v = new Vector();
+		Enumeration e = v.elements();
+		Iterator i = v.iterator();
+		ListIterator li = v.listIterator();
+		
+		System.out.println(e.getClass().getName());//java.util.Vector$1
+		System.out.println(i.getClass().getName());//java.util.Vector$Itr
+		System.out.println(li.getClass().getName());//java.util.Vector$ListItr
+
+	}
+}
+---------------------------------------------------------

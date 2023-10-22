@@ -1,0 +1,89 @@
+
+Q1. What is Jenkins?
+Ans:
+Jenkins is a self-contained, open-source automation server that can be used to automate all sorts of tasks related to building, testing, and delivering or deploying software. 
+Jenkins can be installed through native system packages, Docker, or even run standalone by any machine with a Java Runtime Environment (JRE) installed.
+.
+command to run jenkin using java jdk.
+java -jar .\jenkins.war
+-------------------------------------------------
+Q2. Tell me something about Continuous Integration, Continuous Delivery, and Continuous Deployment?
+Ans:
+Continuous Integration: 
+A software development process where the changes made to project are integrated into the main code as and when a patch is ready.
+So that the software will be always ready to be - built, tested, deployed, monitored - continuously.
+
+Continuous Delivery: 
+This is a Software Development Process.
+In which the continuously integrated (CI) changes will be tested & deployed continuously into a specific environment.
+It is done generally through a manual release process, after all the quality checks are successful
+
+Continuous Deployment: 
+A Software Development practice where the continuously integrated (CI) changes are deployed automatically into the target environment after all the quality checks are successful
+
+Code -> Build -> Integrate -> Release -> Deploy
+-------------------------------------------------
+Q3. What are the common use cases Jenkins is used for?
+Ans:
+Jenkins being open-source automation can be used for any kind of software-based automation. 
+Some of the common use-cases include but not limited to -
+- Software build jobs
+- Sanity/Smoke/CI/Regression test jobs
+- Web/Data Scraping related jobs
+- Code coverage measurement jobs
+- General-purpose automation
+- Reverse Engineering jobs
+- Key Decoding jobs & many other jobs where software automation will be applicable.
+-------------------------------------------------
+Q4. What are the ways to install Jenkins?
+Jenkins can be installed using -
+- Docker (popular docker images for Jenkins is available for different platforms like Unix/Mac/Windows in the docker registry)
+- Kubernetes (available as a helm chart and can be installed on our Kubernetes clusters)
+- Standalone (on any machine with a Java Runtime Environment installed)
+- Native System Package Manager like - apt (Linux), brew (Mac), etc.
+-------------------------------------------------
+Q5. What is a Jenkins job?
+Ans:
+A Job/Project is the fundamental unit of a logical work (like a software build, an automation task, test execution, etc) 
+using the Jenkins automation server and other required plugins, configurations & infrastructures.
+
+Jobs can be of different types like - a freestyle project, a multi-configuration project, a pipeline project, a multi-branch project, etc.
+-------------------------------------------------
+Q6. What is a Jenkins Pipeline?
+Ans:
+Start -> Build -> Run Test -> Deploy -> End
+The pipeline is a special type of Jenkins job - 
+simply a sequence of steps controlled by a defined logic - which Orchestrates long-running activities that can span across multiple build agents. It is suitable for building pipelines (formerly known as workflows) and/or organizing complex activities that cannot be easily achieved using a freestyle job.
+-------------------------------------------------
+Q7. What are the types of Jenkins pipelines?
+Ans:
+Jenkins Pipelines can be either - a Declarative pipeline or a Scripted Pipeline. 
+Declarative pipeline:
+It makes use of numerous, generic, predefined build steps or stages to build our job according to our build/automation needs. whereas, 
+Scripted pipelines: 
+In the Scripted pipelines steps or stages can be custom-defined & used using a groovy syntax which provides better control & fine-tuned execution levels.
+-------------------------------------------------
+Q8. Explain Jenkins Multibranch Pipeline?
+Ans:
+It is a pipeline job that can be configured to Create a set of Pipeline projects according to the detected branches in one SCM repository. 
+This can be used to configure pipelines for all branches of a single repository e.g. if we maintain different branches (i.e. production code branches) for different configurations like locales, currencies, countries, etc
+-------------------------------------------------
+Q9. How do you store credentials in Jenkins securely?
+Ans:
+Credentials can be stored securely in Jenkins using the Credentials plugin, which stores different types of credentials.
+like - Username with a password, SSH username with the private key, AWS Credentials, Jenkins Build Token, Secret File/Text, X509 & other certificates, Vault related credentials securely with proper encryption & decryption as and when required.
+-------------------------------------------------
+Q10. How can we stop a scheduled job from being executed temporarily?
+Ans:
+Disable the job from the job details page to temporarily stop all scheduled executions & other factors/events from triggering the job and enable it back to resume the job schedules/triggers. 
+If a job is not required permanently, we can delete the job from the jobs list view page.
+-------------------------------------------------
+
+
+
+
+
+
+
+
+

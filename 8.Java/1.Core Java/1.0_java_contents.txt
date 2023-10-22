@@ -1,8 +1,0 @@
-Introduction to Java
-Java fundamentals: 
-Oops concepts
-Generics
-Exception Handling
-Multithreading
-Collections
-Design Patterns

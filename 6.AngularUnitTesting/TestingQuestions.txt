@@ -1,0 +1,126 @@
+Q. What are the matchers?
+Ans:
+Built-in matchers:
+expect(instance).toBe(instance);
+
+expect(mixed).toBeTruthy();
+expect(mixed).toBeFalsy();
+expect(mixed).toEqual(mixed);
+expect(mixed).toMatch(pattern);
+expect(mixed).toBeNull();
+expect(mixed).toBeUndefined();
+expect(mixed).toBeDefined();
+
+expect(array).toContain(member);
+
+expect(fn).toThrow(string);
+expect(fn).toThrowError(string);
+
+expect(number).toBeCloseTo(number, decimalPlaces);
+expect(number).toBeNaN();
+expect(number).toBeGreaterThan(number);
+expect(number).toBeLessThan(number);
+
+//spy
+expect(spy).toHaveBeenCalled();
+expect(spy).toHaveBeenCalledTimes(number);
+expect(spy).toHaveBeenCalledWith(...arguments);
+
+-------------------------------------------------
+Q What is spying?
+Ans:
+Spying on any method of service:
+Spying is done in a testing to check Methods in service or component is called or called for how many times or called with particular arguments.
+.
+jasmine.createSpyObj(): Used to create spy obj. 
+With this we also can provide a fake implementation of a function and define what values it should return.
+.
+jasmine.createSpyObj() method allows you to create a spy object with multiple methods which you want to spy on. 
+Useful when you want to create a mock of an object with several methods without having to manually create each spy.
+Example:
+const loggerSpy = jasmine.createSpyObj('LoggerService',['log']);
+expect(loggerSpy.log).toHaveBeenCalled(); 
+expect(loggerSpy.log).toHaveBeenCalledTimes(1);
+
+-------------------------------------------------
+Q What is TestBed?
+Ans:
+TestBed used to configure testing Modules.
+
+1. Confuguring service:
+
+    beforeEach(()=> {
+        console.log("Calling beforeEach");
+        loggerSpy = jasmine.createSpyObj('LoggerService', ["log"]);
+        TestBed.configureTestingModule({
+            providers: [ In providers array we declare service to be tested
+                CalculatorService,
+                {provide: LoggerService, useValue: loggerSpy} //Need to provide dependencies for the service that need to be tested.
+            ]
+        });
+        calculator = TestBed.inject(CalculatorService);
+    });
+
+2. Configuring Component
+
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [CoursesModule]
+        })
+        .compileComponents()
+        .then(() => {
+            fixture = TestBed.createComponent(CoursesCardListComponent);
+            component = fixture.componentInstance;
+            el = fixture.debugElement;
+        });
+    }));
+
+-------------------------------------------------
+Q1. What is Component Fixture?
+Ans: 
+In Angular testing, a ComponentFixture is a crucial part of the testing framework.
+It is used for testing Angular components, specifically for testing the component's behavior, rendering, and interactions in a controlled and isolated environment.
+.
+Here's a brief overview of how ComponentFixture is used in Angular testing:
+1. Creating component fixture:
+You create a ComponentFixture by using the "TestBed.createComponent" method. 
+This method takes the Angular component you want to test as an argument and returns a ComponentFixture instance. 
+For example:
+.
+let fixture: ComponentFixture<HomeComponent>;
+  beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+          imports: [
+              CoursesModule,
+              NoopAnimationsModule
+          ],
+          providers: [
+              {provide: CoursesService, useValue: coursesServiceSpy}
+          ]
+      }).compileComponents()
+          .then(() => {
+              fixture = TestBed.createComponent(HomeComponent);
+              component = fixture.componentInstance;
+              el = fixture.debugElement;
+              coursesService = TestBed.inject(CoursesService);
+          });
+ }));
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

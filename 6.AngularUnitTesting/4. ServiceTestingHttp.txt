@@ -1,7 +1,9 @@
 Testing service with http requests:
 We use this beforeEach required before each request.
+
 Here we import required HttpClientTestingModule.
 In providers array we declare service to be tested.
+
 Finaly inject CourseService and HttpTestingController as Dependency.
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -18,7 +20,6 @@ Finaly inject CourseService and HttpTestingController as Dependency.
 
 
 HttpClientTestingModule — a module that provides all of the tools that we need to properly test Angular HTTP Services
-
 HttpTestingController service to mock requests instead of making real API requests to our API back-end when testing.
 -------------------------------------------------------------------------------
 In test specification starting with it() we test the api call.
