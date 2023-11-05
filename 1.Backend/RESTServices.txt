@@ -1,0 +1,13 @@
+Q1. What is REST? What is RESTful?
+Ans: 
+Represenatational State Transfer is a design pattern for creating web services.
+It establishes a set of constraints and principles for creating web APIs that flexible, scalable and simple to maintain.
+.
+RESTful APIs are APIs that follows guidelines.
+-------------------------------------------------
+Q2. 
+
+
+
+
+-------------------------------------------------

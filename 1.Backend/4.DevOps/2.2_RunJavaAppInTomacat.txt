@@ -1,0 +1,28 @@
+When you build java project the war file will be generated in 
+javaapp/target/javaapp.war
+
+Just copy that war file and paste it into tomcats webapp folder at below path:
+C:\Workspace\softwares\apache-tomcat-9.0.80-windows-x64\apache-tomcat-9.0.80\webapps
+
+On Refresh javaap.war will be extracted.
+
+Then you just start the tomcat manually from terminal at bin directory and
+run command ./startup.bat
+
+Tomcat will be started at localhost:8081. You just append your javappp name as: localhost:8081/javaapp
+
+Your app will be running there.
+
+
+If you want to do it from tomcat portal:
+First you have to set user and password in tomcat-users-file as below:
+apache-tomcat-9.0.80-windows-x64\apache-tomcat-9.0.80\conf\tomcat-users.xml
+<role rolename="manager-gui"/>
+<user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+Then on portal click on Manage button and sign in using above password.
+
+On that Tomcat Web Application Manager (http://localhost:8081/manager/html) portal find a section 'WAR file to deploy'.
+There you can choose your war and click on deploy.
+Your app will be listed in above section named 'Applications'.
+

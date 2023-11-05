@@ -1,0 +1,51 @@
+Q Which data structure hashmap represent?
+Ans:
+Hashtable data structure.
+Time Complexity O(1) if we know the key.
+
+Q Which data structure is used to implement Hashmap in java?
+Ans:
+Array and Linked List.
+Array for Buckets
+Linked List for Mapping nodes which lands in same buckets.
+
+
+Q Is hashmap threadsafe?
+Ans: No
+
+Q What will happen if you use Hashmap in a multithreaded Java application?
+Ans:
+When multiple threads access the hashmap then they can modify the data at sometime.
+If you want to use Hashmap in multithreaded environment you can use concurrent Hashmap.
+
+Q How do you remove a mapping while iterating over Hashmap in java?
+Ans: remove() of Iterator
+
+while(itr.hasNext()) 
+{
+	Map.Entry current = itr.next();
+	if(current.getKey().equals("matching")) 
+	{
+		itr.remove();//this will remove the current key. 
+	}
+}
+
+What is the load factot in Hashmap?
+Its a number that controls the resizing of Hashmap.
+For example 16 is the initial capacity of hashmap and .75 is the load factor.
+Then when hashmap fills 12+1th element in Array it resizes the capacity of Hashmap.
+
+How to count or get size of hashmap?
+size(); //return int
+mappingCount(); //return long.
+
+What is Concurrent Hashmap?
+Ans: Map implementation, which can be safely used in a concurrent and multithreaded java program.
+
+
+
+
+
+
+
+

@@ -1,0 +1,215 @@
+Comparable and Comparator 
+
+Comparable interface 
+Comparable interface present in java.lang package.
+It contains only one method compareTo().
+
+public int compareTo(Object obj);
+Example:
+obj1.compareTo(obj2);
+Return -ve if obj1 has to come before obj2.
+Return +ve if obj1 has to come after obj2.
+Return 0 if obj1 and obj2 are equal.
+
+Example:
+	public static void main(String[] args) {
+		System.out.println("A".compareTo("Z")); // -ve
+		System.out.println("Z".compareTo("B")); // +ve
+		System.out.println("A".compareTo("A")); // 0				
+		System.out.println("A".compareTo(null)); //Null pointer exception
+	}
+
+
+If we are depending on default natural sorting order internally JVM will call 
+compareTo() method for inserting objects to the TreeSet.
+Hence the object should be comparable.
+.
+TreeSet t = new TreeSet();
+t.add("B");
+t.add("Z"); // Z compare to B +ve
+t.add("A"); // A compare to B - v 
+SOP(t); //[A,B,Z]
+
+Comparable meant for Default natural sorting order.
+Comparator meant for Customized natural sorting order.
+
+------------------------------------------------------------
+
+Comparator:
+We can use comparator to define our own sorting (Cutomized sorting).
+Comparator interface present in java.util package
+It defines two methods:
+
+1. public int compare(Object1, Object2);
+- return -ve if obj has to come before obj2
+- return +ve if obj1 has to has come after obj2
+- return 0 if obj1 and obj2 are equal.
+
+2. public boolean equals();
+
+Note:
+When ever we are implementing Comparator interface, compulsory we should provide implementation for 
+compare() method.
+
+And implementing equals() method is optional is optional, because it is already available in every java
+class from Object class inheritance.
+
+Example:
+import java.util.*;
+class TreeSetDemo {
+	
+	public static void main(String[] args) {
+		TreeSet t = new TreeSet(new MyComparator());
+		t.add(10);
+		t.add(0);
+		t.add(15);
+		t.add(20);		
+		t.add(8);
+		System.out.println(t);
+	}
+}
+
+	class MyComparator implements Comparator {
+		public int compare(Object obj1, Object obj2) {
+			Integer i1 = (Integer) obj1;
+			Integer i2 = (Integer) obj2;
+			if (i1 < i2) {
+				return -1;
+			} else if (i1 > i2) {
+				return +1;
+			} else {
+				return 0;
+			}			
+		}		
+	}
+	
+Example2:
+import java.util.*;
+class TreeSetDemo {
+	
+	public static void main(String[] args) {
+		TreeSet t = new TreeSet(new MyComparator());
+		t.add(10);
+		t.add(0);
+		t.add(15);
+		t.add(20);		
+		t.add(8);
+		System.out.println(t);
+	}
+}
+
+	class MyComparator implements Comparator {
+		public int compare(Object obj1, Object obj2) {
+			Integer i1 = (Integer) obj1;
+			Integer i2 = (Integer) obj2;
+			//return  i1.compareTo(i2);
+			//return  -i1.compareTo(i2);
+			//return  i2.compareTo(i1);
+			//return  -i2.compareTo(i1);
+			//return +1; //provides insertion order.
+			//return -1 // provides reverse insertion order.
+			return 0; //only first element will be inserted. All other elements considred as duplicate.
+		}		
+	}
+------------------------------------------------------------
+Comparable and Comparator
+1. For predefined comparable classes like String default natural sorting order is already available.
+If we are not satisfied with that we can define our own sorting by Comparator object.
+
+2. For predefined non comparable classes like StringBuffer, default natural sorting order is not already available.
+We can define required sorting by implementating Comparator interface.
+
+3. For our own classes like Employee, Student, Customer etc we should define natural sorting order by implementing Comparable interface.
+The person who is using our class, if if he is not satisfied with default natural sorting order, then he can define his own sorting by using Comparator.
+
+------------------------------------------------------------
+Comparable vs Comparator
+
+Comparable: It is meant for default natural sorting order.
+Comparator: It is meant for customized sorting order.
+
+Comparable: Present in Java.lang package
+Comparator: Present in java.util package
+
+Comparable: This interface defines only one 1 method i.e. compareTo()
+Comparator: This interface defines two methods. 1.compare() and 2.equals()
+
+All wrapper classes and String class implements comparable. 
+The only implemented class of Comparator is 1.Collator and 2.RuleBasedCollator
+------------------------------------------------------------
+
+Example:
+
+import java.util.*;
+class Employeee implements Comparable {
+
+	String name;
+	int eid;
+		
+	Employeee(String name, int eid) {
+		this.name = name;
+		this.eid = eid;
+	}
+	
+	
+	public String toString() {
+		return name+"--"+eid;
+	}
+	
+	public int compareTo(Object obj) {
+		int eid1 = this.eid;
+		Employeee e = (Employeee) obj;
+		int eid2 = e.eid;
+		if (eid1 < eid2) {
+			return -1;
+		} else if (eid1 > eid2){
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+}
+
+class MyComparator implements Comparator {
+	public int compare(Object obj1, Object obj2) {
+		Employeee e1 = (Employeee) obj1;
+		Employeee e2 = (Employeee) obj2;
+		String s1 = e1.name;
+		String s2 = e2.name;
+
+		Integer id1 = e1.eid;
+		Integer id2 = e2.eid;
+		
+		return id1.compareTo(id2);
+	}
+}
+
+
+class CompComp 
+{
+	public static void main(String[] args)
+	{
+		Employeee e1 = new Employeee("nag",100);
+		Employeee e2 = new Employeee("balaih",200);		
+		Employeee e3 = new Employeee("chiru",50);	
+		Employeee e4 = new Employeee("venki",150);		
+		Employeee e5 = new Employeee("nag",100);
+		TreeSet t = new TreeSet();
+		t.add(e1);
+		t.add(e2);		
+		t.add(e3);
+	    t.add(e4);
+		t.add(e5);		
+		System.out.println(t);
+	//	TreeSet t1 = new TreeSet(new MyComparator());
+	//  t1.add(e1);
+	//	t1.add(e2);		
+	//	t1.add(e3);
+	//	t1.add(e4);
+	//	t1.add(e5);	
+	//	System.out.println(t1);
+	}
+}
+------------------------------------------------------------------------------------------------------------------
+
+

@@ -1,0 +1,61 @@
+Design patterns:
+.
+A design patterns are well-proved solution for solving the specific problem/task.
+Design patterns are programming language independent for solving the common object-oriented design problems. 
+In Other Words, a design pattern represents an idea, not a particular implementation. 
+Using design patterns you can make your code more flexible, reusable, and maintainable.
+
+
+Types of design patterns: 
+1. Creational Design Pattern
+- Creational design patterns are concerned with the way of creating objects.
+Example:
+1. Singleton Pattern
+2. Factory Pattern
+3. Abstract Factory Pattern
+4. Builder Pattern
+5. Prototype Pattern
+-------------------------------------------------
+3. Structural Design Pattern
+- Structural design patterns provide different ways to create a Class structure 
+- For example, using inheritance and composition to create a large Object from small Objects.
+Examples:
+1. Adapter Pattern
+2. Composite Pattern
+3. Proxy Pattern
+4. Flyweight Pattern
+5. Facade Pattern
+6. Bridge Pattern
+7. Decorator Pattern
+-------------------------------------------------
+3. Behavioral Design Pattern
+- Behavioral patterns provide a solution for better interaction between objects and how to provide loose-coupling and flexibility to extend easily.
+- It ensures Interaction between objects and Loose coupling between objects.
+Examples:
+1. Template Method Pattern
+2. Mediator Pattern
+3. Chain of Responsibility Pattern
+4. Observer Pattern
+5. Strategy Pattern
+6. Command Pattern
+7. State Pattern
+8. Visitor Pattern
+9. Interpreter Pattern
+10. Iterator Pattern
+11. Memento Pattern
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+Most commonly used design pattern in java.
+Singleton Pattern. The singleton pattern restricts the instantiation of a Class and ensures that only one instance of the class exists in the Java Virtual Machine. ...
+Factory Pattern. ...
+Abstract Factory Pattern. ...
+Builder Pattern. ...
+Prototype Pattern. ...
+Adapter Pattern. ...
+Composite Pattern. ...
+Proxy Pattern.
+

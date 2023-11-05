@@ -1,0 +1,92 @@
+String Questions:
+Q1. What is intern() method in String?
+Q2. String vs StringBuffer vs StringBuilder?
+Q3. final vs immutability?
+Q4. Method chaining on StringBuffer methods?
+Q5. Why SCP is available for String and not for StringBuffer?
+Q6. Why string object are immutable where as StringBuffer object mutable?
+Q7. In addition to string object any other object are immutable in java?
+Q8. Can we create our own immutable class?
+Q9. String vs StringBuffer?
+
+---------------------------------------------------------------------------------------------------
+Q1. What is intern() method in String?
+Ans: 
+- The method intern() creates an exact copy of a String object in the heap memory and stores it in the String constant pool.
+- If another String with the same contents exists in the String constant pool, 
+  then a new object won’t be created and the new reference will point to the other String.
+	public static void main(String[] args) {
+		String s1 = ("abc");
+		String s3 = new String("abc");
+		System.out.println(s1 == s3);//false 		
+		System.out.println(s1 == s3.intern());//true
+	}
+---------------------------------------------------------------------------------------------------
+
+Q3. final vs immutability
+Ans:
+If you dont want reassignment for variable then it is final.
+If you dont want to perofrm any changes in the object then it is immutable.
+
+Immutability is about object not about variable.
+final variable: yes
+final object: no
+immutable variable: no
+immutable object: true
+---------------------------------------------------------------------------------------------------
+Q4. Method chaining on StringBuffer methods?
+append() reverse() insert() delete() methods returns StringBuffer object only.
+So we can perform method chaining on this methods.
+StringBuffer sb = new StringBuffer();
+sb.append("durga").append("solutions").reverse().insert(2,"xyz").delete(3,7);
+
+---------------------------------------------------------------------------------------------------
+Q5. Why scp concept is available only for String object but not for StringBuffer?
+Ans:
+String is most commonly used object in java so java has provided special memory management for string. 
+String buffer is not regularly used so there is not seperate management is done for it.
+---------------------------------------------------------------------------------------------------
+Q6. Why string object are immutable where as StringBuffer object mutable?
+Ans: 
+- SCP is avaialble for String.  
+- With SCP same object can be reused multiple times.
+- By using one reference if anyone changes the contents then remaining references are affected.
+- If any person tries to change the content with those changes a new object should be created and in the existing object not allowed to change.
+- So the immutability concept is there for String.
+
+StringBuffer:
+There is no concept of SCP for String buffer.
+So no reusability and every time seperate object is required to create.
+If I change content from any object then there no impact on other instances.
+---------------------------------------------------------------------------------------------------
+Q7. In addition to string object any other object are immutable in java?
+Ans:
+All wrapper classes are by default immutable.
+Byte, Short, Integer, Long, Float, Double, Character, Boolean
+---------------------------------------------------------------------------------------------------
+Q8.Can we create our own immutable class?
+Ans:
+final class Test {
+    private int i;
+    Test(int i) {
+        this.i = i;
+    }
+    
+    public Test modify(int i) {
+        if(this.i == i) {
+            return this;
+        } else {
+            return new Test(i);
+        }
+    }
+    
+    public static void main(String[] args){
+        Test t1 = new Test(10); //created an object
+        Test t2 = t1.modify(100);// created another object holding 100
+        Test t3 = t1.modify(10);//t3 will poinintng to first object 10
+        
+        System.out.println(t1==t2);// false
+        System.out.println(t1==t3);// true
+    }
+}
+---------------------------------------------------------------------------------------------------

@@ -1,0 +1,62 @@
+TODO:
+Q1. Treeset vs HashSet vs LinkedHashSet
+Q2. Explain Working of Hashmap?
+Q3. 
+
+TODO
+Q. Custom key for hashmap  
+Q. Hashmap resizing
+Q. How to calculate time complexity? -
+Q. Synchronized vs Concurrent
+Q. How to implement a stack using queue? 
+Q. HashMap and HashTable
+---------------------------------------------------------------------------------------------------
+Q1. Treeset vs HashSet vs LinkedHashSet
+Ans:
+1. Underlying data structure.
+HashSet: HashTable
+LinkedHashSet: HashTable + DoublyLinkedList
+TreeSet: Balanced Tree
+
+2. Insertion order 
+HashSet: Not Preserved
+LinkedHashSet: Preserved
+TreeSet: Not applicable. It is sorted. 
+
+3. Sorting order 
+HashSet: Not Applicatble
+LinkedHashSet: Not Applicatble
+TreeSet: Applicable
+
+4. Heterogeneous Objects
+HashSet: Allowed
+LinkedHashSet: Allowed
+TreeSet: Not Allowed*
+
+5. Duplicates
+HashSet: Not allowed
+LinkedHashSet: Not allowed 
+TreeSet: Not allowed
+
+Null acceptance
+HashSet: Allowed once
+LinkedHashSet: Allowed once
+TreeSet: Not even on empty set. We will get NPE. 
+--------------------------------------------------------------------------------------------------
+Q2. Explain Working of Hashmap?
+Ans:
+- Underlying data structure is HashTable.
+- Hashmap stores data in key value pair.
+- Hashmap contains array of node.
+- Each node contains four fields i.e hashcode, key, value and next node reference.
+- Index to store node is calculated using hashing.
+- Hashing is process to convert object into Integer value. Which is hashcode.
+- With that hashcode index is calculated to minimize size of array because hashcode be a large integer number.
+- In case of collision (a new node is having index which is already filled) two nodes will saved at same location and linked using linked list.
+- Hashmap uses equal method of Object to compare keys.
+--------------------------------------------------------------------------------------------------
+
+
+
+
+

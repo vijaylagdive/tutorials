@@ -1,0 +1,21 @@
+1. Create maven project from eclipse and push it to git public repository.
+2. Open Jenkin Dashboard Create New Item
+   FreeStyle Project: Type 'Java web app'
+3. Add description there 
+4. Source code management: select git - add repository url - add branch /main
+5. Build Trigger: Poll SCM * * * * *
+6. Build Environment: Delete workspace before build starts
+7. Build Step: Add build step: 
+   - Invoke top-level Maven targets(To use this such plugin needs to be added)
+   - Maven Version: maven
+   - Goals: clean install
+8. Post-build Actions   
+   - Add Post Build Action: Select Deploy War to container
+   - War/Ear files: target/*.war
+   - Context Path: webapp
+9. Below that Add Container: Select Tomcat9
+   - Credentials: Add: Jenkins: admin admin(This is jenkin password)
+   - Credentials: admin admin (this is tomcat credentials)
+   - Tomcat URL: http://localhost:8081/
+10. You will be able to see the project. Click on Build.
+11. The war file you will be able to see in Tomcat Manager portal.

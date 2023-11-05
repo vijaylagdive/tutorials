@@ -1,0 +1,91 @@
+Sources:
+https://www.interviewbit.com/hibernate-interview-questions/#what-is-orm
+https://www.youtube.com/playlist?list=PL0zysOflRCekX8OO7V7pGQ9kxZ28JyJlk
+
+Hibernate is Java framework that simplifies the development of java
+applicaiton to interact with database.
+Now we do not have need to riter DAO classes.
+
+Hibernate is ORM(Object Relational Mapping) tool.
+
+Hibernate is open source, lightweight.
+
+Hibernate is a non-invasive framework, means it wont forces the programmer to extend/implement any class/interface.
+
+Any type of applicaiton can build wih Hibernate Framework.
+----------------------------
+
+eclipse- file new maven project
+catalog internal
+filter quickstart next finish
+
+Hibernate dependency:
+search hibernate connector maven and go to site
+https://mvnrepository.com/artifact/org.hibernate/hibernate-core/5.4.33.Final
+
+MySql dependency:
+search mysql connector maven and go to site
+https://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.48
+
+Copy paste dependencies to the pom.xml file.
+project maven updateProject
+
+
+Create Student class with required field like name, city rollNo etc.
+Have to configuration xml file for configuring database details such as url, address etc.
+Also need to mention whatever beans or entities we create. As below.
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/myhiber</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">admin</property>
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="show_sql">true</property>
+		<mapping class="com.hibernate.Student" />
+	</session-factory>
+</hibernate-configuration>
+
+
+
+
+
+In main method We can create session and save newly created Student object to database table as below:
+
+    public static void main( String[] args )
+    {
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Student st=new Student();
+		st.setId(108);
+		st.setName("Ankit");
+		st.setCity("Delhi");
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(st);
+		tx.commit();
+		session.close();
+    }
+
+
+
+Read about @Entiy annotation
+
+Basic Annotations:
+@Entity - Used to mark any class as Entity.
+@Table - Used to change the datable details
+@Id - used to mark column as id(primary key)
+@GeneratedValue- hibernate will automatically generate values for that using an internal sequence.
+Therefore we dont have to set it manually.
+@Column-Used to specify column mappings.
+For Example, to change the column name in the associated table in database.
+@Transient- This tells hibernate not to save this field.
+@Temporal-@Temporal over a date fields tells hibernate the format in which the date needs to be saved
+@Lob-@Lob tells hibernate that this is large object, not a simpple object.
+@OneToOne, @OneToManu, @ManyToOne
+@JoinColumn etc
+

@@ -1,0 +1,206 @@
+Strings contents:
+Content1: String
+Content2: String creation in heap and SCP
+Content3: Importance of String constant pool
+Content4. Important constructors of String class.
+Content5. Important methods of String class:
+---------------------------------------------------------------------------------------------------
+Content1: String
+- Strings in Java are objects that represent a sequence of characters.
+- Strings are immutable, meaning they cannot be modified once created.
+- String manipulation and operations are performed using various methods provided by   the String class.
+- Immutablity of String: Once we created a string object we cant perform any chages in the existing
+  object. 
+  If we are trying to perform any changes, with those changes new object will be created. 
+  This non changeble nature is nothing but immutability of the string object.
+- Example:
+  String s = new String("Durga");
+   s.concat("Software");
+   System.out.println(s); //Will print Durga only. Because its immutable. another orphan object will be created.
+---------------------------------------------------------------------------------------------------
+Content2: String object creation. Heap and String Constant pool
+1. String s = new String("Durga");
+- In this case 2 object will be created.
+- One in heap area and another in SCP area for further reference.
+- Now again if you create object with same content i.e. String s1 = new String("Durga");
+- Then only in heap area new object will be created.
+- And in SCP the new reference will be pointing to already existing String "Durga".
+- Now new object will be created.
+
+2. String s = "Durga";
+- Here only one object created in SCP.
+- For this no object created in Heap area.
+- If you create another String s1 = "Durga" then it will again use already created "Durga" reference.
+- And will not create another one in SCP.
+----------------------------------
+Example1:
+String s1 = new String("Durga); 
+String s2 = new String("Durga); 
+String s3 = "Durga";
+String s4 = "Durga";
+
+Heap
+for s1 new Object1 "Durga" will be created.
+for s2 new Object2 "Durga" will be created.
+SCP
+for s1 new Object1 "Durga" will be created.
+for s2, s3, s4 Objects "Durga" will be used always.
+----------------------------------
+Example2:
+String s = new String("Durga");
+s.concat("Software");
+s = s.concate("Solutions");
+
+Heap
+"Durga"
+"DurgaSoftware"
+"DurgaSolutions"
+
+SCP
+"Durga": for first line 
+"Software": copy for second line
+"Solutions": one copy for third line.
+- For "Durga Software nothing will be created in SCP area because SCP area is meant for Constants and not for rutime operation results."
+----------------------------------
+Example3:
+String s1 = new String("spring");
+s1.concat("fall");
+String s2=s1.concat("winter");
+s2.concat("Summer");
+Sop(s1); // spring
+Sop(s2); // SpringWinter
+
+Heap
+"Spring" for s1
+"SpringFall"
+SpringWinter
+SpringWinterSummer
+
+SCP
+spring
+fall
+winter
+summer
+----------------------------------
+Example4
+String s1 = new String("durga");
+String s2 = s1.toUpperCase();
+String s3 = s1.toLowerCase();
+System.out.println(s1==s2);//false: created new object for s1
+System.out.println(s1==s3);//true: no new object created for s3
+----------------------------------
+Example5:
+String s1 = new String("durga");
+String s2 = s1.toString();
+String s3 = s1.toLowerCase();
+String s4 = s1.toUpperCase();
+System.out.println(s1==s2);//true: no new obj created for s2
+System.out.println(s1==s3);//false: no new obj created used existing copy of 'durga' 
+System.out.println(s1==s4);//false: created new copy for s4 for uppercase of 'durga' i.e. DURGA 
+---------------------------------------------------------------------------------------------------
+Content3: Importance of String constant pool
+Advantage 
+Same string object can be used multiple times instead of creating new object.
+Memory saved, performace increased.
+
+Problem:
+Any person try to change it then all reference will be affected.
+To prevent that java introuced immutability.
+So just because of SCP concept immuability is added.
+---------------------------------------------------------------------------------------------------
+Content4. Important constructor of String class:
+1. String s = new String();
+- Creates empty string object in heap area.
+
+2. String s = new String(String literal);
+- For the given string literal object is created in heap area.
+
+3. String s = new String(StringBuffer sb);
+
+4. String s = new String(StringBuilder sb);
+
+5. String s = new String(char[] ch);
+char[] ch = {'j','a','v','a'}
+String s = new String(ch);
+
+6. String s = new String(byte[] b);
+byte[] b = {97,98,99,100}
+String s = new String(b);
+sop(s);// abcd
+---------------------------------------------------------------------------------------------------
+Content5. Important methods of String class:
+1. chatAt()
+2. concat()
+3. equals()
+4. equalIgnoreCase()
+5. public booleanIsEmpty()
+String s = "";
+sop(s.isEmpty()); // true
+String s = "Durga";
+sop(s.isEmpty()); // false
+-------------------
+6. public int length()
+String s = "Durga";
+sop(s.length()); // 5
+length vs length():
+int[] x = {2,3,4,6}
+x.length = 4; //length is for array
+s.length(); lenght() is for String.
+-------------------
+7. public String replace(char old, char new);
+String s = "ababab";
+sop(s.replace('a','b')); //bbbbbb
+-------------------
+8. substring();
+public String substring(int begin);
+returns from begin index to end of string.
+String s = "abcdefg";
+sop(s.substring(3));//defg
+-------------------
+9. public subString(int begin, int end);
+returns substring from begin to end-1
+String s = "abcdef";
+System.out.println(s.substring(3,6));//def
+-------------------
+10. public int indexOf(char a);
+String s = "durga";
+sop(s.indexOf('g'));//3
+if specified character is not available return -1.
+if character available multiple times it return first.
+-------------------
+11. public int lastIndexOf(char ch);
+String s = "abcdaf";
+System.out.println(s.lastIndexOf('a')); //4
+-------------------
+12.  public String toLowerCase();
+-------------------
+13.  public String toUpperCase();
+-------------------
+13 public String trim()
+Removes beginning or end white spaces not from the middle.
+String city = ("  Pune  ");
+System.out.println(city.length());//8
+System.out.println(city.trim().length());//4
+-------------------
+14. equalsIgnoreCase
+String city = ("Pune");
+String city1 = ("pune");
+System.out.println(city.equals(city1));//false
+System.out.println(city.equalsIgnoreCase(city1));//true. Ignores cases.
+-------------------
+15. What is intern() method in String?
+Ans: 
+- The method intern() creates an exact copy of a String object in the heap memory and stores it in the String constant pool.
+- If another String with the same contents exists in the String constant pool, 
+  then a new object won’t be created and the new reference will point to the other String.
+	public static void main(String[] args) {
+		String s1 = ("abc");
+		String s3 = new String("abc");
+		System.out.println(s1 == s3);//false 		
+		System.out.println(s1 == s3.intern());//true
+	}
+---------------------------------------------------------------------------------------------------
+
+
+
+

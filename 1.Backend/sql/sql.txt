@@ -1,0 +1,20 @@
+
+
+
+open cmd 
+>mysql --version
+>mysql -u root -p
+mysql> show databases;
+mysql> create database vijaydb;
+
+
+
+
+1. Basics
+Normalization, De-Normalization, 1st Normal Form, 2nd Normal Form, 3rd Normal Form, Primary Key, Unique Key, Char, VarChar, Nchar
+2. Basic Entities of sql server
+Clustered Indexes, Non-Clustered Indexes, Functions,Stored procedures, Triggeres, CTE, Transactions
+
+3. SQL Writing
+Left Join, Right Join, Inner Join, Cross Join, Full Join, Outer Join, Sub Query, Co-related Query,
+Union, Union All, Wildcard operators.

@@ -1,0 +1,135 @@
+
+Streams API:
+To process elements present inside Collection.
+To perform bulk operation on Collection object.
+Stream API is a way to express and process collections of objects.
+Enable us to perform operations like filtering, mapping,reducing and sorting.
+
+Example:
+import java.util.stream;
+Stream s = c.stream();
+
+Interfaces used for various operation.
+filter(Predicate<T>)
+map(Function<T,R> f);
+
+Methods:
+stream()
+filter()
+map()
+sorted()
+collect()
+count()
+
+---------------------------------------------------------------------------------------------------
+Different Operations On Streams:
+There are two types of Operations in Streams:
+1. Intermediate Operations
+2. Terminate Operations
+
+1. Intermediate Operations:
+Intermediate Operations are the types of operations in which multiple methods are chained in a row.
+Characteristics of Intermediate Operations
+- Methods are chained together.
+- Intermediate operations transform a stream into another stream.
+- It enables the concept of filtering where one method filters data and passes it to another method after processing.
+
+Examples:
+1. map()
+The map method is used to return a stream consisting of the results of applying the given function to the elements of this stream.
+List number = Arrays.asList(2,3,4,5);
+List square = number.stream().map(x->x*x).collect(Collectors.toList());
+Used Interface: map(Function<T,R> f);
+
+2. filter()
+The filter method is used to select elements as per the Predicate passed as an argument.
+List names = Arrays.asList("Reflection","Collection","Stream");
+List result = names.stream().filter(s->s.startsWith("S")).collect(Collectors.toList());
+Used Interface: filter(Predicate<T>)
+
+3. sorted()
+The sorted method is used to sort the stream.
+List names = Arrays.asList("Reflection","Collection","Stream");
+List result = names.stream().sorted().collect(Collectors.toList());
+
+-------------------------------------------------
+
+2. Terminal Operations
+Terminal Operations are the type of Operations that return the result. 
+These Operations are not processed further just return a final result value.
+
+Important Terminal Operations
+There are a few Terminal Operations mentioned below:
+
+1. collect()
+The collect method is used to return the result of the intermediate operations performed on the stream.
+Ex:
+List number = Arrays.asList(2,3,4,5,3);
+Set square = number.stream().map(x->x*x).collect(Collectors.toSet());
+------------------------
+2. forEach()
+The forEach method is used to iterate through every element of the stream.
+Ex:
+List number = Arrays.asList(2,3,4,5);
+number.stream().map(x->x*x).forEach(y->System.out.println(y));
+------------------------
+3. reduce()
+The reduce method is used to reduce the elements of a stream to a single value. 
+The reduce method takes a BinaryOperator as a parameter.
+Ex:
+List number = Arrays.asList(2,3,4,5);
+int even = number.stream().filter(x->x%2==0).reduce(0,(ans,i)-> ans+i);
+Here ans variable is assigned 0 as the initial value and i is added to it.
+------------------------
+4. count()
+long countEven = marks.stream().filter(num -> num % 2 == 0).count(); //Used Predicates
+System.out.println(countEven);	
+---------------------------------------------------------------------------------------------------
+
+Examples of methods:
+	List<Integer> marks = new ArrayList<Integer>();
+	marks.add(0);
+	marks.add(55);
+	marks.add(70);
+	marks.add(15);
+	marks.add(20);
+	marks.add(25);
+
+1. map
+List<Integer> l3 = list.stream().map(num -> num + 5).collect(Collectors.toList());
+
+2. filter
+List<Integer> l2 = marks.stream().filter(num -> num % 2 == 0).collect(Collectors.toList()); //Used Predicates
+
+3. sorted
+Natural sorting 
+List<Integer> l2 = marks.stream().sorted().collect(Collectors.toList()); 
+Custom Sorting
+List<Integer> l2 = marks.stream().sorted((i1,i2)->(i1<i2)?-1:(i2<i1)?1:0).collect(Collectors.toList()); 
+
+4. count
+long countEven = marks.stream().filter(num -> num % 2 == 0).count();
+
+5. forEach()
+	Consumer<Integer> c = i-> {
+		System.out.println("The square of "+i+" is: "+(i*i));			
+	};
+	marks.stream().forEach(c);
+	or
+	marks.stream().forEach(i-> {
+		System.out.println("The square of "+i+" is: "+(i*i));			
+	});
+
+6.toArray()
+	Integer[] i=marks.stream().toArray(Integer[]::new);
+	for(Integer i1 : i) {
+		System.out.println("Values: "+i1);
+	}
+	or
+	Stream.of(i).forEach(System.out::println);
+
+7. collect()
+
+min(Comparator)
+max(Comparator)
+---------------------------------------------------------------------------------------------------

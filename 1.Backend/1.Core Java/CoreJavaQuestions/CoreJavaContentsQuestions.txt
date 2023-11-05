@@ -1,0 +1,109 @@
+Major parts
+1. Fundamental?
+2. OOPS?
+3. Java8 features?
+4. Collections?
+5. String
+6. Multithreading?
+7. Exception Handling?
+8. Design Pattern.
+-------------------------------------------------
+Part1. Java Fundamental questions
+Q Wha is final finally finalize?
+Q What is Garbage Collector?
+Q How to call garbage collector explicitly
+Q What do you understand by JVM?
+Q What is Generics?
+Q Storage for local vars and member vars and static vars 
+Q What is permgen memory in java?
+Q equals() vs ==?
+Q Object class Methods?
+Q How we can write immutable implementation?
+What is the performance effect of a large number of import statements which are not used?
+What will happen if an exception is thrown from the finally block?
+-------------------------------------------------
+3. Java8 Features?
+Q1. What are the java8 features?
+Q2. What is Functional interface?
+Q3. What is Lambda expressions?
+Q4. Java 8 Streams
+-------------------------------------------------
+4. Collections
+Q. What is need of Collection?
+Q. Collection vs Collections?
+Q. comparator vs comparable
+Q. Arraylist vs LinkedList with time complexities?
+Q. Hashset underlying data structure 
+Q. Treeset vs HashSet
+Q. ArrayList: time complexity of add and get
+Q. Custom key for hashmap  
+Q. Hashmap resizing
+Q. Hashmap working
+Q. How to calculate time complexity? -
+Q. Synchronized vs Concurrent
+Q. How to implement a stack using queue? 
+Q. Array, ArrayList, LinkedList, Hashmap, Hastable, List to set.
+-------------------------------------------------
+5. String
+Q. Why String is immutable and StringBuffer is not?
+Q. String vs StringBuffer?
+Q. StringBuffer vs StringBuilder?
+Q. What is String Constant Pool? Why it is not for StringBuffer?
+Q. What is the purpose of intern() method in the String class?
+Q. String pool,heap,stack,
+-------------------------------------------------
+6. MultiThreading
+Q. What do you mean by concurrency? - Usecase?
+Q. Runnable vs Thread?
+Q. What is a deadlock in Java? How will you detect and get rid of deadlocks?
+Q. What are Objects locks?
+-------------------------------------------------
+7. Exception Handling
+Q. Whats business use case where we use exception handling?
+Q. Throws and Throwable, Multiple catch blocks?
+Q. Difference between the throw and throws
+Q. exception inside a lambda expression’s body
+Q. Checked and UnChecked exception? real time scenarion?
+Q. Custom Exceptions?
+
+-------------------------------------------------
+8. Design Pattern?
+Q. Which are major design patterns in java?
+Q. What is observer, factory patterns?
+Q. Singleton, Strategt pattern, Immutable
+Q. How does decorator design pattern works in I/O classes?
+
+-------------------------------------------------
+9. Data Structure and Algorithm?
+Q. Available data structures and why they required?
+Q. Array, LinkedList, Stack, Queue, 
+Q. What is a Queue, how it is different from stack and how is it implemented? 
+Q. How to check if a given Binary Tree is BST or not? 
+Q. Heap Sort ? 
+Q. Bubble sort
+Q. How does HashSet is implemented in Java, How does it use Hashing?
+Q. Custom queue,custom stack?
+Q. Arraylist Sorting in reverse order in one line?
+Q. Time complexities
+Q. How to implement Linked List as Queue?
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

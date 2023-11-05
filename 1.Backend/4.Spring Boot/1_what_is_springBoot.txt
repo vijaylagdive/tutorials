@@ -1,0 +1,35 @@
+Q1. What is spring boot? Features or Advantages of Spring boot?
+Ans:
+- Spring boot is module of spring with which speed up the development.
+- It provides an easier and faster way to set up, configure, and run both simple and web-based application.
+- It provides auto configuration and embeded application server like tomcat,jetty   etc.
+- It basically removes a lot of configuration and dependencies.
+- SpringFramework + Embeded Servers - Configurations = Spring Boot
+- Absolutely no code generations and not requirement for XML configuration.
+- Provide opinionated 'starter' dependencies to simplify your build configuration.
+- This allows developers to focus more on writing business logic rather than dealing with complex setup and configuration details.
+
+
+Features or Advantages:
+1. Auto Configuration:
+It provides auto-configuration, where common components and dependencies are automatically configured based on classpath scanning and sensible defaults.
+
+2. Starter Dependencies:
+Spring Boot offers a curated set of starter dependencies that include all thenecessary libraries for specific functionalities.
+It reducing the effort of managing dependencies manually.
+
+3. Embeded Servers:
+It comes with an embedded server, such as Tomcat, Jetty, or Undertow, allowing developers to run applications as standalone JAR files without
+requiring a separate web server installation.
+
+4. Spring Boot Actuator:
+Spring Boot Actuator provides production-ready features out of the box, such as health checks, metrics, and monitoring capabilities.
+It offers a range of developer tools, including automatic restart, live reload, and a command-line interface (CLI), 
+enhancing productivity during the development process.
+-----------------------------------------------------------------------------
+
+
+
+
+
+

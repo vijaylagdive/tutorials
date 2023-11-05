@@ -1,0 +1,24 @@
+
+Jenkin Installatin steps:
+1. Search 'jenkin download' and go to jenkin site: https://www.jenkins.io/download/
+2. Download jenkin by clicking "Download Jenkins 2.414.3 LTS for: Generic Java Package"
+3. Extract downloaded file there you will see jenkins.war file. You can place it anywhere.
+4. If tomcat is running on 8080 u can change it using server.xml file in tomcat conf directory.
+5. Open terminal in directory where your jenkin.war file is located and run below command.
+6. C:\Workspace\softwares>java -jar jenkins.war
+7. Password for initial login:
+   - You can find passwrod in the terminal only or there will a path to a file in which that password will be available.
+   - e.g. 8bc97265abe34b3ba2b6204337ef299a
+   - This may also be found at: C:\Users\Admin\.jenkins\secrets\initialAdminPassword
+8. After logging in with pasword you can Click on "Install suggested plugins"
+9. After installing plugins it will prompt for creating user and password. 
+   - Set that fields. Next time you have to login using that username and password.
+   - You can set as admin/admin.
+10. Install any more required plugins from Manage Jenkins -> Plugin. Search and install.
+11. Important Plugins:
+Deploy to container: Allows you to deploy a war to a container after successful build.
+NodeJS:  Executes NodeJS script as a build step.
+
+
+
+

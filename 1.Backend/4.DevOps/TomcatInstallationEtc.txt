@@ -1,0 +1,23 @@
+Downloading Tomcat:
+Search Tomcat 9 download and go to site. https://tomcat.apache.org/download-90.cgi
+Donwload 64-bit windows zip.
+Adding to eclipse:
+Windows show view -> Servers:
+On a wizard select required version e.g. Tomcat v9.0 server.
+Provide path of the tomcat folder i.e. parent directory of bin folder.
+e.g. apache-tomcat-9.0.80-windows-x64\apache-tomcat-9.0.80
+Again window show view server and click on tomcat server start it.
+Generally it will be started at localhost:8081
+It will show HTTP status 404-Not found it means it is started.
+Starting tomcat manually:
+Go to bin folder and open terminal there and run below command.
+C:\Workspace\softwares\apache-tomcat-9.0.80-windows-x64\apache-tomcat-9.0.80\bin>.\startup.bat
+Note: To start tomcat Java path must be set in Environment variables.
+.
+You can change default hosting port of tomcat by changing below properties from server.xml file from tomcat/conf directory.
+ <Connector 
+ port="8081" protocol="HTTP/1.1"
+ connectionTimeout="20000"
+ redirectPort="8443"
+ maxParameterCount="1000"
+ />

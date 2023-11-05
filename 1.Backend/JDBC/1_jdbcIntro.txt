@@ -1,0 +1,39 @@
+
+
+JDBC stands for Java Data Base Connectivity.
+JDBC is a java API to connect and perform operations.(insert,delete,update,select) with the database.
+JDBC API uses JDBC drivers to connect with the database.
+
+
+
+eclipse <--> program <--> jdbc <--> driver <--> database(MySql connector.jar) <-->MySql
+
+To connect java application with the MySql database, we need to follow 5 steps as below.
+
+1. Load the driver class
+2. Create Connection using DriverManager
+3. Use connection to fire query {Statement for static queries and PreparedStatement for dynamic queries.}
+4. Process the result.
+5. Close the connection.
+
+
+
+Download connector jar.
+search for mysql-connector-java-5.1.0-bin.jar download
+then open http://www.java2s.com/Code/Jar/m/Downloadmysqlconnectorjava5123binjar.htm
+mysql/mysql-connector-java-5.1.23-bin.jar.zip( 806 k) and donwload it.
+
+Create eclipse project.
+Open eclipse
+file new other java project.
+project name StudentManagementApp
+Create a Stat.java class to test everything is running.
+In main method say "Welcome" and run the project.
+If the project is running and you able to see Welcome then we have to add connector library.
+Right click on project name -> Build path -> Configure Build Path 
+Filter Java Build path Selct Libraries Tab
+Click on add exteranl libraries and select downloaded library. It will be added.
+
+You can make sure that library is added:
+Below project name somewhere there is Reference libraries
+You can see newly added connector library.

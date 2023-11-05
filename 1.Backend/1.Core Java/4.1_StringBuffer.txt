@@ -1,0 +1,159 @@
+
+StringBuffer.
+Content1: StringBuffer and Need of StringBuffer
+Content2: String Buffer constructor.
+Content3: Important method of String Buffer
+---------------------------------------------------------------------------------------------------
+Content1: StringBuffer
+Need of StringBuffer
+When the content is almost fixed use String.
+But when there is chance of changing content String is not recommeneded.
+In case of String for every change new object is created every time.
+That is not in case of String Buffer. Any change is done in the same instance only.
+---------------------------------------------------------------------------------------------------
+Content2: String Buffer constructor.
+1. StringBuffer sb = new StringBuffer();
+Default capacity of StringBuffer will be 16.
+If you add 17th character the next String Buffer object will be created with capacity (16+1)*2=34.
+Then you add total 34 characters the capacity will be 34 only.
+Once you add 35th character the capacity will be changed to (34+1)*2=70.
+Automatically sb will be starting pointing to next object with extended capacity. 
+The existing one will be eligible for garbage collection.
+Example:
+StringBuffer sb = new SringBuffer();
+Sop(sb.capacity);//16
+sb.append("abcdefghijklmnop");
+sop(sb.capacity); 16
+sb.append("q");
+sop(sb.capacity);34
+
+
+2. StringBuffer sb = new StringBuffer(int initialCapacity);
+StringBuffer sb = new StringBuffer(1000);
+System.out.println(sb.capacity()); //1000
+If you then try to add 1001th character then it will create another object
+with (1000+1)*2=2002 capacity.
+
+3. StringBuffer sb = new StringBuffer(String s);
+StringBuffer sb = new StringBuffer("durga");
+capacity wiil be sb.length() + 16
+StringBuffer sb = new StringBuffer("durga");
+System.out.println(sb.capacity()); //21
+---------------------------------------------------------------------------------------------------
+Content3: Important method of String Buffer
+1. public int length();
+------------------------
+2. public int capacity();
+------------------------
+3. public char charAt(int);
+------------------------
+4. public StringBuffer append(String s);
+------------------------
+5. public StringBuffer insert()
+append() method used to append at last.
+insert() we can use to insert string at required position.
+StringBuffer sb = new StringBuffer("abcdef");
+sb.insert(2,"xyz");
+System.out.println(sb);//abcxyzdef
+
+StringBuffer sb = new StringBuffer("abcdef");
+sb.insert(2,true);
+System.out.println(sb);//abtruecdef
+------------------------
+6. public StringBuffer delete(int begin, int end);
+It deletes characters in string starting from begin to end-1
+StringBuffer sb = new StringBuffer("abcdefgh");
+sb.delete(2,5);
+System.out.println(sb);//abfgh
+------------------------
+7. public StringBuffer deleteCharAt(int index);
+It deletes characters at given index.
+Ex:
+StringBuffer sb = new StringBuffer("abcde");
+sb.deleteCharAt(3);
+System.out.println(sb);//abfgh
+------------------------
+8. public StringBuffer reverse()
+It reverses the characters.
+StringBuffer sb = new StringBuffer("abcde");
+sb.reverse();
+System.out.println(sb);//abfgh
+------------------------
+9. public void setLength(int n);
+public void setLength(int n)
+It fixes the legth of string and removes other remaining chars
+StringBuffer sb = new StringBuffer("aiswaryaabhi");
+sb.setLength(8);
+System.out.println(sb);//aiswarya
+------------------------
+10. public void ensureCapacity(int capacity)
+It ensures the capacity of the stringbuffer.
+StringBuffer sb = new StringBuffer();
+System.out.println(sb.capacity());//16
+sb.ensureCapacity(1000);
+System.out.println(sb.capacity());//1000
+------------------------
+11. public void trimToSze();
+releases the freeremaining capacity
+StringBuffer sb = new StringBuffer(1000);
+sb.append("abc");
+System.out.println(sb.capacity());//1000
+sb.trimToSize();
+System.out.println(sb.capacity());//3
+------------------------
+
+Note:
+Every method present in StringBuffer is synchronized.
+At a time only one thread can operate on SringBuffer method.
+To overcome this StribBuilder is introduced.
+---------------------------------------------------------------------------------------------------
+Content4. Difference between String and String Buffer
+
+Difference1. Immutability of String and Mutability of StringBuffer
+Immutablity of String:
+Once we create a string object we cant perform any chages in the existing object. 
+If we are trying to perform  any changes, with those changes new object will be created. 
+This non changeble nature is nothing but immutability of the string object.
+Example:
+    String s = new String("Durga");
+    s.concat("Software");
+    System.out.println(s); //Will print Durga only. Because its immutable. another orphan object will be created.
+
+
+Mutability of StringBufffer:
+Once we create a StringBuffer object we can perform any type of changes in the existing object. 
+This changeble behaviour is nothing but mutability of the StringBuffer object.
+Example:
+    StringBuffer sb = new StringBuffer("Durga");
+    sb.append("Software");
+    System.out.println(sb); //Will print Durga Software. Because its mutable.
+-------------------------------------------------
+Difference2. 
+== vs equals() in case of String and StringBuffer classes.
+In String 
+    String s1 = new String("Durga");
+    String s2 = new String("Durga");
+Here,
+s1 == s2; false
+s1.equals(s2); true 
+.
+And
+.
+StringBuffer sb1 = new StringBuffer("Durga");
+StringBuffer sb2 = new StringBuffer("Durga");
+Here,
+s1 == s2; false and
+s1.equals(s2); is also false.
+.
+Becasue Object.equals() method is meant for reference comparison.
+In String class which inherits Object class equals() method is overriden to compare contents.
+But this is not in case of StringBuffer.
+So StringBuffer equals() methods simply checks for reference comparison.
+-------------------------------------------------
+Difference3.
+String Constant pool is avaialble for String. 
+String Constant pool is not avaialble for StringBuffer. 
+---------------------------------------------------------------------------------------------------
+
+
+

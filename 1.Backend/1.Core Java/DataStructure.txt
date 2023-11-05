@@ -1,0 +1,22 @@
+
+Linear Data Structures
+Arrays
+Linked List
+Stacks
+Queues
+
+
+Hierarchical Data Structures
+Binary Trees
+Heaps
+
+
+
+
+Hashing 
+Graph
+Hash Tables
+Hash Tables
+
+reference to study:
+https://www.geeksforgeeks.org/data-structures/?ref=lbp

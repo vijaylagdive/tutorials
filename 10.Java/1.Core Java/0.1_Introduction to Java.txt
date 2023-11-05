@@ -1,4 +1,0 @@
-What are the features of Java that make it a popular programming language?
-Ans:
-
--------------------------------------------------

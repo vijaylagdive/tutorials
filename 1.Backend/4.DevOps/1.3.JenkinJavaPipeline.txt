@@ -1,0 +1,22 @@
+1. Create github repo for ex: 'Java Pipeline'.
+
+2. Locally create two files in that repo and push it to git remote repo.
+a. Test.java : Write a java program here
+b. Jenkinsfile: Write pipeline script here.
+
+3. On jenkins create new Item with Pipeline Project. Name it 'Java PipeLine Project'. 
+
+4. Add description
+
+5. Build Trigger: Poll SCM: 5 stars
+
+6. PipeLine: Select pipeline script from SCM
+
+7. SCM: Select Git. Add Repository path like: https://github.com/vijaylagdive/pipeline-project. Provide branch name.
+ 
+8. Provide Script Path: Jenkinsfile
+
+9. Save apply
+
+10. You will see a pipeline project. You cn trigger built.
+

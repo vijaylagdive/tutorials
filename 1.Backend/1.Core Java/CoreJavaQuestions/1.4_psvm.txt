@@ -1,0 +1,55 @@
+public static void main?
+
+What if we dont write main method?
+Ans:
+See example without main method.
+class Test 
+{
+
+}
+- This code without main method will be compiled with no error.
+- Compiler will not check weather main method is there or not.
+- But the JVM is responsible to check main method is there or not. 
+- Because it starts execution from main method only. Error: NoSuchMethod: main method.
+- Wheather class contains main() method or not and whether main() method is declared according to requirement or not these things will not be checked by compiler. 
+- But at runtime JVM is responsible to check these things.
+- At runtime if JVM is unable to find required main methid then we will get runtime exception saying NoSuchMethidError.main
+- JVM always searching for main method in prototype like: public static void main()
+.
+Why the format public static void main?
+Ans:
+Because JVM is configured like that it will only search for psvm and no other method.
+why public?
+To call by JVM from anywhere
+why static?
+Main method is a class level mehthod. 
+Without existing object also JVM has to call this method and main method no way related to any object.
+Why void?
+main method wont return anything to JVM.
+What is main(String[] args)?
+main is the name which is configured inside JVM.
+.
+What is String[] args?
+Command line arguments
+.
+What changes are acceptable in public static void main?
+1. The order of modifiers is not important that is instead of "public static" we can take "static public" 
+.
+2. We can declare "String[]" in any acceptable form.
+main(String[] args)
+main(String []args)
+mian(String args[])
+.
+3. Instead of 'args' we can take any valid java identifier.
+.
+4 We can replace String[] with var arg parameter.
+main(String[] args) ==> main(String..args)
+.
+5. We can declare main() method with the following modifiers also.
+final, synchronized, strictfp
+.
+So this is allowed for psvm():
+class Test {
+final static synchronized strictfp public void main(string... durga){
+	sopen("valid void main");
+}

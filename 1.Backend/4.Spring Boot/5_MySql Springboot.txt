@@ -1,0 +1,114 @@
+Integrate MySql in SpringBoot project
+
+First in mysql
+create database using command:
+create database mylibrary;
+
+
+
+
+
+1. Add application properties as below
+spring.datasource.name = test
+spring.datasource.url = jdbc:mysql://localhost:3306/vijaydb
+spring.datasource.username=root
+spring.datasource.password=admin
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.hibernate.ddl-auto=update
+
+2. 
+In pom.xml:
+<dependencies>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+----------------------------------------------------------------------
+3. Create beans with @Entity annotations:
+
+----------------------------------------------------------------------
+4. Then in controller write methods like this
+
+   @GetMapping("/books")
+    public ResponseEntity<List<Book>> getBooks() {
+    
+        List<Book> list = bookService.getAllBooks();
+        if (list.size() <= 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(list);
+    }
+
+Before methods you need to inject service in a controller:
+@Autowired
+    private BookService bookService;
+
+
+----------------------------------------------------------------------
+5. Write service for functions:
+Service example as below:
+
+@Component
+public class BookService {
+	
+	@Autowired
+	private BookRepository bookRepository;
+
+    // adding the book
+    public Book addBook(Book b) {
+        Book result=bookRepository.save(b);
+        return result;
+    }
+
+I a service @Component is used to scan the component.
+BookRepository class is injected using @Autowired
+----------------------------------------------------------------------
+
+6. Book repository class will extend the CrudRepository class having JPA queries.
+import org.springframework.data.repository.CrudRepository;
+
+import com.jpa.test.models.Book;
+
+public interface BookRepository extends CrudRepository<Book, Integer> {
+
+	public Book findById(int id);
+	
+}
+
+----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

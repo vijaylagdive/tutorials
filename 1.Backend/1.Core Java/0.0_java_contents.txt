@@ -1,0 +1,63 @@
+Part1. Java fundamentals: loops etc.
+1. jdk,jvm,jre
+2. loops
+3. keywords
+4. Generics
+5. Object class
+6. Garbage Collection, calling manually
+7 storage for local, member, satic variables.
+8 permgen memory in java?
+-------------------------------------------------
+Content2: OOOPs concepts
+1. Classes and Object: 
+2. Copy constructor default constructor.
+3. Inheritance
+ - Types of inheritance 
+ - Why not multiple inheritance supported.
+4. Polymorphism
+ - Runtime - Overriding
+ - CompileTime - Overloading 
+5. Abstraction
+6. Encapsulation
+-------------------------------------------------
+Content3: Array
+-------------------------------------------------
+Content4: String
+-------------------------------------------------
+Content5: Java 8 Versions  
+ 1. Previous versions
+ 2. Java 8 versions 
+-------------------------------------------------
+Content6: Collections
+1. Collection: 
+ - Intro, 
+ - NeedOfCollection
+2. Collection Interfaces
+3. List: 
+ - ArrayList
+ - LinkedList
+ - Vector
+ - Stack
+ - ArrayListVsVector
+ - ArrayListVsLinkedList
+4. Set: 
+ - HashSet
+ - LinkedHashSet
+ - SortedSet
+ - TreeSet
+5. Comparable Vs Comparator
+-------------------------------------------------
+7. Multi Threading 
+-------------------------------------------------
+8. Exception Handling
+-------------------------------------------------
+9. Generics
+-------------------------------------------------
+10. Design Patterns
+-------------------------------------------------
+11. Synchronisation
+-------------------------------------------------
+12. Serialisation & De-serialisation
+-------------------------------------------------
+13. Concurrent collection
+-------------------------------------------------

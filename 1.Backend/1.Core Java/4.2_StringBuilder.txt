@@ -1,0 +1,41 @@
+
+
+StringBuilder
+Content1: Need of String Builder
+Content2: StringBuffer vs StringBuilder
+Content3: String vs StringBuffer vs StringBuilder
+
+
+---------------------------------------------------------------------------------------------------
+Content1: Need of String Builder
+- StringBuffer is also mutable as like StringBuffer but all its method are synchronized.
+- At a time only one thread is allowed to operate on StringBuffer object. 
+- It incereases waiting time of threads and hence relatively performance is low.
+.
+All methods available in StringBuffer avaialbale in StringBuider only difference is that they are not synchronized.
+StingBuilder is non-synchronized versoin of StringBuffer.
+---------------------------------------------------------------------------------------------------
+Content2: StringBuffer vs StringBuilder
+Difference1:
+StringBuffer: Every method present in StringBuffer is Synchronized
+String Builder: No method present in StringBuilder is synchronized
+
+Difference2:
+StringBuffer: At a time only one thread is allowed to operate on StringBuffer object. Hence String Buffer object is Thread safe.
+String Builder: At a time multiple threads are allowed to operate on StringBuilder object and hence StringBuilder object is not Thread Safe.
+
+Difference3:
+StringBuffer: It incereases waiting time of threads and hence relatively performance is low.
+String Builder: Threads are not required to wait to operate on StringBuilder objec and hence relatively performance is high.
+
+Difference4:
+String Buffer: Introduced in 1.0 version 
+String Builder: Introduced in 1.5 version.
+
+---------------------------------------------------------------------------------------------------
+Content3: String vs StringBuffer vs StringBuilder
+So when to use String, StringBuffer and StringBuilder?
+1. If the content is fixed and wont change frequently then we should go for String.
+2. If the content is not fixed and keep on changing but Thread safety is required then we should go for StringBuffer.
+3. If the content is not fixed and keep on changing and Thread safety is not require then we should go for String Builder.
+---------------------------------------------------------------------------------------------------

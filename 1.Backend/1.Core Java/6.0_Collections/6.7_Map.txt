@@ -1,0 +1,457 @@
+Map
+Content1: Map
+Content2: Map Specific methods
+Content3: Entry Interface
+Content4: HashMap
+Content5: LinkedHashMap and Difference between HashMap and LinkedHashMap
+Content6: Hashtable. Difference between hashmap and hashtable
+Content7: IdentityHashMap
+Content8: WeakHashMap
+Content9: SortedMap
+Content10: TreeMap
+
+Questions:
+1. Diffference between HashMap and LinkedHashMap?
+2. HashMap Internal working?
+3. Difference between HashMap and HashTable?
+--------------------------------------------------------------------------
+Content1: Map
+Map is not child element of Collection. A seperate interface in Java not inheriting any other interface.
+If we want to represent group of object as key value pair then we should go for map.
+Both keys and values are object only.
+Duplicate keys not allowed. Values can be duplicate.
+Each key value pair is called Entry.
+Hence map is considered as Entry objects.
+
+Map Hierarchy:
+Map(I) -> HashMap(C) -> LinkedHashMap(C) 
+Map(I) -> Hashtable(C)
+Map(I) -> SortedMap(I) -> NavigableMap(I) -> TreeMap();
+
+--------------------------------------------------------------------------
+Content2: Map specific methods:
+1. Object put(Object key,Object value);
+  - If you try to put new value with new key it will return null.
+  - If you try to put object with duplicate key it will return object with old value.
+2. void putAll(Map m);
+3. Object get(Object key);
+4. Object remove(Object key);
+5. boolean containsKey(Object key);
+6. boolean containsValue(Object value);
+7. boolean isEmpty();
+8. int size();
+9. void clear();
+
+Collection views of map:
+get only key
+Set keySet();
+Collection value();
+Set entrySet();
+--------------------------------------------------------------------------
+Content3: Entry Interface:
+A Map is a group of key value pair. And each key value pair is called entry.
+Hence a map is considered as collection of entries object.
+Without existing map object there is no chance of entry object.
+Hence entry interface is defined inside map interface.
+
+interface map 
+{
+	interface Entry 
+	{
+			Object getKey();
+			Object getValue();
+			Object setValue();
+	}
+}
+
+These 3 methods we can only apply on entry object.
+--------------------------------------------------------------------------
+Content4: HashMap Class
+- Underlying Data structure: HashTable
+- Insertion order not preserved and it is based on hashcode of keys.
+- Duplicate keys not allowed.
+- Duplicate values allowed.
+- Heterogeneous object are allowed for keys and values.
+- Null is allowed for key but only once.
+- Null is allowed for values for any number of times.
+- Hashmap implements serializable and clonable but not RandomAccess.
+- Hashmap is best choice if it is search operation.
+
+Constructors:
+1. HashMap h = new HashMap();// With default initail capacity 16. and Default fill ratio 0.75
+2. HashMap m = new HashMap(int initial capacity);
+3. HashMap m = new HashMap(int initial capacity, float fillRatio);
+4. HashMap m = new HashMap(Map map);
+
+
+Example:
+	public static void main(String[] args) 
+	{
+		HashMap m = new HashMap();
+		m.put("Chiranjivi",700);
+		m.put("Balaih",800);		
+		m.put("Venkatesh",200);		
+		m.put("Nagarjuna",500);
+		System.out.println(m);
+		Set s = m.keySet();//{Chiranjivi=700, Balaih=800, Venkatesh=200, Nagarjuna=500}
+		System.out.println(s);//[Chiranjivi, Balaih, Venkatesh, Nagarjuna]
+		
+		Iterator itr = s.iterator();
+		while(itr.hasNext()) {
+			Map.Entry m1 = (Map.Entry)itr.next();
+			System.out.println(m1.getKey() + "____" + m1.getValue());
+			if(m1.getKey().equals("Nagarjuna")) 
+			{
+				m1.setValue(100000);
+			}
+		}
+		System.out.println(m);
+	}
+---------------------------------------------------------------------------------------------------------------------------
+Content4.1 Hashmap working
+
+Hashmap stores data using key value pairs. HashMap contains array of nodes.
+Each node will have four fields.
+1. int hash
+2. key
+3. value
+4. next node index.
+
+Hashing:
+- Hashing is a process of converting an object into integer form by using the method hashCode().
+- hashCode() method of the Object class returns the memory reference of an object in integer form.
+- The integer value helps in indexing and faster searches.
+- With that Hash code index value is calculated using indexing method.
+
+equals() method: 
+This method is used to check whether 2 objects are equal or not. 
+This method is provided by the Object class. You can override this in your class to provide your implementation. 
+HashMap uses equals() to compare the key to whether they are equal or not. 
+If the equals() method return true, they are equal otherwise not equal. 
+
+Buckets: 
+A bucket is an element of the HashMap array. 
+It is used to store nodes. Two or more nodes can have the same bucket. 
+If there are two or more nodes in same bucket, a link list structure is used to connect the nodes. 
+Buckets are different in capacity. 
+.
+A relation between bucket and capacity is as follows: 
+capacity = number of buckets * load factor
+A single bucket can have more than one node, it depends on the hashCode() method. 
+The better your hashCode() method is, the better your buckets will be utilized. 
+
+Index Calculation in Hashmap:
+The Hash code of the key may be large enough to create an array. 
+The generated hashcode may be in the range of integer and if we create arrays for such a range, then it lead to outOfMemoryException. 
+So we generate an index to minimize the size of the resulting array. 
+The following operation is performed to calculate the index. 
+index = hashCode(key) & (n-1).
+where n is the number of buckets or the size of the array. 
+
+Example:
+HashMap<String, Integer> map = new HashMap<>();  
+We want to insert as map.put("Aman", 19);  
+When we call the put() method, then it calculates the hash code of the Key "Aman". Suppose it is 2657860.
+To store the Key in memory, we have to calculate the index as below.
+Index = hashcode(Key) & (n-1)  
+In this example, We will consider n as the default size which is 16. 
+Where n is the size of the array. Hence the index value for "Aman" is:
+Index = 2657860 & (16-1) = 4  
+
+At 4th index that node will be stored.
+
+Hash Collision:
+This is the case when the calculated index value is the same for two or more Keys. 
+Let's calculate the hash code for another Key "Sunny." 
+Suppose the hash code for "Sunny" is 63281940. 
+To store the Key in the memory, we have to calculate index by using the index formula.
+Index=63281940 & (16-1) = 4  
+The value 4 is the computed index value where the Key will be stored in HashMap. 
+In this case, equals() method check that both Keys are equal or not. 
+If Keys are same, replace the value with the current value. 
+Otherwise, connect this node object to the existing node object through the LinkedList. 
+Hence both Keys will be stored at index 4.
+That means bucket at 4th index will have 2 nodes.
+
+Retriving values:
+map.get(new Key("Aman"));  
+It generates the hash code as 2657860 and index 4.
+Now get() method search for the index value 4. 
+It compares the first element Key with the given Key. 
+If both keys are equal, then it returns the value else check for the next element in the node if it exists. 
+
+Let's fetch another Key "Sunny". Lets suppose it is the second key.
+
+The hash code of the Key "Sunny" is 63281940. Index value of 63281940 will be 4, as we have calculated for put() method. 
+Go to index 4 of the array and compare the first element's Key with the given Key. 
+It also compares Keys. In our scenario, the given Key is the second element, and the next of the node is null. 
+It compares the second element Key with the specified Key and returns the value 29. 
+It returns null if the next of the node is null.
+
+
+---------------------------------------------------------------------------------------------------------------------------
+Content5: LinkedHashMap: 
+- Child class of HashMap.
+- Exactly same as hashmap including methodsa and constructors Except following differences.
+
+Difference between HashMap and LinkedHashMap
+UnderlyingDataStructure
+HashMap: HashTable
+LinkedHashMap: LinkedList + HashTable(Hybrid data structure)
+
+Insertion order
+HashMap: Insertion order is not preserved and it is based on hashcode of keys.
+LinkedHashMap: Insertion order is preserved.
+
+Version
+HashMap: Introduced in 1.2
+LinkedHashMap: Introduced in 1.4 
+
+Note:
+LinkedHashSet and LinkedHashMap commonly used for developing cache based applications.
+
+---------------------------------------------------------------------------------------------------------------------------
+Content6: Hashtable. Difference between hashmap and hashtable
+Hashtable:
+1. Underlying Data Structure: HashTable
+2. Insertion order: Not preserved and it is based on hashcode of keys.
+3. Duplicate keys not allowed. Values can be duplicate
+4. Heterogeneous object allowed for both keys and values.
+5. Null not allowed for both key and values. Otherwise we will get runtime exception saying NPE.
+6. Implements serialzable and clonable interfaces but not RandomAccess.
+7. Every methods present inside HashTable is synchronized. And hashtable object is threadsafe.
+8. Hashtable is best choice if our frequent operation is retrieval operation or search operation.
+
+Constructors:
+1. Hashtable h = new Hashtable();  
+Creates empty HashTable with default initial capacity 11, and default fill ratio 0.75.
+2. Hashable h = new HashTable(int initialCapacity);
+3. Hashable h = new HashTable(int initialCapacity, float fillFillRatio);
+4. Hashtable h = new Hashtable(Map m);
+
+Difference between HashMap and HashTable:
+1. null acceptance
+HashMap: Null keys and values are allowed in hashmap.
+HashTable: Null key or null value is not allowed in HashTable.
+
+2. Synchronized methods.
+HashMap: Every methods present in Hashmap is not synchronized.
+HashTable: Every methods present in HashTable is synchronized.
+
+3. ThreadSafety
+HashMap: At a time multiple threads are allowed to operate on hashmap object. So not threadsafe.
+HashTable: At a time multiple threads are allowed to operate on HasTable. So it is thread safe.
+
+4. Performance.
+HashMap: To operate on hashmap threads are not required to wait. So performance is high.
+HashTable:To operate on hashtable threads are required to wait. So performance is low.
+
+5. Legacy
+HashMap: 1.2. Not legacy.
+HashTable: 1.0 version. Legacy
+
+How to get synchronized version of hashmap object?
+By default hashmap is non-synchronized but we can get synchronized version of hashmap by using synchronizedMap method of Collections class.
+HashMap m = new HashMap();
+Map m1 = Collection.synchronizedMap(m); //m is non-synchronized where m1 is synchronized.
+
+---------------------------------------------------------------------------------------------------
+Content7: IdentityHashMap Class
+- Direct Implementation class of Map interface
+- It is exactly same as HashMap including methods and constructors Except the following difference.
+- In the case of normal Hashmap JVM will use .equals() method to idenify duplicate keys, wihch is meant for content comparison.
+- But in the case of identity hashmap JVM will use == operator to idenify duplicate keys, which is meant for reference(address) comparison.
+
+Example:
+		HashMap m = new HashMap();
+		Integer I1 = new Integer(10);
+		Integer I2 = new Integer(10);
+		m.put(I1,"Pawan");
+		m.put(I2,"Kalyan");
+		System.out.println(m);//{10=Kalyan}. 10 Pawan will be replaced with 10 Kalyan. 
+		Because HashMap Uses .equals method to check duplicate keys.
+
+Now, If you want == to check duplicate then go for IdentityHashMap.
+Example:
+		IdentityHashMap m = new IdentityHashMap();
+		Integer I1 = new Integer(10);
+		Integer I2 = new Integer(10);
+		m.put(I1,"Pawan");
+		m.put(I2,"Kalyan");
+		
+		System.out.println(m);
+		//{10=Pawan, 10=Kalyan}. Here 10, 10 are equal but not same.
+		//Here IdentityHashMap used == to check duplicates,
+
+
+---------------------------------------------------------------------------------------------------
+Content8. WeakHashMap Class
+- Direct Implementation class of Map interface
+- It is exactly same as HashMap except below
+- In case of HashMap, if object doesnt have any reference, it is not eligible for gc. Here, Hashmap dominates Garbage Collector.
+- But in the case of Weakhashmap, if oject doesnt contain any references it is eligible for gc. Garbage collector dominates weak hashmap.
+- If reference of that object removed then gc will kill that object which is used as key with the value associated with it.
+
+Example:
+import java.util.*;
+class MapDemo 
+{
+	public static void main(String[] args) 
+	{
+		HashMap m = new HashMap();
+		Temp t = new Temp();
+		m.put(t,"Durga");
+		System.out.println(m);
+		t = null;
+		System.gc();
+		try {
+			Thread.sleep(5000);			
+		} catch (Exception e) {
+			
+		}
+		System.out.println(m);
+	}
+}
+
+class Temp 
+{
+	public String toString() {
+		return "temp";
+	}
+	
+	public void finalize() {
+		System.out.println("Finalize method called!!");
+	}
+	
+}
+
+output
+{temp=Durga}
+{temp=Durga}
+
+In above example temp object is not eligible for gc because it is associated with hashmap in this case output is 
+temp=Durga}
+{temp=Durga}
+
+
+But if we replace HashMap with WeakHashMap then the object without reference will be deleted.
+So the Object(used as key) and the value associated with it will be deleted.
+And the output will be as below. 
+
+Output.
+{temp=Durga}
+Finalize method called!!
+{}
+---------------------------------------------------------------------------------------------------
+Content9: SortedMap Interface
+Child interface of map. 
+If we want to represent group of key values pair accoording to some sorting order of keys then we should use sorted map.
+
+Sorted map defines following specific methods:
+1. Object firstKey(); //101
+2. Object lastKey()//136
+3. SortedMap headMap(Object key);//107: {101=A, 103=B, 104=C}
+4. SortedMap tailMap(Object key);//107: 107=D, 125=E, 136=F
+5. SortedMap subMap(Object key1, Object key2); // {103=B, 104=C, 107=D}
+6. Comparator comparator() //null
+
+Example:
+101 - A
+103 - B
+104 - C
+107 - D
+125 - E
+136 - F
+
+-----------------------------------------------------------------------------------
+Content10: TreeMap
+- UnderlyingDataStructure: RED-BLACK Tree
+- Insertion order: Not preserved and it is based on some sorting order of keys.
+- Duplicate keys not allowed but value can be duplicate.
+- If we are depending on default natural sorting order then keys should be homogeneous and comparable otherwise runtime exception
+  ClassCasteException will be thrown.
+- If we are defining our own sorting by comparator then keys need not be homogeneous and comparable.
+- We can heterogeneous non comparable objects also.
+- Whether we are depending on default natural sorting orede or cusomized sorting order there are no restrictions for values.
+- We can take heterogeneous non comparable objects also..
+- Null Acceptance: For Treemap null key gives NPE. From 1.6. Before that first null key was allowed.
+
+constructors 4:
+TreeMap t = new TreeMap()
+Creates empty tree map with Default Natural sorting order.
+
+TreeMap t = new TreeMap(Comparator c)
+For customized sorting order.
+TreeMap t = new TreeMap(SortedMap m)
+TreeMap t = new TreeMap(Map m)
+
+Example for Default natural sorting order:
+	public static void main(String[] args) 
+	{
+		TreeMap m = new TreeMap();
+		m.put(100,"ZZZ");
+		m.put(103,"YYY");
+		m.put(101,"XXX");
+		m.put(104,106);		
+		//m.put("FFF","XXX");//CCE
+		//m.put(null,"XXX");//NPE
+	    System.out.println(m);
+	}
+
+output:{100=ZZZ, 101=XXX, 103=YYY, 104=106}
+
+Example with customized sorting 
+import java.util.*;
+class MapDemo 
+{
+	public static void main(String[] args) 
+	{
+		TreeMap m = new TreeMap(new MyComparator());
+		m.put("XXX",10);
+		m.put("AAA",20);
+		m.put("ZZZ",30);
+		m.put("LLL",40);		
+	    System.out.println(m);
+	}
+}
+
+class MyComparator implements Comparator 
+{
+	public int compare(Object obj1, Object obj2)
+	{
+		String s1 = obj1.toString();
+		String s2 = obj2.toString();
+		return s1.compareTo(s2);//{AAA=20, LLL=40, XXX=10, ZZZ=30}		
+		return s2.compareTo(s1);//{ZZZ=30, XXX=10, LLL=40, AAA=20}
+
+	}
+}
+---------------------------------------------------------------------------------------------------
+
+Summary:
+1. UnderlyingDataStructure:
+HashMap: HasTable
+LinkedHashMap: LinkedList + HashTable(Hybrid data structure)
+HashTable: HashTable
+TreeMap: RED-BLACK Tree
+
+2. Insertion Order:
+HashMap: Not preserved and it is based on hashcode of keys.
+LinkedHashMap: Insertion order is preserved.
+HashTable: Not preserved and it is based on hashcode of keys.
+TreeMap: Not preserved but sorted accoring to default natural sorting order.
+
+3. Default capacity
+Hashmap: 16
+HashTable: 11
+
+3. Key points:
+HashMap and Hashtable are same but methods present in HashTable are synchronized and in Hashmap not synchronized.
+HashTable: 
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+

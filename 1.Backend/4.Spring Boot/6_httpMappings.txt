@@ -1,0 +1,67 @@
+
+
+1. Get Mapping:
+
+	url: http://localhost:8080/book
+	@GetMapping("/books")
+    public List<Book> getAllBooks() {
+		return this.bookService.getAllBooks();
+    }
+
+	url: http://localhost:8080/books	
+	@GetMapping("/book/{id}")
+    public Book getBooksById(@PathVariable("id") int id) {
+		return this.bookService.getBook(id);
+    }
+-------------------------------------------------
+2. PostMapping
+	@PostMapping("/books") 
+	public Book addBook(@RequestBody Book book) {
+		Book b = this.bookService.addBook(book);
+		return b;
+	}
+
+	
+	url: http://localhost:8080/books
+	body
+	  {
+        "id": 50,
+        "title": "The New Investor",
+        "author": "Benjamin Graham"
+    }
+-------------------------------------------------
+3. DeleteMapping
+	@DeleteMapping("/book/{bookId}")
+	public Book deleteBook(@PathVariable("bookId") int bookId) {
+		this.bookService.deleteBook(bookId);
+		return null;
+	}
+	
+	url: http://localhost:8080/book/50
+	call delete method from FE.
+-------------------------------------------------
+4. Update Mapping
+	@PutMapping("/book/{bookId}")
+	public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable("bookId") int bid) {		
+		try {
+            this.bookService.updateBook(book, bid);
+            return ResponseEntity.ok().body(book);
+		} catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}		
+	}	
+	
+	url:http://localhost:8080/book/1
+	body:
+	{
+        "id": 1,
+        "title": "Rich Dad Poor Dad",
+        "author": "Thomos"
+    }
+	
+	
+	
+-------------------------------------------------
+	
+	

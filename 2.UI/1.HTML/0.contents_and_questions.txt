@@ -1,0 +1,7 @@
+HTML Questions:
+Q1. What are the html5 features? or HTML vs HTML5?
+Q2. What are the semantic elements? What is the use of semantic elements?
+Q3. What is the advantage of using semantic element than regular element?
+Q4. Inline element vs block element vs Inline-block element?
+Q5. What is doctype? Why should we use doctype? What happens if we don't mention doctype?
+Q6. meta-tags

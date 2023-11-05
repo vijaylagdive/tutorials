@@ -1,0 +1,349 @@
+FAQ on OOP concepts 
+Q1. Parent p = new Child() vs Child c = new Child()?
+Q2. Function overloading vs Function overriding?
+Q3. Interface vs Abstract class?
+Q4. What is polymorphism in Java?
+Q5. How we can overload methods?
+Q6. How we can override methods?
+Q7. Copy constructor?
+Q8. Why java does not support multiple inheritance?
+Q9. Class vs Object?
+Q10.What is Inheritance? 
+Q11.What is Encapsulation? How we achieve it?
+Q12.Parent p = new Child() vs Child c = new Child()?
+Q13.Abstraction with example?
+Q14.Difference between Abstract class and interface with default methods?
+-------------------------------------------------
+TODO:
+Q What is the use of constructor in abstract class?
+Q What is the purpose of a default constructor? 
+Q How can one call one constructor from another constructor in a class?
+---------------------------------------------------------------------------------------------------
+Q1.What are oops concepts and explain each and how do we achive them
+Ans:
+Inheritance
+Polymorphism
+Abstraction
+Encapsulation
+Class
+Object
+---------------------------------------------------------------------------------------------------
+Q2. overloading vs overriding?
+Ans: 
+Overloading:
+Two methods are said to be oveloaded if and only if both methods having the same name but different argument type.
+Example:
+class Test {
+  public void m1(int i) {}
+  public void m1(String i) {}
+}
+
+overriding:
+Parents method are available to child class through inheritance.
+Some time child may not satisfy with parent method implementation.
+Then child is allowed to redefine that method based on its requirement.
+This is called as overriding.
+class Animal {
+    void makeSound() {
+        System.out.println("The animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println(" The dog barks");
+    }
+    
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.makeSound();
+    }
+}
+---------------------------------------------------------------------------------------------------
+Q3. Difference between interface and abstract class?
+Ans:
+Abstract classes vs Interface
+1. Type of methods: 
+Interface can have only abstract methods. 
+Whereas, an abstract class can have abstract method and concrete methods.
+
+2. Inheritance:
+Interface supports multiple inheritance.
+Abstract class doesn't support multiple inheritance.
+
+3. Variables:
+Interface has only static and final variables.
+Abstract class can have final, non-final, static and non-static variables.
+
+4. Implementation: 
+Interface can't provide the implementation of abstract class.
+Abstract class can provide the implementation of interface.
+
+
+5. Keyword to declare
+The interface keyword is used to declare interface.
+The abstract keyword is used to declare abstract class.
+
+6. Inheriting another interface or classess.
+An interface can extend another Java interface only.
+An abstract class can extend another Java class and implement multiple Java interfaces.
+
+7. Usage or implementation
+An interface can be implemented using keyword "implements".
+An abstract class can be extended using keyword "extends".
+
+8. Member access
+Members of a Java interface are public by default.
+A Java abstract class can have class members like private, protected, etc.
+---------------------------------------------------------------------------------------------------
+Q4. What is polymorphism?
+Ans:
+Polymorphism means multiple forms.
+There are two types of polymorphism in Java: 
+1. Compile time polymorphism:
+Method Overloading:
+Constructor overloading:
+We can create multiple constructor in a same class. It is called constructor overloading. 
+e.g. default constructor and parameterized constructor.
+public Student() {
+  Sysout("Hello.. this is default constructor");
+}
+
+public Student(int val) {
+  Sysout("Hello.. this is parameterized constructor with parameter.");
+}
+
+
+2. Runtime polymorphism: Method overriding.
+Method overriding:
+Method overriding is the process of providing a new implementation for a method that is already defined in the superclass.
+
+Example:
+class Animal {
+	void sound() {
+ 		System.out.println("Animal makes a sound.");
+	}
+
+}
+
+class Dog extends Animal {
+	@Override
+	void sound() {
+		System.out.println("Dog barks.");
+	}
+}
+---------------------------------------------------------------------------------------------------
+Q5. How we can overload methods?
+Ans:
+1. Constructor overloading:
+We can create multiple constructor in a same class. It is called constructor overloading. 
+e.g. default constructor and parameterized constructor.
+public Student() {
+  Sysout("Hello.. this is default constructor");
+}
+
+public Student(int val) {
+  Sysout("Hello.. this is parameterized constructor with parameter.");
+}
+
+
+2. Method overloading:
+void display() {
+	Sysout("Displaying.. ");
+}
+
+void display(int result) {
+	Sysout("Displaying result: "+result);
+}
+
+
+We can overload method or constructor by creating multiple methods or constructor with same name and different arguments:
+1. Different number of arguments.
+3. Different order of argument.
+---------------------------------------------------------------------------------------------------
+Q6. How we can override methods?
+Ans: 
+Method overriding is the process of providing a new implementation for a method that is already defined in the superclass.
+
+Example:
+class Animal {
+	void sound() {
+ 		System.out.println("Animal makes a sound.");
+	}
+
+}
+
+class Dog extends Animal {
+	@Override
+	void sound() {
+		System.out.println("Dog barks.");
+	}
+}
+---------------------------------------------------------------------------------------------------
+Q7. What is copy constructor?
+Ans:
+- A copy constructor in a Java class is a constructor that creates an object using another object of the same Java class.
+- That’s helpful when we want to copy a complex object that has several fields, or when we want to make a deep copy of an existing object.
+Example:
+public class Employee {
+    private int id;
+    private String name;
+    
+    public Employee(Employee employee) {
+        this.id = employee.id;
+        this.name = employee.name;
+    }
+}
+---------------------------------------------------------------------------------------------------
+Q8 Why java does not support multiple inheritance?
+Ans:
+- Because multiple inheritance leads to dimond problem or ambiguity.
+- For example, if there is a class named Sub and there are two classes Super1 and Super2 and if both contains a method named sample().
+- And if the class sub inherits both classes Super1 and Super2 then there will be two copies of the sampling method.
+- One from each superclass and it is ambiguous to decide which method to be executed.
+
+Example:
+class Super1 
+{
+	public void sample() 
+	{
+		System.out.println("From class Super1");
+	}
+}
+
+class Super2 
+{
+	public void sample() 
+	{
+		System.out.println("From class Super2");
+	}
+}
+
+
+class Sub extends Super1, Super2 //This line will show compilation error
+{
+	public static void main(String[] args)
+	{
+		Sub s = new Sub();
+		s.sample();// ambiguity here as which method to execute.
+	}
+
+}
+---------------------------------------------------------------------------------------------------
+Q9. Class vs Object?
+Ans:
+1. Classes: Blueprint
+2. Objects: Actual instance
+Class vs  Object
+Class is blueprint of building and Object is actual building.
+---------------------------------------------------------------------------------------------------
+Q10. What is Inheritance? 
+Ans:
+Inheritance:
+- It is the mechanism in Java by which one class is allowed to inherit the features(fields and methods) of another class. 
+- In Java, Inheritance means creating new classes based on existing ones. 
+- A class that inherits from another class can reuse the methods and fields of that class. 
+- In addition, you can add new fields and methods to your current class as well.  
+
+Need Java Inheritance?
+Code Reusability: 
+The code written in the Superclass is common to all subclasses. 
+Child classes can directly use the parent class code.
+Dog inherit features of Animal
+
+class Dog extends Animal 
+{
+
+}
+---------------------------------------------------------------------------------------------------
+Q11. What is Encapsulation? How we achieve it?
+Ams:
+- Encapsulation refers to the bundling of data and methods that operate on that data within a single unit, 
+  which is called a class in Java. 
+- Encapsulation is a way of hiding the implementation details of a class from outside access 
+  and only exposing a public interface that can be used to interact with the class.
+  
+How to achieve encapsulation in java? 
+- In Java, encapsulation is achieved by declaring the instance variables of a class as private,  
+  which means they can only be accessed within the class. 
+- To allow outside access to the instance variables,we can define public methods called getters and setters.
+- This methods are used to retrieve and modify the values of the instance variables. 
+- By using getters and setters, the class can enforce its own data validation rules and ensure that its internal state remains consistent.
+Example:
+
+class Person { 
+    private String name; 
+    private int age; 
+  
+    public String getName() { return name; }   
+    public void setName(String name) { this.name = name; }   
+    public int getAge() { return age; }   
+    public void setAge(int age) { this.age = age; } 
+} 
+
+---------------------------------------------------------------------------------------------------
+Q12. Parent p = new Child() vs Child c = new Child()?
+Ans: 
+C c = new C();
+1. If we know exact runtime type of object then we should use this approach.
+2. By using child reference we can call both parent and child class method.
+3. We can use child reference to hold only for that particlar child class object only.
+
+vs
+P p = new C();
+1. If we dont know exact runtime type of object then we should use this approach.
+2. By using parent reference we can call only methods available in parent class.
+Child specific methods we cant call.
+3. We can use parent reference to hold any child class object.
+---------------------------------------------------------------------------------------------------
+Q13. What is abstraction in java and how to achieve it in java?
+Ans:
+In Java, Data Abstraction means displaying only essential details and hiding the non-essential details from the user. 
+There are two ways to achieve abstraction in java:
+1. Abstract class (0 to 100%)
+2. Interface (100%)
+Astract Class:
+abstract class Bike{  
+  abstract void run();  
+}  
+class Honda4 extends Bike{  
+	void run()
+	{
+		System.out.println("running safely");
+	}  
+
+	public static void main(String args[])
+	{  
+		Bike obj = new Honda4();  
+		obj.run();  
+	}  
+}  
+---------------------------------------------------------------------------------------------------
+Q14. Difference between Abstract class and interface with default methods?
+Ans:
+1. Variables:
+Interface: Inside interface every variable is always public static and final. We cannot declare instance variable.
+Abstract class: Inside abstract class we can declare instance variable, which are required to the child.
+
+2. State of object:
+Interface: Interface never talks about state of object. Because it doesnt contain instance variables.
+Abstract class: Abstract class can talk about state of object.
+
+3. Constructor:
+Interface: Inside interface we cant declare declare constructor.
+Abstract class: Inside abstract class we can declare constructor.
+
+4. Instance and static block:
+Interface: Inside interface we cant declare instance and static block.
+Abstract class: Inside abstract class we can declare instance and static block.
+
+5. Overriding Object class method:
+Interface: Inside interface we cant override Object method.
+Abstract class: Inside abstract class we can override object methods. e.g. toString() etc.
+
+Read more about it.
+6.
+Interface: Functional interface with default methods can refere lambda expression.
+Abstract class: Abstract can refer lambda expression.
+----------------------------------------------------------------------------
