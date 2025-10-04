@@ -1,10 +1,11 @@
 
 Eventloop: 
 An event loop in JavaScript is a fundamental concept that manages asynchronous operations. 
-This mechanism enables non-blocking behavior, allowing the program to efficiently handle tasks like I/O operations and timers without freezing the main thread. 
+This mechanism enables non-blocking behavior, allowing the program to efficiently handle tasks like I/O 
+operations and timers without freezing the main thread. 
 The event loop operates within the context of the JavaScript runtime environment i.e web browser or Node.js. 
 
-Eventloop consists of a few key components:
+Eventloop basically works with few other components:
 1. Call Stack: 
 This is to keep track of multiple function calls.
 When a function is called, it's added to the call stack. 
@@ -29,7 +30,27 @@ It contains setTimeOut(), setTimeInterval() etc.
 This mechanism ensures that even though JavaScript is single-threaded, 
 it can handle asynchronous operations efficiently by offloading them to the browser's APIs or the environment's internal mechanisms.
 
-------------------------------------------------------------------------------------------------------------------------------------
+5. Web APIs (Browser Environment)
+When you call an asynchronous function (like setTimeout, fetch, or DOM events), the browser handles it outside the JS engine using Web APIs.
+Example: 
+setTimeout(() => console.log('Async'), 0);
+console.log('Sync');
+o/p
+Sync
+Async
+Even with a delay of 0, the async callback is deferred to the event loop.
 
+Eventloop Example:
+console.log('Start');
+setTimeout(() => console.log('Timeout'), 0);
+Promise.resolve().then(() => console.log('Promise'));
+console.log('End');
+
+output:
+Start          // synchronous
+End            // synchronous
+Promise        // microtask queue
+Timeout        // task queue
+------------------------------------------------------------------------------------------------------------------------------
 
 
