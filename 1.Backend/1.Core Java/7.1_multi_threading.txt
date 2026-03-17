@@ -1,145 +1,84 @@
-Contents:
--Introduction to multi threading.
--Process, Thread, Multitasking, Multithreading, Multiprocessing
--Creating and starting Thread in java
-- Lifecycle of thread
-- Thread operation, getting name, seelping.
-- Daemon thread.
-- Producer and consumer problem.
-
-
-Multithreading:
-Multithreading is a Java feature that allows concurrent execution of two or more parts of a program for maximum utilization of CPU. Each part of such program is called a thread. So, threads are light-weight processes within a process.
-
-Threads can be created by using two mechanisms : 
-1.Extending the Thread class 
-syntax:
-class MyThread extends Thread {
+Questions
+Q1. What is a Thread?
+Q2. What is multithreding?
+Q3. Ways to create a thread in Java?
+Q4. What is a Thread Life Cycle? 
+Q5. Important thread methods?
+Q6. Thread priority?
+----------------------------------------------------------------------------------------------------
+Q1. What is a Thread?
+Ans: 
+- A thread is lightweight sub process that allows a java program to perform multiple tasks concurrently (multithreading).
+- Multiple threads share the same memory space of a process but execute tasks independently.
+----------------------------------------------------------------------------------------------------
+Q2. What is multithreding?
+Ans: 
+- Multithreading is a programming technique where multiple threads run concurrently within a single program to perform     different tasks at the same time. 
+- It improves CPU utilization and performance.
+----------------------------------------------------------------------------------------------------
+Q3. Ways to create a thread in Java?
+Ans:
+There are two ways to create thread in java.
+1. Extending thread class
+class DemoThread extends Thread {
     public void run() {
-        for(int i=0; i<5; i++) {
-            System.out.println("Running from extended thread: "+i);
-            try{
-                Thread.sleep(1000);  
-            }catch(Exception e) {
-                System.out.println(e);
-            }            
-        }
+        System.out.println("Thread Running..");
     }
 }
 
-class ThreadExample {
-        public static void main(String[] args){
-            for(int i=0; i<5; i++) {
-                System.out.println("I am from main thread.");
-            }
-            MyThread thread1 = new MyThread();
-            MyThread thread2 = new MyThread();
-            thread1.start();
-            thread2.start();
-        }
-}
-
----------------------------------------------------------------------------------------------------
-2.Implementing the Runnable Interface
-syntax:
-class MyThread implements Runnable
-{
-    @Override
-    public void run() {
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Hello from MyRunnable: " + i);
-        }
-    }
-}
-
-class ThreadExample {
-    public static void main(String[] args)
-    {
-        MyThread t1 = new MyThread();
-        Thread t = new Thread(t1);
+class MyThread {
+    public static void main(String[] args) {
+        DemoThread t = new DemoThread();
         t.start();
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Hello from the main thread: " + i);
-        }
     }
 }
----------------------------------------------------------------------------------------------------
 
-Thread class provide methods to perform operations with Threads.
-This thread class is present in java.lang package.
-So we dont need to import this package.
-Important Methods:
-public string getName(): return name of the thread.
-public void setName(String name): set name of the thread.
-public void run(): contains the task of thread.
-public void start(): start the thread by allocationg resources.
-public long getId(): return the id of thread.
-setPriority(p), getPriority();
-sleep(), join(),interrupt(), resume() stop() 
-
-
----------------------------------------------------------------------------------------------------
-Daemon thread:
-Daemon thread in java is service provider thread that provides service to the thread user.
-
-setDaemon(Boolean)
-
-public Boolean isDaemon()
-
-Garbage collector is best example of Daemon thread.
-
-Example:
-
-class TestDaemonThread1 extends Thread{
-    public void run(){  
-         if(Thread.currentThread().isDaemon()){//checking for daemon thread  
-            System.out.println("daemon thread work");  
-         }  else {  
-            System.out.println("user thread work");  
-         }
+2. Implementing Runnable
+class DemoThread implements Runnable {
+    public void run() {
+        System.out.println("Thread running..");
     }
-    
-
-    public static void main(String[] args){  
-        TestDaemonThread1 t1=new TestDaemonThread1();//creating thread  
-        TestDaemonThread1 t2=new TestDaemonThread1();  
-        TestDaemonThread1 t3=new TestDaemonThread1();  
-        
-        t1.setDaemon(true);//now t1 is daemon thread  
-          
-        t1.start();//starting threads  
-        t2.start();  
-        t3.start();  
-       }  
 }
----------------------------------------------------------------------------------------------------
 
+class MyThread {
+    public static void main(String[] args) {
+        Thread t = new Thread(new DemoThread());
+        t.start();
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Runnable is preferred because:
+- It supports multiple inheritance.
+- Better Design.
+- Separation of tasks and Thread.
+----------------------------------------------------------------------------------------------------
+Q4. What is a Thread Life Cycle?
+Ans:
+During execution, a thread goes through various stages such as:
+NEW – Thread is created but not started
+RUNNABLE – Thread is ready or running
+BLOCKED – Waiting to acquire a monitor lock
+WAITING – Waiting indefinitely for another thread
+TIMED_WAITING – Waiting for a specific time period
+TERMINATED – Thread execution completed
+----------------------------------------------------------------------------------------------------
+Q5. Important thread methods?
+Ans:
+start(): starts a new thread
+run(): Task Executed
+sleep(): pause thread
+join(): wait for thread to finish
+yield(): Gives chance to other thread
+interrupts(): Interrupt thread
+----------------------------------------------------------------------------------------------------
+Q6. Thread Priority?
+Ans:
+Range: 1 (MIN) - 10(MAX)
+Default: 5
+Setting priority to thread:
+t.setPriority(Thread.MAX_PRIORITY);
+----------------------------------------------------------------------------------------------------
+Q7 
 
 
 
