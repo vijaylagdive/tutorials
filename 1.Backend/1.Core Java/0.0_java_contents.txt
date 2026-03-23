@@ -1,3 +1,34 @@
+
+Java Important Contents
+	JDK, JRE, JVM
+	Type Conversion
+	Stack Memory, Heap Memory
+	Array
+	String, String Buffer, String Builder
+
+	Static Variable, Static Methods
+	Oops concepts: Inheritance, Polymorphism
+	Inheritance: Single, Multilevel, Multiple, This and Super method
+	UpCasting, DownCasting
+	Final Keyword
+
+	Abstract Keyword, Inner Class, 
+	Anonymous Inner class, Abstract Anonymous Inner class
+	Interfaces, Types of interfaces, Functional interfaces Java8
+	Exception Handling: try,catch,Exception Hierarchy, Custom Exception, Throw, Throws Keyword etc
+
+	Concurrent Java: Threads, Multithreading, Thread Priority, Sleep, Runnable vs Thread, Race Condition, Thread states.		
+	Java8 Features: Lambda Expression, Functional interface, Interface with default method, Static method, Stream API,forEach, new Date Api	
+	Functional Interface and Lambda Expression
+	Stream API, ForEach
+	Garbage Collection
+
+	Collection - List
+	Collection - Set
+	Collection - Que
+	Collection - Map
+	Comparable and Comparator
+-------------------------------------------------------------------------------------------------
 Part1. Java fundamentals: loops etc.
 1. jdk,jvm,jre
 2. loops
