@@ -1,16 +1,5 @@
-Arrrays:
-1. Introduction
-2. Array Declaration
-3. Array creation
-4. Array initialization
-5. Array Declaration, creation and initialization in a single line.
-6. length vs lenght()
-7. Anonymous Arrays
-8. Array element Assignment
-9. Array Variable assignment
-
 What is Array
-Array is indexed collection of fix number of homogeneous data elements.
+Array fixed size data structure that stores elements of the same type in contiguous memory.
 
 Advantage:
 1. We can represent huge number of values by using single variable. 
@@ -19,96 +8,54 @@ So that readability of code will be improved
 Disadvantages
 1. Array are fixed in size. There is no chance of increasing or decreasing based on our requiremen. So while using array we should compulsary know size of array. Which is not always possible.
 2. Array can hold only homogeneous data type elements.
-
--------------------------------------------------
-Array Declaration.
-One dimensinal array declaration.
-Recommended: int[] x; //Its name is clearly seperated from type.
-Allowed: int []x; or int x[]
-
-At the time of declaration we cant specify size otherwise we will get compile time error.
-so int[6]; is invalid
-int[] x; valid
-
-Two dimensional declaration:
-Everything below is valid.
-int[][] x;
-int [][]x;
-int x[][];
-int []  []x;
-int [] x[];
-int []x[]
-
-which of below are valid:
-int[] a,b a-1, b-1
-int[] a[],b a-2,b1
-int[] a[],b[] a-2,b2
-int[] []a,b; a-2,b-2
-int[] []a,b[]; a-2,b-3
-Not valid
-int[] []x, []b; CE //If we want specify dimension before variable facility is available only for first variable in declaration. If we try to apply remaining variable we will get compiletime error.
-
-int[] []a,[]b,[]x;// invalid
-
-Three dimensional array declaration
-int[][][] a;
-int [][][]a;
-int a[][][];
-int[] [][]a;
-int[] a[][];
-int[] []a[];
-int[][] []a;
-int[][] a[];
-int [][]a[];
-int []a[][];
-
 ------------------------------------------------------
-Array Creation:
+Array Creation and Initilization:
 Every array in java is object only. Hence we can create array using new operator.
-e.g. int[] a = new int[5];
-
-For every array type, corresponding classes are 
-available but these classes are part of 
-java language and not available at programmer level.
-e.g.
-int[] x = new int[5];
-System.out.println(x.getClass().getName()); //[I
-
-byte[] x = new byte[5];
-System.out.println(x.getClass().getName());//[B
-
-
-- At the time of creation we must provide size.
-e. 
+At the time of creation we must provide size.
+e.g. int[] a = new int[5]; or int[] a = {10,20,30,40,50};  
 int[] x = new int[]; invalid
 int[] x = new int[6]; valid
 int[] x = new int[0]; valid
-
-- Its legal to have an array with size 0.
-
-
 int[] x = new int[-3]; invalid. java.lang.NegativeArraySizeException
-
-----
-int[] x=new int[10]; //valid
 int[] x = new int['a'];// valid 97
+------------------------------------------------------
+Accessing array element
+int[] numbers = {10,20,30,40,50};
+System.out.println(numbers[1]);
+------------------------------------------------------
+Looping through an Array
+int[] numbers = {10,20,30,40,50};
+System.out.println(numbers[1]);
+for (int i=0; i<numbers.length; i++) {
+  System.out.println(numbers[i]);            
+}
+OR
+for (int num : numbers) {
+  System.out.println(num);
+}
+------------------------------------------------------
+Common Array methods Via Arrays class
+1. toStirng()//Convert array to readable string
+Arrays.toString();
 
-byte->short->int
-char->int
-and
-int->long->float->double
+2. sort() //Sorts array in ascending order
+Arrays.sort(arr);
 
-int b=20;
-int[] x = new int[b]//valid
+3. equals()// compares two arrays
+Arrays.equals(a,b)
 
-short s = 30;
-int[] x = new int[s] //valid
+4. fill()//Fills array with specific values
+int[] arr = new int[5];
+Array.fills(arr,10)
+o/p: [10,10,10,10,10];
 
-int x = new int[10l]; Error ce found long required int
+5. copyOf()// copies array to new one
+int[] newArr = Arrays.copyOf(arr,3);
 
-To specify arraysize allowed data types are byte short char int.
-If we are trying specify any other type then we will get compile time error.
+6.copyOfRange()//copies a specific range
+Arrays.copyOfRange(arr,1,4);
 
-
-
+7. asList()
+String[] arr = {"A","B","C"};
+List<String> list = Arrays.asList(arr);
 ------------------------------------------------------
