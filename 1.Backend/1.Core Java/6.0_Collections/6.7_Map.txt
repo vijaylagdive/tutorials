@@ -16,55 +16,69 @@ Questions:
 3. Difference between HashMap and HashTable?
 --------------------------------------------------------------------------
 Content1: Map
-Map is not child element of Collection. A seperate interface in Java not inheriting any other interface.
-If we want to represent group of object as key value pair then we should go for map.
-Both keys and values are object only.
-Duplicate keys not allowed. Values can be duplicate.
-Each key value pair is called Entry.
-Hence map is considered as Entry objects.
+- Map is not child element of Collection. A seperate interface in Java not inheriting any other interface.
+- If we want to represent group of object as key value pair then we should go for map.
+- Both keys and values are object only.
+- Duplicate keys not allowed. Values can be duplicate.
+- Each key value pair is called Entry.
 
-Map Hierarchy:
-Map(I) -> HashMap(C) -> LinkedHashMap(C) 
-Map(I) -> Hashtable(C)
-Map(I) -> SortedMap(I) -> NavigableMap(I) -> TreeMap();
-
+Implementation:
+1. HashMap(C) -> No order, fastest, allows one null key
+2. LinkedHashMap(C) -> Maintains insertion order
+3. TreeMap(C) -> Sorted order (ascending by key)
+4. Hashtable(C) -> Thread-safe, legacy class
+5. ConcurrentHashMap(C) -> Thread-safe and efficient
 --------------------------------------------------------------------------
 Content2: Map specific methods:
 1. Object put(Object key,Object value);
-  - If you try to put new value with new key it will return null.
-  - If you try to put object with duplicate key it will return object with old value.
-2. void putAll(Map m);
+- If the key is new, it inserts the entry.
+- If the key already exists, the old value is replaced.
+
+2. values(Map m);
+- Returns a Collection of all values in the map.
+e.g. Collection<String> values = map.values();
+
 3. Object get(Object key);
+- Returns the value associated with the given key.
+- Returns null if the key is not present.
+
 4. Object remove(Object key);
+- Deletes the key–value pair for the specified key.
+
 5. boolean containsKey(Object key);
+- Returns true or false.
+
 6. boolean containsValue(Object value);
+- Checks whether the map contains the given value.
+
 7. boolean isEmpty();
+- Returns true if size is 0.
+
 8. int size();
-9. void clear();
+- Returns the number of key–value pairs in the map.
 
-Collection views of map:
-get only key
-Set keySet();
-Collection value();
-Set entrySet();
---------------------------------------------------------------------------
-Content3: Entry Interface:
-A Map is a group of key value pair. And each key value pair is called entry.
-Hence a map is considered as collection of entries object.
-Without existing map object there is no chance of entry object.
-Hence entry interface is defined inside map interface.
+9. keySet()
+- Returns a Set of all keys in the map.
+- e.g. Set<Integer> keys = map.keySet();
 
-interface map 
-{
-	interface Entry 
-	{
-			Object getKey();
-			Object getValue();
-			Object setValue();
-	}
+10. entrySet()
+- Returns a Set of key–value pairs (Map.Entry objects).
+e.g.
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " = " + entry.getValue());
 }
 
-These 3 methods we can only apply on entry object.
+11. putAll(map)
+- Inserts all entries from the specified map into the current map.
+- If a key does not exist → it is added
+- If a key already exists → its value is overwritten
+e.g.
+Map<Integer, String> map1 = new HashMap<>();
+map1.put(1, "Java");
+map1.put(2, "Python");
+Map<Integer, String> map2 = new HashMap<>();
+map2.put(3, "C++");
+map2.putAll(map1);
 --------------------------------------------------------------------------
 Content4: HashMap Class
 - Underlying Data structure: HashTable
