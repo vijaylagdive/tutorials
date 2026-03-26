@@ -1,0 +1,78 @@
+In Java, Runnable and Callable are both functional interfaces used to represent tasks 
+that can be executed by a thread or an executor service—but they differ in return value, exception handling, and use cases.
+
+@FunctionalInterface
+public interface Runnable {
+    void run();
+}
+
+Example:
+Runnable task = () -> {
+    System.out.println("Task running...");
+};
+
+Thread t = new Thread(task);
+t.start();
+
+With ExecutorService
+ExecutorService executor = Executors.newSingleThreadExecutor();
+executor.execute(task);   // or executor.submit(task);
+executor.shutdown();
+
+
+When to Use Runnable
+- You don’t need a return value
+- The task logic is simple
+- You don’t want to deal with checked exceptions
+
+Key Characteristics
+- Does not return a result
+- Cannot throw checked exceptions
+- Introduced since Java 1.0
+- Commonly used with Thread and ExecutorService
+--------------------------------------------------------------------------
+
+2. Callable
+Definition
+
+@FunctionalInterface
+public interface Callable<V> {
+    V call() throws Exception;
+}
+
+Example:
+Callable<Integer> task = () -> {
+    return 10 + 20;
+};
+
+ExecutorService executor = Executors.newSingleThreadExecutor();
+Future<Integer> future = executor.submit(task);
+
+Integer result = future.get(); // blocks until result is available
+executor.shutdown();
+
+
+When to Use Callable
+- You need a result from the task
+- The task may throw checked exceptions
+- You want to track task completion via Future
+
+
+Key Characteristics
+- Returns a value
+- Can throw checked exceptions
+- Introduced in Java 5
+- Works with ExecutorService and Future
+------------------------------------------------------
+
+Practically:
+Use Runnable
+→ fire-and-forget tasks, logging, background jobs, UI updates
+
+Use Callable
+→ computations, database calls, API calls, any task that:
+
+returns data
+can fail and should report errors
+
+------------------------------------------------------
