@@ -1,0 +1,61 @@
+1. Static Variables and methods:
+A static variable is a variable that belongs to the class, not to a specific object. 
+Only one copy of a static variable exists, shared by all objects of that class.
+
+class Employee {
+    static String company = "Microsoft";
+    int empId;
+    Employee(int empId) {
+        this.empId = empId;
+    }
+
+
+    static int add(int a, int b) {
+        return a + b;
+    }
+}
+
+e.g.
+System.out.println(Employee.company);
+int result = Employee.add(5, 10);
+
+
+Key Rules for static variables
+- Declared using the static keyword
+- Memory allocated once when the class is loaded
+- Same value shared across all objects
+- Accessed using class name (recommended)
+
+Key Rules for static methods
+- Can access static variables and methods directly
+- Cannot access instance variables or instance methods directly
+- Cannot use this or super
+- Static Methods Cannot Access Instance Variables because..
+  Instance variables depend on object creation, but static methods are loaded before objects exist. 
+  Hence, Java prevents direct access.
+-----------------------------------------------------------
+
+Static block:
+A static block is executed once, when the class is loaded.
+
+
+
+class Test {
+    static {
+        System.out.println("Static block executed");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method");
+    }
+}
+o/p
+Static block executed
+Main method 
+------------------------------------------------------------------
+Uses of static:
+Static variables: constants, counters, configuration values
+Static methods: utility classes (Math, Collections, Arrays)
+Main method: public static void main(String[] args)
+-------------------------------------------------------------------
+
