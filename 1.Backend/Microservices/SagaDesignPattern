@@ -1,0 +1,129 @@
+Why Saga Exists??
+In a microservices architecture, each service:
+- Owns its own database
+- Must remain independently deployable
+- Cannot rely on distributed ACID transactions (2‑PC)
+
+But real business operations often span multiple services, for example:
+- Place Order
+- Charge Payment
+- Reserve Inventory
+- Arrange Shipping
+The Saga pattern solves this problem.
+
+What Is the Saga Pattern?
+A Saga is a sequence of local transactions, where:
+- Each microservice executes a local transaction
+- Each step publishes or triggers the next step
+- If any step fails, compensating transactions are executed to undo previous work
+- Maintains eventual consistency
+- Does NOT provide atomic consistency
+
+Core Idea (Simple Definition)
+- Instead of “commit or rollback everything,” do “commit step by step and compensate on failure.”
+---------------------------------------------------------------------
+Saga Communication Styles
+There are two ways services communicate in a saga
+
+1. Choreography‑Based Saga (Event‑Driven)
+How It Works??
+- No central coordinator
+- Services communicate via events
+
+Each service:
+- Listens to events
+- Performs its transaction
+- Publishes the next event
+
+Communication Flow
+Order Service 
+→ OrderCreated event
+→ Payment Service
+→ PaymentCompleted event
+→ Inventory Service
+→ InventoryReserved event
+→ Shipping Service
+
+Failure Case
+Inventory Service FAILS
+→ InventoryFailed event
+→ Payment Service compensates (Refund)
+→ Order Service marks order as CANCELLED
+
+Characteristics
+- Loosely coupled
+- Highly scalable
+- Event‑driven
+- Hard to trace
+- Business flow is scattered
+- Debugging is difficult
+
+Communication Technologies or tools to implement this?
+Kafka
+RabbitMQ
+AWS SNS/SQS
+Azure Service Bus
+- Kafka is common, but not mandatory
+-----------------------------------------------------------
+
+2️. Orchestration‑Based Saga (Command‑Driven)
+How It Works
+- A Saga Orchestrator controls the flow
+- Orchestrator sends commands to services
+- Services reply with success/failure events
+
+Communication Flow
+Saga Orchestrator
+  → ReserveInventory
+  → ChargePayment
+  → ArrangeShipping
+
+Failure Case
+ChargePayment FAILED
+→ Orchestrator calls:
+   - ReleaseInventory
+→ Order marked CANCELLED
+
+Characteristics
+- Clear control flow
+- Easier debugging
+- Centralized logic
+- Easier compensation handling
+- Orchestrator is an additional component
+
+Communication Technologies or Tools:
+REST / gRPC
+Message queues
+Workflow engines (Temporal, Camunda, AWS Step Functions)
+
+For orchestration:
+Services should only respond to commands
+They should not decide next steps
+Only the orchestrator controls the flow
+---------------------------------------------------------
+
+When to Use Saga
+Use Saga when:
+- A business process spans multiple services
+- Strong consistency is not mandatory
+- You can tolerate eventual consistency
+- Compensations are possible
+
+Avoid Saga when:
+- Operations must be strictly atomic
+- Compensations are impossible
+- Workflow is trivial (monolith or simple call)
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
