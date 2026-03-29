@@ -1,0 +1,120 @@
+Spring AOP(Aspect Oriented Programming)
+
+- AOP is a feature of the spring framework that helps you separate cross-cutting concerns (like logging, security, transactions) 
+  from your main business logic.
+
+
+What problems does Spring AOP solve?
+- In large applications, some functionality (Logging, Security Checks, Transactional Managements, Caching etc) is needed across multiple modules,  
+- Without AOP, this code gets repeated everywhere, making the system messy and hard to maintain.
+- Spring AOP lets you write this code once and apply it everywhere needed.
+- Spring AOP works by allowing you to define aspects that can "intercept" method execution in your application.
+
+Key Terms:
+1. Aspect:
+ A module that contains cross-cutting logic.
+ Ex: Logging Aspect
+
+ @Aspect
+ @Component
+ public class LoggingAspect { }
+
+2. Join Point
+ A point in the execution of a program. (usually a method call)
+
+3. Advice
+ The action taken at join point. Types: 
+ a) before: Runs before a method
+ b) After: runs after method.
+ c) Around: wraps method execution
+ d) AfterReturning: After method successfully returns
+ e) AfterThrowing: If method throws exception
+
+ Example:
+	@Before("execution(* com.example.service.*.*(..))")
+	public void logBefore() {
+    		System.out.println("Method started");
+	}
+
+4. Point Cut
+ - Define where the advice should be applied(which methods)
+ - or an expression that selects join points.
+Example: execution(* com.example.service.UserService.*(..))
+
+ 
+5. Weaving:
+ Process of linking aspects with other objects (done at runtime in spring)
+
+How Spring AOP works??
+Spring AOP uses proxies:
+ - It creates a proxy object around your target object or bean.
+ - Client calls the proxy
+ - Proxy executes the advice.
+ - Proxy invokes target method.
+ - Proxy executes post advice
+Business logic remains untouched
+
+
+Implementation
+1. Dependency
+in pom.xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+
+2. Add Aspect file
+@Aspect
+@Component
+public class LoggingAspect {
+
+    @Before("execution(* com.example.service.*.*(..))")
+    public void logBeforeExecution() {
+        System.out.println("Method execution started");
+    }
+}
+
+3. Target Class
+@Service
+public class OrderService {
+    public void placeOrder() {
+        System.out.println("Order placed");
+    }
+}
+
+Output
+Method execution started
+Order placed
+
+
+@Around Advice Example (Most Powerful)
+@Around("execution(* com.example.service.*.*(..))")
+public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+    long start = System.currentTimeMillis();
+    Object result = joinPoint.proceed();
+    long end = System.currentTimeMillis();
+    System.out.println("Time taken: " + (end - start));
+    return result;
+}
+
+
+
+
+Extra notes:
+1. All aspects are placed in a dedicated package for better organization.
+e.g. src/main/java/com/example/project/
+ - controller/
+ - services/
+ - repository/
+ - model/
+ - aspects/
+ - config/
+
+So, aspect is typically inside com.example.project.aspect
+src/main/java/com/example/project/aspect/LoggingAspect.java
+
+2. Spring will only detect your aspect if its inside a component-scanned package.
+
+3. @Aspect should be also used with @Component because spring only processes beans it manages.
+
+---------------------------------------------------------------------------------------------------
