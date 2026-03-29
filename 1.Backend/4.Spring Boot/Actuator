@@ -1,0 +1,41 @@
+Spring Actuator
+
+Spring actuator is a module in the Spring Boot that helps you monitor and manage your application in production.
+Its a built-in health and diagnostic toolkit for your app.
+------------------------
+What does spring actuator do?
+It exposes production ready endpoints that give insights like:
+- Application health
+- Metrics (CPU, memory, requests)
+- Environment properties.
+- Logs
+- Beans and mappings
+------------------------
+How to enable Actuator??
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+Enable endpoints:
+By default health is exposed.
+
+To expose more
+Properties:
+management.endpoints.web.exposure.include=*
+
+or specific ones:
+management.endpoints.web.exposure.include=health,infor,metrics
+------------------------
+Access via browser:
+http://localhot:8080/actuator
+
+actuator/health check if app is running.
+actuator/metrics performance data.
+actuator/info Custom app info.
+actuator/info Environment variables.
+actuator/beans All spring beans
+actuator/loggers Change log levels at runtime
+------------------------
+
+
