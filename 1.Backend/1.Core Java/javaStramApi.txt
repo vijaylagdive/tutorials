@@ -1,0 +1,344 @@
+Contents:
+- Stream API introduction
+- Stream Lifecycle: Source, Intermediate, Terminal
+- Important Intermediate operations 
+
+-------------------------------------------------
+Streams API Introduction:
+To process elements present inside Collection.
+To perform bulk operation on Collection object.
+Stream API is a way to express and process collections of objects.
+Enable us to perform operations like filtering, mapping, reducing and sorting.
+A Stream is not a data structure — it’s a pipeline of operations on data.
+
+Example:
+import java.util.stream;
+Stream s = c.stream();
+
+Interfaces used for various operation.
+filter(Predicate<T>)
+map(Function<T,R> f);
+
+Methods: stream(), filter(), map(), sorted(), collect(), count()
+
+Basic stream structure
+collection.stream()      // source
+          .operation1()  // intermediate
+          .operation2()
+          .operation3()
+          .terminal();   // terminal
+
+Key Characteristics
+- Declarative – focus on what to do, not how
+- Functional – uses lambdas
+- Lazy evaluation – operations run only when needed
+- Supports parallelism – easy multi-core processing
+- Does not modify the source
+-------------------------------------------------
+
+Stream Lifecycle:
+1. Source
+2. Intermediate
+3. Terminal
+
+1. Source:
+List<Integer> list = List.of(1, 2, 3, 4, 5);
+
+2. Intermediate Operations:
+Intermediate Operations are the types of operations in which multiple methods are chained in a row.
+Examples: filter, map, sorted, distinct, limit
+
+3. Terminal: 
+Terminal Operations are the type of Operations that return the result. 
+These Operations are not processed further they just return a final result value.
+Example: forEach, collect, reduce, count, findFirst
+--------------------------------------------------------------------------------------------------
+Important Intermediate operations: map, filter, sorted, distinct, limit, skip
+Examples:
+1. map()
+- The map method is used perform some operation on each element in stream and return the result stream.
+- Used Interface: map(Function<T,R> f);
+
+Example:
+List number = Arrays.asList(2,3,4,5);
+List square = number.stream().map(x->x*x).collect(Collectors.toList());
+------------------------
+2. filter()
+- The filter method is used for filtering the element in the stream based on the condition and return the result stream.
+- Used Interface: filter(Predicate<T>)
+
+Example:
+List names = Arrays.asList("Reflection","Collection","Stream");
+List result = names.stream().filter(s->s.startsWith("S")).collect(Collectors.toList());
+------------------------
+3. sorted()
+The sorted method is used to sort the stream.
+
+Example:
+List names = Arrays.asList("Reflection","Collection","Stream"); 10100
+List result = names.stream().sorted().collect(Collectors.toList());
+
+Custom Sorting
+list.stream()
+    .sorted(Comparator.reverseOrder())
+    .forEach(System.out::println);
+------------------------
+4. distinct()
+- Removes duplicate
+
+Example:
+List<Integer> nums = List.of(1, 2, 2, 3, 3, 4);
+nums.stream()
+    .distinct()
+    .forEach(System.out::println);
+------------------------
+5. limit()
+- Limits the number of elements
+Example:
+list.stream().limit(3).forEach(System:out::println);
+------------------------
+6. skip()
+- skips element
+list.stream().skip(2).forEach(System.out::println);
+-----------------------------------------------------------------
+
+Important Terminal operations: forEach, collect, reduce, count, findFirst
+1. forEach
+Perform an action on each element.
+
+Example:
+list.stream()
+    .forEach(System.out::println);
+
+---------------------------------------
+2. forEachOrdered()
+Same as forEach, but maintains encounter order (important for parallel streams)
+
+Example
+list.parallelStream()
+    .forEachOrdered(System.out::println);
+---------------------------------------
+3. collect
+Convert stream back to a collection, Map, String, or custom result
+
+Example: 
+a. toList()
+List<Integer> evenNumbers = list.stream()
+        .filter(n -> n % 2 == 0)
+        .collect(Collectors.toList());
+
+b. toSet()
+Set<Integer> result =
+    list.stream().collect(Collectors.toSet());
+
+c. toMap()
+Map<Integer, String> map =
+    employees.stream()
+             .collect(Collectors.toMap(
+                 Employee::getId,
+                 Employee::getName
+             ));
+d. joining()
+String joined =
+    list.stream()
+        .map(String::valueOf)
+        .collect(Collectors.joining(", "));
+
+e. grouping()
+Map<String, List<Employee>> byDept =
+    employees.stream()
+             .collect(Collectors.groupingBy(Employee::getDepartment));
+
+f. partitioning()
+Map<Boolean, List<Integer>> partition =
+    list.stream()
+        .collect(Collectors.partitioningBy(n -> n % 2 == 0));
+---------------------------------------
+4. reduce
+Example:
+int sum = list.stream().reduce(0, Integer::sum);
+
+
+int sum =
+    list.stream()
+        .reduce(0, Integer::sum);
+
+
+Optional<Integer> max =
+    list.stream().reduce(Integer::max);
+
+---------------------------------------
+5. count
+Counts the elements 
+Example
+long count = list.stream().count();
+---------------------------------------
+6. min(), max()
+
+Optional<Integer> min =
+    list.stream().min(Integer::compareTo);
+
+Optional<Integer> max =
+    list.stream().max(Integer::compareTo);
+
+---------------------------------------
+7. findFirst
+Example:
+Optional<Integer> first = list.stream()
+        .filter(n -> n > 3)
+        .findFirst();
+
+---------------------------------------
+8. findAny()
+Get any element (optimized for parallel streams).
+
+Optional<Integer> any =
+    list.parallelStream().findAny();
+---------------------------------------
+9. anyMatch()
+boolean hasEven =
+    list.stream().anyMatch(n -> n % 2 == 0);
+---------------------------------------
+10. allMatch()
+Purpose
+Check if all elements match condition.
+
+boolean allPositive =
+    list.stream().allMatch(n -> n > 0);
+
+---------------------------------------
+11. noneMatch()
+Check if no elements match condition.
+
+Example:
+boolean noneNegative =
+    list.stream().noneMatch(n -> n < 0);
+---------------------------------------
+
+12. toArray()
+Convert stream to array.
+Object[] toArray()
+<A[]> A[] toArray(IntFunction<A[]> generator)
+
+Example:
+Integer[] arr =
+    list.stream().toArray(Integer[]::new);
+
+----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Important Terminal Operations
+There are a few Terminal Operations mentioned below:
+
+1. collect()
+The collect method is used to return the result of the intermediate operations performed on the stream.
+Ex:
+List number = Arrays.asList(2,3,4,5,3);
+Set square = number.stream().map(x->x*x).collect(Collectors.toSet());
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------
+
+2. Terminal Operations
+Terminal Operations are the type of Operations that return the result. 
+These Operations are not processed further just return a final result value.
+
+Important Terminal Operations
+There are a few Terminal Operations mentioned below:
+
+1. collect()
+The collect method is used to return the result of the intermediate operations performed on the stream.
+Ex:
+List number = Arrays.asList(2,3,4,5,3);
+Set square = number.stream().map(x->x*x).collect(Collectors.toSet());
+------------------------
+2. forEach()
+The forEach method is used to iterate through every element of the stream.
+Ex:
+List number = Arrays.asList(2,3,4,5);
+number.stream().map(x->x*x).forEach(y->System.out.println(y));
+------------------------
+3. reduce()
+The reduce method is used to reduce the elements of a stream to a single value. 
+The reduce method takes a BinaryOperator as a parameter.
+Ex:
+List number = Arrays.asList(2,3,4,5);
+int even = number.stream().filter(x->x%2==0).reduce(0,(ans,i)-> ans+i);
+Here ans variable is assigned 0 as the initial value and i is added to it.
+------------------------
+4. count()
+long countEven = marks.stream().filter(num -> num % 2 == 0).count(); //Used Predicates
+System.out.println(countEven);	
+---------------------------------------------------------------------------------------------------
+
+Examples of methods:
+	List<Integer> marks = new ArrayList<Integer>();
+	marks.add(0);
+	marks.add(55);
+	marks.add(70);
+	marks.add(15);
+	marks.add(20);
+	marks.add(25);
+
+1. map
+List<Integer> l3 = list.stream().map(num -> num + 5).collect(Collectors.toList());
+
+2. filter
+List<Integer> l2 = marks.stream().filter(num -> num % 2 == 0).collect(Collectors.toList()); //Used Predicates
+
+3. sorted
+Natural sorting 
+List<Integer> l2 = marks.stream().sorted().collect(Collectors.toList()); 
+Custom Sorting
+List<Integer> l2 = marks.stream().sorted((i1,i2)->(i1<i2)?-1:(i2<i1)?1:0).collect(Collectors.toList()); 
+
+4. count
+long countEven = marks.stream().filter(num -> num % 2 == 0).count();
+
+5. forEach()
+	Consumer<Integer> c = i-> {
+		System.out.println("The square of "+i+" is: "+(i*i));			
+	};
+	marks.stream().forEach(c);
+	or
+	marks.stream().forEach(i-> {
+		System.out.println("The square of "+i+" is: "+(i*i));			
+	});
+
+6.toArray()
+	Integer[] i=marks.stream().toArray(Integer[]::new);
+	for(Integer i1 : i) {
+		System.out.println("Values: "+i1);
+	}
+	or
+	Stream.of(i).forEach(System.out::println);
+
+7. collect()
+
+min(Comparator)
+max(Comparator)
+---------------------------------------------------------------------------------------------------
