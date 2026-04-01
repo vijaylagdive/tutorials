@@ -134,6 +134,11 @@ class MyTest {
 }
 ---------------------------------------------------------------------------------------------------
 II. Structural Design Patterns
+- This type deals with class and object composition.
+- This pattern focuses on decoupling interface and implementation of classes and 
+its objects.
+e.g. Facades, Adapter, Bridge etc.
+
 1. The Adapter pattern
 - allows two incompatible interfaces to work together by acting as a bridge between them.
 - It converts the interface of one class into another interface that a client expects.
