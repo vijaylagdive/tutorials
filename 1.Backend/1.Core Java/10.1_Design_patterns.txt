@@ -1,23 +1,25 @@
-Design patterns are reusable solutions to common software design problems.
-They are best practices, not ready-made code, and help make code:
-
-Maintainable
-Flexible
-Scalable
-Readable
+Design Patterns
+What are the design patterns:
+- Design patterns are evolved as reusable solutions to the problems that we encounter 
+  every day of programming.
+- They are generally targetted at solving the problems of object generations and 
+  integration.
+- These generalized patterns act as template that can be applied to the real world 
+  problems.
 
 In Core Java, patterns are generally grouped into three categories.
 
 I Creational Design Patterns
+This type deals with object creation and initialization.
+e.g. singleton, factory, Abstract Factory, Prototype etc.
+
 1. Singleton Pattern
 - Ensures only one instance of a class exists
 - Used In: Logging, Configuration, DB Connection
 Example:
 class Singleton {
     private static Singleton instance;
-
     private Singleton() {}
-
     public static Singleton getInstance() {
         if (instance == null) {
             instance = new Singleton();
@@ -26,7 +28,6 @@ class Singleton {
     }
 }
 -------------------
-
 2. Factory Pattern
 - Creates objects without exposing the instantiation logic
 - Used when object type depends on input
@@ -58,7 +59,6 @@ class ShapeFactory {
     }
 }
 -------------------
-
 3. Builder Pattern
 - Used to create complex objects step-by-step
 - Avoids long constructors
@@ -132,7 +132,6 @@ class MyTest {
         System.out.println(user.getName());
     }
 }
-
 ---------------------------------------------------------------------------------------------------
 II. Structural Design Patterns
 1. The Adapter pattern
@@ -185,21 +184,16 @@ Without Observer Pattern:
 - Hard to add/remove listeners
 
 Example:
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 interface Observer {
     void update(String message);
 }
-
 interface Subject {
     void registerObserver(Observer o);
     void removeObserver(Observer o);
     void notifyObservers();    
 }
-
 class YoutubeChannel implements Subject {
     private List<Observer> observers = new ArrayList<>();
     private String video;
@@ -229,28 +223,22 @@ class YoutubeChannel implements Subject {
 
 class Subscriber implements Observer {
     private String name;
-
     public Subscriber (String name) {
         this.name = name;
     }
-
     @Override
     public void update(String video) {
         System.out.println(name + " Received notification: New Video - " + video);
     }
-
 }
 
 class ObserverMain {
     public static void main(String[] args) {
-        YoutubeChannel channel = new YoutubeChannel();
-        
+        YoutubeChannel channel = new YoutubeChannel();        
         Observer sub1 = new Subscriber("Alice");
         Observer sub2 = new Subscriber("Bob");
-
         channel.registerObserver(sub1);
         channel.registerObserver(sub2);
-
         channel.uploadVideo("Observer Pattern in Java");
     }
 }
