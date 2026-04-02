@@ -1,0 +1,286 @@
+What is JWT token? 
+How it is generated?
+What is refresh token? Why it is used?
+How to generate refresh token?
+
+
+JWT Working
+JWT is compact, URL safe token used for authentication and authorization.
+Instead of storing session data on server, all necessary info is stored inside the token.
+
+JWT Features:
+- Stateless (No Server Session)
+- Scalable (Good For microservices)
+- Fast
+-------------------------------------------------
+1. User logins
+When user logins with username and password it is validated against database record.
+If it is valid success message is sent with 
+ a. Access token(JWT) 
+ b. Refresh token.
+
+2. How access token and refresh tokens are generated?
+JWT token generation:
+  String token = return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
+                .signWith(getSignKey(), SignatureAlgorithm.HS256)
+                .compact();
+
+Refresh Token generation: 
+import java.util.UUID;
+public String generateRefreshToken() {
+	return UUID.randomUUID().toString();
+
+}
+
+Example Output:
+"f47ac10b-58cc-4372-a567-0e02b2c3d479"
+
+Refresh token stored in database and also sent to user with access token
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiJ9...",
+  "refreshToken": "6f3981fa-68bc-4f2b..."
+}
+
+
+Refresh token set as cookies from spring boot code only as below:
+@PostMapping("/login")
+public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpServletResponse response) {
+	String accessToken = jwtUtil.generateAccessToken(request.getUserName());
+	String refreshToken = refreshTokenService.createToken(request.getUserName());
+
+	Cookie cookie = new Cookie("refreshToken", refreshToken);
+	cookie.setHttpOnly(true);
+	cookie.setSecure(true);
+	cookie.setPath("api/auth/refresh");
+	cookie.setMaxAge(7 * 24 * 60 * 60);
+	
+	response.addCookie(cookie);
+	return ResponseEntity.ok(new AuthResponse(accessToken))
+	
+}
+
+
+3. How it is stored in db?
+	a. Create refresh token entity
+	public class RefreshToken {
+		@Id
+		private Long id;
+
+		private String token;
+		private String username;
+		private Date expiryDate;
+
+	}
+	refreshTokenRepository.save(token);
+
+DB table:
+user_id refresh_token expires_at 
+101     6f3981fa...   2026‑05‑01
+-------------------------------------------------
+4. User or client handles in browser
+	a. Access token stored in session or local storage
+	b. Refresh token stored in cookies. JavaScript cant access it.
+-------------------------------------------------
+5. If any api request is unauthorized 
+- User needs to call for refresh token then it gets fresh refresh token and accessToken.
+	refreshToken() {
+		return this.http.post('/api/auth/refresh',{},{
+			withCredentials: true //this sends cookies with refresh token
+		})
+	}
+-------------------------------------------------
+5. When access token fails user request to Refresh token as below.
+- With refresh token user gets both
+	a. new refresh token
+	b. new access token
+
+	@PostMapping("/refresh")
+	public ResponseEntity<?> refresh(HttpsServletRequest request) {
+		String refresh = Array.stream(request.getCookies())
+				.filter(c -> c.getName().equals("refreshToken"))
+				.findFirst()
+				.map(Cookie::getValue)
+				.orElse(null)
+
+		if (!refreshTokenService.validate(refreshToken)){
+			throw new RuntimeException("Invalid refresh token");
+
+		}
+		String userName = refreshTokenService.getUserName(refresToken);
+		String newAccessToken = jwtUtil.generateAccessToken(userName);
+
+		return ResponseEntity.ok(new AuthResponse(newAccessToken));	
+	}
+In the above code instead of just sending old refresh token as it is we can do token rotation
+1. Delete old refresh token from DB
+2. Generate new refresh token
+3. Save new token in DB
+4. Send new cookie to client
+5. Also send access token to client with same response.
+-------------------------------------------------
+If refresh token expires?
+- User must login
+- Front end code should navigate user to login page.
+-------------------------------------------------
+What happens if user rejects cookies?
+Most real world applications do not support users who reject cookies. 
+They require cookies for authentication and show an error if cookies are disabled.
+- If internal applications use local storage instead but it is not recommended for app with high security.
+-------------------------------------------------
+How JWT tokens works single signon applications??
+
+
+
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Structure of token?
+It has 3 parts: Header, Payload, Signature
+1. Header
+Contains Metadata
+{
+	"alg":"HS256",
+	"typ":""JWT
+}
+
+2. Payload
+Contains user data(claims)
+{
+	"sub": "user123",
+	"role": "admin",
+	"exp": 12334434
+}
+
+
+3. Signature
+Created Using base64UrlEncode etc
+This ensures the token cannot be tampered with
+-------------------------------------------------
+
+How JWT works in spring Boot
+1. User Login 
+- User sends username password to backend.
+- Spring Boot verifies credentials(via spring security) - need to study more
+
+2. Token Generation 
+- Token generation
+If valid:
+- Server generates JWT using a secret key
+- Returns token to client
+  String token = return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
+                .signWith(getSignKey(), SignatureAlgorithm.HS256)
+                .compact();
+
+3. Client Stores Token
+- Usually stored in Local Storage
+- Memory/secure storage in mobile 
+
+4. Client Sends token on every request
+In HTTP Header:
+Authorization: Bearer <JWT>
+
+5. JWT filter in Spring Boot
+- Spring boot uses filter (once-per-request-filter)
+- Extract token header
+- Validate token
+- Load user details
+- Set authentication in context
+
+6. Request access granted/denied 
+- If token valid -> request proceeds
+- Inf invalid/expired -> 401 unauthorized
+-------------------------------------------------
+Configuration for JWT tokens in pom.xml
+
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-api</artifactId>
+    <version>0.11.5</version>
+</dependency>
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-impl</artifactId>
+    <scope>runtime</scope>
+</dependency>
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-jackson</artifactId>
+    <scope>runtime</scope>
+</dependency>
+-------------------------------------------------
+Refresh Token
+Why refresh token exists?
+Access tokens are short lived.
+But users dont want to log in every 15 minutes.
+So, there is refresh token long lived 7 days which is used to get new access token.
+
+Flow of access and refresh token 
+1. Login
+User logs in - server generates:
+a. Access token(short life)
+b. refresh token(long life)
+{
+	"accessToken":"abc123",
+	"refreshToken":"xyz789"
+}
+
+
+2. Store Token(Client side)
+Access token -> memory/localStorage
+Refresh token -> HTTP only cookies(recommended)
+Important: Refresh token should be more secure than access token.
+-------------------------------------------------
+
+Normal API request made
+Authorization: Bearer <accessToken>
+Server validates -> request succeeds
+
+Access Token Expires
+API returns 401 Unauthorized
+
+Now use refresh token
+Client call a special endpoints:
+POST /auth/refresh
+Sends Refresh token(cookie or body)
+
+Server validates Refresh Token
+Refresh token validated against token stored in database:
+- it checks expiry and validates it.
+
+If it is valid just generate new access (JWT) token and send it to user.
+Also generate new refresh token and send it to user with JWT token. 
+
+After that client retries API with new access token.
+-------------------------------------------------
+How to implement refresh token in spring boot?
+Refresh Endpoint
+@PostMapping("/refresh")
+public ResponseEntity<?> refresh(@RequestBody String refreshToken) {
+	RefreshToken token = repo.findByToken(refreshToken);
+	if() {
+	}
+}
+-------------------------------------------------
