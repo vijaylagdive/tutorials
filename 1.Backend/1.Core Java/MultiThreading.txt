@@ -9,9 +9,10 @@ Q7. start() vs run()?
 Q8. Runnable and Callable interfaces?
 Q9. Why run method? or use of run method?
 Q10. Common multithreading problems
-Q11*. Inter thread communication 
+Q11. Volatile keyword?
 Q12. Explain thread pool?
 Q13. What’s the purpose of the join() method?
+Q14* Inter thread communication?
 ----------------------------------------------------------------------------------------------------
 Q1. What is a Thread?
 Ans: 
@@ -313,8 +314,34 @@ e.g.
 volatile boolean flag = false;
 
 -------------------------------------------------
-Q11*. Inter thread communication 
+Q11. Volatile keyword? 
+Ans:
+- The volatile keyword in java is used in multithreading to ensure visibility and ordering of variables of 
+   variables across threads.
+- Volatile tells JVM: "Always read this variable from main memory, not from a thread's local cache."
 
+Example without volatile:
+class Shared {
+	boolean flag = false;
+}
+
+Thread 1:
+shared.flag = true;
+
+Thread 2:
+while(!shared.flag) {
+	//may run forever
+}
+
+Problem: Thread 2 may never see the updated value.
+
+With volatile
+class Shared {
+	volatile boolean flag = false;
+}
+Now:
+- Change is immediately visible to threads
+- Thread 2 will exit loop correctly.
 -------------------------------------------------
 Q12. Explain thread pool?
 Ans: 
