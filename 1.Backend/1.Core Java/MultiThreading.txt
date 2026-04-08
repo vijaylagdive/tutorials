@@ -5,14 +5,13 @@ Q3. Ways to create a thread in Java?
 Q4. What is a Thread Life Cycle? 
 Q5. Important thread methods?
 Q6. Thread priority?
-Q7. What's the difference between thread and process?
-Q8. What's the difference between User thread and Daemon thread?
-Q9. What are the wait() and sleep() methods?
-Q10. What is the start() and run() method of Thread class?
-Q11. What is Runnable and Callable Interface? Write the difference between them.
+Q7. start() vs run()?
+Q8. Runnable and Callable interfaces?
+Q9. Why run method? or use of run method?
+Q10. Common multithreading problems
+Q11*. Inter thread communication 
 Q12. Explain thread pool?
 Q13. What’s the purpose of the join() method?
-Q14. Explain the meaning of the deadlock and when it can occur?
 ----------------------------------------------------------------------------------------------------
 Q1. What is a Thread?
 Ans: 
@@ -67,10 +66,11 @@ class MyThread {
     }
 }
 
-Runnable is preferred because:
-- It supports multiple inheritance.
-- Better Design.
-- Separation of tasks and Thread.
+Why Runnable is better?
+- Java supports single inheritance with classes.
+- With Runnable we can achieve multiple inheritance.
+- Allows better code separation
+- Commonly used with Thread Pool & Executors
 ----------------------------------------------------------------------------------------------------
 Q4. What is a Thread Life Cycle?
 Ans:
@@ -90,6 +90,9 @@ sleep(): pause thread
 join(): wait for thread to finish
 yield(): Gives chance to other thread
 interrupts(): Interrupt thread
+getName(): Thread name
+setPriority(): Set priority
+isAlive(): Check if thread is active
 ----------------------------------------------------------------------------------------------------
 Q6. Thread Priority?
 Ans:
@@ -98,107 +101,36 @@ Default: 5
 Setting priority to thread:
 t.setPriority(Thread.MAX_PRIORITY);
 ---------------------------------------------------------------------------------------------------
-Q7. What's the difference between thread and process?
+Q7. What is the start() and run() method of Thread class?
 Ans:
-Thread: 
-It simply refers to the smallest units of the particular process. 
-It has the ability to execute different parts (referred to as thread) of the program at the same time.  
+Both methods belong to the Thread class, but they behave very differently.
 
-Process: 
-It simply refers to a program that is in execution i.e., an active program. 
-A process can be handled using PCB (Process Control Block). 
-
-Differences:
-Thread is a subset or a subunit of a process.	
-Process is a program in execution containing multiple threads.
-
-In Thread inter-thread communication is faster, less expensive, easy and efficient because threads share the same memory address of the process they belong to. 
-In process inter-process communication is slower, expensive, and complex because each process has different memory space or address.
-
-
-Threads are easier to create, lightweight, and have less overhead. 
-Process are difficult to create, heavyweight, and have more overhead.
-
-Threads requires less time for creation, termination, and context switching.	
-It requires more time for creation, termination, and context switching.
-
-Thread processes with multiple threads use fewer resources.	
-Processes without threads use more resources.
-
-Threads are parts of a process, so they are dependent on each other but each thread executes independently.	
-Processes are independent of each other.
-
-For threads there is a need for synchronization in threads to avoid unexpected scenarios or problems.	
-There is no need for synchronization in each process.
-
-Threads share data and information with each other. 
-They do not share data with each other.
---------------------------------------------------------------------------
-Q8. What's the difference between User thread and Daemon thread?
-Ans:
-User and Daemon are basically two types of thread used in Java by using a ‘Thread Class’.  
-
-User Thread (Non-Daemon Thread): 
-In Java, user threads have a specific life cycle and its life is independent of any other thread. 
-JVM (Java Virtual Machine) waits for any of the user threads to complete its tasks before terminating it. 
-When user threads are finished, JVM terminates the whole program along with associated daemon threads. 
-
-Daemon Thread: 
-In Java, daemon threads are basically referred to as a service provider that provides services and support to user threads. 
-There are basically two methods available in thread class for daemon thread: 
-setDaemon() and isDaemon(). 
-
-User Thread: JVM waits for user threads to finish their tasks before termination. 	
-Daemon Thread : JVM does not wait for daemon threads to finish their tasks before termination.
-
-User Thread: These threads are normally created by the user for executing tasks concurrently. 
-Daemon Thread:  These threads are normally created by JVM.
-
-User Thread: They are used for critical tasks or core work of an application. 	
-Daemon Thread: They are not used for any critical tasks but to do some supporting tasks.
-
-User Thread: These threads are referred to as high-priority tasks, therefore are required for running in the foreground. 
-Daemon Thread: These threads are referred to as low priority threads, therefore are especially required for supporting background tasks.
-Its supports tasks like garbage collection, releasing memory of unused objects, etc. 
--------------------------------------------------
-Q9. What are the wait() and sleep() methods?
-Ans:
-wait(): 
-As the name suggests, it is a non-static method that causes the current thread to wait and go to sleep until some other threads call the notify () or notifyAll() method for the object’s monitor (lock). 
-It simply releases the lock and is mostly used for inter-thread communication. 
-It is defined in the object class, and should only be called from a synchronized context. 
-
-Example:  
-
-synchronized(monitor) 
-{ 
-	monitor.wait();       //Here Lock Is Released by Current Thread  
-} 
-
-sleep(): 
-As the name suggests, it is a static method that pauses or stops the execution of the current thread for some specified period. It doesn’t release the lock while waiting and is mostly used to introduce pause on execution. It is defined in thread class, and no need to call from a synchronized context.  
-
-Example:  
-synchronized(monitor) 
-{ 
-Thread.sleep(1000);     Here Lock Is Held by The Current Thread 
-//after 1000 milliseconds, the current thread will wake up, or after we call that is interrupt() method 
-} 
--------------------------------------------------
-Q10. What is the start() and run() method of Thread class?
-Ans:
 start(): 
-In simple words, the start() method is used to start or begin the execution of a newly created thread. 
-When the start() method is called, a new thread is created and this newly created thread executes the task that is kept in the run() method. 
-One can call the start() method only once.  
+- Creates a new thread
+- Invokes run() internally
+- Runs code concurrently (multithreading)
+- Can be called only once per thread object
+- Executes run() in a separate thread
+- JVM creates a new call stack
+- Used for new thread
+  
+run():
+- JVM does NOT create a new thread
+- Code runs in main thread
+- No concurrency
+- Executes like a normal method call
+- Used only to define thread logic
+- No new call stack is created
+- Used for defining thread logic
 
-run(): 
-In simple words, the run() method is used to start or begin the execution of the same thread. 
-When the run() method is called, no new thread is created as in the case of the start() method. 
-This method is executed by the current thread. 
-One can call the run() method multiple times.
+Why is calling run() manually dangerous?
+Because calling run() executes on current thread, not a new one → causing:
+- no concurrency
+- unexpected race conditions
+- breaking assumptions of multithreading
+- hard-to-debug inconsistent behavior
 -------------------------------------------------
-Q11. What is Runnable and Callable Interface? Write the difference between them.
+Q8. What is Runnable and Callable Interface? Write the difference between them.
 Both the interfaces are generally used to encapsulate tasks that are needed to be executed by another thread. But there are some differences between them as given below: 
 
 Running Interface: This interface is basically available in Java right from the beginning. It is simply used to execute code on a concurrent thread.  
@@ -233,16 +165,201 @@ Callable Interface: It uses the call() method to define a task.
 Runnable Interface:	To use this interface, one needs to override the run() method. 
 Callable Interface: To use this interface, one needs to override the call() method.
 -------------------------------------------------
+Q9. Why run method? or use of run method?
+Ans: 
+ run() method doesnt achieve concurrency then why run method is there?
+1. To define the code the thread should execute
+public void run() {
+    // thread job
+}
+This is the task body.
+start() just delegates to this method in a new thread.
+
+2. Reason 2: Runnable interface depends on run()
+Runnable has only one method:
+public void run();
+This is needed for thread pools, executors, etc.
+
+3. Flexible structure
+You can reuse the same run() logic.
+
+run it in a new thread
+OR run it in the same thread (if needed for debugging/testing)
+Example:
+t1.run(); // Test the logic without multithreading
+
+4. Keeps API clean & predictable
+Java follows this design:
+run() = what to do
+start() = do it in a new thread
+Simple, clean separation.
+
+-------------------------------------------------
+Q10. Common multithreading problems
+Ans:
+Deadlock: Threads wait for each other forever
+Race Condition: Multiple threads modify data
+Starvation: Thread never gets CPU
+LivelockThreads active but not progressing
+
+Problem1: Deadlock
+- Deadlock occurs when two or more threads are waiting forever for each other to release resources.
+- Each thread holds one lock and waits for another - nobody can proceed.
+ 
+class DeadlockExample {
+    static final Object lock1 = new Object();
+    static final Object lock2 = new Object();
+    public static void main(String[] args) {
+        Thread t1 = new Thread(() -> {
+            synchronized (lock1) {
+                System.out.println("Thread 1: Holding lock1");
+                try { Thread.sleep(100); } catch (Exception e) {}
+                synchronized (lock2) {
+                    System.out.println("Thread 1: Holding lock2");
+                }
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            synchronized (lock2) {
+                System.out.println("Thread 2: Holding lock2");
+                try { Thread.sleep(100); } catch (Exception e) {}
+                synchronized (lock1) {
+                    System.out.println("Thread 2: Holding lock1");
+                }
+            }
+        });
+
+        t1.start();
+        t2.start();
+    }
+}
+Here: 
+- Thread 1 holds lock1 and waits for lock2.
+- Thread 2 holds lock2 and waits for lock1.
+Condition for Deadlock(Coffman Condition)
+All must be true:
+1. Mutual Exclusion
+2. Hold and wait
+3. No preemption
+4. Circular Wait
+
+Fixes to Deadlock issue:
+1. Acquire locks in same order and Use the same order everywhere
+synchronized(lock1) {
+    synchronized(lock2) {
+        // safe code
+    }
+}
+
+2. Use tryLock() (Advanced)
+Use ReentrantLock with timeout. It Avoids infinite waiting.
+if(lock1.tryLock(1, TimeUnit.SECONDS)) {
+    if(lock2.tryLock(1, TimeUnit.SECONDS)) {
+        // do work
+    }
+}
+
+3. Avoid nested locks
+Simplify design → fewer locks → fewer problems.
+------------------
+Problem 2: Race Condition
+Occurs when multiple threads access shared data simultaneously and the final result depends on execution order.
+Example: 
+class Counter {
+	int count = 0;
+	void increament() {
+		count++; //not thread safe
+	}
+}
+Two threads may update count incorrectly - wrong result
+Fixes: 
+- Use synchronized
+- Use Automic classes(AutomicInteger)
+
+e.g.
+synchronized void increament() {
+	count++;
+}
+------------------
+Problme 3: Starvation
+A thread never gets CPU or resources because other threads keep taking them.
+Example: 
+- High priority threads always executes.
+- Low priority threads never executes.
+Fixes:
+Fair scheduling(ReentraLock(true))
+Avoid excessive thread priorities.
+------------------
+Problem 4: LiveLock 
+Threads are not blocked but keep changing state in response to each other and make no progress.
+Fixes:
+- Add randomness or delay.
+- Reduce over coordination between threads.
+------------------
+Problem 5: Memory consistency error
+Changes made by one thread may not be visible to others
+Example:
+boolean flag = false;
+//Thread 1
+flag = true;
+
+//Thread 2
+while(!flag) {} //may loop forever
+Fixes: 
+Use volatile
+Use synchronization
+e.g.
+volatile boolean flag = false;
+
+-------------------------------------------------
+Q11*. Inter thread communication 
+
+-------------------------------------------------
 Q12. Explain thread pool?
-A Thread pool is simply a collection of pre-initialized or worker threads at the start-up that can be used to execute tasks and put back in the pool when completed. It is referred to as pool threads in which a group of fixed-size threads is created.  By reducing the number of application threads and managing their lifecycle, one can mitigate the issue of performance using a thread pool. Using threads, performance can be enhanced and better system stability can occur. To create the thread pools, java.util.concurrent.Executors class usually provides factory methods.
+Ans: 
+- Thread pools in Java (via ExecutorService) are a powerful way to manage multithreading efficiently.
+- Instead of creating and destroying threads manually (which is expensive) a thread pool reuses a fixed number of threads 
+  to execute multiple tasks.
+- A Thread pool is a collection of pre-created worker threads that execute tasks from a queue.
+- To create the thread pools, java.util.concurrent.Executors class usually provides factory methods.
+Benefits: 
+- Reduces overhead of thread creation.
+- Improves performance
+- Controls number of threads(avoids overload)
+- Better resource management
+
+How Thread Pool works 
+1. Tasks are submitted
+2. Tasks go into queue
+3. Available thread picks a task
+4. Executes it
+5. Reuses thread for next task
+
+Creating Thread Pools
+1. Fixed Thread Pool
+Example:
+ExecutorService executor = Executors.newFixedThreadPool(3);
+- In this only 3 threads will run tasks at a time
+
+2. Cached Thread Pool
+Example:
+ExecutorService executor = Executors.newCachedThreadPool();
+- Creates new threads as needed, reuses idle ones.
+
+3. Single Thread Executor
+Example:
+ExecutorService executor = Executors.newSingleThreadExecutor();
+- Ensures taks run sequentially(one thread only)
+
+4. Scheduled Thread Pool
+ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+- Used for delayed or periodic tasks.
 -------------------------------------------------
 Q13. What’s the purpose of the join() method?
-join() method is generally used to pause the execution of a current thread unless and until the specified thread on which join is called is dead or completed. To stop a thread from running until another thread gets ended, this method can be used. It joins the start of a thread execution to the end of another thread’s execution. It is considered the final method of a thread class.
--------------------------------------------------
-14. Explain the meaning of the deadlock and when it can occur?
-Deadlock, as the name suggests, is a situation where multiple threads are blocked forever. It generally occurs when multiple threads hold locks on different resources and are waiting for other resources to complete their task
-
-Example:
-Thread 1 is holding Object 1 but needs object 2 to complete processing whereas Thread 2 is holding Object 2 but needs object 1 first. 
-In such conditions, both of them will hold lock forever and will never complete tasks.
+- join() method is generally used to pause the execution of a current thread unless and until the specified thread 
+  on which join is called is dead or completed. 
+- To stop a thread from running until another thread gets ended, this method can be used. 
+- It joins the start of a thread execution to the end of another thread’s execution. 
+- It is considered the final method of a thread class.
 -------------------------------------------------
