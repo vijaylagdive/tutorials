@@ -1,0 +1,65 @@
+Fail Fast Fail Safe Iterators
+What is fail-fast and fail-safe?
+Fail‑fast and Fail‑safe describe how iterators behave when a collection is modified while it’s being iterated.
+
+What is Fail-Fast?
+Ans: A fail-fast iterator immediately throws an exception if the collection is modified while iterating.
+
+How it works?
+Uses an internal modification count (modCount)
+If modCount changes unexpectedly → throws ConcurrentModificationException
+
+Example:
+List<Integer> list = new ArrayList<>();
+list.add(1);
+list.add(2);
+list.add(3);
+
+for(Integer i : list) {
+  list.add(3); //modification during iteration
+}
+Error: Throws: ConcurrentModificationException
+
+Common Fail‑fast Collections
+- ArrayList
+- HashMap
+- HashSet
+- Vector (iterator only, not enumeration)
+- LinkedList
+
+Why fail fast??
+- Detects bugs early
+- Avoid inconsistent results
+-------------------------------------------------------------------------
+Fail-Safe Iterator
+Q. What is Fail Safe?
+- A fail‑safe iterator does not throw an exception if the collection is modified during iteration.
+- It works on a clone / snapshot of the collection.
+
+Q. How it works
+- Iterates over a separate copy
+- Original collection can change without affecting iteration
+
+Example:
+
+ConcurrentHashMap<Integer, String> map = new ConcurrentHashMap<>();
+map.put(1, "A");
+map.put(2, "B");
+
+Iterator<Integer> it = map.keySet().iterator();
+while (it.hasNext()) {
+    Integer key = it.next();
+    map.put(3, "C"); // allowed
+}
+OR
+for (ConcurrentHashMap.Entry<Integer, String> entry: map.entrySet()) {
+    map.put(4,"F"); //allowed
+}
+
+Common Fail‑safe Collections
+- ConcurrentHashMap
+- CopyOnWriteArrayList
+- CopyOnWriteArraySet
+-------------------------------------------------------------------------
+
+
