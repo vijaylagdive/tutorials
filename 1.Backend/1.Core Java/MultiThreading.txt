@@ -132,20 +132,24 @@ Because calling run() executes on current thread, not a new one → causing:
 - hard-to-debug inconsistent behavior
 -------------------------------------------------
 Q8. What is Runnable and Callable Interface? Write the difference between them.
-Both the interfaces are generally used to encapsulate tasks that are needed to be executed by another thread. But there are some differences between them as given below: 
+Both the interfaces are generally used to encapsulate tasks that are needed to be executed by another thread. 
+But there are some differences between them as given below: 
 
-Running Interface: This interface is basically available in Java right from the beginning. It is simply used to execute code on a concurrent thread.  
-Callable Interface: This interface is basically a new one that was introduced as a part of the concurrency package. It addresses the limitation of runnable interfaces along with some major changes like generics, enum, static imports, variable argument method, etc. It uses generics to define the return type of object.   
+Runnable Interface: This interface is basically available in Java right from the beginning. 
+It is simply used to execute code on a concurrent thread.  
+Callable Interface: This interface is basically a new one that was introduced as a part of the concurrency package. 
+It addresses the limitation of runnable interfaces along with some major changes like generics, enum, static imports,
+variable argument method, etc. It uses generics to define the return type of object.   
 
 public interface Runnable  
 {   
   public abstract void run(); 
 }  
+
 public interface Callable<V>  
 {    
  V call() throws Exception;  
 }
-
 
 Differences:
 Runnable Interface: It does not return any result and therefore, cannot throw a checked exception. 
@@ -377,7 +381,7 @@ ExecutorService executor = Executors.newCachedThreadPool();
 3. Single Thread Executor
 Example:
 ExecutorService executor = Executors.newSingleThreadExecutor();
-- Ensures taks run sequentially(one thread only)
+- Ensures tasks run sequentially(one thread only)
 
 4. Scheduled Thread Pool
 ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
