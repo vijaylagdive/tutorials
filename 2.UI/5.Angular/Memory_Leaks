@@ -1,0 +1,93 @@
+Memory Leaks angular
+
+- Memory leaks in an Angular application happen when objects (components, services, DOM nodes, subscriptions, etc.) 
+are kept in memory longer than needed, even after the user navigates away or the component is destroyed. 
+- Over time, this leads to high memory usage, slow UI, and eventual crashes, especially in long‑running SPAs.
+
+Common Causes of Memory Leaks in Angular
+1. Unsubscribed Observables
+ngOnInit() {
+  this.service.getData().subscribe(data => {
+    this.items = data;
+  });
+}
+If the observable is long‑lived (interval, Subject, EventEmitter, WebSocket), it keeps the component alive.
+
+Solution:
+
+Option1: 
+Unsubscribe subscription manually.
+ngOnDestroy() {
+  this.subscription.unsubscribe();
+}
+
+Option2: takeUntil pattern
+private destroy$ = new Subject<void>();
+ngOnInit() {
+  this.service.getData()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(...);
+}
+
+ngOnDestroy() {
+  this.destroy$.next();
+}
+
+Option3: async pipe (BEST) 
+<div *ngFor="let item of items$ | async">
+-----------------------------------------------------
+2. Event Listeners Not Removed
+Problem:
+window.addEventListener('resize', this.onResize);
+
+Fix:
+
+ngOnInit() {
+  window.addEventListener('resize', this.onResize);
+}
+
+ngOnDestroy() {
+  window.removeEventListener('resize', this.onResize);
+}
+OR
+Prefer HostListener
+@HostListener('window:resize')
+onResize() {}
+-----------------------------------------------------
+3. SetInterval / setTimeout Not Cleared
+Problem:
+setInterval(() => {
+	console.log("Running..");
+},1000)
+
+Fix:
+ngOnDestroy() {
+	clearInterval(this.intervalId);
+}
+-----------------------------------------------------
+4. Long Living Services holding data
+Services provided in root (providedIn: 'root') live for the entire app lifecycle. 
+Problem: 
+@Injectable({ providedIn: 'root' })
+export class CacheService {
+  data: any[] = [];
+}
+
+Solution:
+Clear data when not required
+clear() {
+  this.data = [];
+}
+-----------------------------------------------------
+5. Detached DOM Elements
+Problem:
+Occurs when DOM nodes are created dynamically
+References are kept after view destruction
+
+this.element = document.getElementById('myDiv');
+
+Fix:
+- Let Angular manage the DOM
+- Avoid manual DOM manipulation
+- Use Renderer2 if needed
+----------------------------------------------------------------------------------------------------------
