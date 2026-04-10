@@ -13,6 +13,8 @@ Q11. Volatile keyword?
 Q12. Explain thread pool?
 Q13. What’s the purpose of the join() method?
 Q14* Inter thread communication?
+Q15. Semaphore
+Q16. CountDownLatch
 ----------------------------------------------------------------------------------------------------
 Q1. What is a Thread?
 Ans: 
@@ -393,4 +395,153 @@ Q13. What’s the purpose of the join() method?
 - To stop a thread from running until another thread gets ended, this method can be used. 
 - It joins the start of a thread execution to the end of another thread’s execution. 
 - It is considered the final method of a thread class.
+-------------------------------------------------
+Q14* Inter thread communication?
+-------------------------------------------------
+Q15 What is Semaphore in multihreading??
+- In Java, a Semaphore is a synchronization aid or concurrency utility used to control access to 
+  a shared resource by limiting the number of threads that can access it at the same time.
+- It is part of java.util.concurrent.
+- Simply it ensures that Only a limited number of threads can access any resource at the a time.
+
+A Semaphore maintains a set of permits:
+- A thread must acquire() a permit before accessing the resource
+- After finishing, it must release() the permit
+- If no permits are available, the thread blocks until one becomes available
+
+When to Use Semaphore
+- Limit number of connections (DB, API, thread pool)
+- Control concurrent access
+- Producer–consumer problems
+- Rate limiting
+- Not ideal for simple mutual exclusion (use ReentrantLock instead)
+
+Types of Semaphores
+1. Counting Semaphore
+- Has multiple permits
+- Allows limited concurrent access
+- Example: Only 3 threads allowed at once
+Semaphore s = new Semaphore(3);
+
+2. Binary Semaphore
+- Only 1 permit
+- Works similar to a mutex / lock
+Example:
+Semaphore s = new Semaphore(1);
+
+Fair Vs UnFail Semaphore
+Semaphore semaphore = new Semaphore(3, true); // Fair (FIFO)
+Semaphore semaphore = new Semaphore(3, false); // Unfair (default)
+Fair: Threads get permits in request order
+Unfair: Better performance, no ordering guarantee
+
+Common Semaphore Methods
+
+1. acquire(): Acquires a permit (blocks if none available)
+2. release(): Releases a permit
+3. tryAcquire(): Tries to acquire without blocking
+4. availablePermits(): Number of available permits
+5. acquireUninterruptibly(): Acquires without responding to interrupts
+
+Semaphore Example:
+import java.util.concurrent.Semaphore;
+
+class Worker extends Thread {
+    private Semaphore semaphore;
+
+    Worker(Semaphore semaphore) {
+        this.semaphore = semaphore;
+    }
+
+    @Override
+    public void run() {
+        try {
+            semaphore.acquire();
+            System.out.println(Thread.currentThread().getName() + " acquired permit");
+            Thread.sleep(2000); // simulate work
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            semaphore.release();
+            System.out.println(Thread.currentThread().getName() + " released permit");
+        }
+    }
+}
+public class SemaphoreDemo {
+    public static void main(String[] args) {
+        Semaphore semaphore = new Semaphore(2);
+        for (int i = 0; i < 5; i++) {
+            new Worker(semaphore).start();
+        }
+    }
+}
+-------------------------------------------------
+Q16. What is CountDownLatch in multithreading?
+CountDownLatch is a synchronization utility from java.util.concurrent package 
+that allows one or more threads to wait until a set of operations being performed in other threads completes.
+
+What is CountDownLatch?
+- It is initialized with a count
+- Threads call countDown() to reduce the count
+- Waiting threads call await()
+- Once count becomes 0, all waiting threads are released
+- One‑time use only (cannot be reset)
+
+CountDownLatch is used when you want:
+- One or more threads to wait until a number of tasks finish.
+- A counter that counts down to zero.
+- Once it reaches zero -> waiting threads are released
+.
+- Wait for multiple services to start
+- Wait for multiple tasks to finish
+- Parallel processing coordination
+- Main thread waits until worker threads finish
+- Not reusable → use CyclicBarrier or Phaser if reuse is needed
+
+
+Creating a CountDownLatch
+- import java.util.concurrent.CountDownLatch;
+- CountDownLatch latch = new CountDownLatch(3);
+- The count is 3
+
+Common Methods
+wait(): Waits until count reaches zero
+await(long, TimeUnit): Waits with timeout
+countDown(): Decrements the count
+getCount():Returns current count
+
+
+Countdown latch
+import java.util.concurrent.CountDownLatch;
+
+class Worker extends Thread {
+    private CountDownLatch latch;
+    Worker(CountDownLatch latch) {
+        this.latch = latch;
+    }
+    public void run() {
+        try {
+            System.out.println(Thread.currentThread().getName() + " working");
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            latch.countDown();
+            System.out.println(Thread.currentThread().getName() + " finished");
+        }
+    }
+}
+
+public class CountDownLatchDemo {
+    public static void main(String[] args) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(3);
+
+        new Worker(latch).start();
+        new Worker(latch).start();
+        new Worker(latch).start();
+
+        latch.await(); // main thread waits
+        System.out.println("All workers finished. Main thread continues.");
+    }
+}
 -------------------------------------------------
