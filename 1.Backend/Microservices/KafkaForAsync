@@ -1,0 +1,344 @@
+Kafka
+
+Event Streaming
+Event streaming is the practice includes: 
+- Capturing data in real-time from event sources like databases, sensors, mobile devices, 
+  cloud services, and software applications in the form of streams of events.
+- Storing these event streams durably for later retrieval.
+- Manipulating, processing, and reacting to the event streams in real-time as well as retrospectively. 
+- And then routing the event streams to different destination technologies as needed. 
+Event streaming thus ensures a continuous flow and interpretation of data so that the right information is at the right place, at the right time.
+
+
+Event streaming is applied to a wide variety of use cases.
+Examples: 
+- To process payments and financial transactions in real-time, such as in stock exchanges, banks, and insurances.
+- To track and monitor cars, trucks, fleets, and shipments in real-time, such as in logistics and the automotive industry.
+- To continuously capture and analyze sensor data from IoT devices or other equipment, such as in factories and wind parks.
+- To collect and immediately react to customer interactions and orders, such as in retail, the hotel and travel industry, and mobile applications.
+- To monitor patients in hospital care and predict changes in condition to ensure timely treatment in emergencies.
+- To connect, store, and make available data produced by different divisions of a company.
+- To serve as the foundation for data platforms, event-driven architectures, and microservices.
+
+Apache Kafka® is an event streaming platform. What does that mean?
+Kafka combines three key capabilities so you can implement your use cases for event streaming:
+1. To publish (write) and subscribe to (read) streams of events, including continuous import/export of your data from other systems.
+2. To store streams of events durably and reliably for as long as you want.
+3. To process streams of events as they occur or retrospectively.
+
+And all this functionality is provided in a distributed, highly scalable, elastic, fault-tolerant, and secure manner.
+
+---------------------------------------------------------------------------------------------------
+Main Concept and terminologies
+1. Event
+2. Producers
+3. Consumers and Consumer Groups
+4. Topics: 
+5. Partition
+6. Offset
+7. Broker
+8. ISR or In Sync Replicas in Kafka?
+
+1. Event
+- An event records the fact that “something happened” in your business. 
+- It is also called 'record' or 'message'.
+- When you read or write data to Kafka, you do this in the form of events. 
+- Conceptually, an event has a key, value, timestamp, and optional metadata headers. 
+
+Here’s an example event:
+Event key: “Alice”
+Event value: “Made a payment of $200 to Bob”
+Event timestamp: “Jun. 25, 2020 at 2:06 p.m.”
+
+
+2. Producers 
+	Those client applications that publish (write) events to Kafka, 
+
+3. Consumers and Consumer Group
+Consumer:
+- Consumer subscribe to (read and process) these events or messages. 
+- Consumer is an instance of particular service.
+
+Consumer Group
+- Consumer group is a set of consumers working together to read a topic.
+- Consumer group is service like OrderService
+e.g. Group: order-processors
+ Consumer 1, Consumer 2, Consumer 3
+- Goal of consumer group is to distribute multiple consumers.
+
+- Each partition is mapped to a consumer in consumer group
+- Consumer reads message from kafka and tracks how far is has read.
+- In Kafka, producers and consumers are fully decoupled and agnostic of each other, 
+- For example, producers never need to wait for consumers. 
+- Kafka provides various guarantees such as the ability to process events exactly-once.
+
+4. Topics: 
+- In Topics, Events are organized and durably stored. 
+- A topic is similar to a folder in a filesystem, and the events are the files in that folder. 
+- An example topic name could be “payments”. 
+- Topics in Kafka are always multi-producer and multi-subscriber: 
+  That means a topic can have zero, one, or many producers that write events to it, 
+  as well as zero, one, or many consumers that subscribe to these events. 
+- Events in a topic can be read as often as needed. 
+- Unlike traditional messaging systems, events are not deleted after consumption. 
+- Instead, you define for how long Kafka should retain your events through a per-topic configuration setting, 
+  after which old events will be discarded. 
+- Kafka’s performance is effectively constant with respect to data size, so storing data for a long time is perfectly fine.
+- Topics are partitioned, meaning a topic is spread over a number of “buckets” located on different Kafka brokers.
+- This distributed placement of your data is very important for scalability because it allows client
+  applications read and write the data from/to many brokers at the same time. 
+- When a new event is published to a topic, it is actually appended to one of the topic’s partitions. 
+- Events with the same event key (e.g., a customer or vehicle ID) are written to the same partition, and Kafka guarantees 
+  that any consumer of a given topic-partition will always read that partition’s events in exactly the same order as they were written.
+- To make your data fault-tolerant and highly-available, every topic can be replicated, even across geo-regions or datacenters, 
+  so that there are always multiple brokers that have a copy of the data just in case things go wrong, 
+  you want to do maintenance on the brokers, and so on. 
+- A common production setting is a replication factor of 3, i.e., there will always be three copies of your data. 
+- This replication is performed at the level of topic-partitions.
+
+5. Partition
+- Topic in kafka is split into multiple partitions
+- e.g Partition 0 -> [M1, M2, M3]
+      Partition 1 -> [M4, M5, M6]
+      Partition 2 -> [M7, M8]
+- Ordering is only within partition i.e. M1, M2, M3 is guaranteed order
+- But no order between partitions
+- Each partition can be consumed independently, More partition more parallelism
+- Messages or events are assigned using key
+  kafkaTemplate.send("orders","orderId123",message);
+  Same key - same partition, ensures order for that key
+
+6. Offset
+- Each message in a topic has an offset(position)
+e.g.
+Message 1 = offset 0
+Message 2 = offset 1
+Message 3 = offset 2
+
+Kafka stores:
+ Messages and Offset (per consumer group)
+
+7. Broker
+- Kafka broker is a server that stores data and serves clients
+- Storing Messages: Broker keeps topic partition on disk
+- Serving Producers: Receives messages and writes them.
+- Serving consumers: Returns messages when consumer poll.
+- Broker manages partitions assigned to it
+- Multiple partitions of a single topic can reside at multiple brokers. 
+  Example:
+	Topic: orders
+	Partitions: 6 (orders-0 to orders-5)
+	Brokers: 3 (Broker-1, Broker-2, Broker-3)
+
+	Kafka might place them like this:
+	Broker-1 → orders-0, orders-3
+	Broker-2 → orders-1, orders-4
+	Broker-3 → orders-2, orders-5
+Same topic
+- Multiple partitions
+- Partitions on different brokers
+
+- Broker Replication
+	If the replication factor is 3:
+	orders-0 (Leader) → Broker-1
+        Replicas → Broker-2, Broker-3
+
+So:
+	- Each partition exists on multiple brokers
+	- Only one broker is the leader at a time
+	- Others are followers
+
+- A single broker can host leader partitions for some partitions and follower (replica) partitions for other partitions at the same time.	
+- If a broker fails, message coming to it will diverted to another broker which contains leaders of that required partitions.
+
+8. ISR or In Sync Replicas in Kafka?
+- ISR (In‑Sync Replicas) is the set of replicas for a partition that are fully caught up with the leader.
+- In simple words:
+	All replicas that have the same data as the leader
+	Are eligible to become the new leader if the current leader fails
+---------------------------------------------------------------------------------------------------
+
+Scenarios:
+1. How Partition works with consumer groups
+2. Offset Commit Setting
+3. When a consumer fails
+
+1. How Partition and Consumer group work together
+Rule: One Partition -> One consumer(per group)
+Partitions: P0, P1, P2
+Consumers: C1, C2, C3
+
+Assignment:
+P0 - C1
+P1 - C2
+P2 - C3
+
+Important scenarios
+Case1: Equal consumers and Partitions
+- Perfect balance, maximum parallelism
+
+Case2: More consumers than partition
+Partitions: P0, P1
+Consumers: C1, C2, C3
+One consumer will be idle
+
+Case3: More partitions than consumers
+Partitions: P0, P1, P3
+Consumers: C1, C2
+In this case consumer may handle multiple partitions
+
+When if any consumer fails:
+Before:
+- P0 -> C1, P1 -> C2 then 
+C1 crashes
+
+After rebalance
+P0 -> C2
+P1 -> C2
+No data loss
+
+------------------------
+2. Offset Commit Setting
+
+a) Auto Commit
+spring.kafka.consumer.enale-auto-commit=true
+- kafka commits offset automatically
+- Risk: message may be marked "read" before processing finishes so there is risk of data loss.
+
+b) Manual Commit (Recommended)
+spring.kafka.consumer.enale-auto-commit=false
+
+Then in code
+    @KafkaListener(topics = "my-topic", groupId="my-group")
+    public void consume(String message) {
+        System.out.println("Received: " + message);
+	process(message);    
+	ack.acknowledge();
+}
+
+This is safe as the message is marked done only after success.
+----------------------------------------------------------
+3. When a consumer fails
+Lets say consumer C1 fails after reading 3 messages and before 4th message.
+When it is up it joins the consumer group.
+Consumer notifies kafka that I am part of group X, give me my assignment.
+Then Kafka responds with:
+Kafka sends:
+ 1. Assigned partitions: (e.g. P0)
+ 2. Last committed message offset (e.g. 3)
+
+Now consumer starts polling 
+consumer.poll()
+this means "Give me message starting from offset 3"
+Then Kafka responds with M4, M5,... 
+
+Full Flow:
+1. Consumer joins group
+2. Kafka assigns partitions + offset =3
+3. Consumer -> poll()
+4. Kafka -> return messages from offset 3 (M4)
+5. Consumer processes M4
+6. Consumer commits offset = 4
+
+---------------------------------------------------------------------------------------------------
+
+Setup kafka on my local machine
+1. Create Service Producer
+Dependencies:
+1. Spring Web
+2. Spring For Apache Kafka
+3. Lombok
+------------------------
+2. Create Service Consumer
+Dependencies:
+1. Spring Web
+2. Spring For Apache Kafka
+3. Lombok
+------------------------
+3. Configure Kafka in both services
+application.properties for producer service
+spring.application.name=Producer
+server.port=8081
+spring.kafka.bootstrap-server=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+value-serializer= org.apache.kafka.common.serialization.StringSerializer
+
+application.properties for consumer service
+spring.application.name=Consumer
+server.port=8082
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=notification-group
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+------------------------
+4. Kafka implementation in Producer
+Kafka configuration service
+@Service
+@RequiredArgsConstructor
+public class OrderProducerService {
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    public void sendMessage(String message) {
+        kafkaTemplate.send("my-topic", message);
+    }
+}
+
+Controller for sending message
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
+public class MessageController {
+    private final OrderProducerService orderService;
+    @GetMapping("/sendOrder")
+    public String send() {
+        orderService.sendMessage("Order No: 2");
+        return "Message Sent to Kafka";
+    }
+}
+------------------------
+5. Kafka implementation in Consumer
+Kafka configuration service listener
+@Service
+public class KafkaConsumerService {
+    @KafkaListener(topics = "my-topic", groupId="my-group")
+    public void consume(String message) {
+        System.out.println("Received: " + message);
+    }
+}
+------------------------
+6. Run Kafka using docker container
+To do this write this file in parent folder of both the services
+
+docker-compose.yml
+version: '3.8'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+
+- Install docker 
+- Then open terminal where your docker-compose file is residing
+- Run: docker-compose up -d
+- It will run instance for kafka and zookeeper for you.
+----------------------------------
+Then run both services and hit the api in producer service 
+http://localhost:8081/api/sendOrder
+You will see message received in console of service Consumer.
+----------------------------------------------------------
+
