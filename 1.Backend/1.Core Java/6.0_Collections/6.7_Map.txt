@@ -1,46 +1,53 @@
 Map
 Content1: Map
 Content2: Map Specific methods
-Content3: Entry Interface
+Content3: Iterating over map
 Content4: HashMap
 Content5: LinkedHashMap and Difference between HashMap and LinkedHashMap
-Content6: Hashtable. Difference between hashmap and hashtable
-Content7: IdentityHashMap
-Content8: WeakHashMap
-Content9: SortedMap
-Content10: TreeMap
-
-Questions:
-1. Diffference between HashMap and LinkedHashMap?
-2. HashMap Internal working?
-3. Difference between HashMap and HashTable?
+Content6: TreeMap
 --------------------------------------------------------------------------
 Content1: Map
-- Map is not child element of Collection. A seperate interface in Java not inheriting any other interface.
+- Map is not child element of Collection. A separate interface in Java not inheriting any other interface.
 - If we want to represent group of object as key value pair then we should go for map.
 - Both keys and values are object only.
 - Duplicate keys not allowed. Values can be duplicate.
 - Each key value pair is called Entry.
 
-Implementation:
+Common Implementations:
 1. HashMap(C) -> No order, fastest, allows one null key
 2. LinkedHashMap(C) -> Maintains insertion order
 3. TreeMap(C) -> Sorted order (ascending by key)
-4. Hashtable(C) -> Thread-safe, legacy class
 5. ConcurrentHashMap(C) -> Thread-safe and efficient
+
+Common Example:
+	Map<String, Integer> map = new HashMap<>();
+        map.put("Vijay", 101);
+        map.put("Amit", 102);
+        map.put("Ravi", 103);
+
+        // Get value
+        System.out.println("Vijay's ID: " + map.get("Vijay"));
+
+        // Loop
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+{101=Vijay, 102=Amit, 103=Ravi}
 --------------------------------------------------------------------------
-Content2: Map specific methods:
+Content2. Map specific methods:
 1. Object put(Object key,Object value);
 - If the key is new, it inserts the entry.
 - If the key already exists, the old value is replaced.
+Ex: map.put("Ravi", 103);
 
 2. values(Map m);
 - Returns a Collection of all values in the map.
-e.g. Collection<String> values = map.values();
+Ex: Collection<String> values = map.values();
 
 3. Object get(Object key);
 - Returns the value associated with the given key.
 - Returns null if the key is not present.
+Ex: map.get(2)
 
 4. Object remove(Object key);
 - Deletes the key–value pair for the specified key.
@@ -68,26 +75,38 @@ for (Map.Entry<Integer, String> entry : map.entrySet()) {
     System.out.println(entry.getKey() + " = " + entry.getValue());
 }
 
-11. putAll(map)
+11. clear()
+- Removes All
+Ex: map.clear();
+
+12. putAll(map)
 - Inserts all entries from the specified map into the current map.
 - If a key does not exist → it is added
 - If a key already exists → its value is overwritten
-e.g.
-Map<Integer, String> map1 = new HashMap<>();
-map1.put(1, "Java");
-map1.put(2, "Python");
-Map<Integer, String> map2 = new HashMap<>();
-map2.put(3, "C++");
-map2.putAll(map1);
 --------------------------------------------------------------------------
-Content4: HashMap Class
+Content3: Iterating over map
+1. Using entrySet()
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " = " + entry.getValue());
+}
+
+2. Using KeySet
+for (Integer key : map.keySet()) {
+    System.out.println(key + " = " + map.get(key));
+}
+
+3. Using Java 8 forEach
+map.forEach((key, value) -> 
+    System.out.println(key + " = " + value)
+);
+--------------------------------------------------------------------------
+Content 4: HashMap
+HashMap Class
 - Underlying Data structure: HashTable
 - Insertion order not preserved and it is based on hashcode of keys.
-- Duplicate keys not allowed.
-- Duplicate values allowed.
+- Duplicate keys not allowed, Duplicate values allowed.
 - Heterogeneous object are allowed for keys and values.
-- Null is allowed for key but only once.
-- Null is allowed for values for any number of times.
+- Null is allowed for key but only once, Null is allowed for values for any number of times.
 - Hashmap implements serializable and clonable but not RandomAccess.
 - Hashmap is best choice if it is search operation.
 
@@ -97,114 +116,181 @@ Constructors:
 3. HashMap m = new HashMap(int initial capacity, float fillRatio);
 4. HashMap m = new HashMap(Map map);
 
-
 Example:
-	public static void main(String[] args) 
-	{
-		HashMap m = new HashMap();
-		m.put("Chiranjivi",700);
-		m.put("Balaih",800);		
-		m.put("Venkatesh",200);		
-		m.put("Nagarjuna",500);
-		System.out.println(m);
-		Set s = m.keySet();//{Chiranjivi=700, Balaih=800, Venkatesh=200, Nagarjuna=500}
-		System.out.println(s);//[Chiranjivi, Balaih, Venkatesh, Nagarjuna]
-		
-		Iterator itr = s.iterator();
-		while(itr.hasNext()) {
-			Map.Entry m1 = (Map.Entry)itr.next();
-			System.out.println(m1.getKey() + "____" + m1.getValue());
-			if(m1.getKey().equals("Nagarjuna")) 
-			{
-				m1.setValue(100000);
-			}
-		}
-		System.out.println(m);
-	}
----------------------------------------------------------------------------------------------------------------------------
+	HashMap m = new HashMap();
+	m.put("Chiranjivi",700);
+	m.put("Balaih",800);		
+	m.put("Venkatesh",200);	
+
 Content4.1 Hashmap working
+- Hashmap stores data using key value pairs. HashMap contains array of nodes.
+- O(1) time complexity for put(key, value), get(key), remove(key)
+- It works using hashing.
 
-Hashmap stores data using key value pairs. HashMap contains array of nodes.
-Each node will have four fields.
-1. int hash
-2. key
-3. value
-4. next node index.
+1. HashMap elements:
+ 1. Node: 
+	Each node will have four fields.
+	1. int hash
+	2. key
+	3. value
+	4. next node index.
 
-Hashing:
-- Hashing is a process of converting an object into integer form by using the method hashCode().
-- hashCode() method of the Object class returns the memory reference of an object in integer form.
+ 2. Buckets: 
+	- A bucket is an element of the HashMap array. 
+	- It is used to store nodes. Two or more nodes can have the same bucket. 
+	- If there are two or more nodes in same bucket, a link list structure is used to connect the nodes. 
+	- Buckets are different in capacity. 
+
+2. Inserting Element into map
+Step 1: Compute Hash
+- Hashing: Hashing is a process of converting an object into integer form by using the method hashCode().
+- hashCode() returns integer that represents a hash value of an object.
+- This integer is a hash, not an address, not memory location, not index.
+
+Example: 
+int hash = key.hashCode();	
+
 - The integer value helps in indexing and faster searches.
 - With that Hash code index value is calculated using indexing method.
 
+Java further spreads the hash to reduce collision
+hash = hash ^ (hash >>> 16);
+
+Step 2: Calculate bucket index based in hash key
+- index = hashCode(key) & (n-1).
+- where n is the number of buckets or the size of the array. 
+- This maps the hash to a valid bucket index.
+- Let the key is Sunny, and hash code for "Sunny" is 63281940.
+- To store the Key in the memory, we have to calculate index by using the index formula.
+	i.e. index=63281940 & (16-1) = 4 
+- 4 is the index where we have to store element
+
+Step 3: Insert into Bucket
+- If 4th bucket is empty → insert node
+- If bucket already has entries → collision occurs
+
+Collision Handling
+If in that 4th bucket already a member present we have to calculate equality of the 
+newly inserted element's key and existing element's key.
+
+This is checked as below:
+
+if (node.hash == hash && (node.key == key || key.equals(node.key)))
+
+If it is true means it is duplicate member.
+If it false element has to be added next to existing element.
+There will be linked list if nodes are equal to or less that 8 or there will be a binary tree.
+Hence both Keys will be stored at index 4 and bucket at 4th index will have 2 nodes.
+
 equals() method: 
-This method is used to check whether 2 objects are equal or not. 
-This method is provided by the Object class. You can override this in your class to provide your implementation. 
-HashMap uses equals() to compare the key to whether they are equal or not. 
-If the equals() method return true, they are equal otherwise not equal. 
+- This method is used to check whether 2 objects are equal or not. 
+- This method is provided by the Object class. 
+- You can override this in your class to provide your implementation. 
+- HashMap uses equals() to compare the key to whether they are equal or not. 
+- If the equals() method return true, they are equal otherwise not equal. 
 
-Buckets: 
-A bucket is an element of the HashMap array. 
-It is used to store nodes. Two or more nodes can have the same bucket. 
-If there are two or more nodes in same bucket, a link list structure is used to connect the nodes. 
-Buckets are different in capacity. 
-.
-A relation between bucket and capacity is as follows: 
-capacity = number of buckets * load factor
-A single bucket can have more than one node, it depends on the hashCode() method. 
-The better your hashCode() method is, the better your buckets will be utilized. 
+3. Common issue in HashMap with custom object as key:
+        Student s1 = new Student("Vijay",3);
+        Student s2 = new Student("Vijay",3);
+        Map<Student, Integer> map = new HashMap<>();
+        map.put(s1,4);
+        map.put(s2,3);
+        map.forEach((key,value) -> {
+            System.out.println(key + " = " + value);
+        });
 
-Index Calculation in Hashmap:
-The Hash code of the key may be large enough to create an array. 
-The generated hashcode may be in the range of integer and if we create arrays for such a range, then it lead to outOfMemoryException. 
-So we generate an index to minimize the size of the resulting array. 
-The following operation is performed to calculate the index. 
-index = hashCode(key) & (n-1).
-where n is the number of buckets or the size of the array. 
+The data in both the classes is same still map will treat 2 object as different keys and will insert 2 entries.
+To overcome this issue we need to override the class as below.
+class Student {
+    String name;
+    int age;
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
-Example:
-HashMap<String, Integer> map = new HashMap<>();  
-We want to insert as map.put("Aman", 19);  
-When we call the put() method, then it calculates the hash code of the Key "Aman". Suppose it is 2657860.
-To store the Key in memory, we have to calculate the index as below.
-Index = hashcode(Key) & (n-1)  
-In this example, We will consider n as the default size which is 16. 
-Where n is the size of the array. Hence the index value for "Aman" is:
-Index = 2657860 & (16-1) = 4  
+    @Override
+    public boolean equals(Object o) {
+     if (this == o) return true;
+     if (!(o instanceof Employee)) return false;
+     Employee e = (Employee) o;
+     return id == e.id;
+    }
 
-At 4th index that node will be stored.
+    @Override
+    public int hashCode() {
+     return Objects.hash(id);
+    }
+}
 
-Hash Collision:
-This is the case when the calculated index value is the same for two or more Keys. 
-Let's calculate the hash code for another Key "Sunny." 
-Suppose the hash code for "Sunny" is 63281940. 
-To store the Key in the memory, we have to calculate index by using the index formula.
-Index=63281940 & (16-1) = 4  
-The value 4 is the computed index value where the Key will be stored in HashMap. 
-In this case, equals() method check that both Keys are equal or not. 
-If Keys are same, replace the value with the current value. 
-Otherwise, connect this node object to the existing node object through the LinkedList. 
-Hence both Keys will be stored at index 4.
-That means bucket at 4th index will have 2 nodes.
-
-Retriving values:
+4. Retrieving values:
 map.get(new Key("Aman"));  
-It generates the hash code as 2657860 and index 4.
-Now get() method search for the index value 4. 
-It compares the first element Key with the given Key. 
-If both keys are equal, then it returns the value else check for the next element in the node if it exists. 
 
-Let's fetch another Key "Sunny". Lets suppose it is the second key.
+HashMap performs:
+- hashCode() on the key
+- Computes the bucket index
+- Searches the bucket
+- Uses equals() to find the exact key
+- Returns the associated value
 
-The hash code of the Key "Sunny" is 63281940. Index value of 63281940 will be 4, as we have calculated for put() method. 
-Go to index 4 of the array and compare the first element's Key with the given Key. 
-It also compares Keys. In our scenario, the given Key is the second element, and the next of the node is null. 
-It compares the second element Key with the specified Key and returns the value 29. 
-It returns null if the next of the node is null.
+Step 1: Null Check
+if (key == null)
+    return getForNullKey();
 
+HashMap allows one null key
+Null key is always stored at bucket index 0
+
+
+Step 2: Compute Hash Code
+int hash = key.hashCode();
+
+Then Java mixes the bits for better distribution:
+hash = hash ^ (hash >>> 16);
+- This reduces collisions caused by poor hash functions.
+
+Step 3: Calculate Bucket Index
+index = (n - 1) & hash;
+
+Where:
+n = current capacity (power of 2)
+Bitwise AND ensures fast computation
+
+Step 4: Locate the Bucket
+Node<K,V> first = table[index];
+
+Now there are three possibilities:
+
+Case 1: Bucket is Empty
+if (first == null)
+    return null;
+
+Case 2: Bucket Has Only One Entry
+if (first.hash == hash && key.equals(first.key))
+    return first.value;
+- Value returned immediately
+
+Case 3: Bucket Has Multiple Entries (Collision Case)
+Now HashMap iterates:
+
+- Collision Bucket Search
+Linked List (Default)
+Node<K,V> node = first;
+while (node != null) {
+    if (node.hash == hash &&
+       (node.key == key || key.equals(node.key))) {
+        return node.value;
+    }
+    node = node.next;
+}
+- equals() confirms the exact key
+- Value is returned
+
+Note:
+HashMap retrieves a value by computing the key’s hash, locating the correct bucket, 
+and then using equals() to find the exact key within that bucket before returning the associated value.
 
 ---------------------------------------------------------------------------------------------------------------------------
-Content5: LinkedHashMap: 
+Content5: LinkedHashMap and Difference between HashMap and LinkedHashMap
 - Child class of HashMap.
 - Exactly same as hashmap including methodsa and constructors Except following differences.
 
@@ -224,142 +310,11 @@ LinkedHashMap: Introduced in 1.4
 Note:
 LinkedHashSet and LinkedHashMap commonly used for developing cache based applications.
 
----------------------------------------------------------------------------------------------------------------------------
-Content6: Hashtable. Difference between hashmap and hashtable
-Hashtable:
-1. Underlying Data Structure: HashTable
-2. Insertion order: Not preserved and it is based on hashcode of keys.
-3. Duplicate keys not allowed. Values can be duplicate
-4. Heterogeneous object allowed for both keys and values.
-5. Null not allowed for both key and values. Otherwise we will get runtime exception saying NPE.
-6. Implements serialzable and clonable interfaces but not RandomAccess.
-7. Every methods present inside HashTable is synchronized. And hashtable object is threadsafe.
-8. Hashtable is best choice if our frequent operation is retrieval operation or search operation.
-
-Constructors:
-1. Hashtable h = new Hashtable();  
-Creates empty HashTable with default initial capacity 11, and default fill ratio 0.75.
-2. Hashable h = new HashTable(int initialCapacity);
-3. Hashable h = new HashTable(int initialCapacity, float fillFillRatio);
-4. Hashtable h = new Hashtable(Map m);
-
-Difference between HashMap and HashTable:
-1. null acceptance
-HashMap: Null keys and values are allowed in hashmap.
-HashTable: Null key or null value is not allowed in HashTable.
-
-2. Synchronized methods.
-HashMap: Every methods present in Hashmap is not synchronized.
-HashTable: Every methods present in HashTable is synchronized.
-
-3. ThreadSafety
-HashMap: At a time multiple threads are allowed to operate on hashmap object. So not threadsafe.
-HashTable: At a time multiple threads are allowed to operate on HasTable. So it is thread safe.
-
-4. Performance.
-HashMap: To operate on hashmap threads are not required to wait. So performance is high.
-HashTable:To operate on hashtable threads are required to wait. So performance is low.
-
-5. Legacy
-HashMap: 1.2. Not legacy.
-HashTable: 1.0 version. Legacy
-
-How to get synchronized version of hashmap object?
-By default hashmap is non-synchronized but we can get synchronized version of hashmap by using synchronizedMap method of Collections class.
-HashMap m = new HashMap();
-Map m1 = Collection.synchronizedMap(m); //m is non-synchronized where m1 is synchronized.
-
 ---------------------------------------------------------------------------------------------------
-Content7: IdentityHashMap Class
-- Direct Implementation class of Map interface
-- It is exactly same as HashMap including methods and constructors Except the following difference.
-- In the case of normal Hashmap JVM will use .equals() method to idenify duplicate keys, wihch is meant for content comparison.
-- But in the case of identity hashmap JVM will use == operator to idenify duplicate keys, which is meant for reference(address) comparison.
+Content6: SortedMap(I) and TreeMap(I)
 
-Example:
-		HashMap m = new HashMap();
-		Integer I1 = new Integer(10);
-		Integer I2 = new Integer(10);
-		m.put(I1,"Pawan");
-		m.put(I2,"Kalyan");
-		System.out.println(m);//{10=Kalyan}. 10 Pawan will be replaced with 10 Kalyan. 
-		Because HashMap Uses .equals method to check duplicate keys.
-
-Now, If you want == to check duplicate then go for IdentityHashMap.
-Example:
-		IdentityHashMap m = new IdentityHashMap();
-		Integer I1 = new Integer(10);
-		Integer I2 = new Integer(10);
-		m.put(I1,"Pawan");
-		m.put(I2,"Kalyan");
-		
-		System.out.println(m);
-		//{10=Pawan, 10=Kalyan}. Here 10, 10 are equal but not same.
-		//Here IdentityHashMap used == to check duplicates,
-
-
----------------------------------------------------------------------------------------------------
-Content8. WeakHashMap Class
-- Direct Implementation class of Map interface
-- It is exactly same as HashMap except below
-- In case of HashMap, if object doesnt have any reference, it is not eligible for gc. Here, Hashmap dominates Garbage Collector.
-- But in the case of Weakhashmap, if oject doesnt contain any references it is eligible for gc. Garbage collector dominates weak hashmap.
-- If reference of that object removed then gc will kill that object which is used as key with the value associated with it.
-
-Example:
-import java.util.*;
-class MapDemo 
-{
-	public static void main(String[] args) 
-	{
-		HashMap m = new HashMap();
-		Temp t = new Temp();
-		m.put(t,"Durga");
-		System.out.println(m);
-		t = null;
-		System.gc();
-		try {
-			Thread.sleep(5000);			
-		} catch (Exception e) {
-			
-		}
-		System.out.println(m);
-	}
-}
-
-class Temp 
-{
-	public String toString() {
-		return "temp";
-	}
-	
-	public void finalize() {
-		System.out.println("Finalize method called!!");
-	}
-	
-}
-
-output
-{temp=Durga}
-{temp=Durga}
-
-In above example temp object is not eligible for gc because it is associated with hashmap in this case output is 
-temp=Durga}
-{temp=Durga}
-
-
-But if we replace HashMap with WeakHashMap then the object without reference will be deleted.
-So the Object(used as key) and the value associated with it will be deleted.
-And the output will be as below. 
-
-Output.
-{temp=Durga}
-Finalize method called!!
-{}
----------------------------------------------------------------------------------------------------
-Content9: SortedMap Interface
-Child interface of map. 
-If we want to represent group of key values pair accoording to some sorting order of keys then we should use sorted map.
+- TreeMap is child interface of map.
+If we want to represent group of key values pair according to some sorting order of keys then we should use sorted map.
 
 Sorted map defines following specific methods:
 1. Object firstKey(); //101
@@ -377,8 +332,7 @@ Example:
 125 - E
 136 - F
 
------------------------------------------------------------------------------------
-Content10: TreeMap
+Class TreeMap
 - UnderlyingDataStructure: RED-BLACK Tree
 - Insertion order: Not preserved and it is based on some sorting order of keys.
 - Duplicate keys not allowed but value can be duplicate.
@@ -386,22 +340,23 @@ Content10: TreeMap
   ClassCasteException will be thrown.
 - If we are defining our own sorting by comparator then keys need not be homogeneous and comparable.
 - We can heterogeneous non comparable objects also.
-- Whether we are depending on default natural sorting orede or cusomized sorting order there are no restrictions for values.
+- Whether we are depending on default natural sorting order or customized sorting order there are no restrictions for values.
 - We can take heterogeneous non comparable objects also..
-- Null Acceptance: For Treemap null key gives NPE. From 1.6. Before that first null key was allowed.
+- Null Acceptance: For TreeMap null key gives NPE. From 1.6. Before that first null key was allowed.
 
 constructors 4:
-TreeMap t = new TreeMap()
+1. TreeMap t = new TreeMap()
 Creates empty tree map with Default Natural sorting order.
 
-TreeMap t = new TreeMap(Comparator c)
+2. TreeMap t = new TreeMap(Comparator c)
 For customized sorting order.
-TreeMap t = new TreeMap(SortedMap m)
-TreeMap t = new TreeMap(Map m)
+
+3. TreeMap t = new TreeMap(SortedMap m)
+
+4. TreeMap t = new TreeMap(Map m)
 
 Example for Default natural sorting order:
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		TreeMap m = new TreeMap();
 		m.put(100,"ZZZ");
 		m.put(103,"YYY");
@@ -429,8 +384,7 @@ class MapDemo
 	}
 }
 
-class MyComparator implements Comparator 
-{
+class MyComparator implements Comparator {
 	public int compare(Object obj1, Object obj2)
 	{
 		String s1 = obj1.toString();
@@ -441,31 +395,27 @@ class MyComparator implements Comparator
 	}
 }
 ---------------------------------------------------------------------------------------------------
+Content6: ConcurrentHashMap
+- Thread Safe
+- Iterator is fail-safe
 
+ConcurrentHashMap extends AbstractMap and implements ConcurrentMap; it is not a child class of HashMap or Hashtable.
+---------------------------------------------------------------------------------------------------
 Summary:
 1. UnderlyingDataStructure:
 HashMap: HasTable
 LinkedHashMap: LinkedList + HashTable(Hybrid data structure)
-HashTable: HashTable
 TreeMap: RED-BLACK Tree
 
 2. Insertion Order:
 HashMap: Not preserved and it is based on hashcode of keys.
 LinkedHashMap: Insertion order is preserved.
-HashTable: Not preserved and it is based on hashcode of keys.
 TreeMap: Not preserved but sorted accoring to default natural sorting order.
 
 3. Default capacity
 Hashmap: 16
-HashTable: 11
 
 3. Key points:
 HashMap and Hashtable are same but methods present in HashTable are synchronized and in Hashmap not synchronized.
 HashTable: 
 ---------------------------------------------------------------------------------------------------
-
-
-
-
-
-
