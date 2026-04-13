@@ -137,40 +137,59 @@ Q8. What is Runnable and Callable Interface? Write the difference between them.
 Both the interfaces are generally used to encapsulate tasks that are needed to be executed by another thread. 
 But there are some differences between them as given below: 
 
-Runnable Interface: This interface is basically available in Java right from the beginning. 
+Runnable Interface: 
+This interface is basically available in Java right from the beginning. 
 It is simply used to execute code on a concurrent thread.  
-Callable Interface: This interface is basically a new one that was introduced as a part of the concurrency package. 
-It addresses the limitation of runnable interfaces along with some major changes like generics, enum, static imports,
-variable argument method, etc. It uses generics to define the return type of object.   
 
-public interface Runnable  
-{   
+Callable Interface: 
+This interface is basically a new one that was introduced as a part of the concurrency package. 
+This is similar to Runnable but has two differences:
+1. It returns value
+2. It can throw checked exception
+- It uses generics to define the return type of object.   
+
+public interface Runnable  {   
   public abstract void run(); 
 }  
 
-public interface Callable<V>  
-{    
+public interface Callable<V>  {    
  V call() throws Exception;  
 }
 
 Differences:
-Runnable Interface: It does not return any result and therefore, cannot throw a checked exception. 
-Callable Interface: It returns a result and therefore, can throw an exception.
-
-Runnable Interface:	It cannot be passed to invokeAll method. 
-Callable Interface: It can be passed to invokeAll method.
-
 Runnable Interface:It was introduced in JDK 1.0.	
 Callable Interface: It was introduced in JDK 5.0, so one cannot use it before Java 5. 
 
 Runnable Interface:	It simply belongs to Java.lang.
-Callable Interface: It simply belongs to java.util.concurrent. 
+Callable Interface: It simply belongs to java.util.concurrent.
+
+Runnable Interface: It does not return any result and therefore, cannot throw a checked exception. 
+Callable Interface: It returns a result and therefore, can throw an exception.
 
 Runnable Interface:	It uses the run() method to define a task.
 Callable Interface: It uses the call() method to define a task. 
 
-Runnable Interface:	To use this interface, one needs to override the run() method. 
-Callable Interface: To use this interface, one needs to override the call() method.
+Example with Executors:
+public class CallableExample {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Callable<Integer> task = () -> {
+            Thread.sleep(1000);
+            return 10 + 12;
+        };
+        Future<Integer> future = executor.submit(task);
+        System.out.println("Result: " + future.get());
+        executor.shutdown();
+    }
+}
+
+With Runnable:
+Runnable task = () -> {
+    Thread.sleep(1000);
+};
+
+Future<?> future = executor.submit(task);
+Object result = future.get(); // null
 -------------------------------------------------
 Q9. Why run method? or use of run method?
 Ans: 
