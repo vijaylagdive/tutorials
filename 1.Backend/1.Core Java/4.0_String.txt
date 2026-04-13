@@ -8,15 +8,89 @@ Content5. Important methods of String class:
 Content1: String
 - Strings in Java are objects that represent a sequence of characters.
 - Strings are immutable, meaning they cannot be modified once created.
-- String manipulation and operations are performed using various methods provided by   the String class.
-- Immutablity of String: Once we created a string object we cant perform any chages in the existing
+- Immutability of String: Once we created a string object we cant perform any changes in the existing
   object. 
-  If we are trying to perform any changes, with those changes new object will be created. 
-  This non changeble nature is nothing but immutability of the string object.
+- If we are trying to perform any changes, with those changes new object will be created.
+  This non changeable nature is nothing but immutability of the string object.
 - Example:
   String s = new String("Durga");
    s.concat("Software");
    System.out.println(s); //Will print Durga only. Because its immutable. another orphan object will be created.
+
+Why Strings are immutable?
+1. Security:
+Strings are heavily used in security‑sensitive areas, such as: File paths, Network connections, 
+Database URLs, Class loaders, Usernames and passwords
+
+e.g.
+String path = "/user/home/config";
+- If String were mutable, some malicious code could change path after validation but before use, leading to serious security issues.
+- Immutability guarantees that once a string is validated, it cannot be altered.
+
+
+2. String Pool Optimization (Memory Efficiency)
+Java maintains a String Constant Pool (SCP) inside the heap.
+String s1 = "Java";
+String s2 = "Java";
+
+Both s1 and s2 point to the same object in the string pool.
+If strings were mutable:
+
+Changing s1 would unintentionally change s2
+Sharing would become unsafe
+
+- Immutability makes string pooling safe and memory‑efficient.
+
+
+3. Thread Safety
+Because strings cannot change, they are inherently thread-safe, no synchronization is required
+
+String msg = "Hello";
+Multiple threads can safely share this string without locks, improving performance.
+- This is one of the reasons Java uses String extensively in multithreaded environments.
+
+4. HashCode Caching (Performance Boost)
+Strings are widely used as keys in HashMap, HashSet, Hashtable, etc.
+Map<String, Integer> map = new HashMap<>();
+map.put("India", 91);
+
+Since strings are immutable:
+
+Java caches the hashCode once calculated
+It never needs to recompute it
+
+If strings were mutable:
+
+Changing a key would break the hashing logic
+The entry could become unreachable
+
+- Immutability ensures consistent hashing and faster collections.
+
+5. Class Loading Safety
+Class names in Java are strings:
+Class.forName("com.example.MyClass");
+
+If strings were mutable, the class name could change after loading, causing unpredictable behavior or security vulnerabilities.
+- Immutable strings ensure reliable class loading.
+
+
+6. Simpler JVM and Library Design
+Because strings never change:
+
+JVM can assume stable behavior
+Libraries can safely reuse string instances
+Less defensive copying is required
+This simplifies the implementation of many core Java APIs.
+
+
+7. ✅ Predictable Behavior
+Immutability prevents accidental modification:
+String s = "Java";
+s.concat(" World");
+System.out.println(s);  // Java
+
+A new object is created instead of changing s.
+This avoids subtle bugs and improves code reliability.
 ---------------------------------------------------------------------------------------------------
 Content2: String object creation. Heap and String Constant pool
 1. String s = new String("Durga");
@@ -60,7 +134,7 @@ SCP
 "Durga": for first line 
 "Software": copy for second line
 "Solutions": one copy for third line.
-- For "Durga Software nothing will be created in SCP area because SCP area is meant for Constants and not for rutime operation results."
+- For "Durga Software nothing will be created in SCP area because SCP area is meant for Constants and not for runtime operation results."
 ----------------------------------
 Example3:
 String s1 = new String("spring");
@@ -100,13 +174,13 @@ System.out.println(s1==s4);//false: created new copy for s4 for uppercase of 'du
 ---------------------------------------------------------------------------------------------------
 Content3: Importance of String constant pool
 Advantage 
-Same string object can be used multiple times instead of creating new object.
-Memory saved, performace increased.
+- Same string object can be used multiple times instead of creating new object.
+- Memory saved, performance increased.
 
 Problem:
-Any person try to change it then all reference will be affected.
-To prevent that java introuced immutability.
-So just because of SCP concept immuability is added.
+- Any person try to change it then all reference will be affected.
+- To prevent that java introduced immutability.
+- So just because of SCP concept immutability is added.
 ---------------------------------------------------------------------------------------------------
 Content4. Important constructor of String class:
 1. String s = new String();
@@ -188,6 +262,11 @@ String city1 = ("pune");
 System.out.println(city.equals(city1));//false
 System.out.println(city.equalsIgnoreCase(city1));//true. Ignores cases.
 -------------------
+15. s.toCharArray();
+String s = "Vijay";
+char[] arr = s.toCharArray();
+System.out.println(arr[0]); // V
+-------------------
 15. What is intern() method in String?
 Ans: 
 - The method intern() creates an exact copy of a String object in the heap memory and stores it in the String constant pool.
@@ -200,7 +279,6 @@ Ans:
 		System.out.println(s1 == s3.intern());//true
 	}
 ---------------------------------------------------------------------------------------------------
-
-
-
-
+16 Methods introduced in java 11
+isBlank(), strip*(), repeat(), lines()
+---------------------------------------------------------------------------------------------------
