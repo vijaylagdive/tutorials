@@ -342,3 +342,55 @@ long countEven = marks.stream().filter(num -> num % 2 == 0).count();
 min(Comparator)
 max(Comparator)
 ---------------------------------------------------------------------------------------------------
+Q1. Stream vs Parallel Stream
+In Java 8+, Stream and Parallel Stream are APIs used to process collections of data in a functional style. The key difference lies in how the operations are executed—sequentially or concurrently.
+1. Stream (Sequential Stream)
+A Stream processes elements one at a time, in a single thread, following the order of the data source.
+Example
+list.stream()
+    .filter(n -> n % 2 == 0)
+    .forEach(System.out::println);
+Characteristics
+- Uses one thread (the calling thread)
+- Predictable order (important for ordered collections like List)
+- Easier to debug
+- Safe for stateful or non-thread-safe operations
+- No performance gain from multi-core CPUs
+
+When to use
+- When the dataset is small
+- When operations are I/O-bound or very fast
+- When order matters
+- When you use mutable shared state
+
+2. Parallel Stream
+A Parallel Stream splits the data into multiple chunks and processes them concurrently using multiple threads.
+Internally, it uses the ForkJoinPool.commonPool().
+Example:
+list.parallelStream()
+    .filter(n -> n % 2 == 0)
+    .forEach(System.out::println);
+list.stream()
+    .parallel()
+    .filter(n -> n % 2 == 0)
+    .forEach(System.out::println);
+
+- Uses multiple threads (based on CPU cores)
+- Can be much faster for CPU‑intensive work
+- Execution order is not guaranteed
+- Harder to debug
+- Can cause issues with shared mutable state
+- Not always faster (thread overhead)
+
+When to use
+Large datasets
+CPU-intensive operations
+Stateless and independent computations
+When order is not important
+-----------------------------------------------
+Q2. Why to use stream istead of for each?
+If I just want to print list I can use forEach. Why should i use stream?
+
+
+
+---------------------------------------------------------------------------------------------------
