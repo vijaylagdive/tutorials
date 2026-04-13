@@ -325,15 +325,14 @@ Ans:
 - The volatile keyword in java is used in multithreading to ensure visibility and ordering of variables of 
    variables across threads.
 - Volatile tells JVM: "Always read this variable from main memory, not from a thread's local cache."
+- volatile guarantees that when one thread updates a variable, all other threads immediately see the updated value.
 
 Example without volatile:
 class Shared {
 	boolean flag = false;
 }
-
 Thread 1:
 shared.flag = true;
-
 Thread 2:
 while(!shared.flag) {
 	//may run forever
@@ -348,6 +347,20 @@ class Shared {
 Now:
 - Change is immediately visible to threads
 - Thread 2 will exit loop correctly.
+
+Why volatile is needed?
+- Java threads work with CPU caches, not directly with main memory.
+- So without volatile, each thread may keep its own cached copy of a variable.
+- One thread’s update may never be seen by others
+- With volatile every update to variable go directly to main memory.
+- And each thread reads volatile variable always from main memory
+No stale values
+
+volatile does NOT provide mutual exclusion
+- Threads can still enter the same code at the same time
+- No locking
+
+
 -------------------------------------------------
 Q12. Explain thread pool?
 Ans: 
