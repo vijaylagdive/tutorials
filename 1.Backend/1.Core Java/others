@@ -1,0 +1,39 @@
+Other important topics
+
+1. The Core equals()–hashCode() Contract
+Ans:
+If two objects are equal according to equals(), they MUST have the same hashCode()
+But the reverse is not required
+
+equals()
+- The equals(Object obj) method determines logical equality, not reference equality.
+
+Rules of equals()
+1. Reflexive
+x.equals(x) == true
+
+2. Symmetric
+x.equals(y) == true  ⇒  y.equals(x) == true
+
+3. Transitive
+x.equals(y) == true && y.equals(z) == true ⇒ x.equals(z) == true
+
+4. Consistent
+Multiple calls must return the same result if the objects don’t change.
+
+5. Non-null
+x.equals(null) == false
+
+2. hashCode() Contract
+hashCode() returns an integer used by hash-based collections to determine bucket placement.
+
+1. Consistent
+- Multiple calls return the same value as long as object state doesn’t change.
+
+2. Equal objects must have equal hash codes
+if x.equals(y) == true
+then x.hashCode() == y.hashCode() must be true
+
+3. Unequal objects may have same hash code
+This is allowed (called a hash collision).
+---------------------------------------------------------------------------------------------------
