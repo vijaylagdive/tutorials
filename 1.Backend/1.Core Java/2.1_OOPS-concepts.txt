@@ -4,3 +4,131 @@
 4. Polymorphism
 5. Abstraction
 6. Encapsulation
+-------------------------------------------------------------------------------------------------
+1. Abstract Class
+An abstract class is a class that cannot be instantiated and may contain abstract methods (without implementation) as well as concrete methods (with implementation).
+Key Characteristics
+
+Can have abstract and non-abstract methods
+Can have instance variables
+Can have constructors
+Supports access modifiers (private, protected, etc.)
+A class can extend only one abstract class (single inheritance)
+
+Example:
+abstract class Vehicle {
+    int speed;
+    abstract void move();
+    void start() {
+        System.out.println("Vehicle started");
+  }
+}
+
+Abstract class cannot be instantiated but they can have constructor becasue:
+1. Constructor can initialize common fields
+- Abstract classes often holds shared data
+
+2. Support subclass construction 
+- When a subclas is instatiated, the abstract class constructor is automatically called.
+-------------------------------------------------------------------------------------------------
+Interface
+In Java, an interface is a blueprint of a class that is used to achieve abstraction and multiple inheritance. 
+It defines what a class must do, but not how it does it.
+
+An interface in Java:
+- Contains public and abstract methods.
+- Can contain public static final variables. e.g int VALUE = 10; //same as public static final
+- May contain default methods, static methods, and constants
+- Cannot have constructors
+- Is implemented by classes using the implements keyword
+- Any class that implements this interface must provide implementations for its methods.
+interface Vehicle {
+    void start();
+    void stop();
+}
+
+Interface can have static and default methods with body from Java8.
+1. With same name
+interface Printer {
+    default void print() {
+        System.out.println("Printing from Printer interface");
+    }
+}
+
+interface Scanner {
+    default void print() {
+        System.out.println("Printing from Scanner interface");
+    }
+}
+
+class MultiFunctionDevice implements Printer, Scanner {
+    @Override
+    public void print() {
+        // Explicitly choosing which interface's default method to use
+        Printer.super.print();
+        Scanner.super.print();
+        System.out.println("Printing from MultiFunctionDevice class");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MultiFunctionDevice device = new MultiFunctionDevice();
+        device.print();
+    }
+}
+
+2. If there are 2 different names then no need to override.
+interface Bluetooth {
+    default void connect() {
+        System.out.println("Connected via Bluetooth");
+    }
+}
+
+interface Wifi {
+    default void connectWifi() {
+        System.out.println("Connected via WiFi");
+    }
+}
+
+class SmartDevice implements Bluetooth, Wifi {
+    // No override required
+}
+
+SmartDevice d = new SmartDevice();
+d.connect();
+d.connectWifi();
+------------------------------------------------------------------------
+For static methods
+interface Printer {
+    static void print() {
+        System.out.println("Static print from Printer interface");
+    }
+}
+
+interface Scanner {
+    static void print() {
+        System.out.println("Static print from Scanner interface");
+    }
+}
+
+class MultiFunctionDevice implements Printer, Scanner {
+    // No override allowed for static methods
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Printer.print();
+        Scanner.print();
+    }
+}
+
+Static print from Printer interface
+Static print from Scanner interface
+---------------------------------------------------------------------------------------
+
+
+
+
+
+-----------------------------------------------------------------------------------
