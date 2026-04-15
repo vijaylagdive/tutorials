@@ -1,0 +1,156 @@
+Circuit Breaker With Resilience4j
+
+What is Resilience4j
+Ans:
+- Resilience4j is a lightweight fault-tolerance library used in Spring Boot / Spring Cloud microservices 
+  to make services resilient to failures such as timeouts, slow responses, and downstream outages.
+- It tells microservice that what it should do when another service is slow or down?
+- Lightweight
+- Annotation-based in Spring
+- No external server (unlike Hystrix dashboard)
+-------------------------------------------------
+
+Why Resilience4j exists or what problem it solves?
+Ans:
+In microservices services call other services over the network.
+Network calls may fail or there may be timeouts.
+One failing service can cascade failures across the system.
+
+Without resilience:
+Service A → Service B (slow/down) → Threads blocked → Service A crashes
+
+Resilience4j prevents this by:
+- Failing fast
+- Limiting damage
+- Allowing graceful degradation
+-------------------------------------------------
+
+Core patterns provided by Resilience4j
+Resilience4j implements common resilience patterns used in microservices.
+
+1. Circuit Breaker
+Purpose: To stop calling a failing service temporarily.
+How it works?
+- Counts Failures
+- If failures exceed a threshold → OPEN circuit
+- Requests fail immediately (no remote call)
+- After some time → HALF-OPEN → test calls
+- If successful → CLOSED
+
+Why to do this?
+- Prevents thread exhaustion
+- Avoids cascading failures
+
+Example scenario
+Order Service → Payment Service (down)
+Circuit open → immediate fallback response
+
+
+2. Retry
+Purpose: Retry transient failures automatically.
+Use When?
+- Temporary network issue.
+-Idempotent operations
+
+Note:
+- Retrying a broken service can make things worse so always combine with Circuit Breaker
+- So it should be retry 2 times + circuit breaker
+
+
+3. Rate Limiter
+Purpose: Limit how many request a service can handle
+Use When: 
+- Protecting downstream resources
+- Preventing abuse or floods
+
+Example:
+Max 100 requests per seconds per service.
+
+
+4. Bulkhead
+Purpose: Isolate failures
+Idea
+- Separeate thread pools or semaphores
+- One slow dependency doesn't block everything.
+
+Analogy:
+Ship Compartments: One leak doesn't sink the ship
+
+
+5. Time Limiter
+Purpose: 
+Set a maximum execution time for async calls
+If exceeded → request fails fast.
+---------------------------------------------------------
+How Resilience4j integrates with Spring Boot
+
+Dependency
+<dependency>
+  <groupId>io.github.resilience4j</groupId>
+  <artifactId>resilience4j-spring-boot3</artifactId>
+</dependency>
+
+
+Common Annotations:
+@CircuitBreaker
+@Retry
+@RateLimiter
+@Bulkhead
+
+
+Example: Circuit Breaker with fallback
+
+@CircuitBreaker(name = "paymentService", fallbackMethod = "fallbackPayment")
+public PaymentResponse pay(Order order) {
+    return paymentClient.pay(order);
+}
+
+public PaymentResponse fallbackPayment(Order order, Exception ex) {
+    return new PaymentResponse("PAYMENT_PENDING");
+}
+
+
+Configuration example:
+resilience4j:
+  circuitbreaker:
+    instances:
+      paymentService:
+        failureRateThreshold: 50
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 10s
+
+Means:
+- If 50% of last 10 calls fail
+- Break the circuit
+- Keep it open for 10 seconds
+-----------------------------------------------------------
+
+When should you use Resilience4j?
+Use it when:
+- Calling external services (REST, gRPC, Kafka consumers)
+- Communicating between microservices
+- Handling unpredictable latency
+- Building production-grade systems
+
+Do NOT blindly use it
+- For internal method calls
+- For database transactions without understanding retries
+- Without monitoring (metrics!)
+-----------------------------------------------------------
+
+Where should you apply which pattern?
+- Remote REST call: Circuit Breaker + Timeout
+- Temporary failures: Retry + Circuit Breaker
+- Heavy load protection: Rate Limiter
+- Slow dependency: Bulkhead
+- Async operations: Time Limiter
+---------------------------------------------------------
+Summary
+Resilience4j in Spring microservices
+- Adds fault tolerance
+- Prevents cascading failures
+- Provides circuit breaker, retries, rate limiting, bulkheads
+- Easy Spring Boot integration
+- Essential for production microservices
+---------------------------------------------------------
