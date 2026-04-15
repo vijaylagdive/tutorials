@@ -16,9 +16,15 @@ Implemented by:
 1. REST over HTTP
 - Simplest implementation
 - Service A -> HTTP Request -> Service B -> HTTP Response -> Service A Continues
+SpringTools:
+SpringWeb(RestController)
+RestTemplate(older)
+WebClient(recommended)
 
-Example: 
+But now RestTemplate is Deprecated (due to its blocking nature) though it is still used.
+Instead WebClient is used for api calls to other service as it is non blocking.
 
+Example 2: RestTemplate
 RestTemplate restTemplate = new RestTemplate();
 String response = restTemplate.getObject("http://order-service/order/123",String.class);
 System.out.println(response);
@@ -29,19 +35,30 @@ public Order getOrder(@PathVariable String id) {
 	return orderService.findOrder(id);
 }
 
-But now RestTemplate is Deprecated (due to its blocking nature) though it is still used.
-Instead WebClient is used for api calls to other service as it is non blocking.
+Example 2: WebClient
+webClient.get().uri("http://order-service/orders/12").retrieve().bodyToMono(Order.class)
+
+When to use Web Client
+- When you need flexibility over performance control
+- External API calls(third party services)
+- Complex headers, auth, transformations
+- Reactive/non blocking systems
+- High throughput applications
 -------------------
+
 2. Using Service Discovery
 - Dynamic URLs
-- Instead of hardcoding URLs we can use dynamic url
+- Instead of hardcoding URLs we can use dynamic URL
 - http://user-service/user/123
 - You use a registry like Eureka, consul
 - Flow: Ask registry: "where is user Service"
 - Get IP/Port
 - Make Http call
+
+Flow: Service A -> Discovery -> Service B
 -------------------
-3. Using a client library(Cleaner Approach)
+
+3. Declarative REST clients (Open Feign)
 Frameworks handle discovery + load balancing for you
 e.g. Spring Boot + OpenFeign
 
@@ -50,7 +67,12 @@ public interface UserClient {
 	@GetMapping("/user/{id}")
 	User getUser(@PathVariable int id);
 }
+
+When to FeignClient
+- Crud operations, Simple Service to service calls
+- Simplicity, easy integration with Eureka, Load Balancing, Resilience4j
 -------------------
+
 4. High Performance Sync(gRPC)
 Instead of HTTP + JSON it uses binary + contract  
 - Service A -> gRPC call -> Service B -> response -> Continue
@@ -64,24 +86,29 @@ e.g.
 user = stub.GetUser(UserRequest(id=123))
 Feels like local function call but its remote.
 -------------------
-5. Adding Resilience(Very Important)
-Real system never calls services directly without protection.
-Common additions:
-Timeout, Retry, Circuit Breaker
-Using: Resilience4j
-Stops calling failing service
+5. API Gateway in front
+Client don't call services directly. Use a gateway like Spring Cloud Gateway
+Flow: Client -> Gateway -> Microservices
+Responsibilities:
+- Routing
+- Authentication
+- Rate Limiting
 -------------------
-6. API Gateway in front
-Client don't call services directly
-Client -> Gateway -> Microservices
+6. Circuit Breaker Pattern (For Sync calls)
+Prevent Cascading failures
+Tool: 
+Resilience4j
+
+Behavior:
+Stops calling failing service
 ---------------------------------------------------------------------------------------------------
+
 Asynchronous Communication
 - In this services communicates via messages/events, not via direct calls.
 
-
 1. Message Que
 - A producer sends a message and Exactly one consumer processes it.
-Features
+  Features
 - One to One communication
 - Messages are consumed once.
 - Used for task processing/background jobs.
