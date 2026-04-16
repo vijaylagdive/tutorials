@@ -1,4 +1,10 @@
 Why Saga Exists??
+It solves issues in Distributed Transactions:
+What is Distributed transaction?
+- One logical business transaction that spans multiple independent services and databases.
+- Distributed transactions in microservices making multiple independent services behave as one business operation,
+  without a single shared transaction.
+
 In a microservices architecture, each service:
 - Owns its own database
 - Must remain independently deployable
@@ -21,6 +27,43 @@ A Saga is a sequence of local transactions, where:
 
 Core Idea (Simple Definition)
 - Instead of “commit or rollback everything,” do “commit step by step and compensate on failure.”
+
+Think of booking a trip:
+Book a flight
+Book a hotel
+Book a cab
+You want all or nothing. If cab booking fails → cancel hotel → cancel flight
+
+That whole process is one business transaction, but:
+Different systems
+Different owners
+Different databases
+
+✅ That’s a distributed transaction
+
+Eventual Consistency: Modern Solution
+Instead of:
+“Everything must succeed immediately”
+We accept:
+“The system becomes consistent over time”
+
+This leads to patterns like:
+✅ Saga
+✅ Compensation instead of rollback
+
+How Sagas Address Distributed Transactions
+A Saga breaks one big transaction into:
+
+Multiple local transactions
+Each service commits its own DB change
+Failures are handled by compensating actions
+
+Distributed Transaction vs Saga
+One global transaction: Many local transactions
+ACID: Eventual consistency
+Rollback: Compensation
+Tight coupling: Loose coupling
+Poor scalability: Scales well
 ---------------------------------------------------------------------
 Saga Communication Styles
 There are two ways services communicate in a saga
@@ -114,16 +157,3 @@ Avoid Saga when:
 - Compensations are impossible
 - Workflow is trivial (monolith or simple call)
 ---------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
