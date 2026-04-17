@@ -1,0 +1,135 @@
+SpringBoot Basics
+Q. How Spring Boot Application Starts?
+Q. What is Spring Boot auto-configuration and how does it work internally?
+Q. @SpringBootApplication details
+
+Q. How Spring Boot Application Starts?
+Ans:
+	1. Entry Point: main() method
+    		- Spring boot application starts from the main method using SpringApplication.run().
+
+	2. Creation of SpringApplication object
+		- SpringApplication.run() creates a spring application instance.
+		- It determines Application type (Servlet/ Reactive/None)
+
+	3. Preparing the environment:
+		- Load properties from: application.properties / application.yml
+		- Resolves profile (e.g. dev, prod)		
+	
+	4. Application listeners and initializers
+	
+	5. Create Application Context 
+		Based in app type:	
+		Web App: AnnotationConfigServletWeb, ServerApplicationContext 
+	
+	6. AutoConfiguration kicks in:
+		- Triggered by @SprinBootApplication, which includes: 
+			@Configuration, @EnableAutoConfiguration, @ComponentScan
+		- @EnableAutoConfiguration:
+			Looks at classpath dependencies
+			Loads configurations from: spring/org.springfram
+
+	7. Component scanning 
+		- Scans packages for:
+			@Component, @Service, @Repository, @Controller
+		- Creates beans and registers them in the context.
+	
+	8. Embedded server starts(for web apps)
+		- Spring boot starts embedded servers like
+			Tomcat(default) or Jetty etc
+		
+	9. Application Context refresh
+		- All beans are initialized
+		- Dependencies are injected
+		- Lifecycle callbacks are executed
+
+	10. Application is ready
+		- App is ready to serve requests
+
+In Short:
+	- Spring Boot application starts from the main method using SpringApplication.run().
+	- It creates a spring spring application instance, prepares the environment, and initializes the Application Context.
+   	- Then autoconfiguration is applied based on classpath dependencies and component scanning registers bean.
+	- Finally, for web applications, an embedded server like Tomcat is started, and the applications becomes ready to handle requests.
+-------------------------------------------------
+Q. What is Spring Boot auto-configuration and how does it work internally?
+Ans: 
+Auto - Configuration Means:
+	- Auto configuration is the feature of spring boot that automatically configures 
+	  your application based on the dependencies present in the classpath.
+	- Suppose your application has spring boot starter web dependency then spring boot 
+	  will automatically
+		a. configure DispatcherServlet
+		b. start embedded Tomcat
+		c. Set up Spring MVC
+		d. Configure JSON support (Jackson)
+	- You don't need to write configuration manually.
+
+How Auto configuration works?
+1. Triggered by @EnableAutoConfiguration which is included in @SpringBootApplication
+2. Looks at classpath dependencies:
+	- Which libraries are present (e.g JDBC, JPA, Web) 
+	- Based on that, it decides what to configure
+	Example:
+		- If spring-mwebmvc is present configure Spring MVC
+		- If HikariCP + JDBC -> configure DataSource
+3. Uses Auto-Configuration classes 
+ Spring boot loads configuration classes like: 
+	- DataSourceAutoConfiguration
+   	- WebMvcAutoConfiguration
+	- HibernateJpaAutoConfiguration
+
+These Classes are annotated with @Configuration, Define beans using @Bean
+
+4. Loaded via metadata files
+SpringBoot 3:
+	META-INF/spring/org.spring.......
+
+These files list all auto-configuration classes
+
+5. Conditional annotation (core logic)
+Auto-configuration works using condition like:
+
+6. Back-off mechanism 
+	- If you define your own bean Spring Boot backs off.
+	Example: 
+	@Bean
+	public DataSource myDataSource() {...}
+	Spring Boot will NOT create its default datasource.
+
+In Short:
+- Auto-Configuration in Spring Boot automatically configures beans based on classpath dependencies.
+- It is enabled by @EnableAutoConfiguration and works by loading configuration classes defined in metadata files.
+- These configurations use conditional annotations like @ConditionalOnClassand @ConditionalOnMissingBean 
+  to decide whether to create beans.
+- If the developer provides custom configuration, Spring Boot backs off
+-------------------------------------------------
+Q. @SpringBootApplication
+Ans:
+ It's  typically placed on your main class to bootstrap a spring Boot application
+It includes:
+1. @SpringBootConfiguration
+- A specialized version of @Configuration
+- Indicates that the class can define Spring beans using @Bean
+- Marks it as a source if bean definitions.
+- It is used with root class means it tells that the class with main method can contain bean.
+
+Note:
+- customized behavior: @SpringBootApplication(scanBasePackage = "com.examleproject")
+This overrides default component scanning package	
+- or it also can exclude specific auto-configuration
+
+2. @EnableAutoConfiguration
+- Tells Spring Boot to automatically configure your application based on
+	- Dependencies in the classpath
+	- Existing beans
+	- Application Properties 	
+Example:
+	If you include a web dependency, it auto-configures an embedded server like Apache Tomcat.
+
+3. @ComponentScan
+- Enables component scanning in the package where your main class resides
+- Automatically detects: 
+	@Component, @Service, @Repository, @Controller
+- Also scans sub-packages by default 
+-------------------------------------------------
