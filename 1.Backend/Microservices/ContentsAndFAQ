@@ -1,0 +1,26 @@
+	1. Synchronous Communication: 
+		Rest Template, 
+		Web Client, 
+		Feign Client, 
+		gRPC, 
+		Service Discovery (Eureka concept - Server and Client),
+		Using API Gateway, Why its important
+
+	2. Async Communication: 
+		RabbitMQ, 
+		Kafka
+
+	3. Kafka
+		Distributed Transactions and eventual consistency across services, Handling data consistency across services
+		Saga Design Pattern (Orchestration, Choreography), Why to use Saga
+		Kafka Concepts: Event, Producer, Consumer, Consumer Group, Topic, Partition, Broker, ISR, Cluster
+		
+	4. Other
+		Fault Tolerance or Failure Recovery: Circuit Breaker (Resilience4j concept)
+		Centralized Logging & Monitoring
+
+	Questions: 
+  Q. Microservice Features or why microservices over monolithic?
+	Q. If a consumer fails how it ensures to read message from kafka?
+	Q. Rest Template vs Feign Client. When to use what?
+	Q. How do you make a Kafka producer and consumer idempotent to avoid duplicate message processing?
