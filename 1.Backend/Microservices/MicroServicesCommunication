@@ -1,0 +1,105 @@
+Synchronous Communications
+1. Rest Template
+- Simplest implementation
+- Service A -> HTTP Request -> Service B -> HTTP Response -> Service A Continues
+- But now RestTemplate is Deprecated (due to its blocking nature) though it is still used.
+- Instead WebClient is used for api calls to other service as it is non blocking.
+
+Example: RestTemplate
+	RestTemplate restTemplate = new RestTemplate();
+	String response = restTemplate.getObject("http://order-service/order/123",String.class);
+	System.out.println(response);
+
+	Service B(Provider)
+	@GetMapping("/order/{id}")
+	public Order getOrder(@PathVariable String id) {
+		return orderService.findOrder(id);
+	}
+-------------------
+2. Web Client
+When to use Web Client
+- Provides more flexibility
+- External API calls(third party services)
+- Complex headers, auth, transformations
+- Reactive/non blocking systems
+- High throughput applications
+
+Example:
+webClient.get().uri("http://order-service/orders/12").retrieve().bodyToMono(Order.class)
+-------------------
+3. Open Feign/ Feign Client
+Frameworks handle discovery + load balancing for you
+e.g. Spring Boot + OpenFeign
+
+@FeignClient("user-service")
+public interface UserClient {
+	@GetMapping("/user/{id}")
+	User getUser(@PathVariable int id);
+}
+
+When to FeignClient
+- Crud operations, Simple Service to service calls
+- Simplicity, easy integration with Eureka, Load Balancing, Resilience4j	
+
+
+Feign with or without Discovery Server like Eureka
+
+a) Without Eureka
+Feign You can use without discovery servers (Eureka) as below
+Example:
+@FeignClient(
+    name = "order-service",
+    url = "http://localhost:8081"
+)
+public interface OrderClient {
+    @GetMapping("/orders/{id}")
+    Order getOrder(@PathVariable Long id);
+}
+
+b) With Eureka
+Feign with eureka:
+Example
+@FeignClient(name = "order-service")
+public interface OrderClient {
+    @GetMapping("/orders/{id}")
+    Order getOrder(@PathVariable Long id);
+}
+
+Advantages of using feign with eureka:
+- Dynamic service lookup
+- Load balancing
+- No hard‑coded URLs
+- Better for microservices
+
+
+-------------------
+4. High Performance Sync(gRPC)
+Instead of HTTP + JSON it uses binary + contract  
+- Service A -> gRPC call -> Service B -> response -> Continue
+- Faster and more efficient
+
+Flow for using gRPC
+- Define Contract
+- Generate client/Server code
+- Call like a normal function
+e.g.
+user = stub.GetUser(UserRequest(id=123))
+Feels like local function call but its remote.
+
+-------------------
+5. Service Discovery in (Eureka concept - Server and Client),
+-------------------
+5. API Gateway in front
+Client don't call services directly. Use a gateway like Spring Cloud Gateway
+Flow: Client -> Gateway -> Microservices
+Responsibilities:
+- Routing
+- Authentication
+- Rate Limiting
+---------------------------------------------------------------------------------------------------
+Asynchronous Communications
+1. RabitMQ
+-------------------
+2. Kafka
+---------------------------------------------------------------------------------------------------
+
