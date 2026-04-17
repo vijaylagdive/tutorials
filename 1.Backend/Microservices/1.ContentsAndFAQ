@@ -9,6 +9,7 @@
 2. Async Communication: 
 		RabbitMQ, 
 		Kafka
+		Saga Design Pattern
 
 3. Kafka
 		Distributed Transactions and eventual consistency across services, Handling data consistency across services
