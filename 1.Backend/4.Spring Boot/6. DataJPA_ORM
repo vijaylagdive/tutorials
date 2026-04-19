@@ -1,0 +1,120 @@
+6. Spring Data JPA & Hibernate
+Q1. JPA, ORM and Hibernate basics
+Q2. Transactions – @Transactional? How does @Transactional work?
+
+Q. Fetch types: EAGER vs LAZY
+Q. JpaRepository vs CrudRepository
+Q. JPQL vs Native queries
+Q. Pagination & Sorting
+Q. What is the N+1 problem?
+Q. How to store password in DB? any encoding? 
+Q. Steps To connect DB with springboot app.
+Q. @Entity, @Table, @Id
+Q. Relationships: @OneToMany, @ManyToOne, etc.
+---------------------------------------------------------------------------------------------------
+
+Q1. JPA, ORM and Hibernate basics
+Ans: 
+1. ORM
+- ORM is general programming concept
+- It maps java object to database tables and vice versa.
+- It allows you to work with objects instead of writing raw SQL
+- Exists in many languages and framework
+Example:
+A User class in java <---> user table in database
+
+ORM handles:
+- Converting objects to rows (INSERT)
+- Fetching rows into object (SELECT)
+- Updating/deleting records
+
+ORM is just the approach, not a specific library.
+
+
+2. JPA
+JPA is a Java Specification for ORM.
+ - Defined by Java
+ - Provides standard interfaces and annotations
+ - Does not do the actual work itself
+
+Popular implementations of JPA:
+Hibernate ORM, EclipseLink
+
+Example:
+@Entity
+public class User {
+	@Id
+	private Long id;
+	Private String name;	
+	}
+
+Here,
+- @Entity @Id come from JPA
+- Actual DB interaction is done by Hibernate.
+
+ORM vs JPA
+
+ORM is concept/Technic while JPA is Specification(Java Standard)
+ORM is language-independent while JPA is Java-Specific
+ORM role is to Map object to tables while JPA defines how ORM should work.
+
+3. Hibernate
+Implementation tool
+---------------------------------------------------------------------------------------------------
+Q2. Transaction?
+Ans:
+A Transaction is a group of operations that follow ACID properties.
+
+What @Transactional does?
+When you add 
+
+@Service
+public class BankService {
+	@Transactional
+	public void tranferMoney() {
+		withdraw();
+		deposit();	
+	}
+}
+
+
+Spring ensures:
+Both method succeeds --> commit
+Any exception --> rollback
+
+How it works internally??
+1. Spring Creates a proxy
+Spring doesn't modify your class directly.
+It creates proxy around your class
+So when you call the method, you are actually calling the proxy, not the original method.
+
+2. Transaction Starts Before Method
+Proxy intercepts the call
+Client -> Proxy -> Actual Method
+
+
+3. Method Executes
+Your business logic runs normally
+withdraw();
+deposit();
+
+4. Commit or Rollback
+If everything is fine COMMIT
+If Exception occurs ROLLBACK 
+
+
+Important Rules:
+1. Only works on public methods
+2. Self invocation problem 
+
+3. Rollback rules
+By default:
+- Rolls back on RuntimeException
+- Not on checked exception
+You can change it 
+@Transactional(rollbackFor = Exception.class)
+
+4. Propagation (Advanced)
+Controls how transactions behave when one calls another
+REQUIRED (default), REQUIRES_NEW, MANDATORY etc
+---------------------------------------------------------------------------------------------------
