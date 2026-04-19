@@ -1,11 +1,12 @@
 3. Configuration
-Q. How do you manage multiple environments?
+Q1. How do you manage multiple environments?
+Q2. How does springboot know which beans to create?
+Q3. How do you disable a specific auto‑configuration?
 
 Q*. application.properties vs application.yml
 Q*. How do you read values from properties files?
 ---------------------------------------------------------------------------------------------------
-
-Q. How do you manage multiple environments?
+Q1. How do you manage multiple environments?
 Ans:
 - Managing multiple environments in spring boot is mainly done using profiles.
 - They allows you to load different configurations depending on where your app is running.
@@ -86,3 +87,96 @@ public class ProdDataLoader {
     // prod-only logic
 }
 ---------------------------------------------------------------------------------------------------
+Q. How does springboot know which beans to create?
+Ans:
+It decides which beans to create based on:
+
+1. Component Scanning
+- The main class is annotated with @SpringBootApplication which includes @ComponentScan
+- Spring scans the package of the main class and all sub-packages
+
+@SpringBootApplication
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+}
+
+With this classes are automatically instantiated and registered as beans.
+@Component, @Service, @Repository, @Controller / @RestController, @Configuration
+------------------------
+2. Configuration + Bean method
+Spring Boot also creates beans explicitly defined in configuration classes.
+
+
+@Configuration
+public class AppConfig {
+    @Bean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+
+- Every method annotated with @Bean becomes a Spring bean.
+- So it will create bean for MyService
+------------------------
+3. Auto Configuration
+Spring Boot uses auto-configuration classes (based on spring-boot-autoconfigure) that:
+- Check what libraries are present(class path detection)
+- Check existing beans
+- Apply conditional logic like
+	@ConditionalOnClass(DataSource.class)
+	@ConditionalOnMissingBean(DataSource.class)
+	@ConditionalOnProperty
+
+Example:
+- If it sees spring-web: configures a web server
+- If it sees spring-data-jpa: configures JPA beans
+
+------------------------
+4. Conditional bean creation
+Spring Boot avoids duplicates using conditions:
+e.g.
+@ConfitionalOnMissingBean
+
+Means: Create this bean only if the user has not already defined one
+
+@ConditionalOnClass
+@ConditionalOnMissingBean
+@ConditionalOnProperty
+@ConditionalOnWebApplication
+
+@ConditionalOnProperty(name = "feature.enabled", havingValue = "true")
+@Bean
+public FeatureService featureService() {
+    return new FeatureService();
+}
+- Bean is created only if the property is enabled.
+------------------------
+5. Profiles (@Profile)
+------------------------
+6. Configuration properties
+Beans can also be driven by properties
+e.g.
+spring.datasource.url=...
+This triggers auto-configured beans like DataSource
+---------------------------------------------------------------------------------------------------
+Q3. How do you disable a specific auto‑configuration?
+Ans:
+In Spring Boot, you can disable a specific auto‑configuration in three commonly used ways, depending on your use case.
+
+1. Using exclude in @SpringBootApplication (Most Common)
+
+
+2. Using excludeName (If class not on classpath)
+Useful when you don't want to import the class directly
+@SpringBootApplication(excludeName = "org.springframerork.boot.......")
+
+
+3. Using application.properties / application.yml
+You can disable auto‑configuration via application.properties or application.yml.
+spring.autoconfigure.exclude=\
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+---------------------------------------------------------------------------------------------------
+
