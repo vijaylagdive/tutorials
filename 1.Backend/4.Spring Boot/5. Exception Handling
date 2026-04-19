@@ -1,0 +1,76 @@
+5. Exception Handling
+Q1. How do you handle exceptions globally? Using @ExceptionHandler, @ControllerAdvice / @RestControllerAdvice
+
+Q*. How do you return meaningful error responses?
+Q*. Custom exceptions
+
+---------------------------------------------------------------------------------------------------
+Q1. How do you handle exceptions globally?
+Ans:
+- In springboot global exception handling is typically done using @ControllerAdvice / @RestControllerAdvice(For Rest APIs)
+- This allows you to centralize error handling instead of repeating try catch blocks in every controller.
+- The core idea behind this is creating a class that handles exceptions across the entire application.
+- @RestControllerAdvice: @ControllerAdvice + @ResponseBody
+
+Basic Global Exception Handler Example
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleNotFound(ResourceNotFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneric(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Something went wrong");
+    }
+}
+What happens here?
+- If ResourceNotFoundException occurs anywhere - 404
+- Any unhandled exception - 500
+
+
+- Custom Exception Example
+public class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+}
+
+Usage in service/controller:
+throw new ResourceNotFoundException("User not found");
+
+- Handling Validation Errors (@Valid)
+@ExceptionHandler(MethodArgumentNotValidException.class)
+public ResponseEntity<Map<String, String>> handleValidationErrors(
+        MethodArgumentNotValidException ex) {
+
+    Map<String, String> errors = new HashMap<>();
+    ex.getBindingResult().getFieldErrors()
+      .forEach(error ->
+          errors.put(error.getField(), error.getDefaultMessage())
+      );
+
+    return ResponseEntity.badRequest().body(errors);
+}
+
+1. “How do you handle exceptions globally in Spring Boot?”
+“In Spring Boot, I handle exceptions globally using @ControllerAdvice or @RestControllerAdvice.
+This allows me to centralize exception handling logic instead of writing try–catch blocks in each controller.
+I use @ExceptionHandler methods inside the advice class to map specific exceptions to appropriate HTTP responses.”
+
+
+2. “Why do we need global exception handling?”
+“Global exception handling helps maintain cleaner controllers, ensures consistent error responses across the application, and improves maintainability.
+If an exception handling logic changes, I only update one place instead of multiple controllers.”
+
+3. “What is the difference between @ExceptionHandler and @ControllerAdvice?”
+“@ExceptionHandler is used to handle exceptions but applies only to the controller where it is defined.
+@ControllerAdvice allows me to apply @ExceptionHandler methods globally across all controllers.
+So typically, @ExceptionHandler + @ControllerAdvice together give us global exception handling.”
+---------------------------------------------------------------------------------------------------
