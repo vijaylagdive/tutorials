@@ -15,6 +15,7 @@ Q13. What’s the purpose of the join() method?
 Q14* Inter thread communication?
 Q15. Semaphore
 Q16. CountDownLatch
+Q17. Synchronized
 ----------------------------------------------------------------------------------------------------
 Q1. What is a Thread?
 Ans: 
@@ -577,3 +578,22 @@ public class CountDownLatchDemo {
     }
 }
 -------------------------------------------------
+Q17. What is Synchronized?
+Ans:
+- It is used with method or block. Not with class, variable etc.
+- It resolves data inconsistency problem
+- It increases waiting time of threads and creates performance issue. 
+- Hence if there is no speicif requirement then it is not recommended to use synchronized keyword.
+- Internally synchronization concept is implemented by locke.
+- Every object in java has a uniq lock
+- Whenever we are using synchronized keyword then only lock concept will come into picture.
+- If a thread wants to execute syncronized method on the given object first it has to get lock of that object
+- Once thread got the lock then it is allowed to execute any synchronized method on that object. 
+- Once method execution completes automatically thread release the lock.
+- Acquiring and releasesing lock is internally taken care by JVM. Programmer is not responsible for this.
+- If a thread is executing synchronized method of a class then no other thread can execute other synchronized 
+	method of that class.
+- If a thread wants to execute normal method of that same object then it is allowed.
+-------------------------------------------------
+
+
