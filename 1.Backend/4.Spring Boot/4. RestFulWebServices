@@ -1,0 +1,301 @@
+4. RESTful Web Services (Spring MVC)
+Q1. @Controller vs @RestController
+Q2. @PathVariable, @RequestParam, @RequestBody
+Q3. @RequestMapping, @GetMapping, @PostMapping, 
+Q4. @ResponseEntity
+
+Q*. HTTP methods & status codes
+Q*. Content negotiation (JSON/XML)
+Q*. @Transactional – propagation & isolation
+
+---------------------------------------------------------------------------------------------------
+Q1. @Controller vs @RestController
+Ans: 
+In Spring Boot / Spring MVC, @Controller and @RestController are both used to define controller classes, 
+but they serve different purposes and behave differently when returning responses.
+
+1. @Controller
+- @Controller is a Spring MVC annotation used to define a web controller that typically returns a view name (like JSP, Thymeleaf, etc.).
+- Used for traditional web applications (MVC)
+- Methods usually return:
+	- A view name (HTML page)
+	- Or data only if annotated with @ResponseBody
+- Requires a ViewResolver (Thymeleaf, JSP, etc.)
+
+Example:
+
+@Controller
+public class PageController {
+    @GetMapping("/home")
+    public String homePage(Model model) {
+        model.addAttribute("message", "Welcome to Spring MVC");
+        return "home";  // resolves to home.html or home.jsp
+    }
+}
+
+Returning JSON with @Controller
+To return JSON, you must explicitly use @ResponseBody.
+
+@Controller
+public class UserController {
+    @GetMapping("/user")
+    @ResponseBody
+    public User getUser() {
+        return new User(1, "Vijay");
+    }
+}
+------------------------
+
+2. @RestController
+- @RestController is a specialized version of @Controller introduced in Spring 4.
+- It is equivalent to:
+	@Controller
+	@ResponseBody
+
+
+Key behavior
+- Used for RESTful web services / APIs
+- Methods return data directly (JSON/XML)
+- No view resolution
+- Automatically converts objects to JSON (using Jackson)
+
+Example:
+@RestController
+public class UserRestController {
+
+    @GetMapping("/api/user")
+    public User getUser() {
+        return new User(1, "Vijay");
+    }
+}
+
+Response:
+{
+  "id": 1,
+  "name": "Vijay"
+}
+------------------------
+3. Key Differences (Conceptual)
+1. Purpose
+	@Controller → Web pages (MVC)
+	@RestController → REST APIs
+
+2. Response type
+@Controller
+	View name (HTML)
+	JSON/XML only with @ResponseBody
+
+
+3. @RestController
+	JSON/XML by default
+
+
+4. View resolution
+	@Controller → YES
+	@RestController → NO
+
+5.Boilerplate
+	@Controller → More annotations needed
+	@RestController → Cleaner for APIs
+------------------------
+
+4. When to Use What
+Use @Controller when:
+	- Building server-side rendered UI
+	- Using Thymeleaf, JSP, or Freemarker
+	- Returning HTML pages
+- Example: Admin portals, dashboards, websites
+
+
+Use @RestController when:
+	- Building REST APIs
+	- Backend for React, Angular, mobile apps
+	- Returning JSON/XML only
+- Example: Microservices, public APIs, backend services
+------------------------
+
+5. In short
+@Controller is used for MVC applications where responses are views,
+@RestController is used for REST APIs where responses are data (JSON/XML).
+---------------------------------------------------------------------------------------------------
+
+Q2. @PathVariable, @RequestParam, @RequestBody
+Ans:
+What it does
+Extracts values from the URL path itself.
+- Used when the value is part of the endpoint URI
+- Very common in RESTful APIs
+- When identifying a specific resource
+
+
+Example URL
+GET /users/101
+
+Controller Code:
+@RestController
+public class UserController {
+    @GetMapping("/users/{id}")
+    public User getUser(@PathVariable int id) {
+        return new User(id, "Vijay");
+    }
+}
+
+
+Multiple Path Variables
+@GetMapping("/users/{id}/orders/{orderId}")
+public String getOrder(
+        @PathVariable int id,
+        @PathVariable int orderId) {
+    return "User " + id + ", Order " + orderId;
+}
+
+Optional PathVariable
+@GetMapping({"/users", "/users/{id}"})
+public String getUser(@PathVariable(required = false) Integer id) {
+    return (id == null) ? "All users" : "User " + id;
+}
+
+
+2. @RequestParam
+What it does
+Extracts values from query parameters in the URL.
+- Used for filters, pagination, sorting, optional data
+- Used When passing optional or filtering data
+
+
+Example URL
+GET /users?role=admin&page=2
+
+Controller Code
+@GetMapping("/users")
+public String getUsers(
+        @RequestParam String role,
+        @RequestParam int page) {
+    return "Role: " + role + ", Page: " + page;
+}
+
+Optional Request Parameter
+@GetMapping("/users")
+public String getUsers(
+        @RequestParam(required = false) String role) {
+    return role == null ? "All users" : role;
+}
+
+With Default Value
+@GetMapping("/users")
+public String getUsers(
+        @RequestParam(defaultValue = "1") int page) {
+    return "Page: " + page;
+}
+
+
+3. @RequestBody
+What it does
+Maps the HTTP request body to a Java object.
+- Used mostly with POST, PUT, PATCH
+- Converts JSON/XML → Java object using Jackson
+- When sending complex data
+
+
+Example Request
+POST /users
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Vijay",
+  "email": "vijay@test.com"
+}
+
+Controller Code:
+@PostMapping("/users")
+public User createUser(@RequestBody User user) {
+    return user;
+}
+
+Validation with @valid
+@PostMapping("/users")
+public User createUser(@Valid @RequestBody User user) {
+    return user;
+}
+
+
+
+4. Key Differences (Interview Table)
+
+Annotation Data Source Typical HTTP Method Use Case
+
+@PathVariable:  URL path GET, PUT, DELETE Resource identification
+@RequestParam: Query parameters / form GET,POST Filters, pagination
+@RequestBody: Request body (JSON/XML) POST, PUT, PATCH Create/update resources
+---------------------------------------------------------------------------------------------------
+Q3. @RequestMapping, @GetMapping, @PostMapping, etc.
+Ans:
+- Base and general-purpose mapping annotation
+- Can handle any HTTP method (GET, POST, PUT, DELETE, etc.)
+- Can be applied at class level and method level
+- Common base path for a controller
+- When multiple HTTP methods are supported
+
+1. @RequestMapping("/api")
+public class UserController {
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<User> getUsers() {
+        return userService.findAll();
+    }
+}
+
+2. @GetMapping
+- Handles HTTP GET requests (fetch/read data).
+- @RequestMapping(method = RequestMethod.GET)
+@GetMapping("/users")
+public List<User> getUsers() {
+    return userService.findAll();
+}
+
+Typical use
+	- Fetching records
+	- Displaying pages
+	- Read-only operations
+
+4. @PostMapping
+Purpose
+Handles HTTP POST requests (create resources).
+Equivalent to
+
+@RequestMapping(method = RequestMethod.POST)
+@PostMapping("/users")
+public User createUser(@RequestBody User user) {
+    return userService.save(user);
+}
+Typical use
+	- Submitting forms
+	- Creating new resources
+---------------------------------------------------------------------------------------------------
+Q4. ResponseEntity 
+Ans: 
+- It is a Spring Framework (Spring MVC / Spring Boot) class used to represent the entire HTTP response—not just the response body, 
+	but also status code and headers.
+- It gives you full control over what your REST API returns to the client.
+
+package: org.springframework.http.ResponseEntity
+
+ What ResponseEntity Contains
+- A ResponseEntity<T> can include:
+- Response body (T)
+- HTTP status code (200, 201, 400, 404, etc.)
+- HTTP headers (Content-Type, Location, custom headers, etc.)
+
+If you return only an object Spring:
+	- Automatically serializes the object
+	- Always sends 200 OK
+	- You cannot control headers or status
+
+With ResponseEntity, you can.
+	@GetMapping("/user")
+	public ResponseEntity<User> getUser() {
+    		User user = new User("Vijay");
+    		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+---------------------------------------------------------------------------------------------------
