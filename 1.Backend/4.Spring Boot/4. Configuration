@@ -166,7 +166,10 @@ Ans:
 In Spring Boot, you can disable a specific auto‑configuration in three commonly used ways, depending on your use case.
 
 1. Using exclude in @SpringBootApplication (Most Common)
+You can excliude auto-configurations right at the main class.
 
+@SpringBootApplication(
+exclude = { DataSourceAutoConfiguration.class }
 
 2. Using excludeName (If class not on classpath)
 Useful when you don't want to import the class directly
