@@ -1,3 +1,12 @@
+9. Actuator & Monitoring ✅
+	Q. Spring Boot Actuator
+	Q. Health, metrics, info endpoints
+	Q. Custom actuator endpoints
+	Q. How do you monitor a Spring Boot application?
+	Q. How do filters, interceptors, and AOP differ in Spring Boot?
+
+
+
 Spring Actuator
 
 Spring actuator is a module in the Spring Boot that helps you monitor and manage your application in production.
