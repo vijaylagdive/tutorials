@@ -1,0 +1,261 @@
+2. Dependency Injection & IoC Container 
+
+Dependency Injection & IoC Container 
+Q1. @Component, @Service, @Repository, 	
+Q2. Difference Between @Component and @Bean in Spring
+Q3. @Primary vs @Qualifier
+Q4. @Autowired(field vs constructor vs setter injection)
+Q5. Difference between field injection and constructor injection of @Autowired
+
+Q* Bean scopes – singleton, prototype, request, session
+Q* Dependency Injection internal working?
+Q* Spring Bean lifecycle in detail, including all phases from instantiation to destruction?
+Q* What are the differences between Application Context and Bean Factory?
+Q* How do you resolve circular dependency issues in Spring, and can you explain it with a real scenario?
+Q* If I want to create bean B only after creation of bean A?
+Q* How does Spring resolve dependency conflicts?
+---------------------------------------------------------------------------------------------------
+Q1. @Component, @Service, @Repository, 	
+Ans:
+- These all are part of spring stereotype annotations.
+- They mark classes as beans so that Spring can automatically detect and manage them via component scanning.
+- They tell Spring “this class should be managed by the Spring container” and describe the role of the class in your application.
+- They have slightly different role.
+
+SpringBean
+- A Spring Bean is an object that, Is created by Spring and its lifecycle is managed by Spring.
+- Can be injected using @Autowired, constructor injection, etc.
+All three annotations create Spring beans.
+
+
+1. @Component
+- Generic stereotype annotation
+- Used for any Spring managed component.
+- Base annotation for others like @Service, @Repository, @Controller
+Use it when the class doesn't belong to service, repository or controller layers.
+
+2. @Service
+- Specialized version of @Component
+- Indicate business logic layer.
+Why use it instead of @Component?
+Improves readability and structure
+Semantically represent business logic
+Can be extended with service specific behavior later.
+
+3. @Repository
+- Specialized @Component for data access layer.
+- Used for DAO (Data Access Object) classes
+Example:
+ @Repository
+ public class UserRepository {
+	public String findUser() {
+		return "DB User"
+	}
+ }
+
+It has some special features:
+- Automatically handles database exceptions
+- Converts low-level exceptions into Spring's DataAccessException
+
+All above are detected by component scanning and registered as beans.
+---------------------------------------------------------------------------------------------------
+Q2. Difference Between @Component and @Bean in Spring
+Ans:
+Both @Component and @Bean create Spring-managed beans.
+
+@Component — Automatic Bean Creation (Class‑level)
+It is used on a class and Spring creates the object automatically using component scanning.
+@Component
+public class EmailService {
+}
+
+How it works
+- Spring scans packages at startup
+- Finds classes annotated with @Component
+- Instantiates them and registers them as beans
+
+@Bean: Manual Bean Creation (Method‑level)
+Used on a method
+You explicitly return an object to Spring
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public EmailService emailService() {
+        return new EmailService();
+    }
+}
+
+How it works
+- Spring calls the method
+- Takes the returned object
+- Registers it as a bean
+
+Feature @Component @Bean
+type: Class‑level Method‑level
+Bean detection: Component scanning Configuration method
+Object creation: SpringDeveloper
+Configuration flexibility: Low High
+Third‑party classes: No Yes
+Readability: High (cleaner) Lower (more config)
+
+When to Use Which?
+Use @Component when:
+- You own the class
+- Object creation is simple
+- It belongs to your application logic
+
+Use @Bean when:
+- Class is from a library / third‑party
+- Instantiation requires logic
+- You need conditionals or parameters
+
+You cannot annotate third‑party classes with @Component
+
+Note:
+@Component registers a bean via classpath scanning, 
+while @Bean registers a bean via an explicit factory method, often used for third‑party or complex objects.
+
+Can @Bean used within @Component??
+Ans: 
+@Bean can be used inside both @Configuration and @Component, but only @Configuration enables full mode, 
+where Spring proxies the class to ensure singleton behavior for inter‑bean method calls. 
+Therefore, @Bean should ideally be used inside @Configuration.
+---------------------------------------------------------------------------------------------------
+Q3. @Primary vs @Qualifier
+Ans:
+In Spring Framework, @Primary and @Qualifier are both used to resolve ambiguity when multiple beans of the same type exist, 
+but they work in different ways and at different levels.
+
+If you have multiple beans of the same type and Spring tries to auto wire by type, Spring will throw:
+NoUniqueBeanDefinitionException
+
+What is @Primary?
+- It is applied on the bean definition
+- Marks a bean as the default choice.
+- Marks one bean as the default choice when multiple candidates exist.
+- When spring finds multiple beans of same type, it automatically injects the one marked @Primary.
+
+Example:
+public interface PaymentService {
+    void pay();
+}
+
+@Component
+@Primary
+public class CreditCardPaymentService implements PaymentService {
+    public void pay() {
+        System.out.println("Credit Card Payment");
+    }
+}
+
+@Component
+public class UpiPaymentService implements PaymentService {
+    public void pay() {
+        System.out.println("UPI Payment");
+    }
+}
+
+@Autowired
+private PaymentService paymentService;
+
+Here,
+- Spring injects CreditCardPaymentService automatically.
+------------------------
+What is @Qualifier?
+- Used to explicitly specify which bean to inject.
+- Applied at injection point
+- Overrides @Primary if both are present.
+- Best when the choice varies by context
+
+@Autowired
+@Qualifier("upiPaymentService")
+private PaymentService paymentService;
+
+- Spring injects UpiPaymentService, even though another bean is @Primary.
+
+Differences:
+@Primary is default bean selection where,
+@Qualifier is Explicit bean selection.
+
+@Primary: Usage location is on bean definition
+@Qualifier: At injection point
+
+@Primary: Priority is lower
+@Qualifier: Higher. Overrides @Primary
+
+@Primary: Flexibility is less
+@Qualifier: More precise
+
+Aspect @Primary @Qualifier
+Applied at Bean definition Injection point
+Scope Global default Local, explicit
+Overrides ambiguity Yes Yes
+Overrides @Primary❌ ✅
+Best use case Common default implementation Context-specific choice
+---------------------------------------------------------------------------------------------------
+Q5 Difference between field injection and constructor injection of @Autowired
+Ans:
+1. Field Injection
+@Component
+public class MyService {
+	@Autowired
+	private MyRepositiory myRepository
+}
+
+Pros:
+- Very concise, minimal code
+
+
+Cons: 
+- Hard to test (no easy way to inject mocks)
+- Breaks encapsulation (Field is directly accessed by spring)
+- Cannot be final
+- Not recommended in modern Spring Practices
+
+
+2. Constructor injection
+@Component
+public class MyService {
+	private MyRepositiory myRepository;
+	
+	@Autowired
+	public MyService(MyRepository myRepository) {
+		this.myRepository - myRepository;
+	}
+}
+
+Pros:
+- Recommended approach
+- Supports immutability
+- Easy to test(You can pass dependency manually) 
+- Ensures required dependencies are provided
+
+Cons:
+Slightly more verbose
+
+
+3. Setter Injection(at setter level)
+@Component
+public class MyService {
+	private MyRepositiory myRepository;
+	
+	@Autowired
+	public void setMyRepository(MyRepository myRepository) {
+		this.myRepository = myRepository;
+	}
+}
+
+Pros:
+- Useful for optional dependencies
+- Allows changing dependency later if needed
+
+Cons
+- Object can exist in partially initialized state
+- Less safe that constructor injection
+
+Notes:
+Constructor Injection: Best practice 
+Setter Injection: Use for optional dependencies
+Field Injection: Avoid in production code.
+---------------------------------------------------------------------------------------------------
