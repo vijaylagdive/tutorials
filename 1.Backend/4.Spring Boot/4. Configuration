@@ -1,0 +1,88 @@
+3. Configuration
+Q. How do you manage multiple environments?
+
+Q*. application.properties vs application.yml
+Q*. How do you read values from properties files?
+---------------------------------------------------------------------------------------------------
+
+Q. How do you manage multiple environments?
+Ans:
+- Managing multiple environments in spring boot is mainly done using profiles.
+- They allows you to load different configurations depending on where your app is running.
+
+1. Use Spring Profiles (Core Concept)
+Spring Profiles let you group configuration by environment.
+Typical environments are like: dev, test, qa, prod
+
+Each environment gets its own configuration.
+------------------------
+2. Create Environment specific configuration files
+
+- Using application-{profile}.yml or .properties
+
+	src/main/resources/
+ 	├── application.yml
+	├── application-dev.yml
+ 	├── application-qa.yml
+ 	├── application-prod.yml
+
+- Base configuration (application.yml)
+Common settings for all environments:
+spring:
+  application:
+    name: order-service
+logging:
+  level:
+    root: INFO
+
+- Development config (application-dev.yml)
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/order_dev
+    username: dev_user
+    password: dev_pass
+server:
+  port: 8081
+
+- Production config (application-prod.yml)
+spring:
+  datasource:
+    url: jdbc:mysql://prod-db:3306/order_prod
+    username: prod_user
+    password: prod_pass
+server:
+  port: 8080
+
+Spring automatically merges application.yml + active profile.
+------------------------
+3. Activate Profiles
+- Via Command Line
+java -jar app.jar --spring.profiles.active=prod
+
+- Via Environment Variable (Recommended)
+export SPRING_PROFILES_ACTIVE=prod
+
+- Via IDE (local dev)
+In IntelliJ / Eclipse:
+-Dspring.profiles.active=dev
+
+- Via application.yml (not recommended for prod)
+spring:
+  profiles:
+    active: dev
+
+Note: Best practice: do not hardcode profile in the app.
+------------------------
+4. Profile‑Specific Spring Beans
+@Component
+@Profile("dev")
+public class DevDataLoader {
+    // dev-only logic
+}
+
+@Component
+@Profile("prod")
+public class ProdDataLoader {
+    // prod-only logic
+}
+---------------------------------------------------------------------------------------------------
