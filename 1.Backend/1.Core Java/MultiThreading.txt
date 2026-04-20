@@ -594,6 +594,7 @@ Ans:
 - If a thread is executing synchronized method of a class then no other thread can execute other synchronized 
 	method of that class.
 - If a thread wants to execute normal method of that same object then it is allowed.
+- Only ONE thread at a time can execute ANY static synchronized method of a class.
 -------------------------------------------------
 
 
