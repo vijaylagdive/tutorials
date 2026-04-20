@@ -1,12 +1,15 @@
 SpringBoot
-	Basics
+Basics
 	Q. How Spring Boot Application starts?
 	Q. What is Spring Boot auto-configuration and how does it work internally?
 	Q. Ways to create SpringBoot Project Maven, SpringBootInitilizer
 	Q. @SpringBootApplication details
 	Q. How does Spring Boot reduce boilerplate code?
-
-	2. Dependency Injection & IoC Container 
+	Q. What is spring boot?
+	Q. Advantages of spring boot?
+	Q. Spring boot starter dependencies?
+--------------------------------------------------
+2. Dependency Injection & IoC Container 
 	Q. @Component, @Service, @Repository, 	
 	Q. @Autowired(field vs constructor injection)
 	Q. Difference between field injection and constructor injection of @Autowired
@@ -18,13 +21,17 @@ SpringBoot
 	Q. What are the differences between Application Context and Bean Factory?
 	Q. How do you resolve circular dependency issues in Spring, and can you explain it with a real scenario?
 	Q. If I want to create bean B only after creation of bean A?
-
-	3. Configuration
+	Q. How to get the list of all the beans in your spring boot application?
+--------------------------------------------------
+3. Configuration
 	Q. application.properties vs application.yml
 	Q. How do you manage multiple environments?
 	Q. How do you read values from properties files?
-
-	4. RESTful Web Services (Spring MVC)
+	Q. Is it possible to change the port of the embeded tomcat server in spring boot?
+	Q. Can we override or replace the Embeded tomcat server in spring boot?
+	Q. What is auto-configuration in spring boot? how does it help? Why spring boot is called opinionated?
+--------------------------------------------------
+4. RESTful Web Services (Spring MVC)
 	Q. @Controller vs @RestController
 	Q. @RequestMapping, @GetMapping, @PostMapping, etc.
 	Q. @PathVariable, @RequestParam, @RequestBody
@@ -33,16 +40,17 @@ SpringBoot
 	Q. Content negotiation (JSON/XML)
 	Q. @PathVariable vs @RequestParam
 	Q. @Transactional – propagation & isolation
-
-	5. Exception Handling
+	Q. Describe the flow of the HTTPS request through the spring boot application?
+--------------------------------------------------
+5. Exception Handling
 	@ExceptionHandler
 	@ControllerAdvice / @RestControllerAdvice
 	Custom exceptions
 	Global exception handling
 	Q. How do you handle exceptions globally?
 	Q. How do you return meaningful error responses?
-
-	6. Spring Data JPA & Hibernate ✅✅✅
+--------------------------------------------------
+6. Spring Data JPA & Hibernate ✅✅✅
 	Q. ORM basics
 	Q. @Entity, @Table, @Id
 	Q. Relationships: @OneToMany, @ManyToOne, etc.
@@ -57,12 +65,12 @@ SpringBoot
 	Q. How to store password in DB? any encoding? 
 	Q. Global Exception Handling
 	Q. Steps To connect DB with springboot app.
-
-	7. Spring Boot Auto‑Configuration
+--------------------------------------------------
+7. Spring Boot Auto‑Configuration
 	Q. How does Spring Boot know which beans to create?
 	Q. How do you disable a specific auto‑configuration?
-
-	8. Spring Security (Basics to Intermediate)
+--------------------------------------------------
+8. Spring Security (Basics to Intermediate)
 	Q. Authentication vs Authorization
 	Q. Basic Auth, JWT, OAuth2 (conceptual)
 	Q. SecurityFilterChain
@@ -73,54 +81,31 @@ SpringBoot
 	Q. Stateless vs stateful authentication
 	Q. Refresh Token?
 	Q. How do you implement Spring Security in a distributed microservices architecture?
-
-	9. Actuator & Monitoring ✅
-	Q. Spring Boot Actuator
+--------------------------------------------------
+9. Actuator & Monitoring ✅
+	Q. What is Spring Actuator? What are its advantages?
 	Q. Health, metrics, info endpoints
 	Q. Custom actuator endpoints
 	Q. How do you monitor a Spring Boot application?
 	Q. How do filters, interceptors, and AOP differ in Spring Boot?
-
-	10. Logging ✅
+--------------------------------------------------
+10. Logging ✅
 	Q. Logging frameworks (Logback, Log4j2)
 	Q. Configuring logging levels
 	Q. application.properties logging configuration
-
-	11. Testing in Spring Boot
+--------------------------------------------------
+11. Testing in Spring Boot
 	Q. @SpringBootTest
 	Q. @WebMvcTest
 	Q. @MockBean
 	Q. JUnit & Mockito basics
 	Q. Difference between unit test and integration test
 	Q. How do you mock dependencies?
-
-	12. Performance & Best Practices ✅✅
+--------------------------------------------------
+12. Performance & Best Practices ✅✅
 	Q. Caching (@Cacheable)
 	Q. Async processing (@Async)
 	Q. Pagination
 	Q. Connection pooling
 	Q. DTO usage vs Entity exposure
 ---------------------------------------------------------------------------
-Q1. What is spring boot?
-Q2. Advantages of spring boot?
-Q3. Spring boot starter dependencies?
-Q4. What are the various ways to create a Spring Boot application?
-Q5. Is it possible to change the port of the embeded tomcat server in spring boot?
-Q6. Can we override or replace the Embeded tomcat server in spring boot?
-Q7. What is auto-configuration in spring boot? how does it help? Why spring boot is called opinionated?
-Q8. What is diiference between @SpringBootApplication and @EnableAutoConfiguration annotation?
-Q9 How to disable a specific auto-configuration class?
-Q10 What is difference between @RestController and @Controller in Spring Boot?
-Q11 Describe the flow of the HTTPS request through the spring boot application?
-Q12. What is difference between @RequestMapping and @GetMapping?
-Q13. What is difference between an embeded container and WAR?
-Q14. What is the use of Profiles in spring boot?
-Q15. What is Spring Actuator? What are its advantages?
-Q16. How to get the list of all the beans in your spring boot application?
-Q17. Difference between spring and springboot?
-Q18. What differentiates Spring Data JPA and Hibernate?
-Q7. How to use a property defined in application.properties file into your java class?
-Ans: 
-@Value("${server.port}")
-private String serverPort;
--------------------------------------------------------------------------------------------
