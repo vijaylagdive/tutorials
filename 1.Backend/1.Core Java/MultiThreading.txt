@@ -436,6 +436,7 @@ Q15 What is Semaphore in multihreading??
   a shared resource by limiting the number of threads that can access it at the same time.
 - It is part of java.util.concurrent.
 - Simply it ensures that Only a limited number of threads can access any resource at the a time.
+- Synchronized allows only resource where semaphore allows given numner of threads to work on reource.
 
 A Semaphore maintains a set of permits:
 - A thread must acquire() a permit before accessing the resource
@@ -508,6 +509,14 @@ public class SemaphoreDemo {
         }
     }
 }
+
+o/p
+Thread-0 acquired permit
+Thread-1 acquired permit
+Thread-2 acquired permit
+Thread-0 released permit
+Thread-1 released permit
+Thread-2 released permit
 -------------------------------------------------
 Q16. What is CountDownLatch in multithreading?
 CountDownLatch is a synchronization utility from java.util.concurrent package 
@@ -530,7 +539,6 @@ CountDownLatch is used when you want:
 - Parallel processing coordination
 - Main thread waits until worker threads finish
 - Not reusable → use CyclicBarrier or Phaser if reuse is needed
-
 
 Creating a CountDownLatch
 - import java.util.concurrent.CountDownLatch;
@@ -568,11 +576,9 @@ class Worker extends Thread {
 public class CountDownLatchDemo {
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(3);
-
         new Worker(latch).start();
         new Worker(latch).start();
         new Worker(latch).start();
-
         latch.await(); // main thread waits
         System.out.println("All workers finished. Main thread continues.");
     }
@@ -596,5 +602,3 @@ Ans:
 - If a thread wants to execute normal method of that same object then it is allowed.
 - Only ONE thread at a time can execute ANY static synchronized method of a class.
 -------------------------------------------------
-
-
