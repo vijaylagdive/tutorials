@@ -12,40 +12,41 @@ Ans:
 
 	2. Creation of SpringApplication object
 		- SpringApplication.run() creates a spring application instance.
-		- It determines Application type (Servlet/ Reactive/None)
+		- It detects the Application type (Web/Non-web/Reactive) and classpath dependencies.
+		- Start the Spring Context.
 
-	3. Preparing the environment:
-		- Load properties from: application.properties / application.yml
-		- Resolves profile (e.g. dev, prod)		
+	3. Create and Prepare environment:
+		- Reads configuration from 
+			1. application.properties or application.yml
+			2. Environment Variables
+			3. Command-line arguments
+		- Sets active profiles (e.g. dev, prod)		
 	
-	4. Application listeners and initializers
-	
-	5. Create Application Context 
-		Based in app type:	
-		Web App: AnnotationConfigServletWeb, ServerApplicationContext 
-	
-	6. AutoConfiguration kicks in:
-		- Triggered by @SprinBootApplication, which includes: 
-			@Configuration, @EnableAutoConfiguration, @ComponentScan
-		- @EnableAutoConfiguration:
-			Looks at classpath dependencies
-			Loads configurations from: spring/org.springfram
+	4. Initialize Application Context:
+		Spring creates an ApplicationContext (IOC container): 
+			- For web-apps: AnnotationConfigServletWebServerApplicationContext
+			- For non-web : AnnotationConfigApplicationContext 	
 
-	7. Component scanning 
-		- Scans packages for:
-			@Component, @Service, @Repository, @Controller
-		- Creates beans and registers them in the context.
+	5. Component Scanning and Bean Creation
+		- As the @SprinBootApplication includes @ComponentScan
+		- It scans packages and Finds bean (@Component, @Service, @Repository, @Controller)
+		- Creates and manages them in the container
+
+	6. Auto Configuration 
+		- Spring Boot auto-configures based on dependencies: 
+		- Example: 
+			- If spring boot starter web is present it configures Tomcat Server, Dispatcher Servlet
+			- If spring-data-jpa is present it configures Hibernate, Datasource
 	
-	8. Embedded server starts(for web apps)
-		- Spring boot starts embedded servers like
-			Tomcat(default) or Jetty etc
+	7. Embedded server starts(for web apps)
+		- Spring boot starts embedded servers like Tomcat(default) or Jetty etc
+		- Default port: 8080
 		
-	9. Application Context refresh
-		- All beans are initialized
-		- Dependencies are injected
-		- Lifecycle callbacks are executed
+	8. Run applicaition Runners
+		- After startup it Executes: CommandLineRunner, ApplicaitionRunner
 
-	10. Application is ready
+	9. Application is ready
+		- Finally Spring Boot logs: 'Started MyApp in 3.5 seconds'
 		- App is ready to serve requests
 
 In Short:
@@ -80,13 +81,11 @@ How Auto configuration works?
 	- DataSourceAutoConfiguration
    	- WebMvcAutoConfiguration
 	- HibernateJpaAutoConfiguration
-
 These Classes are annotated with @Configuration, Define beans using @Bean
 
 4. Loaded via metadata files
 SpringBoot 3:
 	META-INF/spring/org.spring.......
-
 These files list all auto-configuration classes
 
 5. Conditional annotation (core logic)
@@ -106,19 +105,19 @@ In Short:
   to decide whether to create beans.
 - If the developer provides custom configuration, Spring Boot backs off
 ---------------------------------------------------------------------------------------------------
-Q3. @SpringBootApplication
+Q3. what is @SpringBootApplication?
 Ans:
  It's  typically placed on your main class to bootstrap a spring Boot application
 It includes:
 1. @SpringBootConfiguration
 - A specialized version of @Configuration
-- Indicates that the class can define Spring beans using @Bean
-- Marks it as a source if bean definitions.
+- Indicates that this class can define Spring beans using @Bean and controls how they are created.
+- Marks a class as a source of bean definitions.
 - It is used with root class means it tells that the class with main method can contain bean.
 
 Note:
 - customized behavior: @SpringBootApplication(scanBasePackage = "com.examleproject")
-This overrides default component scanning package	
+  This overrides default component scanning package	
 - or it also can exclude specific auto-configuration
 
 2. @EnableAutoConfiguration
@@ -144,7 +143,8 @@ Ans:
 - SpringFramework + Embeded Servers - Configurations = Spring Boot
 - Absolutely no code generations and not requirement for XML configuration.
 - Provide opinionated 'starter' dependencies to simplify your build configuration.
-- This allows developers to focus more on writing business logic rather than dealing with complex setup and configuration details.
+- This allows developers to focus more on writing business logic rather than dealing 
+   with complex setup and configuration details.
 
 Features or Advantages:
 1. Auto Configuration:
@@ -165,11 +165,13 @@ enhancing productivity during the development process.
 ---------------------------------------------------------------------------------------------------
 Q5. What is starter dependencies in springboot?
 In spring boot A starter dependency is:
-- A convenient, efficient and 'opinionated' way to include a specific set of dependencies and configurations for a particular functionality.
+- A convenient, efficient and 'opinionated' way to include a specific set of dependencies and 
+  configurations for a particular functionality.
 - These a chosen collections of dependencies that provide set of libraries and configurations for a specific use case.
 - These are a set of pre-configured, ready-to-use dependencies.
-- These dependencies you can include in your Spring Boot project to quickly set up and bootstrap specific functionality or features. 
-- Starters are named using a spring-boot-starter-* convention, where the *represents the specific functionality or technology. 
+- These dependencies you can include in your Spring Boot project to quickly set up and bootstrap specific functionality 
+  or features. 
+- Starters are named using a spring-boot-starter-* convention, where the *represents the specific functionality or technology.
 - For example, spring-boot-starter-web includes the necessary dependencies and configurations for building web applications.
 
 Here are some key points about Spring Boot starter dependencies:
