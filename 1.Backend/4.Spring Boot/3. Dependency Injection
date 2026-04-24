@@ -132,8 +132,7 @@ NoUniqueBeanDefinitionException
 
 What is @Primary?
 - It is applied on the bean definition
-- Marks a bean as the default choice.
-- Marks one bean as the default choice when multiple candidates exist.
+- Marks any one bean as the default choice when multiple eligible beans exist.
 - When spring finds multiple beans of same type, it automatically injects the one marked @Primary.
 
 Example:
@@ -163,8 +162,7 @@ Here,
 - Spring injects CreditCardPaymentService automatically.
 ------------------------
 What is @Qualifier?
-- Used to explicitly specify which bean to inject.
-- Applied at injection point
+- Applied at injection point and used to explicitly specify which bean to inject.
 - Overrides @Primary if both are present.
 - Best when the choice varies by context
 
@@ -206,13 +204,11 @@ public class MyService {
 Pros:
 - Very concise, minimal code
 
-
 Cons: 
 - Hard to test (no easy way to inject mocks)
 - Breaks encapsulation (Field is directly accessed by spring)
 - Cannot be final
 - Not recommended in modern Spring Practices
-
 
 2. Constructor injection
 @Component
@@ -233,7 +229,6 @@ Pros:
 
 Cons:
 Slightly more verbose
-
 
 3. Setter Injection(at setter level)
 @Component
