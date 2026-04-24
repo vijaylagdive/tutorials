@@ -9,14 +9,13 @@ Q. Pagination & Sorting
 Q. What is the N+1 problem?
 Q. How to store password in DB? any encoding? 
 Q. Steps To connect DB with springboot app.
-Q. @Entity, @Table, @Id
 Q. Relationships: @OneToMany, @ManyToOne, etc.
 ---------------------------------------------------------------------------------------------------
 
 Q1. JPA, ORM and Hibernate basics
 Ans: 
 1. ORM
-- ORM is general programming concept
+- ORM is general programming concept or the approach, not a specific library.
 - It maps java object to database tables and vice versa.
 - It allows you to work with objects instead of writing raw SQL
 - Exists in many languages and framework
@@ -28,14 +27,9 @@ ORM handles:
 - Fetching rows into object (SELECT)
 - Updating/deleting records
 
-ORM is just the approach, not a specific library.
-
-
 2. JPA
-JPA is a Java Specification for ORM.
- - Defined by Java
- - Provides standard interfaces and annotations
- - Does not do the actual work itself
+- JPA is a Java Specification for ORM which is defined by Java. 
+- It Provides standard interfaces and annotations.
 
 Popular implementations of JPA:
 Hibernate ORM, EclipseLink
@@ -53,10 +47,9 @@ Here,
 - Actual DB interaction is done by Hibernate.
 
 ORM vs JPA
-
-ORM is concept/Technic while JPA is Specification(Java Standard)
-ORM is language-independent while JPA is Java-Specific
-ORM role is to Map object to tables while JPA defines how ORM should work.
+	- ORM is concept/Technique while JPA is Specification (Java Standard)
+	- ORM is language-independent while JPA is Java-Specific
+	- ORM role is to Map object to tables while JPA defines how ORM should work.
 
 3. Hibernate
 Implementation tool
@@ -64,9 +57,12 @@ Implementation tool
 Q2. Transaction?
 Ans:
 A Transaction is a group of operations that follow ACID properties.
+Atomicity: A transaction is all or nothing. 
+Consistency: The database moves from one valid state to another.
+Isolation: Multiple transactions can run simultaneously without interfering.
+Durability: Once a transaction is committed, the data is permanently saved.
 
 What @Transactional does?
-When you add 
 
 @Service
 public class BankService {
@@ -76,7 +72,6 @@ public class BankService {
 		deposit();	
 	}
 }
-
 
 Spring ensures:
 Both method succeeds --> commit
@@ -92,7 +87,6 @@ So when you call the method, you are actually calling the proxy, not the origina
 Proxy intercepts the call
 Client -> Proxy -> Actual Method
 
-
 3. Method Executes
 Your business logic runs normally
 withdraw();
@@ -101,7 +95,6 @@ deposit();
 4. Commit or Rollback
 If everything is fine COMMIT
 If Exception occurs ROLLBACK 
-
 
 Important Rules:
 1. Only works on public methods
