@@ -275,17 +275,17 @@ Typical use
 ---------------------------------------------------------------------------------------------------
 Q4. ResponseEntity 
 Ans: 
-- It is a Spring Framework (Spring MVC / Spring Boot) class used to represent the entire HTTP response—not just the response body, 
-	but also status code and headers.
+- It is a Spring Framework (Spring MVC / Spring Boot) class used to represent the entire HTTP response.
+- Not just the response body, but also status code and headers.
 - It gives you full control over what your REST API returns to the client.
 
 package: org.springframework.http.ResponseEntity
 
  What ResponseEntity Contains
 - A ResponseEntity<T> can include:
-- Response body (T)
-- HTTP status code (200, 201, 400, 404, etc.)
-- HTTP headers (Content-Type, Location, custom headers, etc.)
+	- Response body (T)
+	- HTTP status code (200, 201, 400, 404, etc.)
+	- HTTP headers (Content-Type, Location, custom headers, etc.)
 
 If you return only an object Spring:
 	- Automatically serializes the object
