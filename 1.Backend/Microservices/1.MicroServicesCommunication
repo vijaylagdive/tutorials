@@ -120,7 +120,6 @@ Responsibilities:
 -------------------
 	2. Kafka
 ---------------------------------------------------------------------------------------------------
-
 3. RestTemplate vs WebClient vs FeignClient in short
 
 RestTemplate
@@ -160,38 +159,147 @@ When to use Web Client:
 ---------------------------------------------------------------
 
 4. Saga Design Pattern for comunication
-When should we use Synchronous communication and when Asynchronous?
-- You need instant response
-- Strong consistency is required
-- Workflow is simple
-Avoid it 
-- when Long processing tasks
-- High Scalability needed - use async
+Importance of saga is that it solves issues in Distributed Transactions and provides eventual consistency. 
+What are the Distributed transactions?
+- One logical business transaction that spans multiple independent services and databases.
+- Distributed transactions in microservices making multiple independent services behave as one business operation,
+  without a single shared transaction.
 
-1. Synchronous Communication Pattern
-One services directly calls another and wait for a response.
+What is eventual consistency?
+- Eventual consistency is a Modern Solution which provides the system that becomes consistent over time
+  instead of everything must succeed immediately. 
 
-Implemented by:
-4. Saga Pattern (Async Version)
-- Used for distributed transactions.
+In a microservices architecture, each service:
+- Owns its own database
+- Must remain independently deployable
+- Cannot rely on distributed ACID transactions (2‑PC)
 
-A) Choreography (Event-Based)
- OrderCreated -> PaymentService
- PaymentDone -> InventoryService
- InventoryDone -> Shipping Service 
-- Each step triggers next via events.
+But real business operations often span multiple services, for example:
+- Place Order, Charge Payment, Reserve Inventory, Arrange Shipping
+- The Saga pattern solves this problem.
+
+What Is the Saga Pattern?
+A Saga is a sequence of local transactions, where:
+- Each microservice executes a local transaction
+- Each step publishes or triggers the next step
+- If any step fails, compensating transactions are executed to undo previous work
+- Maintains eventual consistency
+- Does NOT provide atomic consistency
+
+Think of booking a trip:
+Book a flight - Book a hotel - Book a cab
+You want all or nothing. If cab booking fails → cancel hotel → cancel flight
+
+That whole process is one business transaction, but:
+- Different systems, Different owners, Different databases
+- That’s a distributed transaction
+
+This leads to patterns like:
+✅ Saga
+✅ Compensation instead of rollback
+
+How Sagas Address Distributed Transactions
+A Saga breaks one big transaction into:
+	- Multiple local transactions
+	- Each service commits its own DB change
+	- Failures are handled by compensating actions
+
+Distributed Transaction vs Saga
+One global transaction: Many local transactions
+ACID: Eventual consistency
+Rollback: Compensation
+Tight coupling: Loose coupling
+Poor scalability: Scales well
+---------------------------------------------------------------------
+Saga Communication Styles
+There are two ways services communicate in a saga
+
+1. Choreography‑Based Saga (Event‑Driven)
+How It Works??
+- No central coordinator
 - Services communicate via events
-- No central controller or coordinator
-- Hard to track/debug
 
-b) Orchestration (Central Controller)
-- A central orchestrator tells each service what to do.
-- Flow: 	
+Each service:
+- Listens to events
+- Performs its transaction
+- Publishes the next event
 
-When to use Saga Pattern:
-Use it when:
-- You have microservices
-- Each service has its own database
-- You need data consistency across services
-- You cannot use distributed transactions.
+Communication Flow
+Order Service 
+→ OrderCreated event
+→ Payment Service
+→ PaymentCompleted event
+→ Inventory Service
+→ InventoryReserved event
+→ Shipping Service
+
+Failure Case
+Inventory Service FAILS
+→ InventoryFailed event
+→ Payment Service compensates (Refund)
+→ Order Service marks order as CANCELLED
+
+Characteristics
+- Loosely coupled
+- Highly scalable
+- Event‑driven
+- Hard to trace
+- Business flow is scattered
+- Debugging is difficult
+
+Communication Technologies or tools to implement this?
+Kafka
+RabbitMQ
+AWS SNS/SQS
+Azure Service Bus
+- Kafka is common, but not mandatory
+--------------------------
+
+2️. Orchestration‑Based Saga (Command‑Driven)
+How It Works
+- A Saga Orchestrator controls the flow
+- Orchestrator sends commands to services
+- Services reply with success/failure events
+
+Communication Flow
+Saga Orchestrator
+  → ReserveInventory
+  → ChargePayment
+  → ArrangeShipping
+
+Failure Case
+ChargePayment FAILED
+→ Orchestrator calls:
+   - ReleaseInventory
+→ Order marked CANCELLED
+
+Characteristics
+- Clear control flow
+- Easier debugging
+- Centralized logic
+- Easier compensation handling
+- Orchestrator is an additional component
+
+Communication Technologies or Tools:
+REST / gRPC
+Message queues
+Workflow engines (Temporal, Camunda, AWS Step Functions)
+
+For orchestration:
+Services should only respond to commands
+They should not decide next steps
+Only the orchestrator controls the flow
+---------------------------------------------------------
+
+When to Use Saga
+Use Saga when:
+- A business process spans multiple services
+- Strong consistency is not mandatory
+- You can tolerate eventual consistency
+- Compensations are possible
+
+Avoid Saga when:
+- Operations must be strictly atomic
+- Compensations are impossible
+- Workflow is trivial (monolith or simple call)
 ---------------------------------------------------------------------------------------------------
