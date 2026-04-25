@@ -1,0 +1,5 @@
+5. Questions: 
+  Q. Microservice Features or why microservices over monolithic?
+	Q. If a consumer fails how it ensures to read message from kafka?
+	Q. Rest Template vs Feign Client. When to use what?
+	Q. How do you make a Kafka producer and consumer idempotent to avoid duplicate message processing?
