@@ -1,4 +1,19 @@
-Synchronous Communications
+Contents:
+1. Synchronous Communications
+	1. RestTemplate
+	2. WebClient 
+	3. Open Feign/ Feign Client
+	4. High Performance Sync(gRPC)
+	5. Service Discovery in (Eureka concept - Server and Client),
+	6. API Gateway in front
+
+2. Async Communication
+	1. RabitMQ
+	2. Kafka
+
+3. RestTemplate vs WebClient vs FeignClient 
+---------------------------------------------------------------------------------------------------
+1. Synchronous Communications
 1. Rest Template
 - Simplest implementation
 - Service A -> HTTP Request -> Service B -> HTTP Response -> Service A Continues
@@ -16,17 +31,16 @@ Example: RestTemplate
 		return orderService.findOrder(id);
 	}
 -------------------
+
 2. Web Client
-When to use Web Client
-- Provides more flexibility
-- External API calls(third party services)
-- Complex headers, auth, transformations
-- Reactive/non blocking systems
-- High throughput applications
+- Modern, non blocking HTTP client introduced as part of Spring WebFlux.
+- It can handle many concurrent requests with fewer threads, which is useful in high-scale systems.
 
 Example:
-webClient.get().uri("http://order-service/orders/12").retrieve().bodyToMono(Order.class)
+WebClient webClient = webClient.create("http://localhost:8081");
+Mono<String> response = webClient.get().uri("http://order-service/orders/12").retrieve().bodyToMono(Order.class)
 -------------------
+
 3. Open Feign/ Feign Client
 Frameworks handle discovery + load balancing for you
 e.g. Spring Boot + OpenFeign
@@ -70,9 +84,8 @@ Advantages of using feign with eureka:
 - Load balancing
 - No hard‑coded URLs
 - Better for microservices
-
-
 -------------------
+
 4. High Performance Sync(gRPC)
 Instead of HTTP + JSON it uses binary + contract  
 - Service A -> gRPC call -> Service B -> response -> Continue
@@ -88,8 +101,11 @@ Feels like local function call but its remote.
 
 -------------------
 5. Service Discovery in (Eureka concept - Server and Client),
+- Eureka is about finding services 
+- We can use Eureka with RestTemplate, WebClient, API Gateway
 -------------------
-5. API Gateway in front
+
+6. API Gateway in front
 Client don't call services directly. Use a gateway like Spring Cloud Gateway
 Flow: Client -> Gateway -> Microservices
 Responsibilities:
@@ -97,9 +113,46 @@ Responsibilities:
 - Authentication
 - Rate Limiting
 ---------------------------------------------------------------------------------------------------
-Asynchronous Communications
-1. RabitMQ
+2. Asynchronous Communications
+	1. RabitMQ
 -------------------
-2. Kafka
+	2. Kafka
 ---------------------------------------------------------------------------------------------------
 
+3. RestTemplate vs WebClient vs FeignClient in short
+
+RestTemplate
+- Blocking
+- Working: Thread sends request, Thread waits(blocked), Response comes - Thread resumes
+- Simple and predictable but doesn't scale well under high concurrency.
+- Thread usage: one thread per request	
+- Streaming: Limited
+
+WebClient:
+- Non blocking, event driven (reactive)
+- Working: Request is sent, Thread is freed immediately, Response handled later via callback/reactive pipeline.
+- Efficient for many concurrent calls
+- Requires understanding reactive programming.
+- Thread usage: Few threads handle many requests
+- Streaming: Excellent
+
+WebClient vs FeignClient
+Feign: Declare an interface and it just works
+WebClient: You build the http call step by step
+
+Feign: it is declarative, minimal code
+WebClient: programmatic, flexible
+
+When to use Feign:
+- When you want clean, readable code
+- Your app is Spring MVC (blocking)
+- Calls are simple CRUD style
+- Teams prefers simplicity over control
+- Very common in typical microservices
+
+When to use Web Client:
+- When you need high performance/scalability
+- You are using reactive programming
+- You need streaming
+- You want fine control over headers, retries, filters 
+---------------------------------------------------------------
