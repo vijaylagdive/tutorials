@@ -1,5 +1,75 @@
 5. Questions: 
-  Q. Microservice Features or why microservices over monolithic?
-	Q. If a consumer fails how it ensures to read message from kafka?
-	Q. Rest Template vs Feign Client. When to use what?
-	Q. How do you make a Kafka producer and consumer idempotent to avoid duplicate message processing?
+Q1. . Microservice Features or why microservices over monolithic?
+-------------------------------------------------------------------------
+
+Q1. . Microservice Features or why microservices over monolithic?
+Ans:
+Aspect
+Structure:
+Monolithic: Single deployable unit
+Microservices: Multiple small services
+
+Deployment
+Monolithic: Deploy whole app
+Microservices: Deploy services independently
+
+Complexity
+Monolithic: Low (initially)
+MicroService: High (from day one)
+
+Scaling
+Monolithic: Scaling: Scale entire app
+Microservice: Scale per service
+
+Team structure
+Monolithic: Small, centralized
+Microservice: Multiple autonomous teams
+
+When to use Monolithic?
+1. You are building a new Product or MVP
+	- Requirements are unclear or evolving
+	- You need fast iteration
+	- Architecture will change frequently
+
+2. Small to medium Team(≤ 10–15 engineers)
+	- Easier coordination
+	- No need for service ownership overhead
+	- One CI/CD pipeline
+
+3. Low to moderate Scale
+	- Traffic fits on a few servers
+	- Performance bottlenecks aren’t isolated yet
+	- Horizontal scaling is sufficient
+
+4. Strong Transactional Consistency is Required
+Examples:
+Finance systems, Inventory + orders tightly coupled, Workflows requiring ACID guarantees
+
+When to use Microservices Architecture?
+1. Your system has clear domain boundaries.
+Business domains are well understood
+Domains change independently
+
+Example:
+User management, Payments, Notifications, Search
+
+2. You need independent scaling
+Example:
+- Search traffic spikes
+- Payment service needs high availability
+- Reporting jobs are resource-heavy
+Microservices let you:
+- Scale only the bottleneck
+- Use different infrastructure per service
+
+3. Large or distributed Teams
+- Teams own services end-to-end
+- Faster parallel development
+- Clear ownership boundaries
+
+4. Different Tech Stack 
+Example:
+- ML service in Python
+- Core backend in Java
+- Real-time service in Node.js or Go
+-------------------------------------------------------------------------
