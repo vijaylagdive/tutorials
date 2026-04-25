@@ -16,7 +16,7 @@
 		Saga Design Pattern (Orchestration, Choreography), Why to use Saga
 		Kafka Concepts: Event, Producer, Consumer, Consumer Group, Topic, Partition, Broker, ISR, Cluster
 		
-4. Other
+4. Fault Tolerance
 		Fault Tolerance or Failure Recovery: Circuit Breaker (Resilience4j concept)
 		Centralized Logging & Monitoring
 
