@@ -16,6 +16,7 @@ Q14* Inter thread communication?
 Q15. Semaphore
 Q16. CountDownLatch
 Q17. Synchronized
+Q18. Reentrant lock
 ----------------------------------------------------------------------------------------------------
 Q1. What is a Thread?
 Ans: 
@@ -602,3 +603,81 @@ Ans:
 - If a thread wants to execute normal method of that same object then it is allowed.
 - Only ONE thread at a time can execute ANY static synchronized method of a class.
 -------------------------------------------------
+Q18. What is ReentrantLock?
+Ans: In Java multithreading, both synchronized and ReentrantLock are used to achieve thread synchronization—that is, 
+to make sure that only one thread accesses a critical section at a time.
+However, ReentrantLock is a more flexible and powerful alternative to synchronized.
+
+ReentrantLock:
+A ReentrantLock is a mutual exclusion (mutex) lock that allows the same thread to acquire the lock multiple times without causing a deadlock.
+This is called reentrancy.
+
+Example:
+If a thread already holds the lock and calls another method that also tries to acquire the same lock, it will succeed instead of blocking.
+
+class Example {
+    private ReentrantLock lock = new ReentrantLock();
+    public void outer() {
+        lock.lock();
+        try {
+            System.out.println("Outer method");
+            inner();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void inner() {
+        lock.lock();
+        try {
+            System.out.println("Inner method");
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+
+- Same thread acquires the lock twice.
+- Lock count increases and must be released the same number of times.
+
+Key Features:
+1. Reentrancy
+- Same thread can lock multiple times
+- Internally keeps a hold count 
+
+2. Explicit locking 
+Unlike synchronized, you manually control lock/unlock
+lock.lock();
+try {
+	//critical section
+     } finally {
+            lock.unlock();
+   }
+
+3. Try Lock (Non-blocking)
+if(lock.tryLock) {
+	try {
+		//work
+     	} finally {
+            lock.unlock();
+   	}
+}
+- Avoids wating indefinitely.
+
+4. Timeout Support
+lock.tryLock(2, TimeUnit.SECONDS);
+Waits for a limited time
+
+5. Fairness policy
+- private ReentrantLock lock = new ReentrantLock(true);
+Ensures FIFO
+
+6. Interruptible Locking
+lock.lockInterruptibly();
+Allows thread to be interrupted while waiting.
+
+Notes: 
+- Synchronized provides Automatic lock control while Reentrant lock provides manual lock.
+- ReentrantLock provides 'Try without blocking'. Synchronized cant provide it.
+- ReentrantLock provides Timeout, Fairness, Interruptible. Synchronized can't.
+---------------------------------------------------------------------------------------------
