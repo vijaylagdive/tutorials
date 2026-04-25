@@ -12,6 +12,8 @@ Contents:
 	2. Kafka
 
 3. RestTemplate vs WebClient vs FeignClient 
+
+4. Saga Design Pattern for comunication
 ---------------------------------------------------------------------------------------------------
 1. Synchronous Communications
 1. Rest Template
@@ -156,3 +158,40 @@ When to use Web Client:
 - You need streaming
 - You want fine control over headers, retries, filters 
 ---------------------------------------------------------------
+
+4. Saga Design Pattern for comunication
+When should we use Synchronous communication and when Asynchronous?
+- You need instant response
+- Strong consistency is required
+- Workflow is simple
+Avoid it 
+- when Long processing tasks
+- High Scalability needed - use async
+
+1. Synchronous Communication Pattern
+One services directly calls another and wait for a response.
+
+Implemented by:
+4. Saga Pattern (Async Version)
+- Used for distributed transactions.
+
+A) Choreography (Event-Based)
+ OrderCreated -> PaymentService
+ PaymentDone -> InventoryService
+ InventoryDone -> Shipping Service 
+- Each step triggers next via events.
+- Services communicate via events
+- No central controller or coordinator
+- Hard to track/debug
+
+b) Orchestration (Central Controller)
+- A central orchestrator tells each service what to do.
+- Flow: 	
+
+When to use Saga Pattern:
+Use it when:
+- You have microservices
+- Each service has its own database
+- You need data consistency across services
+- You cannot use distributed transactions.
+---------------------------------------------------------------------------------------------------
