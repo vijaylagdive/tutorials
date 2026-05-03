@@ -42,6 +42,7 @@ Basics
 	Q. @Transactional – propagation & isolation
 	Q. Describe the flow of the HTTPS request through the spring boot application?
 	Q. Idempotent requests
+	Q. Throttling, Rate Limiting, Handling infinite request to service
 --------------------------------------------------
 5. Exception Handling
 	@ExceptionHandler
