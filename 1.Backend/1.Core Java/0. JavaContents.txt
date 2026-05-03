@@ -1,0 +1,78 @@
+Java Contents
+
+	1. OOPS basics
+	Inheritance, 
+	Polymorphism, 
+	Abstraction, 
+	Encapsulation, 
+	Classes, Object
+	Type Conversion: notes - int to double etc 
+	UpCasting, DownCasting: Notes related to inheritance
+	Inner Class, Anonymous Inner class, Abstract Anonymous Inner class
+	Static Variable, 
+	Static Methods
+	Keywords: final, finally, finalize, abstract
+
+	2. Array, Collection
+	Arrays,
+	List: ArrayList, LinkedList
+	Set: HashSet, LinkedHashSet, SortedSet, TreeSet, 
+	Map: HashMap, LinkedHashMap 
+	Queue, 
+	Comparable and Comparator, 
+	fail-fast and fail-safe iterator
+
+	3. Exception Handling 
+	try, catch, finally
+	Exception Hierarchy, 
+	Custom Exception, 
+	Throw, Throws Keyword etc
+	Checked and Unchecked Exceptions
+	
+	4. Multithreading: 
+	Process vs Threads, Multithreading, 
+	Implementing Runnable vs Extending Thread,
+	Callable vs Runnable,
+	Lock,
+	Synchronization, synchronized, 
+	ReentrantLock,
+	Semaphore, 
+	CountDownLatch
+	volatile,	
+	Thread Problems: Race Condition, Dead Lock, Starvation, LiveLock, 
+	Thread Pool, Executor Service and types.
+	Thread Priority, 
+	Thread Lifecycle or states, 
+	Thread methods, 
+	Method to prevent thread execution: yield(), join(), sleep()
+	Inter thread communication, 
+	Daemon thread, 
+
+	5. String
+	String, 
+	String Constant Pool (SCP),
+	StringBuilder, 
+	StringBuffer, 
+
+	6. Java8 Features: 
+	Lambda Expression, 
+	Functional interface, 
+	Interface default method and Static method, 
+	Stream and Parallel Stream API, 
+	forEach	
+
+	7. Java 11,17 Features
+	Java 11 Features, 
+	Java 17 Features
+
+	8. Design Pattern in java
+	Creational,
+	Structural,
+	Behavioural
+
+	9. Other
+	Immutable class 
+	Garbage Collection
+	JDK, JRE, JVM
+	Stack Memory, Heap Memory
+	Coding practice: Practice.java
