@@ -41,6 +41,7 @@ Basics
 	Q. @PathVariable vs @RequestParam
 	Q. @Transactional – propagation & isolation
 	Q. Describe the flow of the HTTPS request through the spring boot application?
+	Q. Idempotent requests
 --------------------------------------------------
 5. Exception Handling
 	@ExceptionHandler
