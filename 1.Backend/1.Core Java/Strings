@@ -1,4 +1,37 @@
-Q. Why Strings are immutable?
+Q1. What is String?
+Q2. String Immutability
+Q3. Why Strings are immutable?
+Q4. String Pool (Memory Concept)
+Q5. == vs equals() (MOST ASKED)
+Q6. Important constructor of String class?
+Q7. Creating Strings
+Q8. Important methods of String class?
+Q9. String vs StringBuffer vs StringBuilder
+Q10. String Interning
+Q11. How String Pool works?
+-------------------------------------------------
+
+Q1. What is String?
+Ans: 
+String is a class, not a primitive
+Located in java.lang package
+Represents a sequence of characters
+Immutable (cannot be changed once created)
+Ex:
+String s = "Java";
+-------------------------------------------------
+
+Q2. String Immutability
+Ans:
+Once a String object is created, its value cannot be changed
+Any modification creates a new object
+
+String s = "Java";
+s.concat(" World");
+System.out.println(s); // Java (unchanged)
+-------------------------------------------------
+Q3. Why Strings are immutable?
+Ans:
 1. Security:
 Strings are heavily used in security‑sensitive areas, such as: File paths, Network connections, 
 Database URLs, Class loaders, Usernames and passwords
@@ -61,8 +94,32 @@ System.out.println(s);  // Java
 
 A new object is created instead of changing s.
 This avoids subtle bugs and improves code reliability.
-------------------------------------------------------------------------------------------------------
-Content4. Important constructor of String class:
+-------------------------------------------------
+Q4. String Pool (Memory Concept)
+Java stores string literals in a String Constant Pool
+Helps save memory by reusing objects
+
+String s1 = "Java";
+String s2 = "Java";
+System.out.println(s1 == s2); // true (same memory)
+
+But:
+String s3 = new String("Java");
+System.out.println(s1 == s3); // false
+-------------------------------------------------
+Q5. == vs equals() (MOST ASKED)
+Ans:
+== checks Reference (memory address)
+equals() checks Content (value)
+
+String a = "Hello";
+String b = new String("Hello");
+
+System.out.println(a == b);      // false
+System.out.println(a.equals(b)); // true
+- Always use equals() for content comparison.
+-------------------------------------------------
+Q6. Important constructor of String class?
 1. String s = new String();
 - Creates empty string object in heap area.
 
@@ -82,162 +139,70 @@ byte[] b = {97,98,99,100}
 String s = new String(b);
 sop(s);// abcd
 ------------------------------------------------------------------------------------
-Q. Important methods of String class:
-1. chatAt()
-2. concat()
-3. equals()
-4. equalIgnoreCase()
-5. public booleanIsEmpty()
-String s = "";
-sop(s.isEmpty()); // true
-String s = "Durga";
-sop(s.isEmpty()); // false
--------------------
-6. public int length()
-String s = "Durga";
-sop(s.length()); // 5
-length vs length():
-int[] x = {2,3,4,6}
-x.length = 4; //length is for array
-s.length(); lenght() is for String.
--------------------
-7. public String replace(char old, char new);
-String s = "ababab";
-sop(s.replace('a','b')); //bbbbbb
--------------------
-8. substring();
-public String substring(int begin);
-returns from begin index to end of string.
-String s = "abcdefg";
-sop(s.substring(3));//defg
--------------------
-9. public subString(int begin, int end);
-returns substring from begin to end-1
-String s = "abcdef";
-System.out.println(s.substring(3,6));//def
--------------------
-10. public int indexOf(char a);
-String s = "durga";
-sop(s.indexOf('g'));//3
-if specified character is not available return -1.
-if character available multiple times it return first.
--------------------
-11. public int lastIndexOf(char ch);
-String s = "abcdaf";
-System.out.println(s.lastIndexOf('a')); //4
--------------------
-12.  public String toLowerCase();
--------------------
-13.  public String toUpperCase();
--------------------
-13 public String trim()
-Removes beginning or end white spaces not from the middle.
-String city = ("  Pune  ");
-System.out.println(city.length());//8
-System.out.println(city.trim().length());//4
--------------------
-14. equalsIgnoreCase
-String city = ("Pune");
-String city1 = ("pune");
-System.out.println(city.equals(city1));//false
-System.out.println(city.equalsIgnoreCase(city1));//true. Ignores cases.
--------------------
-15. s.toCharArray();
-String s = "Vijay";
-char[] arr = s.toCharArray();
-System.out.println(arr[0]); // V
--------------------
-16 Methods introduced in java 11
+Q7. Creating Strings
+String s1 = "Java";                    // Literal
+String s2 = new String("Java");        // new keyword
+char[] arr = {'J','a','v','a'};
+String s3 = new String(arr);
+
+------------------------------------------------------------------------------------
+Q8. Important methods of String class?
+Ans: length(): String length
+charAt(i): Character at index
+substring(): Extract part
+toUpperCase() / toLowerCase()Case change
+contains() Check presence
+startsWith() / endsWith() Prefix/Suffix
+replace(): Replace characters
+split(): Split into array
+trim(): Removes beginning or end white spaces not from the middle.
+concat()
+equals()
+Boolean equalIgnoreCase()
+public booleanIsEmpty()
+int indexOf(char a);
+int lastIndexOf(char ch);
+char[] toCharArray();// String s = "Vijay"; char[] arr = s.toCharArray(); System.out.println(arr[0]); // V
+Methods introduced in java 11
 isBlank(), strip*(), repeat(), lines()
 ------------------------------------------------------------------------------------------------------------------
-Q. String object creation. Heap and String Constant pool
-Ans: 
-  1. String s = new String("Durga");
-- In this case 2 object will be created.
-- One in heap area and another in SCP area for further reference.
-- Now again if you create object with same content i.e. String s1 = new String("Durga");
-- Then only in heap area new object will be created.
-- And in SCP the new reference will be pointing to already existing String "Durga".
-- Now new object will be created.
+Q9. String vs StringBuffer vs StringBuilder
+Ans:
+Feature: Mutability
+String: Immutable
+StringBuffer: Mutable
+StringBuilder: Mutable
 
-2. String s = "Durga";
-- Here only one object created in SCP.
-- For this no object created in Heap area.
-- If you create another String s1 = "Durga" then it will again use already created "Durga" reference.
-- And will not create another one in SCP.
-----------------------------------
-Example1:
-String s1 = new String("Durga); 
-String s2 = new String("Durga); 
-String s3 = "Durga";
-String s4 = "Durga";
+Feature: Thread Safe
+String: Yes
+StringBuffer: Yes
+StringBuilder: No
 
-Heap
-for s1 new Object1 "Durga" will be created.
-for s2 new Object2 "Durga" will be created.
-SCP
-for s1 new Object1 "Durga" will be created.
-for s2, s3, s4 Objects "Durga" will be used always.
-----------------------------------
-Example2:
-String s = new String("Durga");
-s.concat("Software");
-s = s.concate("Solutions");
+Feature: Performance
+String: Slow
+StringBuffer: Medium
+StringBuilder: Fast
 
-Heap
-"Durga"
-"DurgaSoftware"
-"DurgaSolutions"
+Feature: Use
+String: Read‑only data
+StringBuilder: Single‑thread performance
+StringBuffer: Multi‑thread safety
 
-SCP
-"Durga": for first line 
-"Software": copy for second line
-"Solutions": one copy for third line.
-- For "Durga Software nothing will be created in SCP area because SCP area is meant for Constants and not for runtime operation results."
-----------------------------------
-Example3:
-String s1 = new String("spring");
-s1.concat("fall");
-String s2=s1.concat("winter");
-s2.concat("Summer");
-Sop(s1); // spring
-Sop(s2); // SpringWinter
+StringBuilder sb = new StringBuilder("Java");
+sb.append(" World");
+System.out.println(sb);
+------------------------------------------------------------------------------------------------------------------
+Q10. String Interning
+Ans:
+Moves string to String Pool
+Example:
+String s1 = new String("Java");
+String s2 = s1.intern();
+System.out.println(s1 == s2); // false
 
-Heap
-"Spring" for s1
-"SpringFall"
-SpringWinter
-SpringWinterSummer
+------------------------------------------------------------------------------------------------------------------
+Q11. How String Pool works?
 
-SCP
-spring
-fall
-winter
-summer
-----------------------------------
-Example4
-String s1 = new String("durga");
-String s2 = s1.toUpperCase();
-String s3 = s1.toLowerCase();
-System.out.println(s1==s2);//false: created new object for s1
-System.out.println(s1==s3);//true: no new object created for s3
-----------------------------------
-Example5:
-String s1 = new String("durga");
-String s2 = s1.toString();
-String s3 = s1.toLowerCase();
-String s4 = s1.toUpperCase();
-System.out.println(s1==s2);//true: no new obj created for s2
-System.out.println(s1==s3);//false: no new obj created used existing copy of 'durga' 
-System.out.println(s1==s4);//false: created new copy for s4 for uppercase of 'durga' i.e. DURGA 
----------------------------------------------------------------------------------------------------
-Content3: Importance of String constant pool
-Advantage 
-- Same string object can be used multiple times instead of creating new object.
-- Memory saved, performance increased.
 
-Problem:
-- Any person try to change it then all reference will be affected.
-- To prevent that java introduced immutability.
-- So just because of SCP concept immutability is added.
----------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------
