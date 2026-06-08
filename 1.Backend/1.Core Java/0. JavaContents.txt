@@ -28,7 +28,7 @@ Java Contents
 	Custom Exception, 
 	Throw, Throws Keyword etc
 	Checked and Unchecked Exceptions
-	
+	How to handle unchecked exception?
 	4. Multithreading: 
 	Process vs Threads, Multithreading, 
 	Implementing Runnable vs Extending Thread,
@@ -64,11 +64,6 @@ Java Contents
 	7. Java 11,17 Features
 	Java 11 Features, 
 	Java 17 Features
-
-	8. Design Pattern in java
-	Creational,
-	Structural,
-	Behavioural
 
 	9. Other
 	Immutable class 
